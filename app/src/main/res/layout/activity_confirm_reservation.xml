@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ConfirmReservationActivity">
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:src="@drawable/img_confirm"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="26sp"
+        android:text="Confirmed"
+        android:gravity="center"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/confirm"
+        android:fontFamily="@font/roboto"/>
+    <Button
+        android:id="@+id/btnBackhome"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/confirmation_button"
+        android:text="Back Home"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

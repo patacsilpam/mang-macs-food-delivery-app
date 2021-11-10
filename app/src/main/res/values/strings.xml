@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Mang Macs</string>
+    <string name="url">url</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_homea">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!--Additional texts for home activity-->
+    <string name="combo">Combo Budget\nMeals</string>
+    <string name="dimsum">Dimsum</string>
+    <string name="drinks">Drinks</string>
+    <string name="meals">Meals Good\nfor 3 px</string>
+    <string name="pasta">Pasta</string>
+    <string name="pizza">Pizza</string>
+    <string name="rice">Rice Meals\nw/ Ice Tea</string>
+    <string name="others">Others</string>
+    <string name="seafoods">Seafoods</string>
+    <string name="noodles">Noodles</string>
+    <string name="soup">Soup</string>
+    <string name="bilao">Bilao</string>
+    <string name="rice1">Rice</string>
+    <string name="pancit">Pancit</string>
+    <string name="title_activity_seafoods">SeafoodsActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="confirm">You will get an email along with\nyour booking information.</string>
+
+</resources>

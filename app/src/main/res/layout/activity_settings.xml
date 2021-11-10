@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".SettingsActivity">
+
+   <TextView
+       android:onClick="btnMyAccount"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="My Account"
+       android:textSize="20sp"
+       android:textColor="@android:color/black"
+       android:layout_marginTop="20dp"
+     app:drawableRightCompat="@drawable/ic_baseline_arrow_forward"/>
+   <View
+       android:layout_width="match_parent"
+       android:layout_height="1dp"
+       android:background="#D5D5D5"
+       android:layout_marginTop="20dp"
+       android:layout_marginBottom="15dp"/>
+   <TextView
+       android:onClick="btnAddress"
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:text="My Address"
+       android:textSize="20sp"
+       android:textColor="@android:color/black"
+       app:drawableRightCompat="@drawable/ic_baseline_arrow_forward"/>
+   <View
+       android:layout_width="match_parent"
+       android:layout_height="1dp"
+       android:background="#D5D5D5" />
+   <Button
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+      android:text="Logout"
+      android:textAllCaps="false"
+      android:textSize="20sp"
+       android:layout_marginTop="150dp"
+      android:background="@drawable/btn_logout"/>
+</LinearLayout>

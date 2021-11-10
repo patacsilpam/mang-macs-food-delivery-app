@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mangmacs">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true">
+        <activity android:name=".MyReservationActivity"
+            android:label="My Book"
+            android:parentActivityName=".MyAccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActionBarTheme"/>
+        <activity
+            android:name=".MyOrdersActivity"
+            android:label="My Orders"
+            android:parentActivityName=".MyAccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".CreateAddressActivity"
+            android:label="Address"
+            android:parentActivityName=".MyAddressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".ConfirmReservationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme" />
+        <activity
+            android:name=".BilaoListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".DrinksListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".DimsumListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".PastaListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".NoodlesListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".PancitListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".RiceListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".SoupListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".SeafoodsListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".MealsGoodListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".ComboBudgetListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".RiceMealListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".NoodlesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".DrinksActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".DimsumActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".PastaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".BilaoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".PancitActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".RiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".SoupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".SeafoodsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".MealsGoodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".ComboMealActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".RiceMealActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".PizzaListDetaill"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".PizzaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".MenuActivty"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:label="Change Password"
+            android:parentActivityName=".AccountActivity"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".MyAddressActivity"
+            android:label="Saved Address"
+            android:parentActivityName=".AccountActivity"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".MyAccountActivity"
+            android:label="My Account"
+            android:parentActivityName=".AccountActivity"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".AccountActivity"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".ConfirmDeliveryAddress"
+            android:label="Confirm Delivery Address"
+            android:parentActivityName=".ReservationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".AccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".CartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".ReservationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".home_activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".sign_up_activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

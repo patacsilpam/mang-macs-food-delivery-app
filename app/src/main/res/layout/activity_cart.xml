@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1DC2C2C6"
+    tools:context=".CartActivity">
+
+   <androidx.appcompat.widget.Toolbar
+       android:id="@+id/toolbar"
+       android:layout_width="match_parent"
+       android:layout_height="?actionBarSize"
+      android:background="@color/white">
+      <TextView
+          android:id="@+id/textCart"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="18sp"
+          android:fontFamily="@font/roboto_medium"
+          android:text="Cart"/>
+   </androidx.appcompat.widget.Toolbar>
+   <LinearLayout
+       android:layout_below="@+id/toolbar"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="10dp"
+      android:orientation="vertical">
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerview"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:clipToPadding="false"/>
+   </LinearLayout>
+</RelativeLayout>

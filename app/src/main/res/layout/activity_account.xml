@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1DC2C2C6"
+    tools:context=".AccountActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:contentInsetStart="0dp"
+        android:background="@drawable/home_bg_color">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Account"
+                android:textSize="24sp"
+                android:textColor="#000"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"/>
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/baseline_logout_24"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <View
+        android:id="@+id/line"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#634E548F"/>
+    <ScrollView
+        android:layout_below="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+           <ImageView
+               android:layout_width="100dp"
+               android:layout_height="100dp"
+               android:layout_gravity="center"
+               android:layout_marginTop="20dp"
+               android:background="@drawable/home_bg_color" />
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Meljean Quirimit"
+               android:textSize="16sp"
+               android:textColor="#000"
+                android:layout_gravity="center" />
+           <TextView
+               android:id="@+id/myAccount"
+               android:clickable="true"
+               android:focusable="true"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:gravity="center_vertical"
+               android:layout_marginTop="30dp"
+               android:padding="15dp"
+               android:background="@color/white"
+               android:textColor="#232323"
+               android:textSize="14sp"
+               android:text="My Account"
+               android:fontFamily="@font/roboto_medium"/>
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#634E548F"/>
+
+           <TextView
+               android:id="@+id/changePassword"
+               android:clickable="true"
+               android:focusable="true"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:background="@color/white"
+               android:fontFamily="@font/roboto_medium"
+               android:gravity="center_vertical"
+               android:padding="15dp"
+               android:text="Change Password"
+               android:textColor="#232323"
+               android:textSize="14sp" />
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#634E548F"/>
+
+           <TextView
+               android:id="@+id/savedAddress"
+               android:clickable="true"
+               android:focusable="true"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:background="@color/white"
+               android:fontFamily="@font/roboto_medium"
+               android:gravity="center_vertical"
+               android:padding="15dp"
+               android:text="Saved Address"
+               android:textColor="#232323"
+               android:textSize="14sp" />
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#634E548F"/>
+
+           <TextView
+               android:id="@+id/myOrders"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:gravity="center_vertical"
+               android:layout_marginTop="30dp"
+               android:padding="15dp"
+               android:background="@color/white"
+               android:textColor="#232323"
+               android:textSize="14sp"
+               android:text="My Orders"
+               android:fontFamily="@font/roboto_medium"/>
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#634E548F"/>
+           <TextView
+               android:id="@+id/myBook"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:gravity="center_vertical"
+               android:padding="15dp"
+               android:background="@color/white"
+               android:textColor="#232323"
+               android:textSize="14sp"
+               android:text="My Book"
+               android:fontFamily="@font/roboto_medium"/>
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#634E548F"
+               android:layout_marginBottom="100dp"/>
+       </LinearLayout>
+    </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/home_bg_color"
+        app:itemIconTint="@drawable/icon_pressed"
+        app:itemTextColor="@drawable/icon_pressed"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav" />
+</RelativeLayout>
