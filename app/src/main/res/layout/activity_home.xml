@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#1DC2C2C6"
     android:layout_centerHorizontal="true"
-    tools:context=".home_activity">
+    tools:context=".activities.home_activity">
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/iconCart"
         android:layout_width="wrap_content"
@@ -57,14 +57,14 @@
               android:layout_marginTop="25dp"
               android:text="Menu"
               android:textSize="18sp" />
-          <Button
+          <TextView
               android:id="@+id/btnSeeAll"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:scrollbars="none"
               android:text="See All >>"
               android:textAllCaps="false"
-              android:background="#00FFFFFF"
-              android:textSize="16sp"
+              android:textSize="12sp"
               android:layout_marginTop="25dp"
               android:padding="10dp"
               android:layout_below="@+id/textSelectOrders"
@@ -74,6 +74,7 @@
               android:layout_below="@+id/textMenu"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:scrollbars="none"
               android:layout_marginTop="20dp"
               android:padding="10dp">
               <RelativeLayout

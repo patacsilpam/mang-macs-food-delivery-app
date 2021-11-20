@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ConfirmReservationActivity">
+    tools:context=".activities.ConfirmReservationActivity">
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="150dp"

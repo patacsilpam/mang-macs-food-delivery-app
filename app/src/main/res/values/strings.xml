@@ -29,5 +29,5 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="confirm">You will get an email along with\nyour booking information.</string>
-
+    <string name="forgot_password">Please enter the email address of your account that you want to reset the password.</string>
 </resources>

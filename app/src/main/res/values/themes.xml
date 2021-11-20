@@ -34,7 +34,7 @@
     <style name="HomeTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#1CDA89</item>
-        <item name="colorPrimaryVariant">#DDE2EA</item>
+        <item name="colorPrimaryVariant">#16C57B</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#16C57B</item>
@@ -54,7 +54,7 @@
     <style name="ActionBarTheme" parent="Theme.AppCompat.Light">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#fff</item>
-        <item name="colorPrimaryVariant">#DDE2EA</item>
+        <item name="colorPrimaryVariant">#16C57B</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#16C57B</item>
@@ -65,7 +65,20 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@drawable/home_bg_color</item>
     </style>
-
+    <style name="RecoverPasswordTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#16C57B</item>
+        <item name="colorPrimaryVariant">#16C57B</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#16C57B</item>
+        <item name="colorSecondaryVariant">#16C57B</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@drawable/home_bg_color</item>
+    </style>
     <style name="Theme.MangMacs.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

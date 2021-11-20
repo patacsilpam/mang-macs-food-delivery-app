@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1DC2C2C6"
-    tools:context=".AccountActivity">
+    tools:context=".activities.AccountActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -56,6 +56,7 @@
                android:layout_marginTop="20dp"
                android:background="@drawable/home_bg_color" />
            <TextView
+               android:id="@+id/fullname"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="Meljean Quirimit"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MyReservationActivity">
+    tools:context=".activities.MyReservationActivity">
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/bookTabLayout"
         android:layout_width="match_parent"

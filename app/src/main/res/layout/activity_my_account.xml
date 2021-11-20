@@ -4,76 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyAccountActivity">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+    tools:context=".activities.MyAccountActivity">
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
-            <EditText
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:padding="15dp"
-                android:hint="First Name"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textColorHint="@android:color/darker_gray"
-                android:inputType="text"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/confirm_delivery_address_input" />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:padding="15dp"
-                android:hint="Last Name"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textColorHint="@android:color/darker_gray"
-                android:inputType="text"
-                android:background="@drawable/confirm_delivery_address_input" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:padding="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="meljeanquirimit@gmail.com"
-                android:textSize="16sp"
-                android:gravity="center_vertical"
-                android:background="@drawable/confirm_delivery_address_input"/>
-            <EditText
-                android:id="@+id/birthdate"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:padding="15dp"
-                android:hint="Birthdate"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textColorHint="@android:color/darker_gray"
-                android:inputType="date"
-                android:background="@drawable/confirm_delivery_address_input" />
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:text="Gender"
-                android:textSize="16sp"
-                android:gravity="center_vertical" />
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="100dp"
-                android:weightSum="1">
-                <RelativeLayout
+                android:padding="10dp"
+                android:orientation="vertical">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/acc_firstname"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:hintEnabled="false"
+                    app:errorEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:padding="15dp"
+                        android:hint="First Name"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:inputType="text"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/custom_input"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/acc_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintEnabled="false"
+                    app:errorEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:padding="15dp"
+                        android:hint="Last Name"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:inputType="text"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/custom_input"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/acc_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:text="meljeanquirimit@gmail.com"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/confirm_delivery_address_input"/>
+                <EditText
+                    android:id="@+id/acc_birthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:padding="15dp"
+                    android:hint="Birthdate"
+                    android:textSize="18sp"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:textColor="@color/black"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:background="@drawable/custom_input" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="Gender"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical" />
+                <RadioGroup
+                    android:id="@+id/rdGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
                     <RadioButton
                         android:id="@+id/male"
                         android:layout_width="wrap_content"
@@ -85,13 +100,12 @@
                         android:id="@+id/female"
                         android:layout_width="wrap_content"
                         android:layout_height="55dp"
-                        android:layout_toEndOf="@+id/male"
+                        android:layout_toEndOf="@+id/gender"
                         android:textSize="14sp"
                         android:text="Female"/>
-                </RelativeLayout>
-            </RadioGroup>
-        </LinearLayout>
-    </ScrollView>
+                </RadioGroup>
+            </LinearLayout>
+        </ScrollView>
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -99,6 +113,7 @@
         android:gravity="center"
         android:background="#FFFFFF">
         <Button
+            android:id="@+id/btnSaveAccount"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:background="@drawable/confirmation_button"

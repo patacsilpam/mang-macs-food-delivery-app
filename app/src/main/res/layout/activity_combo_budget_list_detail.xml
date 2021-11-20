@@ -4,12 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ComboBudgetListDetail">
+    tools:context=".activities.ComboBudgetListDetail">
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:src="@color/pressed"/>
+    <TextView
+        android:id="@+id/txt_arrow_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:drawableLeftCompat="@drawable/ic_baseline_arrow_back" />
     <ScrollView
         android:layout_below="@+id/image"
         android:layout_width="match_parent"
@@ -24,49 +30,69 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Product Name"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 android:fontFamily="@font/roboto_medium"/>
             <TextView
-                android:id="@+id/productPrice"
+                android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Product Price" />
-            <TextView
-                android:id="@+id/productVariation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Product Variation"/>
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/productName"
+                android:textColor="#303030"
+                android:textSize="14sp"
                 android:text="Status"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/pesoSign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:text="₱ " />
+                <TextView
+                    android:id="@+id/productPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/pesoSign"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:text="317" />
+                <TextView
+                    android:id="@+id/decimal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@+id/productPrice"
+                    android:textSize="14sp"
+                    android:text=".00" />
+            </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="Special Instruction"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/roboto_medium"/>
+                android:fontFamily="@font/roboto"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:fontFamily="@font/roboto_light"
                 android:text="Add instructions for your order" />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:counterEnabled="true"
                 app:counterMaxLength="500"
                 app:errorEnabled="true">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@drawable/add_ons"
                     android:padding="5dp"
                     android:inputType="text"
                     android:hint="e.g no mayo"/>

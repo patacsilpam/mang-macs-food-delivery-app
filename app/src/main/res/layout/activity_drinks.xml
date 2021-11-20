@@ -6,14 +6,27 @@
     android:layout_height="match_parent"
     android:background="#1DC2C2C6"
     android:orientation="vertical"
-    tools:context=".DrinksActivity">
-    <TextView
+    tools:context=".activities.DrinksActivity">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Drinks"
-        android:textSize="24sp"
-        android:fontFamily="@font/roboto_medium" />
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/arrow_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            app:drawableStartCompat="@drawable/ic_baseline_arrow_back" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/arrow_back"
+            android:textColor="#434547"
+            android:layout_marginTop="-5dp"
+            android:text="Drinks"
+            android:textSize="22sp"
+            android:fontFamily="@font/roboto" />
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:clipToPadding="false"
