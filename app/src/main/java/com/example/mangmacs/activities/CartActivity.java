@@ -1,4 +1,4 @@
-package com.example.mangmacs;
+package com.example.mangmacs.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.mangmacs.R;
 import com.example.mangmacs.adapter.CartAdapter;
 
 import java.util.ArrayList;

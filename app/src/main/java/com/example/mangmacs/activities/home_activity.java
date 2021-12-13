@@ -12,15 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.mangmacs.CartActivity;
 import com.example.mangmacs.adapter.PopularAdatper;
-import com.example.mangmacs.model.CustomerLoginModel;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.R;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.api.ApiInterface;
-import com.example.mangmacs.model.UserModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;

@@ -199,7 +199,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".CartActivity"
+            android:name=".activities.CartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity

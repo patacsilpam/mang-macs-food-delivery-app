@@ -2,13 +2,9 @@ package com.example.mangmacs.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,14 +12,12 @@ import android.widget.TextView;
 import com.example.mangmacs.Config;
 import com.example.mangmacs.R;
 import com.example.mangmacs.SendCode;
-import com.example.mangmacs.SendMail;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.UpdateAccountModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Properties;
-import java.util.Random;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
