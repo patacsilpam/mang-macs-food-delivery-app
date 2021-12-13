@@ -51,6 +51,7 @@ public class NoodlesAdapter extends RecyclerView.Adapter<NoodlesAdapter.ProductV
                 intent.putExtra("price",noodlesListModel.getPrice());
                 intent.putExtra("status",noodlesListModel.getStatus());
                 intent.putExtra("productVariation",noodlesListModel.getProductVariation());
+                intent.putExtra("code",noodlesListModel.getCodeNoodles());
                 context.startActivity(intent);
             }
         });

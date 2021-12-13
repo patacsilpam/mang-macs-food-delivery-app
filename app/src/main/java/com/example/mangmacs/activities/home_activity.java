@@ -201,7 +201,7 @@ public class home_activity extends AppCompatActivity {
         });
 
     }
-    @Override
+   @Override
     protected void onStart() {
         super.onStart();
         if (!SharedPreference.getSharedPreference(this).isLoggedIn()){

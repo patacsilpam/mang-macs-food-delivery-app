@@ -13,14 +13,16 @@ public class DimsumListModel {
     private String imageDimsum;
     @SerializedName("price")
     private int priceDimsum;
+    @SerializedName("code")
+    private String codeDimsum;
     // private float rating;
-    public DimsumListModel(String productName,String productVariation,String status,String image,int price,  float rating){
+    public DimsumListModel(String productName,String productVariation,String status,String image,int price,  String codeDimsum){
         this.productNameDimsum = productName;
         this.productVariationDimsum = productVariation;
         this.statusDimsum = status;
         this.imageDimsum = image;
         this.priceDimsum = price;
-        //this.rating = rating;
+        this.codeDimsum = codeDimsum;
     }
     public String getProductName(){
         return productNameDimsum;
@@ -36,5 +38,9 @@ public class DimsumListModel {
     }
     public int getPrice(){
         return priceDimsum;
+    }
+
+    public String getCodeDimsum() {
+        return codeDimsum;
     }
 }

@@ -5,7 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,19 +14,36 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name=".ForgotPasswordActivity"
+        <activity android:name=".activities.EditAddressActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/RecoverPasswordTheme"/>
+            android:parentActivityName=".activities.AccountActivity"
+            android:theme="@style/ActionBarTheme"/>
+        <activity
+            android:name=".activities.VerifyEmailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme" />
+        <activity
+            android:name=".activities.ResetPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme" />
+        <activity
+            android:name=".activities.VerificationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme" />
+        <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme" />
         <activity
             android:name=".activities.MyReservationActivity"
             android:label="My Book"
-            android:parentActivityName=".activities.MyAccountActivity"
+            android:parentActivityName=".activities.AccountActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActionBarTheme" />
         <activity
             android:name=".activities.MyOrdersActivity"
             android:label="My Orders"
-            android:parentActivityName=".activities.MyAccountActivity"
+            android:parentActivityName=".activities.AccountActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActionBarTheme" />
         <activity

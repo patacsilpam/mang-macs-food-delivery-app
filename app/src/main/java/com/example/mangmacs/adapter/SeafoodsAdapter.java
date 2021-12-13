@@ -51,6 +51,7 @@ public class SeafoodsAdapter extends RecyclerView.Adapter<SeafoodsAdapter.Produc
                 intent.putExtra("price",seafoodsListModel.getPrice());
                 intent.putExtra("status",seafoodsListModel.getStatus());
                 intent.putExtra("productVariation",seafoodsListModel.getProductVariation());
+                intent.putExtra("code",seafoodsListModel.getCodeSeafoods());
                 context.startActivity(intent);
             }
         });

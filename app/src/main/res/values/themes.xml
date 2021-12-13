@@ -41,14 +41,13 @@
         <item name="colorSecondaryVariant">#16C57B</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#201A237E</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@drawable/home_bg_color</item>
         <!--Customize search icon and query hint text color.-->
         <item name="android:textColor">#000</item>
         <item name="android:textColorHint">#1E1D1D</item>
         <item name="android:editTextColor">#1E1D1D</item>
-
     </style>
 
     <style name="ActionBarTheme" parent="Theme.AppCompat.Light">
@@ -61,21 +60,7 @@
         <item name="colorSecondaryVariant">#16C57B</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@drawable/home_bg_color</item>
-    </style>
-    <style name="RecoverPasswordTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">#16C57B</item>
-        <item name="colorPrimaryVariant">#16C57B</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#16C57B</item>
-        <item name="colorSecondaryVariant">#16C57B</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#201A237E</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@drawable/home_bg_color</item>
     </style>

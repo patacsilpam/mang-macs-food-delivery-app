@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    private TextView signup;
+    private TextView signup,forgotPword;
     private TextInputLayout email,password;
     private Button btnSignIn;
     private ProgressDialog progressDialog;
@@ -41,18 +44,17 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btnSignIn = findViewById(R.id.signIn);
+        forgotPword = findViewById(R.id.forgotPassword);
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Login");
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
-        //sign up button
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, sign_up_activity.class));
-            }
-        });
-        //sign in button
+        signUp();
+        signIn();
+        forgotPword();
+    }
+
+    private void signIn() {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,15 +79,20 @@ public class LoginActivity extends AppCompatActivity {
                                 String fname = response.body().getFname();
                                 String email = response.body().getEmail_address();
                                 String lname = response.body().getLname();
+                                String customer_id = response.body().getCustomerID();
                                 if(success.equals("1")){
                                     progressDialog.dismiss();
                                     SharedPreference.getSharedPreference(LoginActivity.this).storeFname(fname);
                                     SharedPreference.getSharedPreference(LoginActivity.this).storeEmail(email);
                                     SharedPreference.getSharedPreference(LoginActivity.this).storeLname(lname);
+                                    SharedPreference.getSharedPreference(LoginActivity.this).storeID(customer_id);
                                     Intent intent = new Intent(LoginActivity.this,home_activity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
                                     finish();
+                                }
+                                else if(success.equals("2")){
+                                    Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                                 }
                                 else{
                                     Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -101,6 +108,22 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+    }
+    private void signUp() {
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, sign_up_activity.class));
+            }
+        });
+    }
+    private void forgotPword() {
+        forgotPword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
             }
         });
     }

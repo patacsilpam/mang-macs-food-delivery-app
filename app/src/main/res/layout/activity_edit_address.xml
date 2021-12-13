@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.EditAddressActivity">
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/editcustomerId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="customer id"
+                android:visibility="invisible"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="@font/roboto_light"
+                android:text="Recepient's Name"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/editfullname"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:hint="Recepient's Name"
+                android:inputType="text"
+                android:background="@drawable/confirm_delivery_address_input"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="@font/roboto_light"
+                android:text="Province"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/province"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:text="Pangasinan"
+                android:textColor="#393838"
+                android:inputType="none"
+                android:enabled="false"
+                android:background="@drawable/confirm_delivery_address_input"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="@font/roboto_light"
+                android:text="City"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="Urdaneta"
+                android:textColor="#393838"
+                android:inputType="none"
+                android:enabled="false"
+                android:background="@drawable/confirm_delivery_address_input" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="@font/roboto_light"
+                android:text="Barangay"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/editbarangay"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/confirm_delivery_address_input"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="@font/roboto_light"
+                android:text="Street/Building Name"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editstreetname"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:hint="Street or Building Name"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/confirm_delivery_address_input" />
+
+            <TextView
+                android:layout_width="76dp"
+                android:layout_height="29dp"
+                android:layout_gravity="left"
+                android:fontFamily="@font/roboto_light"
+                android:text="Phone no."
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editphoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/confirm_delivery_address_input"
+                android:hint="Phone no."
+                android:inputType="number"
+                android:padding="5dp"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:text="Label Address"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"/>
+            <RadioGroup
+                android:id="@+id/editrdAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <RadioButton
+                    android:id="@+id/edithome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="14sp"
+                    android:text="Home"/>
+                <RadioButton
+                    android:id="@+id/editoffice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_toEndOf="@+id/home"
+                    android:textSize="14sp"
+                    android:text="Office"/>
+            </RadioGroup>
+        </LinearLayout>
+    </ScrollView>
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/editAddress"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:background="@drawable/confirmation_button"
+            android:layout_gravity="center"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </com.google.android.material.appbar.AppBarLayout>
+</RelativeLayout>

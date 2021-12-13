@@ -13,14 +13,15 @@ public class SoupListModel {
     private String imageSoup;
     @SerializedName("price")
     private int priceSoup;
-    // private float rating;
-    public SoupListModel(String productName,String productVariation,String status,String image,int price,  float rating){
+    @SerializedName("code")
+    private String codeSoup;
+    public SoupListModel(String productName,String productVariation,String status,String image,int price, String codeSoup){
         this.productNameSoup = productName;
         this.productVariationSoup = productVariation;
         this.statusSoup = status;
         this.imageSoup = image;
         this.priceSoup = price;
-        //this.rating = rating;
+        this.codeSoup = codeSoup;
     }
     public String getProductName(){
         return productNameSoup;
@@ -36,5 +37,9 @@ public class SoupListModel {
     }
     public int getPrice(){
         return priceSoup;
+    }
+
+    public String getCodeSoup() {
+        return codeSoup;
     }
 }

@@ -41,17 +41,19 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ProductViewH
         Glide.with(context)
                 .load(pizzaListModel.getImage())
                 .into(holder.image);
+        holder.textProductPrice.setText("₱ "+String.valueOf(pizzaListModel.getPrice()+" .00"));
         holder.textProductName.setText(pizzaListModel.getProductName());
-        holder.textProductPrice.setText(String.valueOf("₱ "+pizzaListModel.getPrice()+".00"));
+        holder.textGroupPrice.setText(pizzaListModel.getGroupPrice());
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PizzaListDetaill.class);
                 intent.putExtra("image",pizzaListModel.getImage());
                 intent.putExtra("productName",pizzaListModel.getProductName());
-                intent.putExtra("price",pizzaListModel.getPrice());
                 intent.putExtra("status",pizzaListModel.getStatus());
+                intent.putExtra("groupPrice",pizzaListModel.getGroupPrice());
                 intent.putExtra("productVariation",pizzaListModel.getProductVariation());
+                intent.putExtra("groupCode",pizzaListModel.getCode());
                 context.startActivity(intent);
             }
         });
@@ -64,7 +66,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ProductViewH
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView textProductName,textProductPrice;
+        TextView textProductName,textProductPrice,textGroupPrice;
         CardView productContainer;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +74,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ProductViewH
             textProductName = itemView.findViewById(R.id.productName);
             textProductPrice = itemView.findViewById(R.id.productPrice);
             productContainer = itemView.findViewById(R.id.productContainer);
+            textGroupPrice = itemView.findViewById(R.id.groupPrice);
         }
     }
 

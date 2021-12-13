@@ -13,6 +13,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mangmacs.activities.BilaoActivity;
+import com.example.mangmacs.activities.DimsumListDetail;
+import com.example.mangmacs.activities.DrinksListDetail;
+import com.example.mangmacs.activities.PancitListDetail;
+import com.example.mangmacs.activities.PizzaListDetaill;
+import com.example.mangmacs.activities.PopularListDetail;
+import com.example.mangmacs.activities.home_activity;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.R;
 import com.example.mangmacs.activities.BilaoListDetail;
@@ -46,13 +53,42 @@ public class PopularAdatper  extends RecyclerView.Adapter<PopularAdatper.Product
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, BilaoListDetail.class);
-                intent.putExtra("image",popularListModel.getImage());
-                intent.putExtra("productName",popularListModel.getProductName());
-                intent.putExtra("price",popularListModel.getPrice());
-                intent.putExtra("status",popularListModel.getStatus());
-                intent.putExtra("productVariation",popularListModel.getProductVariation());
-                context.startActivity(intent);
+             if(position == 0){
+                 Intent intent = new Intent(context,PancitListDetail.class);
+                 intent.putExtra("image",popularListModel.getImage());
+                 intent.putExtra("productName",popularListModel.getProductName());
+                 intent.putExtra("price",popularListModel.getPrice());
+                 intent.putExtra("status",popularListModel.getStatus());
+                 intent.putExtra("productVariation",popularListModel.getProductVariation());
+                 context.startActivity(intent);
+             }
+             else if(position == 1){
+                 Intent intent = new Intent(context,PizzaListDetaill.class);
+                 intent.putExtra("image",popularListModel.getImage());
+                 intent.putExtra("productName",popularListModel.getProductName());
+                 intent.putExtra("price",popularListModel.getPrice());
+                 intent.putExtra("status",popularListModel.getStatus());
+                 intent.putExtra("productVariation",popularListModel.getProductVariation());
+                 context.startActivity(intent);
+             }
+             else if(position == 2){
+                 Intent intent = new Intent(context, DrinksListDetail.class);
+                 intent.putExtra("image",popularListModel.getImage());
+                 intent.putExtra("productName",popularListModel.getProductName());
+                 intent.putExtra("price",popularListModel.getPrice());
+                 intent.putExtra("status",popularListModel.getStatus());
+                 intent.putExtra("productVariation",popularListModel.getProductVariation());
+                 context.startActivity(intent);
+             }
+             else{
+                 Intent intent = new Intent(context, DimsumListDetail.class);
+                 intent.putExtra("image",popularListModel.getImage());
+                 intent.putExtra("productName",popularListModel.getProductName());
+                 intent.putExtra("price",popularListModel.getPrice());
+                 intent.putExtra("status",popularListModel.getStatus());
+                 intent.putExtra("productVariation",popularListModel.getProductVariation());
+                 context.startActivity(intent);
+             }
             }
         });
     }

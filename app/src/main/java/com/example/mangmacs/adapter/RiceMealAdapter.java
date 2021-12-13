@@ -52,6 +52,7 @@ public class RiceMealAdapter extends RecyclerView.Adapter<RiceMealAdapter.Produc
                 intent.putExtra("price",riceListModel.getPrice());
                 intent.putExtra("status",riceListModel.getStatus());
                 intent.putExtra("productVariation",riceListModel.getProductVariation());
+                intent.putExtra("code",riceListModel.getCodeRiceMeal());
                 context.startActivity(intent);
             }
         });

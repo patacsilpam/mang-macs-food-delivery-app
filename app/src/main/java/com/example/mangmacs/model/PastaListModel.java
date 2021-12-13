@@ -13,14 +13,15 @@ public class PastaListModel {
     private String imagePasta;
     @SerializedName("price")
     private int pricePasta;
-    // private float rating;
-    public PastaListModel(String productName,String productVariation,String status,String image,int price,  float rating){
+    @SerializedName("code")
+    private String codePasta;
+    public PastaListModel(String productName,String productVariation,String status,String image,int price,  String codePasta){
         this.productNamePasta = productName;
         this.productVariationPasta = productVariation;
         this.statusPasta = status;
         this.imagePasta = image;
         this.pricePasta = price;
-        //this.rating = rating;
+        this.codePasta = codePasta;
     }
     public String getProductName(){
         return productNamePasta;
@@ -36,5 +37,9 @@ public class PastaListModel {
     }
     public int getPrice(){
         return pricePasta;
+    }
+
+    public String getCodePasta() {
+        return codePasta;
     }
 }

@@ -26,7 +26,7 @@
             android:padding="10dp"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/productName"
+                android:id="@+id/soupproductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Product Name"
@@ -36,7 +36,7 @@
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/productName"
+                android:layout_toEndOf="@id/soupproductName"
                 android:textColor="#303030"
                 android:textSize="14sp"
                 android:text="Status"/>
@@ -51,7 +51,7 @@
                     android:textSize="14sp"
                     android:text="₱ " />
                 <TextView
-                    android:id="@+id/productPrice"
+                    android:id="@+id/soupproductPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/pesoSign"
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_toEndOf="@+id/productPrice"
+                    android:layout_toEndOf="@+id/soupproductPrice"
                     android:textSize="14sp"
                     android:text=".00" />
             </RelativeLayout>
@@ -83,13 +83,13 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="Add instructions for your order" />
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/add_ons"
+                android:id="@+id/soupadd_ons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:counterEnabled="true"
-                app:counterMaxLength="500"
+                app:counterMaxLength="255"
                 app:errorEnabled="true">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -98,6 +98,24 @@
                     android:inputType="text"
                     android:hint="e.g no mayo"/>
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/customerId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:text="customerId"/>
+            <TextView
+                android:id="@+id/lname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:text=""/>
+            <TextView
+                android:id="@+id/fname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:text=""/>
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.appbar.AppBarLayout
@@ -107,6 +125,7 @@
         android:gravity="center"
         android:background="#FFFFFF">
         <Button
+            android:id="@+id/btnSoup"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:background="@drawable/confirmation_button"

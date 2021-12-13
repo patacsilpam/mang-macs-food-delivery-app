@@ -13,14 +13,15 @@ public class PancitListModel {
     private String imagePancit;
     @SerializedName("price")
     private int pricePancit;
-    // private float rating;
-    public PancitListModel(String productName,String productVariation,String status,String image,int price,  float rating){
+    @SerializedName("code")
+    private String codePancit;
+    public PancitListModel(String productName,String productVariation,String status,String image,int price, String codePancit){
         this.productNamePancit = productName;
         this.productVariationPancit = productVariation;
         this.statusPancit = status;
         this.imagePancit = image;
         this.pricePancit = price;
-        //this.rating = rating;
+        this.codePancit = codePancit;
     }
     public String getProductName(){
         return productNamePancit;
@@ -36,5 +37,8 @@ public class PancitListModel {
     }
     public int getPrice(){
         return pricePancit;
+    }
+    public String getCodePancit() {
+        return codePancit;
     }
 }

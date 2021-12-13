@@ -13,14 +13,15 @@ public class DrinksListModel {
     private String imageDrinks;
     @SerializedName("price")
     private int priceDrinks;
-    // private float rating;
-    public DrinksListModel(String productName,String productVariation,String status,String image,int price,  float rating){
+    @SerializedName("code")
+    private String codeDrinks;
+    public DrinksListModel(String productName,String productVariation,String status,String image,int price,  String codeDrinks){
         this.productNameDrinks = productName;
         this.productVariationDrinks = productVariation;
         this.statusDrinks = status;
         this.imageDrinks = image;
         this.priceDrinks = price;
-        //this.rating = rating;
+        this.codeDrinks = codeDrinks;
     }
     public String getProductName(){
         return productNameDrinks;
@@ -36,5 +37,8 @@ public class DrinksListModel {
     }
     public int getPrice(){
         return priceDrinks;
+    }
+    public String getCodeDrinks() {
+        return codeDrinks;
     }
 }

@@ -51,6 +51,7 @@ public class PancitAdapter extends RecyclerView.Adapter<PancitAdapter.ProductVie
                 intent.putExtra("price",pancitListModel.getPrice());
                 intent.putExtra("status",pancitListModel.getStatus());
                 intent.putExtra("productVariation",pancitListModel.getProductVariation());
+                intent.putExtra("code",pancitListModel.getCodePancit());
                 context.startActivity(intent);
             }
         });

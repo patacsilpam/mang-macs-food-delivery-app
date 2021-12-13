@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:background="#86ECECEC"
     tools:context=".activities.MyAddressActivity">
 <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/addAddress"
@@ -15,10 +15,10 @@
     android:layout_alignParentEnd="true"
     android:layout_marginBottom="20dp"
     android:layout_marginEnd="20dp" />
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/addressList"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical"/>
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/listaddress"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:scrollbars="vertical"/>
 
 </RelativeLayout>

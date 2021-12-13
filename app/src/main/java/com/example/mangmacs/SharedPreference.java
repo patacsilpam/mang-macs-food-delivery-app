@@ -7,6 +7,7 @@ import com.example.mangmacs.model.UserModel;
 
 public class SharedPreference {
     public static final String PREF_NAME = "user_details";
+    public static final String CUSTOMER_ID="customer_id";
     public static final String FIRST_NAME = "fname";
     public static final String EMAIL = "email";
     public static final String LNAME = "lname";
@@ -46,18 +47,31 @@ public class SharedPreference {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
         return  sharedPreferences.getString(EMAIL,null);
     }
-    //store gender
+    //store lname
     public void storeLname(String lname){
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(LNAME,lname);
         editor.apply();
     }
-    //display gender of the user
+    //display lname of the user
     public String setLname(){
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
         return  sharedPreferences.getString(LNAME,null);
     }
+    //store customerID
+    public void storeID(String customerID){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(CUSTOMER_ID,customerID);
+        editor.apply();
+    }
+    //display customerID of the user
+    public String setID(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
+        return  sharedPreferences.getString(CUSTOMER_ID,null);
+    }
+    //check if the user already logged in
     public boolean isLoggedIn(){
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
         return sharedPreferences.getString(EMAIL,null) != null;

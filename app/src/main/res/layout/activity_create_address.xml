@@ -16,6 +16,32 @@
             android:orientation="vertical"
             android:gravity="center">
             <TextView
+                android:id="@+id/customerId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="customer id"
+                android:visibility="invisible" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="@font/roboto_light"
+                android:text="Recepient's Name"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/rfullname"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:hint="Recepient's Name"
+                android:inputType="text"
+                android:background="@drawable/confirm_delivery_address_input"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
@@ -84,6 +110,7 @@
                 android:textSize="18sp" />
 
             <EditText
+                android:id="@+id/streetname"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
@@ -93,9 +120,10 @@
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray"
                 android:background="@drawable/confirm_delivery_address_input" />
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="76dp"
+                android:layout_height="29dp"
                 android:layout_gravity="left"
                 android:fontFamily="@font/roboto_light"
                 android:text="Phone no."
@@ -103,15 +131,17 @@
                 android:textSize="18sp" />
 
             <EditText
+                android:id="@+id/phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/confirm_delivery_address_input"
                 android:hint="Phone no."
                 android:inputType="number"
                 android:padding="5dp"
                 android:textColor="@android:color/black"
-                android:textColorHint="@android:color/darker_gray"
-                android:background="@drawable/confirm_delivery_address_input" />
+                android:textColorHint="@android:color/darker_gray" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,22 +150,27 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp"/>
             <RadioGroup
-                android:layout_width="wrap_content"
+                android:id="@+id/rdAddress"
+                android:checkedButton="@id/home"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checkedButton="@+id/rbNo"
-                android:layout_gravity="left"
                 android:layout_marginBottom="100dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1">
                 <RadioButton
-                    android:id="@+id/rbNo"
+                    android:id="@+id/home"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Home" />
+                    android:layout_height="55dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="14sp"
+                    android:text="Home"/>
                 <RadioButton
+                    android:id="@+id/office"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Office" />
+                    android:layout_height="55dp"
+                    android:layout_toEndOf="@+id/home"
+                    android:textSize="14sp"
+                    android:text="Office"/>
             </RadioGroup>
         </LinearLayout>
     </ScrollView>

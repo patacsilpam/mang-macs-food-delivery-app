@@ -7,6 +7,8 @@ public class UpdateAccountModel {
     private String success;
     @SerializedName("message")
     private String message;
+    @SerializedName("customer_id")
+    private String customerID;
     @SerializedName("fname")
     private String fname;
     @SerializedName("lname")
@@ -18,9 +20,10 @@ public class UpdateAccountModel {
     @SerializedName("gender")
     private String gender;
 
-    public UpdateAccountModel(String success,String message,String fname, String lname, String email,String birthdate, String gender) {
+    public UpdateAccountModel(String success,String message,String customerId,String fname, String lname, String email,String birthdate, String gender) {
         this.success = success;
         this.message = message;
+        this.customerID = customerId;
         this.fname = fname;
         this.lname = lname;
         this.email = email;
@@ -33,6 +36,10 @@ public class UpdateAccountModel {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getCustomerID() {
+        return customerID;
     }
 
     public String getFname() {

@@ -51,6 +51,7 @@ public class DimsumAdapter extends RecyclerView.Adapter<DimsumAdapter.ProductVie
                 intent.putExtra("price",dimsumListModel.getPrice());
                 intent.putExtra("status",dimsumListModel.getStatus());
                 intent.putExtra("productVariation",dimsumListModel.getProductVariation());
+                intent.putExtra("code",dimsumListModel.getCodeDimsum());
                 context.startActivity(intent);
             }
         });

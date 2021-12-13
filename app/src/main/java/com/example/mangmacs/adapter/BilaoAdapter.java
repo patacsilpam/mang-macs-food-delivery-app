@@ -41,7 +41,7 @@ public class BilaoAdapter extends RecyclerView.Adapter<BilaoAdapter.ProductViewH
                 .load(pancitBilaoListModel.getImage())
                 .into(holder.image);
         holder.textProductName.setText(pancitBilaoListModel.getProductName());
-        holder.textProductPrice.setText(String.valueOf(pancitBilaoListModel.getPrice()));
+        holder.textProductPrice.setText("₱ "+String.valueOf(pancitBilaoListModel.getPrice()+" .00"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +50,9 @@ public class BilaoAdapter extends RecyclerView.Adapter<BilaoAdapter.ProductViewH
                 intent.putExtra("productName",pancitBilaoListModel.getProductName());
                 intent.putExtra("price",pancitBilaoListModel.getPrice());
                 intent.putExtra("status",pancitBilaoListModel.getStatus());
-                intent.putExtra("productVariation",pancitBilaoListModel.getProductVariation());
+                intent.putExtra("productVariationBilao",pancitBilaoListModel.getProductVariation());
+                intent.putExtra("groupPriceBilao",pancitBilaoListModel.getGroupPriceBilao());
+                intent.putExtra("groupCode",pancitBilaoListModel.getGroupCode());
                 context.startActivity(intent);
             }
         });

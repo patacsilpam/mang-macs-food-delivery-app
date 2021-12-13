@@ -51,6 +51,7 @@ public class PastaAdapter extends RecyclerView.Adapter<PastaAdapter.ProductViewH
                 intent.putExtra("price",pastaListModel.getPrice());
                 intent.putExtra("status",pastaListModel.getStatus());
                 intent.putExtra("productVariation",pastaListModel.getProductVariation());
+                intent.putExtra("code",pastaListModel.getCodePasta());
                 context.startActivity(intent);
             }
         });

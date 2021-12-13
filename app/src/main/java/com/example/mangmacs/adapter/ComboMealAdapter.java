@@ -51,6 +51,7 @@ public class ComboMealAdapter extends RecyclerView.Adapter<ComboMealAdapter.Prod
                 intent.putExtra("price",comboMealListModel.getPrice());
                 intent.putExtra("status",comboMealListModel.getStatus());
                 intent.putExtra("productVariation",comboMealListModel.getProductVariation());
+                intent.putExtra("code",comboMealListModel.getCodeCombo());
                 context.startActivity(intent);
             }
         });

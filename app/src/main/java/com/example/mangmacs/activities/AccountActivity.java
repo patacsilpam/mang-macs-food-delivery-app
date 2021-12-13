@@ -3,14 +3,21 @@ package com.example.mangmacs.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.PackageManagerCompat;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
@@ -19,7 +26,8 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class AccountActivity extends AppCompatActivity {
     private TextView fullname,logout,myACccount,changePassword,savedAddress,myOrders,myBook;
-    private SharedPreference sharedPreference;
+    private ImageView profile;
+    private int STORAGE_PERMISSION_CODE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +39,7 @@ public class AccountActivity extends AppCompatActivity {
         savedAddress = findViewById(R.id.savedAddress);
         myOrders = findViewById(R.id.myOrders);
         myBook = findViewById(R.id.myBook);
+        profile = findViewById(R.id.profile);
         String fname = SharedPreference.getSharedPreference(this).setFname();
         String lname =  SharedPreference.getSharedPreference(this).setLname();
         fullname.setText(fname+" "+lname);
@@ -69,7 +78,7 @@ public class AccountActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 finish();
                                 SharedPreference.getSharedPreference(getApplicationContext()).logout();
-                                Intent intent = new Intent(AccountActivity.this,sign_up_activity.class);
+                                Intent intent = new Intent(AccountActivity.this,LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }

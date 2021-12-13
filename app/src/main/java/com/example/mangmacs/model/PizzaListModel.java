@@ -13,13 +13,19 @@ public class PizzaListModel {
     private String image;
     @SerializedName("price")
     private int price;
+    @SerializedName("groupPrice")
+    private String groupPrice;
+    @SerializedName("groupCode")
+    private String code;
    // private float rating;
-    public PizzaListModel(String productName,String productVariation,String status,String image,int price,  float rating){
+    public PizzaListModel(String productName,String productVariation,String status,String image,int price,String groupPrice,  String code){
         this.productName = productName;
         this.productVariation = productVariation;
         this.status = status;
         this.image = image;
         this.price = price;
+        this.groupPrice = groupPrice;
+        this.code = code;
         //this.rating = rating;
     }
     public String getProductName(){
@@ -36,5 +42,13 @@ public class PizzaListModel {
     }
     public int getPrice(){
         return price;
+    }
+
+    public String getGroupPrice() {
+        return groupPrice;
+    }
+
+    public String getCode() {
+        return code;
     }
 }

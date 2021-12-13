@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="urdaneta">
-        <item>Anonas</item>
-        <item>Bactad East</item>
-        <item>Bayaoas</item>
-        <item>Bolaoen</item>
-        <item>Cabaruan</item>
-        <item>Cabuloan</item>
-        <item>Camanang</item>
-        <item>Camantiles</item>
-        <item>Casantaan</item>
-        <item>Catablan</item>
-        <item>Cayambanan</item>
-        <item>Consolacion</item>
-        <item>Dilan Paurido</item>
-        <item>Dr.Pedro T. Orata (Bactad Proper)</item>
-        <item>Labit Proper</item>
-        <item>Labit West</item>
-        <item>Mabanogbog</item>
-        <item>Macalong</item>
-        <item>Nancalobasaan</item>
-        <item>Nancamaliran East</item>
-        <item>Nancamaliran West</item>
-        <item>Nancayasan</item>
-        <item>Oltama</item>
-        <item>Palina East</item>
-        <item>Palina West</item>
-        <item>Pinmaludpod</item>
-        <item>Poblacion</item>
-        <item>San Jose</item>
-        <item>San Vicente</item>
-        <item>Santa Lucia</item>
-        <item>Santa Domingo</item>
-        <item>Sugcong</item>
-        <item>Tipuso</item>
-        <item>Tulong</item>
+        <item>Anonas </item>
+        <item>Bactad East </item>
+        <item>Bayaoas </item>
+        <item>Bolaoen </item>
+        <item>Cabaruan </item>
+        <item>Cabuloan </item>
+        <item>Camanang </item>
+        <item>Camantiles </item>
+        <item>Casantaan </item>
+        <item>Catablan </item>
+        <item>Cayambanan </item>
+        <item>Consolacion </item>
+        <item>Dilan Paurido </item>
+        <item>Dr.Pedro T. Orata (Bactad Proper) </item>
+        <item>Labit Proper </item>
+        <item>Labit West </item>
+        <item>Mabanogbog </item>
+        <item>Macalong </item>
+        <item>Nancalobasaan </item>
+        <item>Nancamaliran East </item>
+        <item>Nancamaliran West </item>
+        <item>Nancayasan </item>
+        <item>Oltama </item>
+        <item>Palina East </item>
+        <item>Palina West </item>
+        <item>Pinmaludpod </item>
+        <item>Poblacion </item>
+        <item>San Jose </item>
+        <item>San Vicente </item>
+        <item>Santa Lucia </item>
+        <item>Santa Domingo </item>
+        <item>Sugcong </item>
+        <item>Tipuso </item>
+        <item>Tulong </item>
     </string-array>
 </resources>

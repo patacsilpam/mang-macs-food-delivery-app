@@ -40,12 +40,22 @@
                        android:fontFamily="@font/roboto_medium" />
                    <TextView
                        android:id="@+id/productPrice"
-                       android:layout_width="match_parent"
+                       android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_below="@+id/productName"
                        android:text="200"
                        android:textSize="12sp"
                        android:fontFamily="@font/roboto_medium"
+                       android:layout_marginTop="10dp" />
+                   <TextView
+                       android:id="@+id/groupPrice"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_below="@+id/productName"
+                       android:text="200"
+                       android:textSize="12sp"
+                       android:fontFamily="@font/roboto_medium"
+                       android:visibility="invisible"
                        android:layout_marginTop="10dp" />
                </LinearLayout>
            </RelativeLayout>

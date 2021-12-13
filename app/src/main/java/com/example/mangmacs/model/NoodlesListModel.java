@@ -13,14 +13,15 @@ public class NoodlesListModel {
     private String imageNoodles;
     @SerializedName("price")
     private int priceNoodles;
-    // private float rating;
-    public NoodlesListModel(String productName,String productVariation,String status,String image,int price,  float rating){
+    @SerializedName("code")
+    private String codeNoodles;
+    public NoodlesListModel(String productName,String productVariation,String status,String image,int price,  String codeNoodles){
         this.productNameNoodles = productName;
         this.productVariationNoodles = productVariation;
         this.statusNoodles = status;
         this.imageNoodles = image;
         this.priceNoodles = price;
-        //this.rating = rating;
+        this.codeNoodles = codeNoodles;
     }
     public String getProductName(){
         return productNameNoodles;
@@ -36,5 +37,9 @@ public class NoodlesListModel {
     }
     public int getPrice(){
         return priceNoodles;
+    }
+
+    public String getCodeNoodles() {
+        return codeNoodles;
     }
 }

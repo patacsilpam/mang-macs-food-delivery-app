@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_edit"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="45dp"
+                android:textColor="@color/pressed"/>
+            <TextView
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_delete_24"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/pressed"/>
+            <TextView
+                android:id="@+id/ID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="invisible"/>
+            <TextView
+                android:id="@+id/afullname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="John Cruz"
+                android:textColor="@color/black"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:id="@+id/street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zone 4"
+                android:layout_below="@+id/afullname"
+                android:fontFamily="@font/roboto" />
+            <TextView
+                android:id="@+id/brgy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="San Vicente West "
+                android:layout_below="@+id/street"
+                android:fontFamily="@font/roboto" />
+            <TextView
+                android:id="@+id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Urdaneta City,"
+                android:layout_below="@+id/street"
+                android:layout_toEndOf="@id/brgy"
+                android:fontFamily="@font/roboto" />
+            <TextView
+                android:id="@+id/aprovince"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pangasinan"
+                android:layout_below="@+id/city"
+                android:fontFamily="@font/roboto" />
+            <TextView
+                android:id="@+id/phoneNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="09777315160"
+                android:layout_below="@+id/aprovince"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"
+                />
+            <TextView
+                android:id="@+id/labelAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:layout_below="@id/phoneNo"
+                android:fontFamily="@font/roboto" />
+        </RelativeLayout>
+</LinearLayout>

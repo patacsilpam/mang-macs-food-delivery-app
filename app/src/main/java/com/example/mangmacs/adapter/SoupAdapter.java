@@ -52,6 +52,7 @@ public class SoupAdapter extends RecyclerView.Adapter<SoupAdapter.ProductViewHol
                 intent.putExtra("price",soupListModel.getPrice());
                 intent.putExtra("status",soupListModel.getStatus());
                 intent.putExtra("productVariation",soupListModel.getProductVariation());
+                intent.putExtra("code",soupListModel.getCodeSoup());
                 context.startActivity(intent);
             }
         });

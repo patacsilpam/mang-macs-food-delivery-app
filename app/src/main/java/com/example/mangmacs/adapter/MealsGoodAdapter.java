@@ -51,6 +51,7 @@ public class MealsGoodAdapter extends RecyclerView.Adapter<MealsGoodAdapter.Prod
                 intent.putExtra("price",mealsGoodListModel.getPrice());
                 intent.putExtra("status",mealsGoodListModel.getStatus());
                 intent.putExtra("productVariation",mealsGoodListModel.getProductVariation());
+                intent.putExtra("code",mealsGoodListModel.getCodeMealsGood());
                 context.startActivity(intent);
             }
         });

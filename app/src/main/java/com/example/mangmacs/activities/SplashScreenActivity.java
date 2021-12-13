@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.mangmacs.ForgotPasswordActivity;
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
 
@@ -21,7 +20,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onStart();
         if (SharedPreference.getSharedPreference(this).isLoggedIn()){
             finish();
-            Intent intent = new Intent(SplashScreenActivity.this, ForgotPasswordActivity.class);
+            Intent intent = new Intent(SplashScreenActivity.this,home_activity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }

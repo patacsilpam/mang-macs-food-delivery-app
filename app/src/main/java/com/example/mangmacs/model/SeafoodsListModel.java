@@ -13,14 +13,15 @@ public class SeafoodsListModel {
     private String imageSeafoods;
     @SerializedName("price")
     private int priceSeafoods;
-    // private float rating;
-    public SeafoodsListModel(String productName,String productVariation,String status,String image,int price,  float rating){
+    @SerializedName("code")
+    private String codeSeafoods;
+    public SeafoodsListModel(String productName,String productVariation,String status,String image,int price, String codeSeafoods){
         this.productNameSeafoods = productName;
         this.productVariationSeafoods = productVariation;
         this.statusSeafoods = status;
         this.imageSeafoods = image;
         this.priceSeafoods = price;
-        //this.rating = rating;
+        this.codeSeafoods = codeSeafoods;
     }
     public String getProductName(){
         return productNameSeafoods;
@@ -36,5 +37,9 @@ public class SeafoodsListModel {
     }
     public int getPrice(){
         return priceSeafoods;
+    }
+
+    public String getCodeSeafoods() {
+        return codeSeafoods;
     }
 }

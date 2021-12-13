@@ -1,5 +1,7 @@
 package com.example.mangmacs.api;
 
+import com.example.mangmacs.model.AddressListModel;
+import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.ComboMealListModel;
 import com.example.mangmacs.model.CustomerLoginModel;
 import com.example.mangmacs.model.CustomerModel;
@@ -21,12 +23,15 @@ import com.example.mangmacs.model.UpdateAccountModel;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -70,11 +75,83 @@ public interface ApiInterface {
             @Field("fname") String fname,
             @Field("lname") String lname,
             @Field("email_address") String email,
-            @Field("user_password") String password
+            @Field("user_password") String password,
+            @Field("code") int code
     );
     @GET("selectCustomer.php")
     Call<UpdateAccountModel> selectAccount(
             @Query("email_address") String email
+    );
+    @POST("customerUpdate.php")
+    @FormUrlEncoded
+    Call<UpdateAccountModel> updateAccount(
+            @Field("email_address") String email,
+            @Field("fname") String fname,
+            @Field("lname") String lname,
+            @Field("gender") String gender,
+            @Field("birthdate") String birthdate
+    );
+    @Multipart
+    @POST("customerUpdatePword.php")
+    Call<UpdateAccountModel> updatePassword(
+            @Field("email") String email,
+            @Field("currentPassword") String oldPword,
+            @Field("newPassword") String newPword
+    );
+    @POST("recoverPassword.php")
+    @FormUrlEncoded
+    Call<UpdateAccountModel> getEmail(
+            @Field("email") String email,
+            @Field("code") int code
+    );
+    @GET("verifyCode.php")
+    Call<UpdateAccountModel> getCode(
+      @Query("email") String email,
+      @Query("code") String code
+    );
+    @POST("resetPassword.php")
+    @FormUrlEncoded
+    Call<UpdateAccountModel> resetPassword(
+            @Field("email") String email,
+            @Field("newPassword") String newPassword,
+            @Field("confirmPassword") String confirmPassword
+    );
+    @GET("verifyEmail.php")
+    Call<UpdateAccountModel> getEmail(
+            @Query("email") String email,
+            @Query("code") String code
+    );
+    @POST("customerAddress.php")
+    @FormUrlEncoded
+    Call<UpdateAccountModel> createAddress(
+            @Field("customerID") String customerId,
+            @Field("fullname") String fullname,
+            @Field("email") String email,
+            @Field("street") String street,
+            @Field("barangay") String barangay,
+            @Field("city") String city,
+            @Field("province") String province,
+            @Field("labelAddress") String labeladdress,
+            @Field("phoneNo") String phoneNumber
+    );
+    @GET("selectAddress.php")
+    Call<List<AddressListModel>> getAddress(
+            @Query("emailaddress") String email
+    );
+    @POST("updateCustomerAddress.php")
+    @FormUrlEncoded
+    Call<UpdateAccountModel> updateCustomerAddress(
+            @Field("id") int id,
+            @Field("fullname") String fullname,
+            @Field("street") String street,
+            @Field("barangay") String barangay,
+            @Field("labelAddress") String labelAddress,
+            @Field("phoneNumber") String phoneNumber
+    );
+    @POST("deleteAddress.php")
+    @FormUrlEncoded
+    Call<UpdateAccountModel> deleteAddress(
+            @Field("id") String id
     );
     @POST("reservation.php")
     @FormUrlEncoded
@@ -86,20 +163,18 @@ public interface ApiInterface {
             @Field("scheduled_date") String date,
             @Field("scheduled_time") String time
     );
-    @POST("customerUpdate.php")
+    @POST("customerCartProduct.php")
     @FormUrlEncoded
-    Call<UpdateAccountModel> updateAccount(
-            @Field("email_address") String email,
-            @Field("fname") String fname,
-            @Field("lname") String lname,
-            @Field("gender") String gender,
-            @Field("birthdate") String birthdate
+    Call<CartModel> addcart(
+            @Field("customerID") String customerId,
+            @Field("code") String productCode,
+            @Field("product") String productName,
+            @Field("variation") String variation,
+            @Field("fname") String firstname,
+            @Field("lname") String lastname,
+            @Field("price") int amount,
+         //   @Field("quantity") int quantity,
+            @Field("add_ons") String addOns
     );
-    @POST("customerUpdatePword.php")
-   @FormUrlEncoded
-    Call<UpdateAccountModel> updatePassword(
-            @Field("email_address") String email,
-            @Field("user_password") String oldPword
-           // @Field("newPassword") String newPword
-    );
+
 }

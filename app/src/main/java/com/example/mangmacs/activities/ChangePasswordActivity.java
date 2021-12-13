@@ -34,7 +34,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         updatePword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String oldPword = currentPword.getEditText().toString();
+                String currentPassword = currentPword.getEditText().getText().toString();
                 String newPassword = newPword.getEditText().getText().toString();
                 String confirmPassword = confirmPword.getEditText().getText().toString();
                 if(newPassword.isEmpty()){
@@ -47,10 +47,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     confirmPword.setError("Password do not match");
                     newPword.setError("Password do not match");
                 }
+                if (confirmPassword.length()<8){
+                    confirmPword.setError("Password must be at least 8 characters minimum");
+                }
                 else{
                     String saveEmail = SharedPreference.getSharedPreference(getApplicationContext()).setEmail();
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<UpdateAccountModel> updatePwordCall = apiInterface.updatePassword(saveEmail,oldPword);
+                    Call<UpdateAccountModel> updatePwordCall = apiInterface.updatePassword(saveEmail,currentPassword,newPassword);
                     updatePwordCall.enqueue(new Callback<UpdateAccountModel>() {
                         @Override
                         public void onResponse(Call<UpdateAccountModel> call, Response<UpdateAccountModel> response) {
