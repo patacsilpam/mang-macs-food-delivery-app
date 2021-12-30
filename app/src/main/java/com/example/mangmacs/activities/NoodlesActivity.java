@@ -3,6 +3,7 @@ package com.example.mangmacs.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class NoodlesActivity extends AppCompatActivity {
     private ApiInterface apiInterface;
     private NoodlesAdapter noodlesAdapter;
     private TextView btnArrowBack;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +37,9 @@ public class NoodlesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        //call pizza list model
+        //call noodles list model
         Call<List<NoodlesListModel>> call= apiInterface.getNoodles();
         call.enqueue(new Callback<List<NoodlesListModel>>() {
             @Override
@@ -44,6 +47,7 @@ public class NoodlesActivity extends AppCompatActivity {
                 noodlesList = response.body();
                 noodlesAdapter = new NoodlesAdapter(NoodlesActivity.this,noodlesList);
                 recyclerView.setAdapter(noodlesAdapter);
+                refresh();
             }
 
             @Override
@@ -56,6 +60,29 @@ public class NoodlesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(NoodlesActivity.this,home_activity.class));
+            }
+        });
+    }
+    public void refresh(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Call<List<NoodlesListModel>> call= apiInterface.getNoodles();
+                call.enqueue(new Callback<List<NoodlesListModel>>() {
+                    @Override
+                    public void onResponse(Call<List<NoodlesListModel>> call, Response<List<NoodlesListModel>> response) {
+                        noodlesList = response.body();
+                        noodlesAdapter = new NoodlesAdapter(NoodlesActivity.this,noodlesList);
+                        recyclerView.setAdapter(noodlesAdapter);
+                        refresh();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<NoodlesListModel>> call, Throwable t) {
+
+                    }
+                });
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

@@ -74,16 +74,16 @@ public class PizzaListDetaill extends AppCompatActivity {
             String[] splitVariation = groupVariation.split(",");
             String[] splitPrice = groupPrice.split(",");
 
-            String product1 = splitVariation[0]+"          ₱ "+splitPrice[0]+" .00"+splitCode[0];
+            String product1 = splitVariation[0]+"          ₱ "+splitPrice[0]+".00"+splitCode[0];
             SpannableString spannableCode1 = new SpannableString(product1);
             ForegroundColorSpan fcsWhite1 = new ForegroundColorSpan(Color.WHITE);
-            spannableCode1.setSpan(fcsWhite1,24,34, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableCode1.setSpan(fcsWhite1,23,33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             medium.setText(spannableCode1);
 
-            String product2 = splitVariation[1]+"          ₱ "+splitPrice[1]+" .00"+splitCode[1];
+            String product2 = splitVariation[1]+"         ₱ "+splitPrice[1]+".00"+splitCode[1];
             SpannableString spannableCode2 = new SpannableString(product2);
             ForegroundColorSpan fcsWhite2 = new ForegroundColorSpan(Color.WHITE);
-            spannableCode2.setSpan(fcsWhite2,25,35, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableCode2.setSpan(fcsWhite2,23,33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             large.setText(spannableCode2);
             customerId.setText(customerID);
@@ -93,36 +93,42 @@ public class PizzaListDetaill extends AppCompatActivity {
         btnPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = customerId.getText().toString();
-                String firstName = fname.getText().toString();
-                String lastName = lname.getText().toString();
-                String product = productName.getText().toString();
-                String add_ons = pizza_addons.getEditText().getText().toString();
-                int selectedSize = variation.getCheckedRadioButtonId();
-                RadioButton size = findViewById(selectedSize);
-                String getSize = size.getText().toString();
-                String getCode = getSize.replace("Medium","  ");
-                String variation = getSize.replace("          ₱","       ,");
-                int price = 0;
 
-                ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,getCode,product,variation,firstName,lastName,price,add_ons);
-                cartModelCall.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if(response.body() != null){
-                            String success =response.body().getSuccess();
-                            if(success.equals("1")){
-                                Toast.makeText(getApplicationContext(),"Cart Added Successfully",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
+               if(variation.getCheckedRadioButtonId() == -1){
+                   Toast.makeText(getApplicationContext(),"Please select one variation",Toast.LENGTH_SHORT).show();
+               }
+               else{
+                   String id = customerId.getText().toString();
+                   String firstName = fname.getText().toString();
+                   String lastName = lname.getText().toString();
+                   String product = productName.getText().toString();
+                   String add_ons = pizza_addons.getEditText().getText().toString();
+                   int selectedSize = variation.getCheckedRadioButtonId();
+                   RadioButton size = findViewById(selectedSize);
+                   String getSize = size.getText().toString();
+                   String getCode = getSize;
+                   String variation = getSize.replace("₱",",");
+                   String strPrice = size.getText().toString();
+                   int prices = Integer.parseInt(strPrice.substring(17,20));
+                   ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                   Call<CartModel> cartModelCall = apiComboInterface.addcart(id,getCode,product,variation,firstName,lastName,prices,add_ons);
+                   cartModelCall.enqueue(new Callback<CartModel>() {
+                       @Override
+                       public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                           if(response.body() != null){
+                               String success =response.body().getSuccess();
+                               if(success.equals("1")){
+                                   Toast.makeText(getApplicationContext(),"Cart Added Successfully",Toast.LENGTH_SHORT).show();
+                               }
+                           }
+                       }
 
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
+                       @Override
+                       public void onFailure(Call<CartModel> call, Throwable t) {
 
-                    }
-                });
+                       }
+                   });
+               }
             }
         });
 

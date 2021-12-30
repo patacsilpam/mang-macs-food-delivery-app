@@ -68,10 +68,10 @@ public class BilaoListDetail extends AppCompatActivity {
             String[] splitPrice = productprice.split(",");
             String[] splitVariation = productvariation.split(",");
             String[] splitCode = groupCode.split(",");
-            String product1 = splitVariation[0]+"          ₱ "+splitPrice[0]+".00 "+splitCode[0];
+            String product1 = splitVariation[0]+"           ₱ "+splitPrice[0]+".00 "+splitCode[0];
             SpannableString spannableCode1 = new SpannableString(product1);
             ForegroundColorSpan fcsWhite1 = new ForegroundColorSpan(Color.WHITE);
-            spannableCode1.setSpan(fcsWhite1,30,40, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableCode1.setSpan(fcsWhite1,30,41, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             sevenToTen.setText(spannableCode1);
 
             String product2 = splitVariation[1]+"          ₱ "+splitPrice[1]+".00 "+splitCode[1];
@@ -96,36 +96,41 @@ public class BilaoListDetail extends AppCompatActivity {
         btnAddtoCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = customerId.getText().toString();
-                String firstName = fname.getText().toString();
-                String lastName = lname.getText().toString();
-                String product = productName.getText().toString();
-                String add_ons = bilaoAddOns.getEditText().getText().toString();
-                int selectedSize = rdVariation.getCheckedRadioButtonId();
-                RadioButton size = findViewById(selectedSize);
-                String getSize = size.getText().toString();
-                String getCode = getSize.replace("7-10 Person","  ");
-                String variation = getSize.replace("         ₱"," ");
-                int price = 0;
+               if(rdVariation.getCheckedRadioButtonId() == -1){
+                   Toast.makeText(getApplicationContext(),"Please select one variation",Toast.LENGTH_SHORT).show();
+               }
+               else{
+                   String id = customerId.getText().toString();
+                   String firstName = fname.getText().toString();
+                   String lastName = lname.getText().toString();
+                   String product = productName.getText().toString();
+                   String add_ons = bilaoAddOns.getEditText().getText().toString();
+                   int selectedSize = rdVariation.getCheckedRadioButtonId();
+                   RadioButton size = findViewById(selectedSize);
+                   String getSize = size.getText().toString();
+                   String getCode = getSize;
+                   String variation = getSize.replace("         ₱",",");
+                   String strPrice = getSize.substring(24,27);
+                   int price = Integer.parseInt(strPrice);
+                   ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                   Call<CartModel> cartModelCall = apiComboInterface.addcart(id,getCode,product,variation,firstName,lastName,price,add_ons);
+                   cartModelCall.enqueue(new Callback<CartModel>() {
+                       @Override
+                       public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                           if(response.body() != null){
+                               String success =response.body().getSuccess();
+                               if(success.equals("1")){
+                                   Toast.makeText(getApplicationContext(),"Added to cart Successfully",Toast.LENGTH_SHORT).show();
+                               }
+                           }
+                       }
 
-                ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,getCode,product,variation,firstName,lastName,price,add_ons);
-                cartModelCall.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if(response.body() != null){
-                            String success =response.body().getSuccess();
-                            if(success.equals("1")){
-                                Toast.makeText(getApplicationContext(),"Added to cart Successfully",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
+                       @Override
+                       public void onFailure(Call<CartModel> call, Throwable t) {
 
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
-
-                    }
-                });
+                       }
+                   });
+               }
             }
         });
         //a back button

@@ -12,24 +12,105 @@
        android:layout_width="match_parent"
        android:layout_height="?actionBarSize"
       android:background="@color/white">
-      <TextView
-          android:id="@+id/textCart"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textSize="18sp"
-          android:fontFamily="@font/roboto_medium"
-          android:text="Cart"/>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+         <TextView
+             android:id="@+id/textCart"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:textSize="18sp"
+             android:fontFamily="@font/roboto_medium"
+             android:text="My Cart"/>
+         <TextView
+             android:id="@+id/totalCart"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:layout_toEndOf="@id/textCart"
+             android:textSize="18sp"
+             android:fontFamily="@font/roboto_medium"
+             android:text=" (9)"/>
+         <TextView
+             android:id="@+id/trashIcon"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentEnd="true"
+             android:layout_centerVertical="true"
+             android:padding="15dp"
+             android:textSize="18sp"
+             android:fontFamily="@font/roboto_medium"
+             android:drawableStart="@drawable/ic_baseline_delete_outline_24"/>
+      </RelativeLayout>
    </androidx.appcompat.widget.Toolbar>
    <LinearLayout
        android:layout_below="@+id/toolbar"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_marginTop="10dp"
-      android:orientation="vertical">
+       android:orientation="vertical"
+       android:layout_marginTop="10dp">
       <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/recyclerview"
+          android:id="@+id/recyclerviewCart"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:clipToPadding="false"/>
+          android:layout_marginBottom="100dp"
+          android:clipToPadding="false"
+          android:scrollbars="vertical"/>
    </LinearLayout>
+   <com.google.android.material.appbar.AppBarLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@color/white"
+       android:padding="10dp"
+      android:layout_alignParentBottom="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:textSize="18sp"
+               android:text="Total:"/>
+           <TextView
+               android:id="@+id/pesoSign"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_toEndOf="@+id/textTotal"
+               android:layout_centerInParent="true"
+               android:textSize="18sp"
+               android:padding="5dp"
+               android:text="₱"
+               android:textColor="@color/pressed"/>
+           <TextView
+               android:id="@+id/textProductPrice"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_toEndOf="@+id/pesoSign"
+               android:layout_centerInParent="true"
+               android:textSize="18sp"
+               android:textColor="@color/pressed"
+               android:text="0"/>
+           <TextView
+               android:id="@+id/decimal"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_toEndOf="@+id/textProductPrice"
+               android:layout_centerInParent="true"
+               android:textSize="18sp"
+               android:textColor="@color/pressed"
+               android:text=".00"/>
+           <Button
+               android:layout_width="100dp"
+               android:layout_height="wrap_content"
+               android:background="@drawable/confirmation_button"
+               android:text="Checkout"
+               android:textSize="13sp"
+               android:textAllCaps="false"
+               android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+   </com.google.android.material.appbar.AppBarLayout>
 </RelativeLayout>

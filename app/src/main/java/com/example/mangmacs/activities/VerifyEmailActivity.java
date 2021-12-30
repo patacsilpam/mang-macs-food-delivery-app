@@ -110,8 +110,8 @@ public class VerifyEmailActivity extends AppCompatActivity {
                     MimeMessage mimeMessage = new MimeMessage(session);
                     mimeMessage.setFrom(new InternetAddress(Config.EMAIL));
                     mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(email)));
-                    mimeMessage.setSubject("Reset Password");
-                    mimeMessage.setText("To reset your password. Enter this code "+vercode);
+                    mimeMessage.setSubject("Verify Email");
+                    mimeMessage.setText("Hi,/n Welcome to MangMac's. Please use below/n the mentioned code to verify your email/n"+vercode);
                     new SendEmail().execute(mimeMessage);
                 } catch (MessagingException e) {
                     e.printStackTrace();

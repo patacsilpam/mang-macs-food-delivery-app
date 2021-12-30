@@ -13,16 +13,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mangmacs.activities.BilaoActivity;
 import com.example.mangmacs.activities.DimsumListDetail;
 import com.example.mangmacs.activities.DrinksListDetail;
 import com.example.mangmacs.activities.PancitListDetail;
 import com.example.mangmacs.activities.PizzaListDetaill;
-import com.example.mangmacs.activities.PopularListDetail;
-import com.example.mangmacs.activities.home_activity;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.R;
-import com.example.mangmacs.activities.BilaoListDetail;
 
 import java.util.List;
 

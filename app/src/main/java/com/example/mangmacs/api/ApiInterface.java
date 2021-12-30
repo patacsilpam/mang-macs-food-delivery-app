@@ -176,5 +176,9 @@ public interface ApiInterface {
          //   @Field("quantity") int quantity,
             @Field("add_ons") String addOns
     );
+    @GET("selectCart.php")
+    Call<List<CartModel>> getCart(
+            @Query("emailaddress") String email
+    );
 
 }

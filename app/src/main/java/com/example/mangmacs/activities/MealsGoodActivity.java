@@ -3,6 +3,7 @@ package com.example.mangmacs.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class MealsGoodActivity extends AppCompatActivity {
     private ApiInterface apiInterface;
     private MealsGoodAdapter mealsGoodAdapter;
     private TextView btnArrowBack;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,7 @@ public class MealsGoodActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
         //call meals good model
         Call<List<MealsGoodListModel>> call= apiInterface.getMealsGood();
@@ -44,6 +47,7 @@ public class MealsGoodActivity extends AppCompatActivity {
                 mealsGoodList = response.body();
                 mealsGoodAdapter = new MealsGoodAdapter(MealsGoodActivity.this,mealsGoodList);
                 recyclerView.setAdapter(mealsGoodAdapter);
+                refresh();
             }
 
             @Override
@@ -56,6 +60,29 @@ public class MealsGoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MealsGoodActivity.this,home_activity.class));
+            }
+        });
+    }
+    public void refresh(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Call<List<MealsGoodListModel>> call= apiInterface.getMealsGood();
+                call.enqueue(new Callback<List<MealsGoodListModel>>() {
+                    @Override
+                    public void onResponse(Call<List<MealsGoodListModel>> call, Response<List<MealsGoodListModel>> response) {
+                        mealsGoodList = response.body();
+                        mealsGoodAdapter = new MealsGoodAdapter(MealsGoodActivity.this,mealsGoodList);
+                        recyclerView.setAdapter(mealsGoodAdapter);
+                        refresh();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<MealsGoodListModel>> call, Throwable t) {
+
+                    }
+                });
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

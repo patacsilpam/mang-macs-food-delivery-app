@@ -113,7 +113,7 @@ public class VerificationActivity extends AppCompatActivity {
                     mimeMessage.setFrom(new InternetAddress(Config.EMAIL));
                     mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(email)));
                     mimeMessage.setSubject("Reset Password");
-                    mimeMessage.setText("To reset your password. Enter this code "+vercode);
+                    mimeMessage.setText("To reset your password. Enter this code"+vercode);
                     new SendEmail().execute(mimeMessage);
                 } catch (MessagingException e) {
                     e.printStackTrace();

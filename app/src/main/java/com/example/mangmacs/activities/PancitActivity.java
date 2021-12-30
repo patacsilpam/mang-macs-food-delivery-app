@@ -3,6 +3,7 @@ package com.example.mangmacs.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class PancitActivity extends AppCompatActivity {
     private ApiInterface apiInterface;
     private PancitAdapter pancitAdapter;
     private TextView btnArrowBack;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,7 @@ public class PancitActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
         //call pizza list model
         Call<List<PancitListModel>> call= apiInterface.getPancit();
@@ -44,6 +47,7 @@ public class PancitActivity extends AppCompatActivity {
                 pancitList = response.body();
                 pancitAdapter = new PancitAdapter(PancitActivity.this,pancitList);
                 recyclerView.setAdapter(pancitAdapter);
+                refresh();
             }
 
             @Override
@@ -56,6 +60,29 @@ public class PancitActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(PancitActivity.this,home_activity.class));
+            }
+        });
+    }
+    public void refresh(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Call<List<PancitListModel>> call= apiInterface.getPancit();
+                call.enqueue(new Callback<List<PancitListModel>>() {
+                    @Override
+                    public void onResponse(Call<List<PancitListModel>> call, Response<List<PancitListModel>> response) {
+                        pancitList = response.body();
+                        pancitAdapter = new PancitAdapter(PancitActivity.this,pancitList);
+                        recyclerView.setAdapter(pancitAdapter);
+                        refresh();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<PancitListModel>> call, Throwable t) {
+
+                    }
+                });
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

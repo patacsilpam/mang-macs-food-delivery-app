@@ -66,7 +66,7 @@ public class RiceListDetail extends AppCompatActivity {
                 String id = customerId.getText().toString();
                 String code = intent.getStringExtra("code");
                 String product = productName.getText().toString();
-                String variation = "none";
+                String variation = "";
                 String firstName = fname.getText().toString();
                 String lastName = lname.getText().toString();
                 int price = Integer.parseInt(productPrice.getText().toString());

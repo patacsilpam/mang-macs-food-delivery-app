@@ -3,17 +3,20 @@ package com.example.mangmacs.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.mangmacs.adapter.BilaoAdapter;
 import com.example.mangmacs.adapter.ComboMealAdapter;
 import com.example.mangmacs.R;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.model.ComboMealListModel;
+import com.example.mangmacs.model.PancitBilaoListModel;
 
 import java.util.List;
 
@@ -27,6 +30,7 @@ public class ComboMealActivity extends AppCompatActivity {
     private ApiInterface apiInterface;
     private ComboMealAdapter comboMealAdapter;
     private TextView btnArrowBack;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +39,9 @@ public class ComboMealActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        //call pizza list model
+        //call combo meal list model
         Call<List<ComboMealListModel>> call= apiInterface.getComboMeal();
         call.enqueue(new Callback<List<ComboMealListModel>>() {
             @Override
@@ -44,6 +49,7 @@ public class ComboMealActivity extends AppCompatActivity {
                 comboMealList = response.body();
                 comboMealAdapter = new ComboMealAdapter(ComboMealActivity.this,comboMealList);
                 recyclerView.setAdapter(comboMealAdapter);
+                refresh();
             }
 
             @Override
@@ -56,6 +62,29 @@ public class ComboMealActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ComboMealActivity.this,home_activity.class));
+            }
+        });
+    }
+    private void refresh() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Call<List<ComboMealListModel>> call= apiInterface.getComboMeal();
+                call.enqueue(new Callback<List<ComboMealListModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ComboMealListModel>> call, Response<List<ComboMealListModel>> response) {
+                        comboMealList = response.body();
+                        comboMealAdapter = new ComboMealAdapter(ComboMealActivity.this,comboMealList);
+                        recyclerView.setAdapter(comboMealAdapter);
+                        refresh();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<ComboMealListModel>> call, Throwable t) {
+
+                    }
+                });
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

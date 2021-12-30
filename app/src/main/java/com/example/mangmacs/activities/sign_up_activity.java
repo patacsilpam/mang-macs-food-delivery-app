@@ -90,8 +90,8 @@ import retrofit2.Response;
                     MimeMessage mimeMessage = new MimeMessage(session);
                     mimeMessage.setFrom(new InternetAddress(Config.EMAIL));
                     mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(emailAddress)));
-                    mimeMessage.setSubject("Reset Password");
-                    mimeMessage.setText("To reset your password. Enter this code "+code);
+                    mimeMessage.setSubject("Verify Email");
+                    mimeMessage.setText(String.valueOf(code));
                     new SendEmail().execute(mimeMessage);
                 } catch (MessagingException e) {
                     e.printStackTrace();

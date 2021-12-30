@@ -3,6 +3,7 @@ package com.example.mangmacs.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class BilaoActivity extends AppCompatActivity {
     private ApiInterface apiInterface;
     private BilaoAdapter bilaoAdapter;
     private TextView btnArrowBack;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,7 @@ public class BilaoActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         Call<List<PancitBilaoListModel>> call= apiInterface.getPancitBilao();
         call.enqueue(new Callback<List<PancitBilaoListModel>>() {
             @Override
@@ -43,11 +46,10 @@ public class BilaoActivity extends AppCompatActivity {
                 pancitBilaoList = response.body();
                 bilaoAdapter = new BilaoAdapter(BilaoActivity.this,pancitBilaoList);
                 recyclerView.setAdapter(bilaoAdapter);
+                refresh();
             }
-
             @Override
             public void onFailure(Call<List<PancitBilaoListModel>> call, Throwable t) {
-
             }
         });
         //back arrow button
@@ -55,6 +57,26 @@ public class BilaoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(BilaoActivity.this,home_activity.class));
+            }
+        });
+    }
+    private void refresh() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Call<List<PancitBilaoListModel>> call= apiInterface.getPancitBilao();
+                call.enqueue(new Callback<List<PancitBilaoListModel>>() {
+                    @Override
+                    public void onResponse(Call<List<PancitBilaoListModel>> call, Response<List<PancitBilaoListModel>> response) {
+                        pancitBilaoList = response.body();
+                        bilaoAdapter = new BilaoAdapter(BilaoActivity.this,pancitBilaoList);
+                        recyclerView.setAdapter(bilaoAdapter);
+                    }
+                    @Override
+                    public void onFailure(Call<List<PancitBilaoListModel>> call, Throwable t) {
+                    }
+                });
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

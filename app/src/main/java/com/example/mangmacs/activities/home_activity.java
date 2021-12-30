@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.mangmacs.adapter.PopularAdatper;
+import com.example.mangmacs.adapter.PopularAdapter;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.R;
 import com.example.mangmacs.api.RetrofitInstance;
@@ -29,20 +32,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class home_activity extends AppCompatActivity {
-    TextView textName, btnSeeAll;
-    CardView pizza,riceMeal,comboBudget,mealsGood,seafoods,soup,rice,pancit,bilao,noodles,pasta,dimsum,drinks;
-    FloatingActionButton floatingActionButton;
     private RecyclerView recyclerView;
     private List<PopularListModel> popularList;
     private ApiInterface apiInterface;
-    private PopularAdatper popularAdatper;
+    private PopularAdapter popularAdatper;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView textName, btnSeeAll;
+    private CardView pizza,riceMeal,comboBudget,mealsGood,seafoods,soup,rice,pancit,bilao,noodles,pasta,dimsum,drinks;
+    private FloatingActionButton floatingActionButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         textName = findViewById(R.id.textName);
-        String fname = SharedPreference.getSharedPreference(this).setFname();
-        textName.setText(""+fname);
         //bottom navigation
         BottomNavigationView bottomNavigationView =  findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -169,18 +171,23 @@ public class home_activity extends AppCompatActivity {
                 startActivity(new Intent(home_activity.this, DrinksActivity.class));
             }
         });
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
         //call popular list model
+        String fname = SharedPreference.getSharedPreference(this).setFname();
+        textName.setText(""+fname);
         Call<List<PopularListModel>> call= apiInterface.getPopular();
         call.enqueue(new Callback<List<PopularListModel>>() {
             @Override
             public void onResponse(Call<List<PopularListModel>> call, Response<List<PopularListModel>> response) {
                 popularList = response.body();
-                popularAdatper = new PopularAdatper(home_activity.this,popularList);
+                popularAdatper = new PopularAdapter(home_activity.this,popularList);
                 recyclerView.setAdapter(popularAdatper);
+                refresh();
             }
 
             @Override
@@ -198,7 +205,32 @@ public class home_activity extends AppCompatActivity {
         });
 
     }
-   @Override
+
+    private void refresh() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Call<List<PopularListModel>> call= apiInterface.getPopular();
+                call.enqueue(new Callback<List<PopularListModel>>() {
+                    @Override
+                    public void onResponse(Call<List<PopularListModel>> call, Response<List<PopularListModel>> response) {
+                        popularList = response.body();
+                        popularAdatper = new PopularAdapter(home_activity.this,popularList);
+                        recyclerView.setAdapter(popularAdatper);
+                        refresh();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<PopularListModel>> call, Throwable t) {
+
+                    }
+                });
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         if (!SharedPreference.getSharedPreference(this).isLoggedIn()){

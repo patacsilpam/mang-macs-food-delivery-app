@@ -3,6 +3,7 @@ package com.example.mangmacs.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class PastaActivity extends AppCompatActivity {
     private ApiInterface apiInterface;
     private PastaAdapter pastaAdapter;
     private TextView btnArrowBack;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +37,9 @@ public class PastaActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        //call pizza list model
+        //call pasta list model
         Call<List<PastaListModel>> call= apiInterface.getPasta();
         call.enqueue(new Callback<List<PastaListModel>>() {
             @Override
@@ -44,6 +47,7 @@ public class PastaActivity extends AppCompatActivity {
                 pastaList = response.body();
                 pastaAdapter = new PastaAdapter(PastaActivity.this,pastaList);
                 recyclerView.setAdapter(pastaAdapter);
+                refresh();
             }
 
             @Override
@@ -56,6 +60,30 @@ public class PastaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(PastaActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void refresh() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Call<List<PastaListModel>> call= apiInterface.getPasta();
+                call.enqueue(new Callback<List<PastaListModel>>() {
+                    @Override
+                    public void onResponse(Call<List<PastaListModel>> call, Response<List<PastaListModel>> response) {
+                        pastaList = response.body();
+                        pastaAdapter = new PastaAdapter(PastaActivity.this,pastaList);
+                        recyclerView.setAdapter(pastaAdapter);
+                        refresh();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<PastaListModel>> call, Throwable t) {
+
+                    }
+                });
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
