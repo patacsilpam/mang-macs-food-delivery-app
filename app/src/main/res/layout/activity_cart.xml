@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="#1DC2C2C6"
     tools:context=".activities.CartActivity">
-
    <androidx.appcompat.widget.Toolbar
        android:id="@+id/toolbar"
        android:layout_width="match_parent"
@@ -16,13 +15,20 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
          <TextView
+             android:id="@+id/arrow_back"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:drawableStart="@drawable/ic_baseline_arrow_back"/>
+         <TextView
              android:id="@+id/textCart"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_centerVertical="true"
+             android:layout_toEndOf="@+id/arrow_back"
              android:textSize="18sp"
              android:fontFamily="@font/roboto_medium"
-             android:text="My Cart"/>
+             android:text="New Order"/>
          <TextView
              android:id="@+id/totalCart"
              android:layout_width="wrap_content"
@@ -31,30 +37,20 @@
              android:layout_toEndOf="@id/textCart"
              android:textSize="18sp"
              android:fontFamily="@font/roboto_medium"
-             android:text=" (9)"/>
-         <TextView
-             android:id="@+id/trashIcon"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignParentEnd="true"
-             android:layout_centerVertical="true"
-             android:padding="15dp"
-             android:textSize="18sp"
-             android:fontFamily="@font/roboto_medium"
-             android:drawableStart="@drawable/ic_baseline_delete_outline_24"/>
+             android:text=" (0)"/>
       </RelativeLayout>
    </androidx.appcompat.widget.Toolbar>
    <LinearLayout
        android:layout_below="@+id/toolbar"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="match_parent"
        android:orientation="vertical"
-       android:layout_marginTop="10dp">
+       android:layout_marginTop="10dp"
+       android:paddingBottom="60dp">
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/recyclerviewCart"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="100dp"
+          android:layout_height="match_parent"
           android:clipToPadding="false"
           android:scrollbars="vertical"/>
    </LinearLayout>
@@ -104,10 +100,11 @@
                android:textColor="@color/pressed"
                android:text=".00"/>
            <Button
-               android:layout_width="100dp"
+               android:id="@+id/checkOut"
+               android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:background="@drawable/confirmation_button"
-               android:text="Checkout"
+               android:text="Check Out"
                android:textSize="13sp"
                android:textAllCaps="false"
                android:layout_alignParentEnd="true" />

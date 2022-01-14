@@ -6,7 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
-import com.example.mangmacs.fragment.OrdersAdapter;
+import com.example.mangmacs.adapter.OrdersAdapter;
 import com.example.mangmacs.R;
 import com.google.android.material.tabs.TabLayout;
 

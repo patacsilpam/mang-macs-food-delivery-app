@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -33,9 +36,11 @@ public class BilaoListDetail extends AppCompatActivity {
     private TextView txt_arrow_back;
     private TextView productName,status,customerId,fname,lname;
     private TextInputLayout bilaoAddOns;
-    private Button btnAddtoCart;
+    private EditText quantity;
+    private Button btnAddtoCart,btnIncrement,btnDecrement;
     private RadioButton sevenToTen,tenToFifteen,fifteenToTwenty;
     private RadioGroup rdVariation;
+    private int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +58,51 @@ public class BilaoListDetail extends AppCompatActivity {
         fifteenToTwenty = findViewById(R.id.fifteenToTwenty);
         btnAddtoCart = findViewById(R.id.btnBilao);
         txt_arrow_back = findViewById(R.id.txt_arrow_back);
-
+        quantity = findViewById(R.id.quantity);
+        btnIncrement = findViewById(R.id.increment);
+        btnDecrement = findViewById(R.id.decrement);
+        btnDecrement.setEnabled(false); //set button decrement not clickable
+        //button increment
+        btnIncrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                count++;
+                quantity.setText(String.valueOf(count));
+            }
+        });
+        //button decrement
+        btnDecrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                count--;
+                quantity.setText(String.valueOf(count));
+            }
+        });
+        //disable button decrement to edit quantity if it is equal to one
+        quantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String number = quantity.getText().toString();
+                if(number.equals("1")){
+                    btnDecrement.setEnabled(false);
+                }else{
+                    btnDecrement.setEnabled(true);
+                }
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String number = quantity.getText().toString();
+                if(number.equals("1")){
+                    btnDecrement.setEnabled(false);
+                }else{
+                    btnDecrement.setEnabled(true);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        //get the value from its adapter
         Intent intent = getIntent();
         String image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
@@ -108,19 +157,19 @@ public class BilaoListDetail extends AppCompatActivity {
                    int selectedSize = rdVariation.getCheckedRadioButtonId();
                    RadioButton size = findViewById(selectedSize);
                    String getSize = size.getText().toString();
-                   String getCode = getSize;
                    String variation = getSize.replace("         ₱",",");
                    String strPrice = getSize.substring(24,27);
                    int price = Integer.parseInt(strPrice);
+                   int number = Integer.parseInt(quantity.getText().toString());
                    ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   Call<CartModel> cartModelCall = apiComboInterface.addcart(id,getCode,product,variation,firstName,lastName,price,add_ons);
+                   Call<CartModel> cartModelCall = apiComboInterface.addcart(id,getSize,product,variation,firstName,lastName,price,number,add_ons);
                    cartModelCall.enqueue(new Callback<CartModel>() {
                        @Override
                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
                            if(response.body() != null){
                                String success =response.body().getSuccess();
                                if(success.equals("1")){
-                                   Toast.makeText(getApplicationContext(),"Added to cart Successfully",Toast.LENGTH_SHORT).show();
+                                   Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
                                }
                            }
                        }

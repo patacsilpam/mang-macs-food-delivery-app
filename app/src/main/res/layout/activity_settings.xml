@@ -42,5 +42,5 @@
       android:textAllCaps="false"
       android:textSize="20sp"
        android:layout_marginTop="150dp"
-      android:background="@drawable/btn_logout"/>
+      android:background="@drawable/tab_background_unselected"/>
 </LinearLayout>

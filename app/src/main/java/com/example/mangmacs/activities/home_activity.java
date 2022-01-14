@@ -3,12 +3,16 @@ package com.example.mangmacs.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mangmacs.adapter.PopularAdapter;
+import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.R;
 import com.example.mangmacs.api.RetrofitInstance;
@@ -37,7 +42,7 @@ public class home_activity extends AppCompatActivity {
     private ApiInterface apiInterface;
     private PopularAdapter popularAdatper;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView textName, btnSeeAll;
+    private TextView textName, btnSeeAll,totalCart;
     private CardView pizza,riceMeal,comboBudget,mealsGood,seafoods,soup,rice,pancit,bilao,noodles,pasta,dimsum,drinks;
     private FloatingActionButton floatingActionButton;
     @Override
@@ -45,6 +50,7 @@ public class home_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         textName = findViewById(R.id.textName);
+        totalCart = findViewById(R.id.totalCart);
         //bottom navigation
         BottomNavigationView bottomNavigationView =  findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -171,7 +177,7 @@ public class home_activity extends AppCompatActivity {
                 startActivity(new Intent(home_activity.this, DrinksActivity.class));
             }
         });
-
+        //display items in recyclerview
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -195,6 +201,7 @@ public class home_activity extends AppCompatActivity {
 
             }
         });
+
         //cart button
         floatingActionButton = findViewById(R.id.iconCart);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +246,5 @@ public class home_activity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
 
 }

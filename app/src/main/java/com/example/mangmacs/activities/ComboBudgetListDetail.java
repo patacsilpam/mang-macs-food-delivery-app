@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,9 +29,10 @@ public class ComboBudgetListDetail extends AppCompatActivity {
     private ImageView imageView;
     private TextView txt_arrow_back;
     private TextView productName,productPrice,status,customerId,fname,lname;
+    private EditText quantity;
     private TextInputLayout comboAddOns;
-    private Button btnAddtoCart;
-
+    private Button btnAddtoCart,btnIncrement,btnDecrement;
+    int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,50 @@ public class ComboBudgetListDetail extends AppCompatActivity {
         fname = findViewById(R.id.fname);
         lname = findViewById(R.id.lname);
         btnAddtoCart = findViewById(R.id.btnAddtoCartCombo);
-
+        quantity = findViewById(R.id.quantity);
+        btnIncrement = findViewById(R.id.increment);
+        btnDecrement = findViewById(R.id.decrement);
+        btnDecrement.setEnabled(false);
+        //increment button
+        btnIncrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                count++;
+                quantity.setText(String.valueOf(count));
+            }
+        });
+        //decrement button
+        btnDecrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                count--;
+                quantity.setText(String.valueOf(count));
+            }
+        });
+        //disable btndecrement to edit quantity if it is equal to one
+        quantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String number = quantity.getText().toString();
+                if(number.equals("1")){
+                    btnDecrement.setEnabled(false);
+                }else{
+                    btnDecrement.setEnabled(true);
+                }
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String number = quantity.getText().toString();
+                if(number.equals("1")){
+                    btnDecrement.setEnabled(false);
+                }else{
+                    btnDecrement.setEnabled(true);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
         Intent intent = getIntent();
         String image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
@@ -73,18 +120,18 @@ public class ComboBudgetListDetail extends AppCompatActivity {
                 String firstName = fname.getText().toString();
                 String lastName = lname.getText().toString();
                 int price = Integer.parseInt(productPrice.getText().toString());
-               // int quantity = 1;
+                int number = Integer.parseInt(quantity.getText().toString());
                 String add_ons = comboAddOns.getEditText().getText().toString();
 
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,add_ons);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
                         if(response.body() != null){
                             String success =response.body().getSuccess();
                             if(success.equals("1")){
-                                Toast.makeText(getApplicationContext(),"Added to cart Successfully",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

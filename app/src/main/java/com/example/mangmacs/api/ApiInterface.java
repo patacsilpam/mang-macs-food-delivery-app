@@ -166,19 +166,33 @@ public interface ApiInterface {
     @POST("customerCartProduct.php")
     @FormUrlEncoded
     Call<CartModel> addcart(
-            @Field("customerID") String customerId,
+            @Field("email") String email,
             @Field("code") String productCode,
             @Field("product") String productName,
             @Field("variation") String variation,
             @Field("fname") String firstname,
             @Field("lname") String lastname,
             @Field("price") int amount,
-         //   @Field("quantity") int quantity,
+            @Field("quantity") int quantity,
             @Field("add_ons") String addOns
     );
     @GET("selectCart.php")
     Call<List<CartModel>> getCart(
             @Query("emailaddress") String email
+    );
+    @GET("deleteCart.php")
+    Call<CartModel> deleteCart(
+            @Query("id") int id
+    );
+    @GET("countCart.php")
+    Call<CartModel> countCart(
+            @Query("emailaddress") String email
+    );
+    @POST("updateQuantity.php")
+    @FormUrlEncoded
+    Call<CartModel> updateQuantity(
+            @Field("id") int id,
+            @Field("quantity") int quantity
     );
 
 }

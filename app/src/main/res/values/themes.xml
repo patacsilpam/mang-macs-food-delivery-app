@@ -39,7 +39,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#16C57B</item>
         <item name="colorSecondaryVariant">#16C57B</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">#323435</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">#201A237E</item>
         <!-- Customize your theme here. -->

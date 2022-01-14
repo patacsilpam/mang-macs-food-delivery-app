@@ -1,12 +1,18 @@
 package com.example.mangmacs.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +36,9 @@ public class CartActivity extends AppCompatActivity {
     private List<CartModel> cartModelList;
     private CartAdapter cartAdapter;
     private RecyclerView recyclerView;
-    private TextView cart,textProductPrice;
+    private TextView cart,textProductPrice,arrowBack;
+    private Button checkOut;
+    private int countCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +49,32 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         cart = findViewById(R.id.totalCart);
         textProductPrice = findViewById(R.id.textProductPrice);
+        checkOut = findViewById(R.id.checkOut);
+        arrowBack = findViewById(R.id.arrow_back);
         showCart();
-        Intent intent = getIntent();
-        int total = intent.getIntExtra("total",0);
-        textProductPrice.setText(String.valueOf(total));
+        CheckOut();
+        Back();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("TotalPrice"));
+        //get total items
+    }
+    private void Back() {
+        //arrow back button
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void CheckOut() {
+        //check out button
+        checkOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this,OrderModeActivity.class));
+            }
+        });
     }
 
     private void showCart() {
@@ -57,9 +87,14 @@ public class CartActivity extends AppCompatActivity {
                 cartModelList = response.body();
                 cartAdapter = new CartAdapter(CartActivity.this,cartModelList);
                 recyclerView.setAdapter(cartAdapter);
-               int countCart =  recyclerView.getAdapter().getItemCount();
-               cart.setText("("+String.valueOf(countCart)+")");
-
+                countCart = recyclerView.getAdapter().getItemCount();
+                cart.setText("("+String.valueOf(countCart)+")");
+                if(countCart == 0){
+                    checkOut.setEnabled(false);
+                }
+                else{
+                    checkOut.setEnabled(true);
+                }
             }
 
             @Override
@@ -67,6 +102,13 @@ public class CartActivity extends AppCompatActivity {
 
             }
         });
-    }
 
+    }
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String totalPrice = intent.getStringExtra("totalprice");
+            textProductPrice.setText(totalPrice);
+        }
+    };
 }

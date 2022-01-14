@@ -1,4 +1,4 @@
-package com.example.mangmacs.fragment;
+package com.example.mangmacs.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

@@ -7,6 +7,8 @@ public class CartModel {
     private String success;
     @SerializedName("email")
     private String emailCart;
+    @SerializedName("id")
+    private int productId;
     @SerializedName("productCode")
     private String productCodeCart;
     @SerializedName("productName")
@@ -21,9 +23,16 @@ public class CartModel {
     private int priceCart;
     @SerializedName("quantity")
     private int quantityCart;
+    @SerializedName("totalprice")
+    private int totalprice;
     @SerializedName("add_ons")
     private String add_onsCart;
+    @SerializedName("totalCart")
+    private String totalcart;
 
+    public int getProductId() {
+        return productId;
+    }
     public String getSuccess() {
         return success;
     }
@@ -62,5 +71,13 @@ public class CartModel {
 
     public String getAdd_onsCart() {
         return add_onsCart;
+    }
+
+    public int getTotalprice() {
+        return totalprice;
+    }
+
+    public String getTotalcart() {
+        return totalcart;
     }
 }

@@ -32,17 +32,14 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-        fullname = findViewById(R.id.fullname);
         logout = findViewById(R.id.logout);
         myACccount = findViewById(R.id.myAccount);
         changePassword = findViewById(R.id.changePassword);
         savedAddress = findViewById(R.id.savedAddress);
         myOrders = findViewById(R.id.myOrders);
         myBook = findViewById(R.id.myBook);
-        profile = findViewById(R.id.profile);
         String fname = SharedPreference.getSharedPreference(this).setFname();
         String lname =  SharedPreference.getSharedPreference(this).setLname();
-        fullname.setText(fname+" "+lname);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         BottomNavigationView bottomNavigationView =  findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.account);

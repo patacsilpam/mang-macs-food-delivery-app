@@ -91,7 +91,25 @@ import retrofit2.Response;
                     mimeMessage.setFrom(new InternetAddress(Config.EMAIL));
                     mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(emailAddress)));
                     mimeMessage.setSubject("Verify Email");
-                    mimeMessage.setText(String.valueOf(code));
+                    mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
+                            "                        <header style='display: flex; align-items: center;'>\n" +
+                            "                            <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                            "                            <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
+                            "                        </header>\n" +
+                            "                        <article>\n" +
+                            "                            <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>\n" +
+                            "                                Hi,<br>Welcome to Mang Mac's Foodshop. Please use the mentioned code below to verify your account.\n" +
+                            "                            </p>\n" +
+                            "                        </article>\n" +
+                            "                        <article style='display: flex; justify-content: center;'>\n" +
+                            "                            <strong style='width:100%; text-align:center; background: #E7E7E7; padding: 2rem; font-size: 2rem; letter-spacing: 3px;'>\n" +code+"</strong>"+
+                            "                        </article>\n" +
+                            "                        <footer style='text-align: center; margin-top: 30px;'>\n" +
+                            "                            <p style='margin: 10px 0 5px 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>from</p>\n" +
+                            "                            <strong style='font-family: Arial, Helvetica, sans-serif;'>MangMac's Foodshop</strong>\n" +
+                            "                            <p style='margin: 7px 0 0 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Zone 5, Brgy. Sta. Lucia Bypass Road,<br>Urdaneta Philippines</p>\n" +
+                            "                        </footer>\n" +
+                            "                        </main>", "text/html");
                     new SendEmail().execute(mimeMessage);
                 } catch (MessagingException e) {
                     e.printStackTrace();

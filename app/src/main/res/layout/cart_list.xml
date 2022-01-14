@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         app:cardBackgroundColor="@color/white"
         app:cardElevation="0dp"
         android:layout_marginBottom="20dp">
@@ -15,78 +15,69 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:layout_gravity="center_vertical">
-            <CheckBox
-                android:id="@+id/checkboxCart"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginEnd="20dp"
-                android:buttonTint="@color/black"/>
-           <ImageView
-               android:id="@+id/imageView"
-               android:text="image"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-               android:src="@color/pressed"
-                android:layout_toEndOf="@+id/checkboxCart" />
-            <TextView
-                android:id="@+id/txtProductName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/imageView"
-                android:padding="10dp"
-                android:text="Product Name"/>
-            <TextView
-                android:id="@+id/txtProductVariation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/imageView"
-                android:layout_below="@id/txtProductName"
-                android:layout_marginStart="10dp"
-                android:padding="5dp"
-                android:text="Size"/>
-            <TextView
-                android:id="@+id/pesoSign"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtProductVariation"
-                android:layout_toEndOf="@+id/imageView"
-                android:padding="5dp"
-                android:layout_marginStart="10dp"
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="39dp"
+                android:layout_height="42dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/cart_button"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/deleteCart"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="0dp"
+                android:gravity="center"
+                android:background="@drawable/removebtn"
+                android:text="x"
+                android:textSize="14sp"
                 android:textColor="@color/pressed"
-                android:text="₱"/>
+                android:layout_alignParentRight="true" />
             <TextView
-                android:id="@+id/txtProductPrice"
+                android:id="@+id/textProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtProductVariation"
-                android:layout_toEndOf="@+id/pesoSign"
-                android:padding="5dp"
-                android:textColor="@color/pressed"
-                android:text="300"/>
-
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/imgProduct"
+                android:text="Cheesy Pepperoni"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/textVariation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toEndOf="@+id/imgProduct"
+                android:layout_below="@+id/textProduct"
+                android:text="Large"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="14sp"
+                android:textColor="#5E5757"/>
             <RelativeLayout
                 android:id="@+id/incrementDecrememnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtProductPrice"
-                android:layout_toEndOf="@id/imageView"
-                android:layout_margin="10dp">
+                android:layout_toEndOf="@+id/imgProduct"
+                android:layout_below="@+id/textVariation"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp">
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnDecrement"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/cart_button"
-                    android:layout_marginTop="0dp"
-                    android:padding="3dp"
-                    android:drawableLeft="@drawable/ic_outline_horizontal_rule"/>
+                    android:background="@drawable/decrement_btn"
+                    android:drawableLeft="@drawable/ic_outline_horizontal_rule"
+                    android:padding="5dp" />
 
                 <EditText
                     android:id="@+id/textQuantity"
                     android:layout_width="40dp"
                     android:layout_height="30dp"
                     android:layout_toEndOf="@+id/btnDecrement"
-                    android:background="@drawable/cart_button"
+                    android:background="@null"
                     android:inputType="number"
+                    android:focusable="false"
                     android:gravity="center"
                     android:text="1"
                     android:textSize="14sp" />
@@ -94,22 +85,58 @@
                     android:id="@+id/btnIncrement"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/cart_button"
+                    android:background="@drawable/increment_btn"
                     android:layout_marginTop="0dp"
                     android:layout_toEndOf="@id/textQuantity"
                     android:padding="3dp"
                     android:drawableLeft="@drawable/ic_baseline_add_24"/>
+                <TextView
+                    android:id="@+id/textPesoSign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="70dp"
+                    android:layout_marginTop="5dp"
+                    android:text="₱ "
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="14sp"
+                    android:textColor="@color/pressed"/>
+                <TextView
+                    android:id="@+id/textPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:text="0"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="14sp"
+                    android:textColor="@color/pressed"/>
+                <TextView
+                    android:id="@+id/decimal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text=".00"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="14sp"
+                    android:textColor="@color/pressed"/>
             </RelativeLayout>
             <TextView
-                android:id="@+id/total"
+                android:id="@+id/productID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/incrementDecrememnt"
-                android:layout_toEndOf="@+id/imageView"
-                android:padding="5dp"
-                android:layout_marginStart="10dp"
-                android:textColor="@color/pressed"
-                android:text="Total"/>
+                android:visibility="gone"
+                android:text="ID"/>
+            <TextView
+                android:id="@+id/totalprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/productID"
+                android:visibility="invisible"
+                android:text="ID"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

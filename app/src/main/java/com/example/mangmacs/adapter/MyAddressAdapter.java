@@ -47,7 +47,7 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyAd
         holder.ID.setText(String.valueOf(addressListModel.getId()));
         holder.fullname.setText(addressListModel.getFullname());
         holder.street.setText(addressListModel.getStreet());
-        holder.brgy.setText(addressListModel.getBarangay());
+        holder.brgy.setText(addressListModel.getBarangay()+", ");
         holder.city.setText(addressListModel.getCity());
         holder.province.setText(addressListModel.getProvince());
         holder.labelAddress.setText(addressListModel.getLabelAddress());
