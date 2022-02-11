@@ -34,11 +34,16 @@ public class BilaoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bilao);
         btnArrowBack = findViewById(R.id.arrow_back);
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        ShowBilaoLists();
+        Back();
+    }
+
+    private void ShowBilaoLists() {
         Call<List<PancitBilaoListModel>> call= apiInterface.getPancitBilao();
         call.enqueue(new Callback<List<PancitBilaoListModel>>() {
             @Override
@@ -52,7 +57,9 @@ public class BilaoActivity extends AppCompatActivity {
             public void onFailure(Call<List<PancitBilaoListModel>> call, Throwable t) {
             }
         });
-        //back arrow button
+    }
+
+    private void Back() {
         btnArrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +67,7 @@ public class BilaoActivity extends AppCompatActivity {
             }
         });
     }
+
     private void refresh() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

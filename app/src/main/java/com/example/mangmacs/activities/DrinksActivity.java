@@ -39,7 +39,20 @@ public class DrinksActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        //call pizza list model
+        ShowDrinkLists();
+        Back();
+    }
+
+    private void Back() {
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DrinksActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void ShowDrinkLists() {
         Call<List<DrinksListModel>> call= apiInterface.getDrinks();
         call.enqueue(new Callback<List<DrinksListModel>>() {
             @Override
@@ -55,14 +68,8 @@ public class DrinksActivity extends AppCompatActivity {
 
             }
         });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(DrinksActivity.this,home_activity.class));
-            }
-        });
     }
+
     public void refresh(){
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

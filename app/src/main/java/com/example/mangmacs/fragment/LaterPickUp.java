@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 
 import com.example.mangmacs.PickUpPayment;
 import com.example.mangmacs.R;
+import com.example.mangmacs.activities.AdressList;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
@@ -26,11 +27,11 @@ import java.util.Locale;
 public class LaterPickUp extends Fragment {
     private Button pickUpLater;
     private TextInputEditText time,date;
+    Calendar calendar = Calendar.getInstance();
     int hour,min;
     public LaterPickUp() {
         // Required empty public constructor
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,35 +45,13 @@ public class LaterPickUp extends Fragment {
         time = view.findViewById(R.id.time);
         date = view.findViewById(R.id.date);
         //button pick up later
-        pickUpLater.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               startActivity(new Intent(getContext(), PickUpPayment.class));
-            }
-        });
-        //date picker
-        Calendar calendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener setDate = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateCalendar();
-            }
+        PickUpLater();
+        SetDate();
+        SetTime();
+        return view;
+    }
 
-            private void updateCalendar() {
-                String Format = "yy/MM/dd";
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Format, Locale.TAIWAN);
-                date.setText(simpleDateFormat.format(calendar.getTime()));
-            }
-        };
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(getContext(), setDate, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+    private void SetTime() {
         //time picker
         time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +78,52 @@ public class LaterPickUp extends Fragment {
                 timePickerDialog.show();
             }
         });
-        return view;
+    }
+
+    private void SetDate() {
+        //date picker
+        DatePickerDialog.OnDateSetListener setDate = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateCalendar();
+            }
+
+            private void updateCalendar() {
+                String Format = "yy/MM/dd";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Format, Locale.TAIWAN);
+                date.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        };
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getContext(), setDate, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+    }
+
+    private void PickUpLater() {
+        pickUpLater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String strDate = date.getText().toString();
+                String strTime = time.getText().toString();
+                if (strDate.isEmpty()){
+                    date.setError("Required");
+                }
+                if (strTime.isEmpty()){
+                    time.setError("Required");
+                }
+                else{
+                    Intent intent = new Intent(getContext(), PickUpPayment.class);
+                    intent.putExtra("date",strDate);
+                    intent.putExtra("time",strTime);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }

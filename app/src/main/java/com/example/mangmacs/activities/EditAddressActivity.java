@@ -39,6 +39,10 @@ public class EditAddressActivity extends AppCompatActivity {
         spinnerBrgy = findViewById(R.id.editbarangay);
         editRdAddress = findViewById(R.id.editrdAddress);
         editAddress = findViewById(R.id.editAddress);
+        AddressAdapter();
+    }
+
+    private void AddressAdapter() {
         Intent intent = getIntent();
         String customerID = intent.getStringExtra("id");
         String rfullname = intent.getStringExtra("fullname");

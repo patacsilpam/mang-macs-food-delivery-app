@@ -19,8 +19,7 @@
                 android:id="@+id/imgProduct"
                 android:layout_width="39dp"
                 android:layout_height="42dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/cart_button"/>
+                android:layout_centerVertical="true" />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/deleteCart"
                 android:layout_width="25dp"

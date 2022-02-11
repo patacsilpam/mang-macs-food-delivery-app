@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -13,6 +16,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +34,8 @@ import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.ByteArrayOutputStream;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,6 +49,8 @@ public class PizzaListDetaill extends AppCompatActivity {
     private RadioGroup variation,rdCode;
     private Button btnPizza,btnIncrement,btnDecrement;
     private int count = 1;
+    private String image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +72,11 @@ public class PizzaListDetaill extends AppCompatActivity {
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
         btnDecrement.setEnabled(false); //set button decrement not clickable
+        IncrementDecrement();
+        DisplayProductDetails();
+        Back();
+    }
+    private void IncrementDecrement() {
         //button increment
         btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,9 +117,11 @@ public class PizzaListDetaill extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         });
+    }
+    private void DisplayProductDetails() {
         //get the value from its adapter
         Intent intent = getIntent();
-        String image = intent.getStringExtra("image");
+        image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
         String groupPrice = intent.getStringExtra("groupPrice");
         String groupVariation = intent.getStringExtra("productVariation");
@@ -119,68 +134,73 @@ public class PizzaListDetaill extends AppCompatActivity {
             Glide.with(PizzaListDetaill.this).load(image).into(imageView);
             productName.setText(productname);
             status.setText(productstatus);
-            String[] splitCode = groupCode.split(",");
-            String[] splitVariation = groupVariation.split(",");
-            String[] splitPrice = groupPrice.split(",");
-
+            String[] splitCode = groupCode.split(",");//split product code
+            String[] splitVariation = groupVariation.split(",");//split product variation or category
+            String[] splitPrice = groupPrice.split(",");//split product price
+            //get the first product variation or category
             String product1 = splitVariation[0]+"          ₱ "+splitPrice[0]+".00"+splitCode[0];
             SpannableString spannableCode1 = new SpannableString(product1);
             ForegroundColorSpan fcsWhite1 = new ForegroundColorSpan(Color.WHITE);
             spannableCode1.setSpan(fcsWhite1,23,33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             medium.setText(spannableCode1);
-
+            //get the second product variation or category
             String product2 = splitVariation[1]+"         ₱ "+splitPrice[1]+".00"+splitCode[1];
             SpannableString spannableCode2 = new SpannableString(product2);
             ForegroundColorSpan fcsWhite2 = new ForegroundColorSpan(Color.WHITE);
             spannableCode2.setSpan(fcsWhite2,23,33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+            //display product category,user email,first and last name
             large.setText(spannableCode2);
             email.setText(emailAddress);
             fname.setText(firstname);
             lname.setText(lastname);
         }
+        AddToCart();
+    }
+
+    private void AddToCart() {
         btnPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if(variation.getCheckedRadioButtonId() == -1){
-                   Toast.makeText(getApplicationContext(),"Please select one variation",Toast.LENGTH_SHORT).show();
-               }
-               else{
-                   String email_address = email.getText().toString();
-                   String firstName = fname.getText().toString();
-                   String lastName = lname.getText().toString();
-                   String product = productName.getText().toString();
-                   String add_ons = pizza_addons.getEditText().getText().toString();
-                   int selectedSize = variation.getCheckedRadioButtonId();
-                   RadioButton size = findViewById(selectedSize);
-                   String getSize = size.getText().toString();
-                   String variation = getSize.replace("₱",",");
-                   String strPrice = size.getText().toString();
-                   int prices = Integer.parseInt(strPrice.substring(17,20));
-                   int number = Integer.parseInt(quantity.getText().toString());
-                   ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,getSize,product,variation,firstName,lastName,prices,number,add_ons);
-                   cartModelCall.enqueue(new Callback<CartModel>() {
-                       @Override
-                       public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                           if(response.body() != null){
-                               String success =response.body().getSuccess();
-                               if(success.equals("1")){
-                                   Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
-                               }
-                           }
-                       }
+                if(variation.getCheckedRadioButtonId() == -1){
+                    Toast.makeText(getApplicationContext(),"Please select one variation",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    String email_address = email.getText().toString();
+                    String firstName = fname.getText().toString();
+                    String lastName = lname.getText().toString();
+                    String product = productName.getText().toString();
+                    String add_ons = pizza_addons.getEditText().getText().toString();
+                    int selectedSize = variation.getCheckedRadioButtonId();
+                    RadioButton size = findViewById(selectedSize);
+                    String getSize = size.getText().toString();
+                    String variation = getSize.replace("₱",",");
+                    String strPrice = size.getText().toString();
+                    int prices = Integer.parseInt(strPrice.substring(17,20));
+                    int number = Integer.parseInt(quantity.getText().toString());
+                    ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,getSize,product,variation,firstName,lastName,prices,number,add_ons,image);
+                    cartModelCall.enqueue(new Callback<CartModel>() {
+                        @Override
+                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                            if(response.body() != null){
+                                String success =response.body().getSuccess();
+                                if(success.equals("1")){
+                                    Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
 
-                       @Override
-                       public void onFailure(Call<CartModel> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<CartModel> call, Throwable t) {
 
-                       }
-                   });
-               }
+                        }
+                    });
+                }
             }
         });
+    }
 
-        //a back button
+    private void Back() {
         txt_arrow_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

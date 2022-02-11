@@ -39,7 +39,20 @@ public class MealsGoodActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        //call meals good model
+        ShowMealsGoodList();
+        Back();
+    }
+
+    private void Back() {
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MealsGoodActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void ShowMealsGoodList() {
         Call<List<MealsGoodListModel>> call= apiInterface.getMealsGood();
         call.enqueue(new Callback<List<MealsGoodListModel>>() {
             @Override
@@ -55,14 +68,8 @@ public class MealsGoodActivity extends AppCompatActivity {
 
             }
         });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MealsGoodActivity.this,home_activity.class));
-            }
-        });
     }
+
     public void refresh(){
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

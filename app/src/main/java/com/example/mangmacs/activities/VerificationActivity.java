@@ -38,6 +38,8 @@ public class VerificationActivity extends AppCompatActivity {
     private TextView backforgotPword,resendCode;
     private TextInputLayout code;
     private Button btnVerifyCode;
+    private Intent intent;
+    private String email,vercode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,51 +48,15 @@ public class VerificationActivity extends AppCompatActivity {
         resendCode = findViewById(R.id.resendCode);
         backforgotPword = findViewById(R.id.backforgotPword);
         btnVerifyCode = findViewById(R.id.btnVerifyCode);
-        Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
-        String vercode = intent.getStringExtra("code");
-        backforgotPword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(VerificationActivity.this,ForgotPasswordActivity.class));
-            }
-        });
-        //check if the code is true
-        btnVerifyCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String verificationCode = code.getEditText().getText().toString().trim();
-                if(verificationCode.isEmpty()){
-                    code.setError("Required");
-                }
-                else{
-                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<UpdateAccountModel> getCodeCall = apiInterface.getCode(email,verificationCode);
-                    getCodeCall.enqueue(new Callback<UpdateAccountModel>() {
-                        @Override
-                        public void onResponse(Call<UpdateAccountModel> call, Response<UpdateAccountModel> response) {
-                            if(response.body() != null){
-                                String success = response.body().getSuccess();
-                                String message = response.body().getMessage();
-                                if(success.equals("1")){
-                                    Intent passwordIntent = new Intent(VerificationActivity.this,ResetPasswordActivity.class);
-                                    passwordIntent.putExtra("email",email);
-                                    startActivity(passwordIntent);
-                                }
-                                else{
-                                    Toast.makeText(VerificationActivity.this,message,Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
+        intent = getIntent();
+        email = intent.getStringExtra("email");
+        vercode = intent.getStringExtra("code");
+        ForgotPassword();
+        VerifyCode();
+        ResendCode();
+    }
 
-                        @Override
-                        public void onFailure(Call<UpdateAccountModel> call, Throwable t) {
-                            Toast.makeText(VerificationActivity.this,"Failed",Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
+    private void ResendCode() {
         //resend verification code
         resendCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +103,54 @@ public class VerificationActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+            }
+        });
+    }
+
+    private void VerifyCode() {
+        //check if the code is true
+        btnVerifyCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String verificationCode = code.getEditText().getText().toString().trim();
+                if(verificationCode.isEmpty()){
+                    code.setError("Required");
+                }
+                else{
+                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                    Call<UpdateAccountModel> getCodeCall = apiInterface.getCode(email,verificationCode);
+                    getCodeCall.enqueue(new Callback<UpdateAccountModel>() {
+                        @Override
+                        public void onResponse(Call<UpdateAccountModel> call, Response<UpdateAccountModel> response) {
+                            if(response.body() != null){
+                                String success = response.body().getSuccess();
+                                String message = response.body().getMessage();
+                                if(success.equals("1")){
+                                    Intent passwordIntent = new Intent(VerificationActivity.this,ResetPasswordActivity.class);
+                                    passwordIntent.putExtra("email",email);
+                                    startActivity(passwordIntent);
+                                }
+                                else{
+                                    Toast.makeText(VerificationActivity.this,message,Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<UpdateAccountModel> call, Throwable t) {
+                            Toast.makeText(VerificationActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void ForgotPassword() {
+        backforgotPword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(VerificationActivity.this,ForgotPasswordActivity.class));
             }
         });
     }

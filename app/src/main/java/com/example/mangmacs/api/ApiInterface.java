@@ -3,6 +3,7 @@ package com.example.mangmacs.api;
 import com.example.mangmacs.model.AddressListModel;
 import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.ComboMealListModel;
+import com.example.mangmacs.model.CurrentOrdersModel;
 import com.example.mangmacs.model.CustomerLoginModel;
 import com.example.mangmacs.model.CustomerModel;
 import com.example.mangmacs.model.DimsumListModel;
@@ -174,7 +175,8 @@ public interface ApiInterface {
             @Field("lname") String lastname,
             @Field("price") int amount,
             @Field("quantity") int quantity,
-            @Field("add_ons") String addOns
+            @Field("add_ons") String addOns,
+            @Field("imageProduct") String image
     );
     @GET("selectCart.php")
     Call<List<CartModel>> getCart(
@@ -194,5 +196,54 @@ public interface ApiInterface {
             @Field("id") int id,
             @Field("quantity") int quantity
     );
-
+    @POST("customerOrders.php")
+    @FormUrlEncoded
+    Call<CartModel> insertOrder(
+            @Field("customerId") String customerId,
+            @Field("orderDate") String orderDate,
+            @Field("requiredDate") String requiredDate,
+            @Field("requiredTime") String requiredTime,
+            @Field("customerName") String customerName,
+            @Field("customer_address") String address,
+            @Field("labelAddress") String labelAddress,
+            @Field("email") String email,
+            @Field("phoneNumber") String phoneNumber,
+            @Field("product") String product,
+            @Field("variation") String variation,
+            @Field("quantity") int quantity,
+            @Field("addOns") String addOns,
+            @Field("price") int price,
+            @Field("subTotal") int subTotal,
+            @Field("totalAmount") String totalAmount,
+            @Field("paymentPhoto") String paymentPhoto,
+            @Field("imgProduct") String imgProduct,
+            @Field("orderType") String orderType,
+            @Field("orderStatus") String orderStatus
+    );
+    @GET("selectNewOrders.php")
+    Call<List<CurrentOrdersModel>> getCurrentOrders(
+            @Query("emailAddress") String emailAddress
+    );
+    @GET("selectDeliveredOrders.php")
+    Call<List<CurrentOrdersModel>> getDeliveredOrders(
+            @Query("emailAddress") String emailAddress
+    );
+    @GET("selectNewReservation.php")
+    Call<List<ReservationModel>> getCurrentBookings(
+            @Query("emailAddress") String emailAddress
+    );
+    @GET("selectProcessedReservation.php")
+    Call<List<ReservationModel>> getPreviousBookings(
+            @Query("emailAddress") String emailAddress
+    );
+    @POST("cancelOrders.php")
+    @FormUrlEncoded
+    Call<CartModel> cancelOrder(
+        @Field("id") String id
+    );
+    @POST("cancelBookings.php")
+    @FormUrlEncoded
+    Call<CartModel> cancelBookings(
+            @Field("id") String id
+    );
 }

@@ -22,27 +22,28 @@
             android:layout_height="wrap_content"
             android:text="Choose delivery address"/>
     </androidx.appcompat.widget.Toolbar>
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerViewAddress"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@id/toolbar"
-    android:scrollbars="vertical"
-    android:clipToPadding="false"
-    android:paddingBottom="100dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAddress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:scrollbars="vertical"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"/>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:padding="20dp">
-          <Button
-              android:layout_width="match_parent"
-              android:layout_height="50dp"
-              android:background="@color/pressed"
-              android:text="Next"
-              android:textAllCaps="false"
-              android:textColor="@color/white"
-              android:textSize="16sp"/>
+        <Button
+            android:id="@+id/chooseAddress"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/pressed"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
     </RelativeLayout>
 </RelativeLayout>

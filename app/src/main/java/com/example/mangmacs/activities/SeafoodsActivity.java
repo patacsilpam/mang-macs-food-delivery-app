@@ -38,8 +38,21 @@ public class SeafoodsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
-        //call seafoods list
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        ShowSeafoodsLists();
+        Back();
+    }
+
+    private void Back() {
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SeafoodsActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void ShowSeafoodsLists() {
         Call<List<SeafoodsListModel>> call= apiInterface.getSeafoods();
         call.enqueue(new Callback<List<SeafoodsListModel>>() {
             @Override
@@ -53,13 +66,6 @@ public class SeafoodsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<SeafoodsListModel>> call, Throwable t) {
 
-            }
-        });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SeafoodsActivity.this,home_activity.class));
             }
         });
     }

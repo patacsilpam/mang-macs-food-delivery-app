@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mangmacs.R;
 import com.example.mangmacs.activities.BilaoListDetail;
 import com.example.mangmacs.activities.CartActivity;
@@ -57,6 +58,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.MyViewHolder holder, int position) {
         CartModel cartModel = cartList.get(position);
+        Glide.with(context).load(cartModel.getImageProduct()).into(holder.imageView);
         holder.productID.setText(String.valueOf(cartModel.getProductId()));
         holder.productName.setText(cartModel.getProoductNameCart());
         holder.quantity.setText(String.valueOf(cartModel.getQuantityCart()));

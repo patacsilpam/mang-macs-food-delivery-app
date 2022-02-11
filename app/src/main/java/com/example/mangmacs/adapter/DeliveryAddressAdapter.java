@@ -1,13 +1,16 @@
 package com.example.mangmacs.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangmacs.R;
@@ -18,6 +21,7 @@ import java.util.List;
 public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddressAdapter.AddressViewHolder> {
     private Context context;
     private List<AddressListModel> addressLists;
+    private String strFullName,strPhoneNumber,strAddress,strLabelAddress;
     public DeliveryAddressAdapter(Context context, List<AddressListModel> addressLists){
         this.context = context;
         this.addressLists = addressLists;
@@ -39,6 +43,7 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
       String city = addressListModel.getCity();
       String phoneNumber = addressListModel.getPhoneNumber();
       String categoryAddress = addressListModel.getLabelAddress();
+
       holder.name.setText(addressListModel.getFullname());
       holder.address.setText(street+" "+brgy+","+city);
       holder.number.setText(phoneNumber);
@@ -49,8 +54,20 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
             @Override
             public void onClick(View v) {
                 itemCheckChanged(v);
+                strFullName = holder.name.getText().toString();
+                strAddress = holder.address.getText().toString();
+                strPhoneNumber = holder.number.getText().toString();
+                strLabelAddress = holder.categoryaddress.getText().toString();
+                //userDetails = strName+strAddress+strNumber+strlabelAddress;
+                //Toast.makeText(context, userDetails,Toast.LENGTH_SHORT).show();
             }
         });
+        Intent intent = new Intent("MyUserDetails");
+        intent.putExtra("fullName", strFullName);
+        intent.putExtra("phoneNumber",strPhoneNumber);
+        intent.putExtra("address",strAddress);
+        intent.putExtra("labelAddress",strLabelAddress);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
     private void itemCheckChanged(View v) {
@@ -64,7 +81,7 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
     }
 
     public class AddressViewHolder extends RecyclerView.ViewHolder {
-        private RadioButton radioButton,radioGrp;
+        private RadioButton radioButton;
         private TextView name,address,number,categoryaddress;
         public AddressViewHolder(@NonNull View itemView) {
             super(itemView);

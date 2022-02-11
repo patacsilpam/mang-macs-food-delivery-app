@@ -3,8 +3,6 @@ package com.example.mangmacs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.mangmacs.model.UserModel;
-
 public class SharedPreference {
     public static final String PREF_NAME = "user_details";
     public static final String CUSTOMER_ID="customer_id";

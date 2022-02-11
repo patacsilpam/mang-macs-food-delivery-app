@@ -39,6 +39,20 @@ public class PizzaActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        ShowPizzaLists();
+        Back();
+    }
+
+    private void Back() {
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PizzaActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void ShowPizzaLists() {
         //call pizza list model
         Call<List<PizzaListModel>> call= apiInterface.getPizza();
         call.enqueue(new Callback<List<PizzaListModel>>() {
@@ -53,13 +67,6 @@ public class PizzaActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<PizzaListModel>> call, Throwable t) {
 
-            }
-        });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(PizzaActivity.this,home_activity.class));
             }
         });
     }

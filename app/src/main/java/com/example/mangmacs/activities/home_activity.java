@@ -45,15 +45,190 @@ public class home_activity extends AppCompatActivity {
     private TextView textName, btnSeeAll,totalCart;
     private CardView pizza,riceMeal,comboBudget,mealsGood,seafoods,soup,rice,pancit,bilao,noodles,pasta,dimsum,drinks;
     private FloatingActionButton floatingActionButton;
+    private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         textName = findViewById(R.id.textName);
         totalCart = findViewById(R.id.totalCart);
-        //bottom navigation
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.bottom_nav);
+        bottomNavigationView =  findViewById(R.id.bottom_nav);
+        pizza = findViewById(R.id.pizza);
+        riceMeal = findViewById(R.id.ricemeal);
+        comboBudget = findViewById(R.id.combo);
+        mealsGood = findViewById(R.id.mealsgood);
+        seafoods = findViewById(R.id.seafoods);
+        soup = findViewById(R.id.soup);
+        rice = findViewById(R.id.rice);
+        pancit = findViewById(R.id.pancit);
+        bilao = findViewById(R.id.bilao);
+        noodles = findViewById(R.id.noodles);
+        pasta = findViewById(R.id.pasta);
+        dimsum = findViewById(R.id.dimsum);
+        drinks = findViewById(R.id.drinks);
+        floatingActionButton = findViewById(R.id.iconCart);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        //call popular list model
+        String fname = SharedPreference.getSharedPreference(this).setFname();
+        textName.setText(""+fname);
         bottomNavigationView.setSelectedItemId(R.id.home);
+        BottomNav();
+        Activites();
+        ShowPopularLists();
+        CountCart();
+    }
+    private void CountCart(){
+        String email = SharedPreference.getSharedPreference(home_activity.this).setEmail();
+        ApiInterface apiInterface1 = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        Call<CartModel> countCart = apiInterface1.countCart(email);
+        countCart.enqueue(new Callback<CartModel>() {
+            @Override
+            public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                if (response.body() != null){
+                    String getTotalCart = response.body().getTotalcart();
+                    totalCart.setText(getTotalCart);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartModel> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void ShowPopularLists() {
+        Call<List<PopularListModel>> call= apiInterface.getPopular();
+        call.enqueue(new Callback<List<PopularListModel>>() {
+            @Override
+            public void onResponse(Call<List<PopularListModel>> call, Response<List<PopularListModel>> response) {
+                popularList = response.body();
+                popularAdatper = new PopularAdapter(home_activity.this,popularList);
+                recyclerView.setAdapter(popularAdatper);
+                refresh();
+            }
+
+            @Override
+            public void onFailure(Call<List<PopularListModel>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void Activites() {
+        btnSeeAll = findViewById(R.id.btnSeeAll);
+        btnSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this,MenuActivty.class));
+            }
+        });
+        pizza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, PizzaActivity.class));
+            }
+        });
+
+        riceMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, RiceMealActivity.class));
+            }
+        });
+        //initialize combo budget meal
+
+        comboBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, ComboMealActivity.class));
+            }
+        });
+
+        mealsGood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, MealsGoodActivity.class));
+            }
+        });
+
+        seafoods.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, SeafoodsActivity.class));
+            }
+        });
+
+        soup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, SoupActivity.class));
+            }
+        });
+
+        rice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, RiceActivity.class));
+            }
+        });
+
+        pancit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, PancitActivity.class));
+            }
+        });
+
+        bilao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, BilaoActivity.class));
+            }
+        });
+
+        noodles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, NoodlesActivity.class));
+            }
+        });
+
+        pasta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, PastaActivity.class));
+            }
+        });
+
+        dimsum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, DimsumActivity.class));
+            }
+        });
+
+        drinks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, DrinksActivity.class));
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, CartActivity.class));
+            }
+        });
+
+    }
+
+    private void BottomNav() {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -76,141 +251,6 @@ public class home_activity extends AppCompatActivity {
                 return true;
             }
         });
-        btnSeeAll = findViewById(R.id.btnSeeAll);
-        btnSeeAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this,MenuActivty.class));
-            }
-        });
-        //initialize pizza
-        pizza = findViewById(R.id.pizza);
-        pizza.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, PizzaActivity.class));
-            }
-        });
-        //initialize rice meal
-        riceMeal = findViewById(R.id.ricemeal);
-        riceMeal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, RiceMealActivity.class));
-            }
-        });
-        //initialize combo budget meal
-        comboBudget = findViewById(R.id.combo);
-        comboBudget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, ComboMealActivity.class));
-            }
-        });
-        mealsGood = findViewById(R.id.mealsgood);
-        mealsGood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, MealsGoodActivity.class));
-            }
-        });
-        seafoods = findViewById(R.id.seafoods);
-        seafoods.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, SeafoodsActivity.class));
-            }
-        });
-        soup = findViewById(R.id.soup);
-        soup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, SoupActivity.class));
-            }
-        });
-        rice = findViewById(R.id.rice);
-        rice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, RiceActivity.class));
-            }
-        });
-        pancit = findViewById(R.id.pancit);
-        pancit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, PancitActivity.class));
-            }
-        });
-        bilao = findViewById(R.id.bilao);
-        bilao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, BilaoActivity.class));
-            }
-        });
-        noodles = findViewById(R.id.noodles);
-        noodles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, NoodlesActivity.class));
-            }
-        });
-        pasta = findViewById(R.id.pasta);
-        pasta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, PastaActivity.class));
-            }
-        });
-        dimsum = findViewById(R.id.dimsum);
-        dimsum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, DimsumActivity.class));
-            }
-        });
-        drinks = findViewById(R.id.drinks);
-        drinks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, DrinksActivity.class));
-            }
-        });
-        //display items in recyclerview
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
-        apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        //call popular list model
-        String fname = SharedPreference.getSharedPreference(this).setFname();
-        textName.setText(""+fname);
-        Call<List<PopularListModel>> call= apiInterface.getPopular();
-        call.enqueue(new Callback<List<PopularListModel>>() {
-            @Override
-            public void onResponse(Call<List<PopularListModel>> call, Response<List<PopularListModel>> response) {
-                popularList = response.body();
-                popularAdatper = new PopularAdapter(home_activity.this,popularList);
-                recyclerView.setAdapter(popularAdatper);
-                refresh();
-            }
-
-            @Override
-            public void onFailure(Call<List<PopularListModel>> call, Throwable t) {
-
-            }
-        });
-
-        //cart button
-        floatingActionButton = findViewById(R.id.iconCart);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, CartActivity.class));
-            }
-        });
-
     }
 
     private void refresh() {

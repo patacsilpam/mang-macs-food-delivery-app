@@ -29,6 +29,25 @@ public class CartModel {
     private String add_onsCart;
     @SerializedName("totalCart")
     private String totalcart;
+    @SerializedName("imageProduct")
+    private String imageProduct;
+
+    public CartModel(String success, String emailCart, int productId, String productCodeCart, String prooductNameCart, String variationCart, String fnameCart, String lnameCart, int priceCart, int quantityCart, int totalprice, String add_onsCart, String totalcart, String imageProduct) {
+        this.success = success;
+        this.emailCart = emailCart;
+        this.productId = productId;
+        this.productCodeCart = productCodeCart;
+        this.prooductNameCart = prooductNameCart;
+        this.variationCart = variationCart;
+        this.fnameCart = fnameCart;
+        this.lnameCart = lnameCart;
+        this.priceCart = priceCart;
+        this.quantityCart = quantityCart;
+        this.totalprice = totalprice;
+        this.add_onsCart = add_onsCart;
+        this.totalcart = totalcart;
+        this.imageProduct = imageProduct;
+    }
 
     public int getProductId() {
         return productId;
@@ -79,5 +98,9 @@ public class CartModel {
 
     public String getTotalcart() {
         return totalcart;
+    }
+
+    public String getImageProduct() {
+        return imageProduct;
     }
 }

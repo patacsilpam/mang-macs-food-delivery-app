@@ -67,8 +67,7 @@
                 android:layout_below="@id/number"
                 android:text="Home"
                 android:textSize="12sp"
-                android:fontFamily="@font/roboto_light"
-                android:textColor="#5E5757"/>
+                android:fontFamily="@font/roboto_light"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

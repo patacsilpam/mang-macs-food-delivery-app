@@ -33,10 +33,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReservationActivity extends AppCompatActivity {
-    EditText fname,lname,people,date,time;
-    int hour,min;
-    Button btnBookNow;
-
+    private EditText fname,lname,people,date,time;
+    private int hour,min;
+    private Button btnBookNow;
+    private   BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,31 +48,67 @@ public class ReservationActivity extends AppCompatActivity {
         time = findViewById(R.id.time);
         btnBookNow = findViewById(R.id.btnBookNow);
         //bottom navigation
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.reservation);
-       bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-           @SuppressLint("NonConstantResourceId")
-           @Override
-           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-               switch (item.getItemId()){
-                   case R.id.home:
-                       startActivity(new Intent(getApplicationContext(), home_activity.class));
-                       overridePendingTransition(0,0);
-                       return true;
-                   case R.id.reservation:
-                       return true;
-                   case R.id.menu:
-                       startActivity(new Intent(getApplicationContext(), MenuActivty.class));
-                       overridePendingTransition(0,0);
-                       return true;
-                   case R.id.account:
-                       startActivity(new Intent(getApplicationContext(), AccountActivity.class));
-                       overridePendingTransition(0,0);
-                       return true;
-               }
-               return true;
-           }
-       });
+        Intent intent = getIntent();
+        String newfname = intent.getStringExtra("firstname");
+        String newlname = intent.getStringExtra("lastname");
+        String newtime = intent.getStringExtra("time");
+        String newguests = intent.getStringExtra("guests");
+        fname.setText(newfname);
+        lname.setText(newlname);
+        time.setText(newtime);
+        people.setText(newguests);
+        BottomNav();
+        SetCalendar();
+        Booking();
+    }
+
+    private void Booking() {
+        btnBookNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String firstname = fname.getText().toString();
+                String lastname = lname.getText().toString();
+                String guests = people.getText().toString();
+                String sched_date = date.getText().toString();
+                String sched_time = time.getText().toString();
+                if(firstname.isEmpty()){
+                    fname.setError("Required");
+                }
+                if (lastname.isEmpty()){
+                    lname.setError("Required");
+                }
+                if (guests.isEmpty()){
+                    people.setError("Required");
+                }
+                if (sched_date.isEmpty()){
+                    date.setError("Required");
+                }
+                if (sched_time.isEmpty()){
+                    time.setError("Required");
+                }
+                else{
+                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                    String email = SharedPreference.getSharedPreference(ReservationActivity.this).setEmail();
+                    Call<ReservationModel> reservationCall = apiInterface.reservation(firstname,lastname,guests,email,sched_date,sched_time);
+                    reservationCall.enqueue(new Callback<ReservationModel>() {
+                        @Override
+                        public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
+                            startActivity(new Intent(ReservationActivity.this, ConfirmReservationActivity.class));
+                        }
+
+                        @Override
+                        public void onFailure(Call<ReservationModel> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void SetCalendar() {
         //date picker
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener setDate = new DatePickerDialog.OnDateSetListener() {
@@ -122,46 +158,30 @@ public class ReservationActivity extends AppCompatActivity {
                 timePickerDialog.show();
             }
         });
-        //booking
-        btnBookNow.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void BottomNav() {
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
-            public void onClick(View view) {
-                String firstname = fname.getText().toString();
-                String lastname = lname.getText().toString();
-                String guests = people.getText().toString();
-                String sched_date = date.getText().toString();
-                String sched_time = time.getText().toString();
-                if(firstname.isEmpty()){
-                    fname.setError("Required");
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), home_activity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.reservation:
+                        return true;
+                    case R.id.menu:
+                        startActivity(new Intent(getApplicationContext(), MenuActivty.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.account:
+                        startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                 }
-                if (lastname.isEmpty()){
-                    lname.setError("Required");
-                }
-                if (guests.isEmpty()){
-                    people.setError("Required");
-                }
-                if (sched_date.isEmpty()){
-                    date.setError("Required");
-                }
-                if (sched_time.isEmpty()){
-                    time.setError("Required");
-                }
-                else{
-                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    String email = SharedPreference.getSharedPreference(ReservationActivity.this).setEmail();
-                    Call<ReservationModel> reservationCall = apiInterface.reservation(firstname,lastname,guests,email,sched_date,sched_time);
-                    reservationCall.enqueue(new Callback<ReservationModel>() {
-                        @Override
-                        public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
-                            startActivity(new Intent(ReservationActivity.this, ConfirmReservationActivity.class));
-                        }
-
-                        @Override
-                        public void onFailure(Call<ReservationModel> call, Throwable t) {
-
-                        }
-                    });
-                }
+                return true;
             }
         });
     }

@@ -39,6 +39,20 @@ public class PancitActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        ShowPancitLists();
+        Back();
+    }
+
+    private void Back() {
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PancitActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void ShowPancitLists() {
         //call pizza list model
         Call<List<PancitListModel>> call= apiInterface.getPancit();
         call.enqueue(new Callback<List<PancitListModel>>() {
@@ -55,14 +69,8 @@ public class PancitActivity extends AppCompatActivity {
 
             }
         });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(PancitActivity.this,home_activity.class));
-            }
-        });
     }
+
     public void refresh(){
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

@@ -41,6 +41,7 @@ public class BilaoListDetail extends AppCompatActivity {
     private RadioButton sevenToTen,tenToFifteen,fifteenToTwenty;
     private RadioGroup rdVariation;
     private int count = 1;
+    private String image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +64,11 @@ public class BilaoListDetail extends AppCompatActivity {
         btnDecrement = findViewById(R.id.decrement);
         btnDecrement.setEnabled(false); //set button decrement not clickable
         //button increment
+        IncrementDecrement();
+        DisplayProductDetails();
+        Back();
+    }
+    private void IncrementDecrement() {
         btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,9 +108,11 @@ public class BilaoListDetail extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         });
+    }
+    private void DisplayProductDetails() {
         //get the value from its adapter
         Intent intent = getIntent();
-        String image = intent.getStringExtra("image");
+        image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
         String productprice = intent.getStringExtra("groupPriceBilao");
         String productvariation = intent.getStringExtra("productVariationBilao");
@@ -114,27 +122,28 @@ public class BilaoListDetail extends AppCompatActivity {
             Glide.with(BilaoListDetail.this).load(image).into(imageView);
             productName.setText(productname);
             status.setText(productstatus);
-            String[] splitPrice = productprice.split(",");
-            String[] splitVariation = productvariation.split(",");
-            String[] splitCode = groupCode.split(",");
+            String[] splitPrice = productprice.split(","); //split product price
+            String[] splitVariation = productvariation.split(",");//split product variation or category
+            String[] splitCode = groupCode.split(",");//split product code
+            //get the first product variation or category
             String product1 = splitVariation[0]+"           ₱ "+splitPrice[0]+".00 "+splitCode[0];
             SpannableString spannableCode1 = new SpannableString(product1);
             ForegroundColorSpan fcsWhite1 = new ForegroundColorSpan(Color.WHITE);
             spannableCode1.setSpan(fcsWhite1,30,41, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             sevenToTen.setText(spannableCode1);
-
+            //get the second product variation or category
             String product2 = splitVariation[1]+"          ₱ "+splitPrice[1]+".00 "+splitCode[1];
             SpannableString spannableCode2 = new SpannableString(product2);
             ForegroundColorSpan fcsWhite2 = new ForegroundColorSpan(Color.WHITE);
             spannableCode2.setSpan(fcsWhite2,30,41, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tenToFifteen.setText(spannableCode2);
-
+            //get the second product variation or category
             String product3 = splitVariation[2]+"          ₱ "+splitPrice[2]+".00 "+splitCode[2];
             SpannableString spannableCode3 = new SpannableString(product3);
             ForegroundColorSpan fcsWhite3 = new ForegroundColorSpan(Color.WHITE);
             spannableCode3.setSpan(fcsWhite3,30,41, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             fifteenToTwenty.setText(spannableCode3);
-
+            //display product category,user email,first and last name
             String customerID = SharedPreference.getSharedPreference(BilaoListDetail.this).setEmail();
             String firstname = SharedPreference.getSharedPreference(BilaoListDetail.this).setFname();
             String lastname = SharedPreference.getSharedPreference(BilaoListDetail.this).setLname();
@@ -142,47 +151,53 @@ public class BilaoListDetail extends AppCompatActivity {
             fname.setText(firstname);
             lname.setText(lastname);
         }
+        AddToCart();
+    }
+
+    private void AddToCart() {
         btnAddtoCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if(rdVariation.getCheckedRadioButtonId() == -1){
-                   Toast.makeText(getApplicationContext(),"Please select one variation",Toast.LENGTH_SHORT).show();
-               }
-               else{
-                   String id = customerId.getText().toString();
-                   String firstName = fname.getText().toString();
-                   String lastName = lname.getText().toString();
-                   String product = productName.getText().toString();
-                   String add_ons = bilaoAddOns.getEditText().getText().toString();
-                   int selectedSize = rdVariation.getCheckedRadioButtonId();
-                   RadioButton size = findViewById(selectedSize);
-                   String getSize = size.getText().toString();
-                   String variation = getSize.replace("         ₱",",");
-                   String strPrice = getSize.substring(24,27);
-                   int price = Integer.parseInt(strPrice);
-                   int number = Integer.parseInt(quantity.getText().toString());
-                   ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   Call<CartModel> cartModelCall = apiComboInterface.addcart(id,getSize,product,variation,firstName,lastName,price,number,add_ons);
-                   cartModelCall.enqueue(new Callback<CartModel>() {
-                       @Override
-                       public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                           if(response.body() != null){
-                               String success =response.body().getSuccess();
-                               if(success.equals("1")){
-                                   Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
-                               }
-                           }
-                       }
+                if(rdVariation.getCheckedRadioButtonId() == -1){
+                    Toast.makeText(getApplicationContext(),"Please select one variation",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    String id = customerId.getText().toString();
+                    String firstName = fname.getText().toString();
+                    String lastName = lname.getText().toString();
+                    String product = productName.getText().toString();
+                    String add_ons = bilaoAddOns.getEditText().getText().toString();
+                    int selectedSize = rdVariation.getCheckedRadioButtonId();
+                    RadioButton size = findViewById(selectedSize);
+                    String getSize = size.getText().toString();
+                    String variation = getSize.replace("         ₱",",");
+                    String strPrice = getSize.substring(24,27);
+                    int price = Integer.parseInt(strPrice);
+                    int number = Integer.parseInt(quantity.getText().toString());
+                    ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(id,getSize,product,variation,firstName,lastName,price,number,add_ons,image);
+                    cartModelCall.enqueue(new Callback<CartModel>() {
+                        @Override
+                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                            if(response.body() != null){
+                                String success =response.body().getSuccess();
+                                if(success.equals("1")){
+                                    Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
 
-                       @Override
-                       public void onFailure(Call<CartModel> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<CartModel> call, Throwable t) {
 
-                       }
-                   });
-               }
+                        }
+                    });
+                }
             }
         });
-        //a back button
+    }
+
+    private void Back() {
         txt_arrow_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

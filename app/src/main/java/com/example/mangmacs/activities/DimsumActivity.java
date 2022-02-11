@@ -39,7 +39,20 @@ public class DimsumActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        //call pizza list model
+        ShowDimsumLists();
+        Back();
+    }
+
+    private void Back() {
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DimsumActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void ShowDimsumLists() {
         Call<List<DimsumListModel>> call= apiInterface.getDimsum();
         call.enqueue(new Callback<List<DimsumListModel>>() {
             @Override
@@ -53,13 +66,6 @@ public class DimsumActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<DimsumListModel>> call, Throwable t) {
 
-            }
-        });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(DimsumActivity.this,home_activity.class));
             }
         });
     }

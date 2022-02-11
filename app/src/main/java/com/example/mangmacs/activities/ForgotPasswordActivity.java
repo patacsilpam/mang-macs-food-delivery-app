@@ -43,17 +43,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         recover_email = findViewById(R.id.recover_email);
         btnContinue = findViewById(R.id.btnContinue);
         btnBackLogin = findViewById(R.id.backLogin);
+        Back();
+        getEmail();
+    }
 
+    private void Back() {
         btnBackLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
             }
         });
-      getEmail();
     }
 
-   private void getEmail(){
+    private void getEmail(){
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

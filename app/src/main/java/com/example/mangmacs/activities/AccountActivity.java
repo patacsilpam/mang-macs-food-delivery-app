@@ -25,9 +25,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class AccountActivity extends AppCompatActivity {
-    private TextView fullname,logout,myACccount,changePassword,savedAddress,myOrders,myBook;
-    private ImageView profile;
+    private TextView logout,myACccount,changePassword,savedAddress,myOrders,myBook,initial,customerName,email;
     private int STORAGE_PERMISSION_CODE = 100;
+    private AlertDialog.Builder alertDialog;
+    private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +37,34 @@ public class AccountActivity extends AppCompatActivity {
         myACccount = findViewById(R.id.myAccount);
         changePassword = findViewById(R.id.changePassword);
         savedAddress = findViewById(R.id.savedAddress);
+        initial = findViewById(R.id.initials);
+        customerName = findViewById(R.id.customerName);
+        email = findViewById(R.id.email);
         myOrders = findViewById(R.id.myOrders);
         myBook = findViewById(R.id.myBook);
         String fname = SharedPreference.getSharedPreference(this).setFname();
         String lname =  SharedPreference.getSharedPreference(this).setLname();
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.bottom_nav);
+        String emailAddress =  SharedPreference.getSharedPreference(this).setEmail();
+        String first = String.valueOf(fname.charAt(0));
+        String last = String.valueOf(lname.charAt(0));
+        String initials = first.concat(last);
+        String firstLast = fname.concat(" ").concat(lname);
+        initial.setText(initials.toUpperCase());
+        customerName.setText(firstLast);
+        email.setText(emailAddress);
+        alertDialog = new AlertDialog.Builder(this);
+        bottomNavigationView =  findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.account);
+        BottomNav();
+        LogOut();
+        MyAccount();
+        ChangePassword();
+        SavedAddress();
+        MyOrders();
+        MyBook();
+    }
+
+    private void BottomNav() {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -65,6 +87,54 @@ public class AccountActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void MyBook() {
+        myBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountActivity.this, MyReservationActivity.class));
+            }
+        });
+    }
+
+    private void MyOrders() {
+        myOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountActivity.this, MyOrdersActivity.class));
+            }
+        });
+    }
+
+    private void SavedAddress() {
+        savedAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountActivity.this, MyAddressActivity.class));
+            }
+        });
+    }
+
+    private void ChangePassword() {
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountActivity.this, ChangePasswordActivity.class));
+            }
+        });
+    }
+
+    private void MyAccount() {
+        myACccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountActivity.this, MyAccountActivity.class));
+            }
+        });
+    }
+
+    private void LogOut() {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,36 +161,5 @@ public class AccountActivity extends AppCompatActivity {
                 alert.show();
             }
         });
-        myACccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AccountActivity.this, MyAccountActivity.class));
-            }
-        });
-        changePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AccountActivity.this, ChangePasswordActivity.class));
-            }
-        });
-        savedAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AccountActivity.this, MyAddressActivity.class));
-            }
-        });
-        myOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AccountActivity.this, MyOrdersActivity.class));
-            }
-        });
-        myBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AccountActivity.this, MyReservationActivity.class));
-            }
-        });
-
     }
 }

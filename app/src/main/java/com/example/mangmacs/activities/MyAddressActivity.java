@@ -42,13 +42,17 @@ public class MyAddressActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.listaddress);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        CreateAddress();
+        showAddresses();
+    }
+
+    private void CreateAddress() {
         addAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MyAddressActivity.this, CreateAddressActivity.class));
             }
         });
-        showAddresses();
     }
 
     private void showAddresses() {

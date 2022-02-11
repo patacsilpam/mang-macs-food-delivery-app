@@ -39,6 +39,18 @@ public class SoupActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        ShowSoupLists();
+        Back();
+    }
+    private void Back() {
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SoupActivity.this,home_activity.class));
+            }
+        });
+    }
+    private void ShowSoupLists() {
         Call<List<SoupListModel>> call= apiInterface.getSoup();
         call.enqueue(new Callback<List<SoupListModel>>() {
             @Override
@@ -52,13 +64,6 @@ public class SoupActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<SoupListModel>> call, Throwable t) {
 
-            }
-        });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SoupActivity.this,home_activity.class));
             }
         });
     }

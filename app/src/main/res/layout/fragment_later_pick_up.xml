@@ -38,6 +38,8 @@
                     android:hint="Time"
                     android:drawableStart="@drawable/custom_time_icon"
                     android:drawablePadding="5dp"
+                    android:cursorVisible="false"
+                    android:clickable="false"
                     android:focusable="false"
                     android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -53,7 +55,7 @@
            android:layout_alignParentBottom="true"
            android:background="@color/pressed"
            android:textColor="@color/white"
-           android:text="Continue"
+           android:text="Next"
            android:textAllCaps="false"/>
    </RelativeLayout>
 </FrameLayout>

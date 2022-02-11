@@ -4,15 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +15,6 @@ import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.model.CustomerLoginModel;
-import com.example.mangmacs.model.CustomerModel;
-import com.example.mangmacs.model.UserModel;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import retrofit2.Call;

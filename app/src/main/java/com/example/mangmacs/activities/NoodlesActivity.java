@@ -39,6 +39,18 @@ public class NoodlesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        ShowNoodlesLists();
+        Back();
+    }
+    private void Back() {
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NoodlesActivity.this,home_activity.class));
+            }
+        });
+    }
+    private void ShowNoodlesLists() {
         //call noodles list model
         Call<List<NoodlesListModel>> call= apiInterface.getNoodles();
         call.enqueue(new Callback<List<NoodlesListModel>>() {
@@ -53,13 +65,6 @@ public class NoodlesActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<NoodlesListModel>> call, Throwable t) {
 
-            }
-        });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(NoodlesActivity.this,home_activity.class));
             }
         });
     }

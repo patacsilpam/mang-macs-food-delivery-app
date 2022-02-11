@@ -31,12 +31,11 @@ public class ResetPasswordActivity extends AppCompatActivity {
         confirmPword = findViewById(R.id.resetConfirmPword);
         btnResetPword = findViewById(R.id.btnResetPword);
         backVerification = findViewById(R.id.backVerification);
-        backVerification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ResetPasswordActivity.this,VerificationActivity.class));
-            }
-        });
+        BackVerification();
+        ResetPassword();
+    }
+
+    private void ResetPassword() {
         btnResetPword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +83,15 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
                     //startActivity(new Intent(ResetPasswordActivity.this, LoginActivity.class));
                 }
+            }
+        });
+    }
+
+    private void BackVerification() {
+        backVerification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ResetPasswordActivity.this,VerificationActivity.class));
             }
         });
     }

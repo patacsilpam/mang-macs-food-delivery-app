@@ -5,21 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MyOrdersActivity">
-<com.google.android.material.tabs.TabLayout
-    android:id="@+id/ordersTabLayout"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-    app:tabIndicatorColor="@color/pressed"
-    app:tabBackground="@color/white"
-    app:tabSelectedTextColor="@color/pressed"
-    app:tabTextColor="@color/black"/>
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ordersTabLayout"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="100dp"
-        tools:layout_editor_absoluteX= "8dp"/>
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/arrow_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_baseline_arrow_back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/arrow_back"
+            android:text="My Orders"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"/>
+    </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/ordersTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/toolbar"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        app:tabIndicatorColor="@color/pressed"
+        app:tabBackground="@color/white"
+        app:tabSelectedTextColor="@color/pressed"
+        app:tabTextColor="@color/black"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ordersTabLayout"
+            android:layout_centerInParent="true"
+            tools:layout_editor_absoluteX= "8dp"/>
 </RelativeLayout>

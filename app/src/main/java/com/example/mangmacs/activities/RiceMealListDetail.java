@@ -32,6 +32,8 @@ public class RiceMealListDetail extends AppCompatActivity {
     private TextInputLayout drinksAddons;
     private EditText quantity;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
+    private Intent intent;
+    private String image;
     private int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,11 @@ public class RiceMealListDetail extends AppCompatActivity {
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
         btnDecrement.setEnabled(false); //set button decrement not clickable
+        IncrementDecrement();
+        DisplayProductDetails();
+        Back();
+    }
+    private void IncrementDecrement() {
         //button increment
         btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,9 +98,11 @@ public class RiceMealListDetail extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         });
+    }
+    private void DisplayProductDetails() {
         //get the value from its adapter
-        Intent intent = getIntent();
-        String image = intent.getStringExtra("image");
+        intent = getIntent();
+        image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
         int productprice = intent.getIntExtra("price",0);
         String productstatus = intent.getStringExtra("status");
@@ -109,16 +118,10 @@ public class RiceMealListDetail extends AppCompatActivity {
             fname.setText(firstname);
             lname.setText(lastname);
         }
+       AddToCart();
+    }
 
-        if(intent != null){
-            Glide.with(RiceMealListDetail.this).load(image).into(imageView);
-            productName.setText(productname);
-            productPrice.setText(Integer.toString(productprice));
-            status.setText(productstatus);
-            customerId.setText(customerID);
-            fname.setText(firstname);
-            lname.setText(lastname);
-        }
+    private void AddToCart() {
         btnAddtoCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,7 +135,7 @@ public class RiceMealListDetail extends AppCompatActivity {
                 int number = Integer.parseInt(quantity.getText().toString());
                 String add_ons = drinksAddons.getEditText().getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons,image);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -151,7 +154,9 @@ public class RiceMealListDetail extends AppCompatActivity {
                 });
             }
         });
-        //a back button
+    }
+
+    private void Back() {
         txt_arrow_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +164,4 @@ public class RiceMealListDetail extends AppCompatActivity {
             }
         });
     }
-
-
 }

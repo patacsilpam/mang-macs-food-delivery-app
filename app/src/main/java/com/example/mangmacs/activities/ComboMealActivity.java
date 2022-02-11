@@ -42,6 +42,21 @@ public class ComboMealActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
         //call combo meal list model
+        ShowComboMealLists();
+        Back();
+    }
+
+    private void Back() {
+        //back arrow button
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ComboMealActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void ShowComboMealLists() {
         Call<List<ComboMealListModel>> call= apiInterface.getComboMeal();
         call.enqueue(new Callback<List<ComboMealListModel>>() {
             @Override
@@ -57,14 +72,8 @@ public class ComboMealActivity extends AppCompatActivity {
 
             }
         });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ComboMealActivity.this,home_activity.class));
-            }
-        });
     }
+
     private void refresh() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

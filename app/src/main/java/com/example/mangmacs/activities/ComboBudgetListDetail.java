@@ -33,6 +33,8 @@ public class ComboBudgetListDetail extends AppCompatActivity {
     private TextInputLayout comboAddOns;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
     int count = 1;
+    private Intent intent;
+    private String image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,12 @@ public class ComboBudgetListDetail extends AppCompatActivity {
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
         btnDecrement.setEnabled(false);
-        //increment button
+        IncrementDecrement();
+        DisplayProductDetails();
+        Back();
+
+    }
+    private void IncrementDecrement() {
         btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,15 +98,16 @@ public class ComboBudgetListDetail extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         });
-        Intent intent = getIntent();
-        String image = intent.getStringExtra("image");
+    }
+    private void DisplayProductDetails() {
+        intent = getIntent();
+        image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
         int productprice = intent.getIntExtra("price",0);
         String productstatus = intent.getStringExtra("status");
         String firstname = SharedPreference.getSharedPreference(ComboBudgetListDetail.this).setFname();
         String lastname = SharedPreference.getSharedPreference(ComboBudgetListDetail.this).setLname();
         String customerID = SharedPreference.getSharedPreference(ComboBudgetListDetail.this).setEmail();
-
         if(intent != null){
             Glide.with(ComboBudgetListDetail.this).load(image).into(imageView);
             productName.setText(productname);
@@ -109,7 +117,10 @@ public class ComboBudgetListDetail extends AppCompatActivity {
             fname.setText(firstname);
             lname.setText(lastname);
         }
+        AddToCart();
+    }
 
+    private void AddToCart() {
         btnAddtoCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,9 +133,8 @@ public class ComboBudgetListDetail extends AppCompatActivity {
                 int price = Integer.parseInt(productPrice.getText().toString());
                 int number = Integer.parseInt(quantity.getText().toString());
                 String add_ons = comboAddOns.getEditText().getText().toString();
-
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons,image);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -143,7 +153,9 @@ public class ComboBudgetListDetail extends AppCompatActivity {
                 });
             }
         });
-        //a back button
+    }
+
+    private void Back() {
         txt_arrow_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,4 +163,5 @@ public class ComboBudgetListDetail extends AppCompatActivity {
             }
         });
     }
+
 }

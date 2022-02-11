@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.adapter.ReservationAdapter;
@@ -13,6 +16,7 @@ import com.google.android.material.tabs.TabLayout;
 public class MyReservationActivity extends AppCompatActivity {
     private TabLayout bookTablayout;
     private ViewPager2 viewPager;
+    private TextView arrowBack;
     ReservationAdapter reservationAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,7 @@ public class MyReservationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_reservation);
         bookTablayout = findViewById(R.id.bookTabLayout);
         viewPager = findViewById(R.id.viewPager);
+        arrowBack = findViewById(R.id.arrow_back);
         FragmentManager fragmentManager = getSupportFragmentManager();
         reservationAdapter = new ReservationAdapter(fragmentManager,getLifecycle());
         viewPager.setAdapter(reservationAdapter);
@@ -45,6 +50,15 @@ public class MyReservationActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 bookTablayout.selectTab(bookTablayout.getTabAt(position));
+            }
+        });
+        Back();
+    }
+    private void Back(){
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),AccountActivity.class));
             }
         });
     }

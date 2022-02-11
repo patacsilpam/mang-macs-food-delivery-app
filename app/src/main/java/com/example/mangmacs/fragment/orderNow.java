@@ -9,10 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.activities.AdressList;
 import com.example.mangmacs.activities.PaymentActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class orderNow extends Fragment {
     private Button orderNow;
@@ -32,7 +37,15 @@ public class orderNow extends Fragment {
         orderNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), AdressList.class));
+                Date date = new Date();  //get date
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("yy/MM/dd");
+                String strDate = dateFormatter.format(date);
+                String strTime = "now";
+                //intent time and date
+                Intent intent = new Intent(getContext(),AdressList.class);
+                intent.putExtra("date",strDate);
+                intent.putExtra("time",strTime);
+                startActivity(intent);
             }
         });
         return view;

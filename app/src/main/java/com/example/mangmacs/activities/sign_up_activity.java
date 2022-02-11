@@ -52,16 +52,20 @@ import retrofit2.Response;
         password = findViewById(R.id.password);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnSignIn = findViewById(R.id.btnSignIn);
-        //login
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(sign_up_activity.this, LoginActivity.class));
-            }
-        });
+        SignIn();
         validateUserData();
     }
-    private void validateUserData(){
+
+     private void SignIn() {
+         btnSignIn.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 startActivity(new Intent(sign_up_activity.this, LoginActivity.class));
+             }
+         });
+     }
+
+     private void validateUserData(){
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

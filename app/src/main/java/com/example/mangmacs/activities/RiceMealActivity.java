@@ -39,7 +39,20 @@ public class RiceMealActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        //call rice meal list
+        ShowRiceMealLists();
+        Back();
+    }
+
+    private void Back() {
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RiceMealActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void ShowRiceMealLists() {
         Call<List<RiceListModel>> call= apiInterface.getRiceMeal();
         call.enqueue(new Callback<List<RiceListModel>>() {
             @Override
@@ -55,14 +68,8 @@ public class RiceMealActivity extends AppCompatActivity {
 
             }
         });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RiceMealActivity.this,home_activity.class));
-            }
-        });
     }
+
     public void refresh(){
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

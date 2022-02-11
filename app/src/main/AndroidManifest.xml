@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.mangmacs">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -15,7 +18,19 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name=".activities.AdressList"
+        <activity android:name=".CurrentReservationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme"/>
+        <activity
+            android:name=".PreviousOrderDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".CurrentOrderDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".activities.AdressList"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
@@ -32,10 +47,6 @@
             android:theme="@style/HomeTheme" />
         <activity
             android:name=".activities.DineInActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/HomeTheme" />
-        <activity
-            android:name=".activities.CheckAddressActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
@@ -70,16 +81,12 @@
             android:theme="@style/MainTheme" />
         <activity
             android:name=".activities.MyReservationActivity"
-            android:label="My Book"
-            android:parentActivityName=".activities.AccountActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ActionBarTheme" />
+            android:theme="@style/HomeTheme"/>
         <activity
             android:name=".activities.MyOrdersActivity"
-            android:label="My Orders"
-            android:parentActivityName=".activities.AccountActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ActionBarTheme" />
+            android:theme="@style/HomeTheme"/>
         <activity
             android:name=".activities.CreateAddressActivity"
             android:label="Address"
@@ -216,17 +223,6 @@
             android:name=".activities.MyAccountActivity"
             android:label="My Account"
             android:parentActivityName=".activities.AccountActivity"
-            android:theme="@style/ActionBarTheme" />
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:label="Settings"
-            android:parentActivityName=".activities.AccountActivity"
-            android:theme="@style/ActionBarTheme" />
-        <activity
-            android:name=".activities.ConfirmDeliveryAddress"
-            android:label="Confirm Delivery Address"
-            android:parentActivityName=".activities.ReservationActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/ActionBarTheme" />
         <activity
             android:name=".activities.AccountActivity"

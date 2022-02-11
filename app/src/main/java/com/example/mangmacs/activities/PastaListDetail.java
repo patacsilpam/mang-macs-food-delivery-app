@@ -51,7 +51,74 @@ public class PastaListDetail extends AppCompatActivity {
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
         btnDecrement.setEnabled(false); //set button decrement not clickable
-        //button increment
+        IncrementDecrement();
+        AddToCart();
+        Back();
+    }
+
+    private void Back() {
+        txt_arrow_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PastaListDetail.this,PastaActivity.class));
+            }
+        });
+    }
+
+    private void AddToCart() {
+        Intent intent = getIntent();
+        String image = intent.getStringExtra("image");
+        String productname = intent.getStringExtra("productName");
+        int productprice = intent.getIntExtra("price",0);
+        String productstatus = intent.getStringExtra("status");
+        String firstname = SharedPreference.getSharedPreference(PastaListDetail.this).setFname();
+        String lastname = SharedPreference.getSharedPreference(PastaListDetail.this).setLname();
+        String customerID = SharedPreference.getSharedPreference(PastaListDetail.this).setEmail();
+        if(intent != null){
+            Glide.with(PastaListDetail.this).load(image).into(imageView);
+            productName.setText(productname);
+            productPrice.setText(Integer.toString(productprice));
+            status.setText(productstatus);
+            customerId.setText(customerID);
+            fname.setText(firstname);
+            lname.setText(lastname);
+        }
+        btnAddtoCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String id = customerId.getText().toString();
+                String code = intent.getStringExtra("code");
+                String product = productName.getText().toString();
+                String variation = "";
+                String firstName = fname.getText().toString();
+                String lastName = lname.getText().toString();
+                int price = Integer.parseInt(productPrice.getText().toString());
+                int number = Integer.parseInt(quantity.getText().toString());
+                String add_ons = drinksAddons.getEditText().getText().toString();
+                String image = "image";
+                ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons,image);
+                cartModelCall.enqueue(new Callback<CartModel>() {
+                    @Override
+                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                        if(response.body() != null){
+                            String success =response.body().getSuccess();
+                            if(success.equals("1")){
+                                Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CartModel> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    private void IncrementDecrement() {
         btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,63 +156,6 @@ public class PastaListDetail extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable editable) {
-            }
-        });
-        //get the value from its adapter
-        Intent intent = getIntent();
-        String image = intent.getStringExtra("image");
-        String productname = intent.getStringExtra("productName");
-        int productprice = intent.getIntExtra("price",0);
-        String productstatus = intent.getStringExtra("status");
-        String firstname = SharedPreference.getSharedPreference(PastaListDetail.this).setFname();
-        String lastname = SharedPreference.getSharedPreference(PastaListDetail.this).setLname();
-        String customerID = SharedPreference.getSharedPreference(PastaListDetail.this).setEmail();
-        if(intent != null){
-            Glide.with(PastaListDetail.this).load(image).into(imageView);
-            productName.setText(productname);
-            productPrice.setText(Integer.toString(productprice));
-            status.setText(productstatus);
-            customerId.setText(customerID);
-            fname.setText(firstname);
-            lname.setText(lastname);
-        }
-        btnAddtoCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String id = customerId.getText().toString();
-                String code = intent.getStringExtra("code");
-                String product = productName.getText().toString();
-                String variation = "";
-                String firstName = fname.getText().toString();
-                String lastName = lname.getText().toString();
-                int price = Integer.parseInt(productPrice.getText().toString());
-                int number = Integer.parseInt(quantity.getText().toString());
-                String add_ons = drinksAddons.getEditText().getText().toString();
-                ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons);
-                cartModelCall.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if(response.body() != null){
-                            String success =response.body().getSuccess();
-                            if(success.equals("1")){
-                                Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
-
-                    }
-                });
-            }
-        });
-        //a back button
-        txt_arrow_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(PastaListDetail.this,PastaActivity.class));
             }
         });
     }

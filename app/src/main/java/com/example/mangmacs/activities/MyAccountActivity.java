@@ -25,6 +25,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -50,6 +51,7 @@ import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CustomerLoginModel;
 import com.example.mangmacs.model.CustomerModel;
 import com.example.mangmacs.model.UpdateAccountModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
@@ -72,93 +74,33 @@ import retrofit2.http.Multipart;
 import static android.graphics.Color.parseColor;
 
 public class MyAccountActivity extends AppCompatActivity {
-    private ImageView profilepic;
     private EditText birthdate;
-    private TextView emailAddress;
+    private TextView emailAddress,initials;
     private TextInputLayout firstname,lastname;
     private RadioGroup rdGender;
     private RadioButton radioButton;
     private Button btnSaveAccount;
-    private CardView cardView;
-    SharedPreference sharedPreference;
-    private int MY_CAMERA_PERMISSION_CODE = 100;
-    private CharSequence[] options = {"Camera", "Gallery", "Cancel"};
-    String filepath = "";
-
+    private SharedPreference sharedPreference;
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_account);
-        profilepic = findViewById(R.id.profilepic);
         firstname = findViewById(R.id.acc_firstname);
         lastname = findViewById(R.id.acc_lastname);
         emailAddress = findViewById(R.id.acc_email);
+        initials = findViewById(R.id.initials);
         birthdate = findViewById(R.id.acc_birthdate);
         rdGender = findViewById(R.id.rdGender);
         btnSaveAccount = findViewById(R.id.btnSaveAccount);
-        cardView = findViewById(R.id.cardView);
         sharedPreference = new SharedPreference(this);
-        //set on click calendar
-        Calendar calendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener setDate = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateCalendar();
-            }
+        SetCalendar();
+        ShowUserDetails();
+        SaveUserAccount();
+    }
 
-            private void updateCalendar() {
-                String Format = "yy/MM/dd";
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Format, Locale.TAIWAN);
-                birthdate.setText(simpleDateFormat.format(calendar.getTime()));
-            }
-        };
-
-        birthdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(MyAccountActivity.this, setDate, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        //convert to string
-        String email = SharedPreference.getSharedPreference(this).setEmail();
-        //this is to display the account information of the user
-        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        Call<UpdateAccountModel> selectAccountCall = apiInterface.selectAccount(email);
-        selectAccountCall.enqueue(new Callback<UpdateAccountModel>() {
-            @Override
-            public void onResponse(Call<UpdateAccountModel> call, Response<UpdateAccountModel> response) {
-                if (response.body() != null) {
-                    String success = response.body().getSuccess();
-                    if (success.equals("1")) {
-                        String fname = response.body().getFname();
-                        String lname = response.body().getLname();
-                        String bdate = response.body().getBirthdate();
-                        String gender = response.body().getGender();
-                        firstname.getEditText().setText(fname);
-                        lastname.getEditText().setText(lname);
-                        birthdate.setText(bdate);
-                        emailAddress.setText(email);
-                        if (gender.equalsIgnoreCase("Male")) {
-                            rdGender.check(R.id.male);
-                        } else if (gender.equalsIgnoreCase("Female")) {
-                            rdGender.check(R.id.female);
-                        } else {
-                            rdGender.check(R.id.male);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UpdateAccountModel> call, Throwable t) {
-
-            }
-        });
+    private void SaveUserAccount() {
         btnSaveAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,10 +110,6 @@ public class MyAccountActivity extends AppCompatActivity {
                 int selectedGender = rdGender.getCheckedRadioButtonId();
                 radioButton = findViewById(selectedGender);
                 String gender = radioButton.getText().toString();
-              // File file = new File(filepath);
-               // RequestBody requestBody = RequestBody.create(MediaType.parse("image*/"),file);
-               // MultipartBody.Part image = MultipartBody.Part.createFormData("newimage",file.getName(),requestBody);
-               // RequestBody someData = RequestBody.create(MediaType.parse("text/plain"),"This is a new Image");
                 if(fname.isEmpty()){
                     firstname.setError("Required");
                     firstname.setBackgroundColor(Color.WHITE);
@@ -223,7 +161,74 @@ public class MyAccountActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private void ShowUserDetails() {
+        String email = SharedPreference.getSharedPreference(this).setEmail();
+        String fname = SharedPreference.getSharedPreference(this).setFname();
+        String lname = SharedPreference.getSharedPreference(this).setLname();
+        String first = String.valueOf(fname.charAt(0));
+        String last = String.valueOf(lname.charAt(0));
+        String firstLast = first.concat(last);
+        initials.setText(firstLast.toUpperCase());
+        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        Call<UpdateAccountModel> selectAccountCall = apiInterface.selectAccount(email);
+        selectAccountCall.enqueue(new Callback<UpdateAccountModel>() {
+            @Override
+            public void onResponse(Call<UpdateAccountModel> call, Response<UpdateAccountModel> response) {
+                if (response.body() != null) {
+                    String success = response.body().getSuccess();
+                    if (success.equals("1")) {
+                        String fname = response.body().getFname();
+                        String lname = response.body().getLname();
+                        String bdate = response.body().getBirthdate();
+                        String gender = response.body().getGender();
+                        firstname.getEditText().setText(fname);
+                        lastname.getEditText().setText(lname);
+                        birthdate.setText(bdate);
+                        emailAddress.setText(email);
+                        if (gender.equalsIgnoreCase("Male")) {
+                            rdGender.check(R.id.male);
+                        } else if (gender.equalsIgnoreCase("Female")) {
+                            rdGender.check(R.id.female);
+                        } else {
+                            rdGender.check(R.id.male);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateAccountModel> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void SetCalendar() {
+        calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener setDate = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateCalendar();
+            }
+
+            private void updateCalendar() {
+                String Format = "yy/MM/dd";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Format, Locale.TAIWAN);
+                birthdate.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        };
+
+        birthdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(MyAccountActivity.this, setDate, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
     }
 
 }

@@ -2,65 +2,67 @@ package com.example.mangmacs.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mangmacs.R;
+import com.example.mangmacs.SharedPreference;
+import com.example.mangmacs.adapter.CurrentBookingAdapter;
+import com.example.mangmacs.adapter.PreviousBookingAdapter;
+import com.example.mangmacs.adapter.PreviousOrderAdapter;
+import com.example.mangmacs.api.ApiInterface;
+import com.example.mangmacs.api.RetrofitInstance;
+import com.example.mangmacs.model.CurrentOrdersModel;
+import com.example.mangmacs.model.ReservationModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PreviousReservation#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class PreviousReservation extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private RecyclerView previousBookingLists;
+    private List<ReservationModel> reservationModel;
+    private PreviousBookingAdapter previousBookingAdapter;
     public PreviousReservation() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PreviousReservation.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PreviousReservation newInstance(String param1, String param2) {
-        PreviousReservation fragment = new PreviousReservation();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_previous_reservation, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        previousBookingLists = view.findViewById(R.id.previousBookingLists);
+        previousBookingLists.setLayoutManager(new LinearLayoutManager(getActivity()));
+        previousBookingLists.setHasFixedSize(true);
+        String email = SharedPreference.getSharedPreference(getActivity()).setEmail();
+        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        Call<List<ReservationModel>> callCurrentBookings = apiInterface.getPreviousBookings(email);
+        callCurrentBookings.enqueue(new Callback<List<ReservationModel>>() {
+            @Override
+            public void onResponse(Call<List<ReservationModel>> call, Response<List<ReservationModel>> response) {
+                reservationModel = response.body();
+                previousBookingAdapter = new PreviousBookingAdapter(getActivity(),reservationModel);
+                previousBookingLists.setAdapter(previousBookingAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<ReservationModel>> call, Throwable t) {
+
+            }
+        });
     }
 }

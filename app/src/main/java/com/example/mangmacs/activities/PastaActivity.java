@@ -39,6 +39,21 @@ public class PastaActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        ShowPastaLists();
+        Back();
+    }
+
+    private void Back() {
+        //back arrow button
+        btnArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PastaActivity.this,home_activity.class));
+            }
+        });
+    }
+
+    private void ShowPastaLists() {
         //call pasta list model
         Call<List<PastaListModel>> call= apiInterface.getPasta();
         call.enqueue(new Callback<List<PastaListModel>>() {
@@ -53,13 +68,6 @@ public class PastaActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<PastaListModel>> call, Throwable t) {
 
-            }
-        });
-        //back arrow button
-        btnArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(PastaActivity.this,home_activity.class));
             }
         });
     }

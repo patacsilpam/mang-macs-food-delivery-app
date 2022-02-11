@@ -31,6 +31,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
         newPword = findViewById(R.id.newPword);
         confirmPword = findViewById(R.id.confirmPword);
         updatePword = findViewById(R.id.updatePword);
+        UpdatePassword();
+    }
+
+    private void UpdatePassword() {
         updatePword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +71,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                 else if(success.equals("0")){
                                     Toast.makeText(ChangePasswordActivity.this,message,Toast.LENGTH_SHORT).show();
                                 }
-                                 else{
+                                else{
                                     Toast.makeText(ChangePasswordActivity.this,message,Toast.LENGTH_SHORT).show();
                                 }
                             }
