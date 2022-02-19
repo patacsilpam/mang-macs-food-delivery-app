@@ -6,8 +6,11 @@ import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,33 +19,45 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mangmacs.activities.MyOrdersActivity;
+import com.example.mangmacs.activities.ViewPaymentActivity;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CurrentOrderDetailsActivity extends AppCompatActivity {
-    private TextView orderStatus,customerName,phoneNumber,address,textProduct,textVariation,textPrice,items,totalAmount,newOrderId,arrowBack,neworderType;
-    private ImageView imgProduct;
+    private TextView orderStatus,textProduct,textVariation,textPrice,items,totalAmount,newOrderId,arrowBack,neworderType;
+    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,textPayment;
+    private ImageView imgProduct,newPaymentPhoto;
     private Button cancelOrder;
     private CardView deliveryAddress,pickUpDetails,dineInDetails;
+    private  String paymentPhoto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_order_details);
+        textPayment = findViewById(R.id.textPayment);
         orderStatus = findViewById(R.id.orderStatus);
-        customerName = findViewById(R.id.customerName);
-        phoneNumber = findViewById(R.id.phoneNumber);
-        address = findViewById(R.id.address);
+        deliveryName = findViewById(R.id.deliveryName);
+        deliveryPhoneNum = findViewById(R.id.deliveryPhoneNum);
+        devAddress = findViewById(R.id.devAddress);
+        dineInName = findViewById(R.id.dineInName);
+        dineInEmail = findViewById(R.id.dineInEmail);
+        pickUpName = findViewById(R.id.pickUpName);
+        pickUpEmail = findViewById(R.id.pickUpEmail);
         textPrice = findViewById(R.id.textPrice);
         textProduct = findViewById(R.id.textProduct);
         textVariation = findViewById(R.id.textVariation);
         items = findViewById(R.id.items);
         totalAmount = findViewById(R.id.totalAmount);
         imgProduct = findViewById(R.id.imgProduct);
+        newPaymentPhoto = findViewById(R.id.paymentPhoto);
         arrowBack = findViewById(R.id.arrow_back);
         cancelOrder = findViewById(R.id.cancelOrder);
         newOrderId = findViewById(R.id.newOrderId);
@@ -56,6 +71,10 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity {
         cancelOrder.setEnabled(false);
         showOrderDetails();
         Back();
+        String imgString = textPayment.getText().toString();
+        byte [] encodeByte=Base64.decode(imgString.getBytes(), 0);
+        Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        newPaymentPhoto.setImageBitmap(bitmap);
     }
 
     private void showOrderDetails(){
@@ -71,34 +90,53 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity {
         String quantity = intent.getStringExtra("quantity");
         String amount = intent.getStringExtra("totalAmount");
         String image = intent.getStringExtra("imgProduct");
+        paymentPhoto = intent.getStringExtra("paymentPhoto");
         String orderType = intent.getStringExtra("orderType");
-
+        String fname = SharedPreference.getSharedPreference(this).setFname();
+        String lname = SharedPreference.getSharedPreference(this).setLname();
+        String email = SharedPreference.getSharedPreference(this).setEmail();
         //display order details
         neworderType.setText(orderType);
         orderStatus.setText(status);
-        customerName.setText(name);
-        phoneNumber.setText(phone_number);
-        address.setText(customer_address);
+        deliveryName.setText(name);
+        deliveryPhoneNum.setText(phone_number);
+        devAddress.setText(customer_address);
         textPrice.setText("₱ "+price);
         textProduct.setText(product);
         textVariation.setText(variation);
         items.setText("x"+quantity);
         totalAmount.setText("₱ " +amount);
         newOrderId.setText(id);
+        dineInName.setText(fname.concat(" ").concat(lname));
+        dineInEmail.setText(email);
+        pickUpName.setText(fname.concat(" ").concat(lname));
+        pickUpEmail.setText(email);
         Glide.with(getApplicationContext()).load(image).into(imgProduct);
         dismissOrder(); //a method to for cancellation of orders
+        textPayment.setText(paymentPhoto);
+
+        //Bitmap b=StringToBitMap(imgString);
+
 
     }
-
+    /*public Bitmap StringToBitMap(String image){
+        try{
+            byte [] encodeByte=Base64.decode(image,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
+    }*/
     private void dismissOrder() {
         String getOrderType = neworderType.getText().toString();
         if (getOrderType.equals("Pick Up")){
             deliveryAddress.setVisibility(View.GONE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
-
         }
-        else if (getOrderType.equals("Delivery")){
+        else if (getOrderType.equals("Deliver")){
             deliveryAddress.setVisibility(View.VISIBLE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);

@@ -190,13 +190,14 @@ public class PaymentActivity extends AppCompatActivity {
                             if (response.body() != null){
                                 String success = response.body().getSuccess();
                                 if (success.equals("1")){
-                                    Toast.makeText(getApplicationContext(),"Insert Order",Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(),home_activity.class));
+                                    Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
                         @Override
                         public void onFailure(Call<CartModel> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(),home_activity.class));
                         }
                     });
                 }

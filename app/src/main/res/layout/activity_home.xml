@@ -501,6 +501,13 @@
                    android:scrollbars="vertical"
                    android:layout_below="@+id/textPopular"
                    android:layout_marginBottom="100dp"/>
+               <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/recyclerViewCart"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:visibility="gone"
+                   android:scrollbars="vertical"
+                   android:layout_below="@+id/recyclerView" />
            </RelativeLayout>
        </ScrollView>
 

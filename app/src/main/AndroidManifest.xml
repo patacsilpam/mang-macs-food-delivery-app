@@ -18,9 +18,25 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name=".CurrentReservationActivity"
+        <activity android:name=".activities.PromoListDetails"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme"/>
+        <activity
+            android:name=".activities.ViewPaymentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".activities.PromoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".activities.TermsConditionsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".CurrentReservationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
         <activity
             android:name=".PreviousOrderDetailsActivity"
             android:screenOrientation="portrait"
@@ -82,11 +98,11 @@
         <activity
             android:name=".activities.MyReservationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/HomeTheme"/>
+            android:theme="@style/HomeTheme" />
         <activity
             android:name=".activities.MyOrdersActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/HomeTheme"/>
+            android:theme="@style/HomeTheme" />
         <activity
             android:name=".activities.CreateAddressActivity"
             android:label="Address"

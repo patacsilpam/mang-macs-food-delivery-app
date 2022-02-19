@@ -36,7 +36,7 @@ public class ReservationActivity extends AppCompatActivity {
     private EditText fname,lname,people,date,time;
     private int hour,min;
     private Button btnBookNow;
-    private   BottomNavigationView bottomNavigationView;
+    private  BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,11 +170,15 @@ public class ReservationActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), home_activity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.reservation:
-                        return true;
                     case R.id.menu:
                         startActivity(new Intent(getApplicationContext(), MenuActivty.class));
                         overridePendingTransition(0,0);
+                        return true;
+                    case R.id.promos:
+                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.reservation:
                         return true;
                     case R.id.account:
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));

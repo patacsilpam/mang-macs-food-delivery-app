@@ -1,6 +1,7 @@
 package com.example.mangmacs;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,15 +20,19 @@ import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 
+import java.io.ByteArrayOutputStream;
+
 import okhttp3.Cache;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PreviousOrderDetailsActivity extends AppCompatActivity {
-    private TextView orderStatus,customerName,phoneNumber,address,textProduct,textVariation,textPrice,items,totalAmount,arrowBack;
+    private TextView orderStatus,orderType,textProduct,textVariation,textPrice,items,totalAmount,arrowBack;
+    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress;
     private TextView newOrderTime,newPaymentTime,newShipTime,newCompletedTime,textPayment;
     private ImageView imgProduct,newPaymentPhoto;
+    private CardView deliveryAddress,pickUpDetails,dineInDetails;
     private Button buyAgain;
     private String productCode,image;
     @Override
@@ -36,9 +41,14 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_previous_order_details);
         textPayment = findViewById(R.id.textPayment);
         orderStatus = findViewById(R.id.orderStatus);
-        customerName = findViewById(R.id.customerName);
-        phoneNumber = findViewById(R.id.phoneNumber);
-        address = findViewById(R.id.address);
+        orderType = findViewById(R.id.orderType);
+        deliveryName = findViewById(R.id.deliveryName);
+        deliveryPhoneNum = findViewById(R.id.deliveryPhoneNum);
+        devAddress = findViewById(R.id.devAddress);
+        dineInName = findViewById(R.id.dineInName);
+        dineInEmail = findViewById(R.id.dineInEmail);
+        pickUpName = findViewById(R.id.pickUpName);
+        pickUpEmail = findViewById(R.id.pickUpEmail);
         textPrice = findViewById(R.id.textPrice);
         textProduct = findViewById(R.id.textProduct);
         textVariation = findViewById(R.id.textVariation);
@@ -52,6 +62,12 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity {
         newPaymentTime = findViewById(R.id.paymentTime);
         newShipTime= findViewById(R.id.shipTime);
         newCompletedTime = findViewById(R.id.completedTime);
+        deliveryAddress = findViewById(R.id.deliveryAddress);
+        pickUpDetails = findViewById(R.id.pickUpDetails);
+        dineInDetails = findViewById(R.id.dineInDetails);
+        deliveryAddress.setVisibility(View.VISIBLE);
+        pickUpDetails.setVisibility(View.VISIBLE);
+        dineInDetails.setVisibility(View.VISIBLE);
         showOrderDetails();
         Back();
     }
@@ -73,11 +89,18 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity {
         String shipTime = intent.getStringExtra("shipTime");
         String paymentTime = intent.getStringExtra("paymentTime");
         String deliveredTime = intent.getStringExtra("deliveredTime");
+        String fname = SharedPreference.getSharedPreference(this).setFname();
+        String lname = SharedPreference.getSharedPreference(this).setLname();
+        String email = SharedPreference.getSharedPreference(this).setEmail();
         //display order details
         orderStatus.setText(status);
-        customerName.setText(name);
-        phoneNumber.setText(phone_number);
-        address.setText(customer_address);
+        deliveryName.setText(name);
+        deliveryPhoneNum.setText(phone_number);
+        devAddress.setText(customer_address);
+        dineInName.setText(fname.concat(" ").concat(lname));
+        dineInEmail.setText(email);
+        pickUpName.setText(fname.concat(" ").concat(lname));
+        pickUpEmail.setText(email);
         textPrice.setText(price);
         textProduct.setText(product);
         textVariation.setText(variation);
@@ -88,13 +111,28 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity {
         newPaymentTime.setText(paymentTime);
         newCompletedTime.setText(deliveredTime);
         Glide.with(getApplicationContext()).load(image).into(imgProduct);
-        byte[] bytes = Base64.decode(paymentPhoto,Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-        newPaymentPhoto.setImageBitmap(bitmap);
-        //textPayment.setText(paymentPhoto);
+        checkOrderType();
         reOrder();
     }
+    private void checkOrderType(){
+        String getOrderType = orderType.getText().toString();
+        if (getOrderType.equals("Pick Up")){
+            deliveryAddress.setVisibility(View.GONE);
+            dineInDetails.setVisibility(View.GONE);
+            pickUpDetails.setVisibility(View.VISIBLE);
 
+        }
+        else if (getOrderType.equals("Delivery")){
+            deliveryAddress.setVisibility(View.VISIBLE);
+            dineInDetails.setVisibility(View.GONE);
+            pickUpDetails.setVisibility(View.GONE);
+        }
+        else{
+            dineInDetails.setVisibility(View.VISIBLE);
+            pickUpDetails.setVisibility(View.GONE);
+            deliveryAddress.setVisibility(View.GONE);
+        }
+    }
     private void reOrder() {
         buyAgain.setOnClickListener(new View.OnClickListener() {
             @Override

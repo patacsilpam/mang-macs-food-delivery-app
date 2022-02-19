@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,7 +38,8 @@ public class CartActivity extends AppCompatActivity {
     private CartAdapter cartAdapter;
     private RecyclerView recyclerView;
     private TextView cart,textProductPrice,arrowBack;
-    private Button checkOut;
+    private Button checkOut,goBackMenu;
+    private View emptyCart;
     private int countCart;
 
     @Override
@@ -51,6 +53,9 @@ public class CartActivity extends AppCompatActivity {
         textProductPrice = findViewById(R.id.textProductPrice);
         checkOut = findViewById(R.id.checkOut);
         arrowBack = findViewById(R.id.arrow_back);
+        emptyCart = findViewById(R.id.emptyCart);
+        goBackMenu = emptyCart.findViewById(R.id.goBackMenu);
+        emptyCart.setVisibility(View.GONE);
         showCart();
         CheckOut();
         Back();
@@ -78,32 +83,40 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void showCart() {
-        String email = SharedPreference.getSharedPreference(this).setEmail();
-        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        Call<List<CartModel>> getUserCart = apiInterface.getCart(email);
-        getUserCart.enqueue(new Callback<List<CartModel>>() {
-            @Override
-            public void onResponse(Call<List<CartModel>> call, Response<List<CartModel>> response) {
-                cartModelList = response.body();
-                cartAdapter = new CartAdapter(CartActivity.this,cartModelList);
-                recyclerView.setAdapter(cartAdapter);
-                countCart = recyclerView.getAdapter().getItemCount();
-                cart.setText("("+String.valueOf(countCart)+")");
-                if(countCart == 0){
-                    checkOut.setEnabled(false);
+            String email = SharedPreference.getSharedPreference(this).setEmail();
+            ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+            Call<List<CartModel>> getUserCart = apiInterface.getCart(email);
+            getUserCart.enqueue(new Callback<List<CartModel>>() {
+                @Override
+                public void onResponse(Call<List<CartModel>> call, Response<List<CartModel>> response) {
+                    cartModelList = response.body();
+                    cartAdapter = new CartAdapter(CartActivity.this,cartModelList);
+                    recyclerView.setAdapter(cartAdapter);
+                    countCart = recyclerView.getAdapter().getItemCount();
+                    cart.setText("("+String.valueOf(countCart)+")");
+
+                    if(countCart == 0){
+                        checkOut.setEnabled(false);
+                        emptyCart.setVisibility(View.VISIBLE);
+                        goBackMenu.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(getApplicationContext(),MenuActivty.class));
+                            }
+                        });
+                    }
+                    else{
+                        checkOut.setEnabled(true);
+                        emptyCart.setVisibility(View.GONE);
+                    }
                 }
-                else{
-                    checkOut.setEnabled(true);
+
+                @Override
+                public void onFailure(Call<List<CartModel>> call, Throwable t) {
+
                 }
-            }
-
-            @Override
-            public void onFailure(Call<List<CartModel>> call, Throwable t) {
-
-            }
-        });
-
-    }
+            });
+        }
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

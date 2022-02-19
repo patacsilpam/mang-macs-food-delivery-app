@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
@@ -29,6 +30,9 @@ public class CurrentReservation extends Fragment {
     private RecyclerView currentBookingLists;
     private List<ReservationModel> reservationModel;
     private CurrentBookingAdapter currentBookingAdapter;
+    private View emptyBook;
+    private Button addBook;
+    private int countCart;
     public CurrentReservation() {
         // Required empty public constructor
     }
@@ -43,6 +47,8 @@ public class CurrentReservation extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        emptyBook = view.findViewById(R.id.emptyBook);
+        addBook = getView().findViewById(R.id.addBook);
         currentBookingLists = view.findViewById(R.id.currentBookingLists);
         currentBookingLists.setLayoutManager(new LinearLayoutManager(getActivity()));
         currentBookingLists.setHasFixedSize(true);
@@ -55,6 +61,13 @@ public class CurrentReservation extends Fragment {
                 reservationModel = response.body();
                 currentBookingAdapter = new CurrentBookingAdapter(getActivity(),reservationModel);
                 currentBookingLists.setAdapter(currentBookingAdapter);
+                countCart = currentBookingLists.getAdapter().getItemCount();
+                emptyBook.setVisibility(View.GONE);
+                if (countCart == 0){
+                    emptyBook.setVisibility(View.VISIBLE);
+                } else{
+                    emptyBook.setVisibility(View.GONE);
+                }
             }
 
             @Override

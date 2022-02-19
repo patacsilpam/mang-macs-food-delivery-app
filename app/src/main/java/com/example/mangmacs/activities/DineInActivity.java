@@ -66,7 +66,6 @@ public class DineInActivity extends AppCompatActivity {
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String customerId = customerID.getText().toString();
                 String requiredDate = "";
                 String requiredTime = "";
                 String fullname = fullName.getText().toString();

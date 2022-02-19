@@ -1,5 +1,6 @@
 package com.example.mangmacs.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
+import com.example.mangmacs.activities.ReservationActivity;
 import com.example.mangmacs.adapter.CurrentBookingAdapter;
 import com.example.mangmacs.adapter.PreviousBookingAdapter;
 import com.example.mangmacs.adapter.PreviousOrderAdapter;
@@ -32,6 +35,9 @@ public class PreviousReservation extends Fragment {
     private RecyclerView previousBookingLists;
     private List<ReservationModel> reservationModel;
     private PreviousBookingAdapter previousBookingAdapter;
+    private View emptyBook;
+    private Button addBook;
+    private int countBook;
     public PreviousReservation() {
         // Required empty public constructor
     }
@@ -45,6 +51,8 @@ public class PreviousReservation extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        emptyBook = view.findViewById(R.id.emptyBook);
+        addBook = getView().findViewById(R.id.addBook);
         previousBookingLists = view.findViewById(R.id.previousBookingLists);
         previousBookingLists.setLayoutManager(new LinearLayoutManager(getActivity()));
         previousBookingLists.setHasFixedSize(true);
@@ -57,6 +65,20 @@ public class PreviousReservation extends Fragment {
                 reservationModel = response.body();
                 previousBookingAdapter = new PreviousBookingAdapter(getActivity(),reservationModel);
                 previousBookingLists.setAdapter(previousBookingAdapter);
+                countBook = previousBookingLists.getAdapter().getItemCount();
+                emptyBook.setVisibility(View.GONE);
+                if (countBook == 0){
+                    emptyBook.setVisibility(View.VISIBLE);
+                    addBook.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(getActivity(), ReservationActivity.class));
+                        }
+                    });
+                }
+                else{
+                    emptyBook.setVisibility(View.GONE);
+                }
             }
 
             @Override

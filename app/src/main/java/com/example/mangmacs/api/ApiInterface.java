@@ -15,6 +15,7 @@ import com.example.mangmacs.model.PancitListModel;
 import com.example.mangmacs.model.PastaListModel;
 import com.example.mangmacs.model.PizzaListModel;
 import com.example.mangmacs.model.PopularListModel;
+import com.example.mangmacs.model.PromoListModel;
 import com.example.mangmacs.model.ReservationModel;
 import com.example.mangmacs.model.RiceListModel;
 import com.example.mangmacs.model.RicecupListModel;
@@ -65,6 +66,8 @@ public interface ApiInterface {
     Call<List<NoodlesListModel>> getNoodles();
     @GET("getPopularProduct.php")
     Call<List<PopularListModel>> getPopular();
+    @GET("getPromoProduct.php")
+    Call<List<PromoListModel>> getPromos();
     @GET("customerLogin.php")
     Call<CustomerLoginModel> userLogin(
             @Query("email_address") String email_address,
@@ -199,7 +202,7 @@ public interface ApiInterface {
     @POST("customerOrders.php")
     @FormUrlEncoded
     Call<CartModel> insertOrder(
-            @Field("customerId") String customerId,
+            @Field("productCode") String productCode,
             @Field("orderDate") String orderDate,
             @Field("requiredDate") String requiredDate,
             @Field("requiredTime") String requiredTime,

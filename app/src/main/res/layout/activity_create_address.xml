@@ -142,6 +142,7 @@
                 android:background="@drawable/confirm_delivery_address_input"
                 android:hint="Phone no."
                 android:inputType="number"
+                android:maxLength="11"
                 android:padding="5dp"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray" />

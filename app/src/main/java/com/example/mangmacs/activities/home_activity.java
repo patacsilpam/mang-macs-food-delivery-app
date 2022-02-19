@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.mangmacs.adapter.CartAdapter;
 import com.example.mangmacs.adapter.PopularAdapter;
 import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.PopularListModel;
@@ -37,10 +38,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class home_activity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView,recyclerViewCart;
     private List<PopularListModel> popularList;
+    private List<CartModel> cartList;
     private ApiInterface apiInterface;
     private PopularAdapter popularAdatper;
+    private CartAdapter cartAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textName, btnSeeAll,totalCart;
     private CardView pizza,riceMeal,comboBudget,mealsGood,seafoods,soup,rice,pancit,bilao,noodles,pasta,dimsum,drinks;
@@ -67,6 +70,7 @@ public class home_activity extends AppCompatActivity {
         dimsum = findViewById(R.id.dimsum);
         drinks = findViewById(R.id.drinks);
         floatingActionButton = findViewById(R.id.iconCart);
+        recyclerViewCart = findViewById(R.id.recyclerViewCart);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -82,25 +86,25 @@ public class home_activity extends AppCompatActivity {
         CountCart();
     }
     private void CountCart(){
-        String email = SharedPreference.getSharedPreference(home_activity.this).setEmail();
-        ApiInterface apiInterface1 = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        Call<CartModel> countCart = apiInterface1.countCart(email);
-        countCart.enqueue(new Callback<CartModel>() {
+        String email = SharedPreference.getSharedPreference(this).setEmail();
+        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        Call<List<CartModel>> call= apiInterface.getCart(email);
+        call.enqueue(new Callback<List<CartModel>>() {
             @Override
-            public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                if (response.body() != null){
-                    String getTotalCart = response.body().getTotalcart();
-                    totalCart.setText(getTotalCart);
-                }
+            public void onResponse(Call<List<CartModel>> call, Response<List<CartModel>> response) {
+                cartList = response.body();
+                cartAdapter = new CartAdapter(home_activity.this,cartList);
+                recyclerViewCart.setAdapter(cartAdapter);
+                int countCart = recyclerViewCart.getAdapter().getItemCount();
+                totalCart.setText(String.valueOf(countCart));
             }
 
             @Override
-            public void onFailure(Call<CartModel> call, Throwable t) {
+            public void onFailure(Call<List<CartModel>> call, Throwable t) {
 
             }
         });
     }
-
     private void ShowPopularLists() {
         Call<List<PopularListModel>> call= apiInterface.getPopular();
         call.enqueue(new Callback<List<PopularListModel>>() {
@@ -235,12 +239,16 @@ public class home_activity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.home:
                         return true;
-                    case R.id.reservation:
-                        startActivity(new Intent(getApplicationContext(), ReservationActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
                     case R.id.menu:
                         startActivity(new Intent(getApplicationContext(), MenuActivty.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.promos:
+                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.reservation:
+                        startActivity(new Intent(getApplicationContext(), ReservationActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.account:

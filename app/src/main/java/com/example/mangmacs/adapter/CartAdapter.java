@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,27 +70,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.productPrice.setText(String.valueOf(cartModel.getPriceCart()));
         final int[] count = {Integer.parseInt(String.valueOf((cartModel.getQuantityCart())))};
         holder.totalPrice.setText(String.valueOf(cartModel.getTotalprice()));
-        //disabling the decrement button if the quantity is equal to one
-
-        holder.quantity.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String number = holder.quantity.getText().toString();
-                if(number.equalsIgnoreCase("1")){
-                    holder.btnDecrement.setEnabled(false);
-                }else{
-                    holder.btnDecrement.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        holder.btnDecrement.setEnabled(true);
+        String quantityCart = holder.quantity.getText().toString();
         //increment quantity
         holder.btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,35 +103,41 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             }
         });
         //decrement quantity
-        holder.btnDecrement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                count[0]--;
-                holder.quantity.setText(String.valueOf(count[0]));
-                int id = Integer.parseInt(holder.productID.getText().toString());
-                int orderQuantity = Integer.parseInt(holder.quantity.getText().toString());
-                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> updateOrderQuantity = apiInterface.updateQuantity(id,orderQuantity);
-                updateOrderQuantity.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if(response.body() != null){
-                            String success = response.body().getSuccess();
-                            if(success.equals("1")){
-                                Intent intent = new Intent(context, CartActivity.class);
-                                context.startActivity(intent);
-                                ((CartActivity)context).finish();
-                            }
-                        }
-                    }
+       if (quantityCart.equals("1")){
+           holder.btnDecrement.setEnabled(false);
+           holder.btnDecrement.setBackground(ContextCompat.getDrawable(context, R.drawable.minus_btn));
+       }
+       else{
+           holder.btnDecrement.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   count[0]--;
+                   holder.quantity.setText(String.valueOf(count[0]));
+                   int id = Integer.parseInt(holder.productID.getText().toString());
+                   int orderQuantity = Integer.parseInt(holder.quantity.getText().toString());
+                   ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                   Call<CartModel> updateOrderQuantity = apiInterface.updateQuantity(id,orderQuantity);
+                   updateOrderQuantity.enqueue(new Callback<CartModel>() {
+                       @Override
+                       public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                           if(response.body() != null){
+                               String success = response.body().getSuccess();
+                               if(success.equals("1")){
+                                   Intent intent = new Intent(context, CartActivity.class);
+                                   context.startActivity(intent);
+                                   ((CartActivity)context).finish();
+                               }
+                           }
+                       }
 
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
+                       @Override
+                       public void onFailure(Call<CartModel> call, Throwable t) {
 
-                    }
-                });
-            }
-        });
+                       }
+                   });
+               }
+           });
+       }
         //delete cart item
         holder.deleteCart.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,5 +1,6 @@
 package com.example.mangmacs.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
+import com.example.mangmacs.activities.MenuActivty;
 import com.example.mangmacs.adapter.CurrentOrdersAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
@@ -31,7 +34,10 @@ public class CurrentOrders extends Fragment {
     private RecyclerView recyclerView;
     private List<CurrentOrdersModel> currentOrdersModel;
     private CurrentOrdersAdapter currentOrdersAdapter;
+    private Button addOrder;
     private TextView email;
+    private View emptyCart;
+    private int countOrders;
     public CurrentOrders() {
         // Required empty public constructor
     }
@@ -47,6 +53,8 @@ public class CurrentOrders extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        emptyCart = view.findViewById(R.id.emptyOrders);
+        addOrder = getView().findViewById(R.id.addOrder);
         email = view.findViewById(R.id.email);
         recyclerView = view.findViewById(R.id.currentOrderLists);
         recyclerView.setHasFixedSize(true);
@@ -60,6 +68,19 @@ public class CurrentOrders extends Fragment {
                 currentOrdersModel = response.body();
                 currentOrdersAdapter = new CurrentOrdersAdapter(getActivity(),currentOrdersModel);
                 recyclerView.setAdapter(currentOrdersAdapter);
+                countOrders = recyclerView.getAdapter().getItemCount();
+                emptyCart.setVisibility(View.GONE);
+                if (countOrders == 0){
+                    emptyCart.setVisibility(View.VISIBLE);
+                    addOrder.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(getActivity(), MenuActivty.class));
+                        }
+                    });
+                } else{
+                    emptyCart.setVisibility(View.GONE);
+                }
             }
 
             @Override

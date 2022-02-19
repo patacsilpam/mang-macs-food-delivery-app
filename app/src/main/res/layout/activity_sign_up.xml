@@ -82,6 +82,32 @@
                 android:drawableStart="@drawable/customer_lock_icon"
                 android:drawablePadding="15dp"/>
         </com.google.android.material.textfield.TextInputLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/checkTermsConditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I agreee to"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/termsConditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/checkTermsConditions"
+                android:layout_marginTop="12dp"
+                android:text=" Terms and Conditions"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/errorMsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/termsConditions"
+                android:padding="5dp"
+                android:layout_marginLeft="25dp"
+                android:text="*Required" />
+        </RelativeLayout>
         <Button
            android:id="@+id/btnSignUp"
             android:layout_width="142dp"

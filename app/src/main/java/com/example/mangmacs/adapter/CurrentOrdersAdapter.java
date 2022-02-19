@@ -57,6 +57,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                 intent.putExtra("subtotal",currentOrdersModel.getSubTotal());
                 intent.putExtra("quantity",currentOrdersModel.getQuantities());
                 intent.putExtra("imgProduct",currentOrdersModel.getImgProduct());
+                intent.putExtra("paymentPhoto",currentOrdersModel.getPaymentPhoto());
                 intent.putExtra("orderStatus",currentOrdersModel.getOrderStatus());
                 intent.putExtra("orderType",currentOrdersModel.getOrderType());
                 intent.putExtra("totalAmount",currentOrdersModel.getTotalAmount());

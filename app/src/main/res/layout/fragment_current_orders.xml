@@ -5,9 +5,19 @@
     android:layout_height="match_parent"
     android:background="#1DC2C2C6"
     tools:context=".fragment.CurrentOrders">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/currentOrderLists"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/currentOrderLists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"/>
+        <include
+            android:id="@+id/emptyOrders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/empty_orders"/>
+    </LinearLayout>
 </FrameLayout>

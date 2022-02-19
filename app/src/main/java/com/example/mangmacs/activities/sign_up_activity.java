@@ -3,11 +3,13 @@
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +41,8 @@ import retrofit2.Response;
  public class sign_up_activity extends AppCompatActivity {
      private Session session;
     private TextInputLayout firstname,lastname,email,password;
-    private TextView btnSignIn;
+    private TextView btnSignIn,termsConditions,errorMsg;
+    private CheckBox checkTermsConditions;
     private Button btnSignUp;
     private ApiInterface apiInterface;
     @Override
@@ -52,9 +55,23 @@ import retrofit2.Response;
         password = findViewById(R.id.password);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnSignIn = findViewById(R.id.btnSignIn);
+        termsConditions = findViewById(R.id.termsConditions);
+        checkTermsConditions = findViewById(R.id.checkTermsConditions);
+        errorMsg = findViewById(R.id.errorMsg);
+        errorMsg.setVisibility(View.GONE);
         SignIn();
         validateUserData();
+        TermsConditions();
     }
+
+     private void TermsConditions() {
+        termsConditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               startActivity(new Intent(getApplicationContext(),TermsConditionsActivity.class));
+            }
+        });
+     }
 
      private void SignIn() {
          btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +153,10 @@ import retrofit2.Response;
                 }
                 else if (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()){
                     email.setError("Invalid email");
+                }
+                else if (!checkTermsConditions.isChecked()){
+                    errorMsg.setVisibility(View.VISIBLE);
+                    errorMsg.setTextColor(Color.RED);
                 }
                 else{
                     apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);

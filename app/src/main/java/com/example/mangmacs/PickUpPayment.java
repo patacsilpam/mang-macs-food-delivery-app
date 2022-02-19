@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.example.mangmacs.activities.PaymentActivity;
 import com.example.mangmacs.activities.PickUpActivity;
+import com.example.mangmacs.activities.home_activity;
 import com.example.mangmacs.adapter.OrderListsAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
@@ -194,7 +195,6 @@ public class PickUpPayment extends AppCompatActivity {
         pickUpOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //String customerId = customerID.getText().toString();
                 String email = emailAddress.getText().toString();
                 String fullName = fullname.getText().toString();
                 String address = "";
@@ -203,7 +203,7 @@ public class PickUpPayment extends AppCompatActivity {
                 String paymentPhoto = imageToString();
                 String orderStatus = "Pending";
                 String orderType = "Pick Up";
-                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+               /* ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 Call<CartModel> insertOrder = apiInterface.insertOrder(productCode,date,date,time,fullName,address,labelAddress,email,phoneNumber,productName,variation,quantity,add_ons,price,subtotal,totalPrice,paymentPhoto,"",orderType,orderStatus);
                 insertOrder.enqueue(new Callback<CartModel>() {
                     @Override
@@ -211,15 +211,26 @@ public class PickUpPayment extends AppCompatActivity {
                         if (response.body() != null){
                             String success = response.body().getSuccess();
                             if (success.equals("1")){
-                                Toast.makeText(getApplicationContext(),"Insert Order",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), home_activity.class));
+                                Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                     @Override
                     public void onFailure(Call<CartModel> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(),home_activity.class));
                     }
-                });
+                });*/
+
+             int countOrder = recyclerViewOrder.getAdapter().getItemCount();
+             for (int i=0; i<countOrder; i++){
+                 View view1 = recyclerViewOrder.getChildAt(i);
+                 if (view1 != null){
+                     TextView product = (TextView) view1.findViewById(R.id.productName);
+                     String txtProduct = product.getText().toString();
+                     Toast.makeText(PickUpPayment.this,txtProduct,Toast.LENGTH_SHORT).show();
+                 }
+             }
             }
         });
     }
