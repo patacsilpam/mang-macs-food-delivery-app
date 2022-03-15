@@ -105,9 +105,6 @@ public class PastaListDetail extends AppCompatActivity {
                             String success =response.body().getSuccess();
                             if(success.equals("1")){
                                 Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
-                                Intent intent = getIntent();
-                                finish();
-                                startActivity(intent);
                             }
                         }
                     }

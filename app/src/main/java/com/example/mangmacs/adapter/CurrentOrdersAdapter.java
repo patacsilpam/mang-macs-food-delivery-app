@@ -36,13 +36,39 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
     @Override
     public void onBindViewHolder(@NonNull CurrentOrdersAdapter.ViewHolder holder, int position) {
         CurrentOrdersModel currentOrdersModel = currentOrderList.get(position);
-        Glide.with(context).load(currentOrdersModel.getImgProduct()).into(holder.imgProduct);
-        holder.textProduct.setText(currentOrdersModel.getProducts());
-        holder.textVariation.setText(currentOrdersModel.getVariations());
-        holder.textPrice.setText(currentOrdersModel.getSubTotal());
-        holder.items.setText(currentOrdersModel.getQuantities());
+        String getProducts = currentOrdersModel.getProducts();
+        String[] splitProduct = getProducts.split(",");
+        for (int i =0; i<=2; i++){
+            holder.textProduct.setText(splitProduct[i]);
+        }
+        //
+        String getVariations = currentOrdersModel.getVariations();
+        String[] splitVariations = getVariations.split(",");
+        for (String variations : splitVariations){
+            holder.textVariation.setText(variations);
+            holder.cardView.setVisibility(View.VISIBLE);
+        }
+        //
+        String getPrices = currentOrdersModel.getPrice();
+        String[] splitPrices = getPrices.split(",");
+        for (String prices : splitPrices){
+            holder.textPrice.setText(prices);
+        }
+        //
+        String getItems = currentOrdersModel.getQuantities();
+        String[] splitItems = getItems.split(",");
+        for (String items : splitItems){
+            holder.items.setText(items);
+        }
+        //
+        String getImgProducts = currentOrdersModel.getImgProduct();
+        String[] splitImgProduct = getImgProducts.split(",");
+        for (String imgProducts : splitImgProduct){
+            Glide.with(context).load(imgProducts).into(holder.imgProduct);
+        }
         holder.orderStatus.setText(currentOrdersModel.getOrderStatus());
         holder.orderType.setText(currentOrdersModel.getOrderType());
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,17 +77,17 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                 intent.putExtra("customerName",currentOrdersModel.getCustomerName());
                 intent.putExtra("phoneNumber",currentOrdersModel.getContactNumber());
                 intent.putExtra("address",currentOrdersModel.getCustomerAddress());
-                intent.putExtra("product",currentOrdersModel.getProducts());
-                intent.putExtra("variation",currentOrdersModel.getVariations());
-                intent.putExtra("price",currentOrdersModel.getPrice());
-                intent.putExtra("subtotal",currentOrdersModel.getSubTotal());
-                intent.putExtra("quantity",currentOrdersModel.getQuantities());
+                intent.putExtra("product",currentOrdersModel.getProducts().replace(",",""));
+                intent.putExtra("variation",currentOrdersModel.getVariations().replace(",",""));
+                intent.putExtra("price",currentOrdersModel.getPrice().replace(",",""));
+                intent.putExtra("subtotal",currentOrdersModel.getSubTotal().replace(",",""));
+                intent.putExtra("quantity",currentOrdersModel.getQuantities().replace(",",""));
                 intent.putExtra("imgProduct",currentOrdersModel.getImgProduct());
                 intent.putExtra("paymentPhoto",currentOrdersModel.getPaymentPhoto());
                 intent.putExtra("orderStatus",currentOrdersModel.getOrderStatus());
                 intent.putExtra("orderType",currentOrdersModel.getOrderType());
                 intent.putExtra("totalAmount",currentOrdersModel.getTotalAmount());
-                intent.putExtra("addOns",currentOrdersModel.getAddOns());
+                intent.putExtra("addOns",currentOrdersModel.getAddOns().replace("",""));
                 context.startActivity(intent);
             }
         });

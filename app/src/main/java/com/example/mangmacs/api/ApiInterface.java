@@ -23,6 +23,8 @@ import com.example.mangmacs.model.SeafoodsListModel;
 import com.example.mangmacs.model.SoupListModel;
 import com.example.mangmacs.model.UpdateAccountModel;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -202,7 +204,7 @@ public interface ApiInterface {
     @POST("customerOrders.php")
     @FormUrlEncoded
     Call<CartModel> insertOrder(
-            @Field("productCode") String productCode,
+            @Field("productCode[]") ArrayList<String> productCode,
             @Field("orderDate") String orderDate,
             @Field("requiredDate") String requiredDate,
             @Field("requiredTime") String requiredTime,
@@ -211,15 +213,15 @@ public interface ApiInterface {
             @Field("labelAddress") String labelAddress,
             @Field("email") String email,
             @Field("phoneNumber") String phoneNumber,
-            @Field("product") String product,
-            @Field("variation") String variation,
-            @Field("quantity") int quantity,
-            @Field("addOns") String addOns,
-            @Field("price") int price,
-            @Field("subTotal") int subTotal,
+            @Field("product[]") ArrayList<String> product,
+            @Field("variation[]") ArrayList<String> variation,
+            @Field("quantity[]") ArrayList<String> quantity,
+            @Field("addOns[]") ArrayList<String> addOns,
+            @Field("price[]") ArrayList<String> price,
+            @Field("subTotal[]") ArrayList<String> subTotal,
             @Field("totalAmount") String totalAmount,
             @Field("paymentPhoto") String paymentPhoto,
-            @Field("imgProduct") String imgProduct,
+            @Field("imgProduct[]") ArrayList<String> imgProduct,
             @Field("orderType") String orderType,
             @Field("orderStatus") String orderStatus
     );

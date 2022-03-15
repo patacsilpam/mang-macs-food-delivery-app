@@ -43,6 +43,7 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
       String city = addressListModel.getCity();
       String phoneNumber = addressListModel.getPhoneNumber();
       String categoryAddress = addressListModel.getLabelAddress();
+      String customerIds = addressListModel.getCustomerID();
 
       holder.name.setText(addressListModel.getFullname());
       holder.address.setText(street+" "+brgy+","+city);
@@ -58,8 +59,6 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
                 strAddress = holder.address.getText().toString();
                 strPhoneNumber = holder.number.getText().toString();
                 strLabelAddress = holder.categoryaddress.getText().toString();
-                //userDetails = strName+strAddress+strNumber+strlabelAddress;
-                //Toast.makeText(context, userDetails,Toast.LENGTH_SHORT).show();
             }
         });
         Intent intent = new Intent("MyUserDetails");
@@ -67,6 +66,7 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
         intent.putExtra("phoneNumber",strPhoneNumber);
         intent.putExtra("address",strAddress);
         intent.putExtra("labelAddress",strLabelAddress);
+        intent.putExtra("customerId",customerIds);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

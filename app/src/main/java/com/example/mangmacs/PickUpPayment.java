@@ -31,45 +31,52 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mangmacs.activities.PaymentActivity;
+
+import com.example.mangmacs.activities.DineInActivity;
 import com.example.mangmacs.activities.PickUpActivity;
+
 import com.example.mangmacs.activities.home_activity;
 import com.example.mangmacs.adapter.OrderListsAdapter;
 import com.example.mangmacs.api.ApiInterface;
+import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PickUpPayment extends AppCompatActivity {
-    private TextView arrowBack,total,customerID,fullname,emailAddress,alertPayment;
+public class PickUpPayment extends AppCompatActivity implements OrdersListener {
+    private TextView arrowBack,total;
     private Button pickUpOrder;
     private ImageView imgPayment;
     private RecyclerView recyclerViewOrder;
+    private static final int STORAGE_PERMISSION_CODE = 100;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String productCode,imgProduct,totalPrice,productName,variation,add_ons,date,time;
-    private int quantity,price,subtotal;
-    private static final int STORAGE_PERMISSION_CODE = 100;
+    private String date,time,totalPrice;
     private Bitmap bitmap;
+    private ArrayList<String> orderLists = new ArrayList<>();
+    private ArrayList<String> productCodeList = new ArrayList<>();
+    private ArrayList<String> variationList = new ArrayList<>();
+    private ArrayList<String> quantityList = new ArrayList<>();
+    private ArrayList<String> addOnsList = new ArrayList<>();
+    private ArrayList<String> subTotalList = new ArrayList<>();
+    private ArrayList<String> priceList = new ArrayList<>();
+    private ArrayList<String> imgProductList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_up_payment);
         arrowBack = findViewById(R.id.arrow_back);
         total = findViewById(R.id.total);
-        customerID = findViewById(R.id.customerId);
-        fullname = findViewById(R.id.fullname);
-        emailAddress = findViewById(R.id.email);
-        imgPayment = findViewById(R.id.imgPayment);
-        alertPayment = findViewById(R.id.alertPayment);
         pickUpOrder = findViewById(R.id.pickUpOrder);
+        imgPayment = findViewById(R.id.imgPayment);
         recyclerViewOrder = findViewById(R.id.recyclerviewPayment);
         recyclerViewOrder.setHasFixedSize(true);
         recyclerViewOrder.setLayoutManager(new LinearLayoutManager(this));
@@ -82,6 +89,24 @@ public class PickUpPayment extends AppCompatActivity {
         PickUpOrders();
         Back();
         CameraPermission();
+    }
+    private void showOrders() {
+        String email = SharedPreference.getSharedPreference(this).setEmail();
+        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        Call<List<CartModel>> getUserCart = apiInterface.getCart(email);
+        getUserCart.enqueue(new Callback<List<CartModel>>() {
+            @Override
+            public void onResponse(Call<List<CartModel>> call, Response<List<CartModel>> response) {
+                orderModelLists = response.body();
+                orderListsAdapter = new OrderListsAdapter(PickUpPayment.this,orderModelLists,PickUpPayment.this);
+                recyclerViewOrder.setAdapter(orderListsAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<CartModel>> call, Throwable t) {
+
+            }
+        });
     }
     private void CameraPermission(){
         imgPayment.setOnClickListener(new View.OnClickListener() {
@@ -158,81 +183,55 @@ public class PickUpPayment extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Permission Denied",Toast.LENGTH_SHORT).show();
         }
     }
-
-
-    private void showOrders() {
-        String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
-        String fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
-        String lname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
-        String fullName = fname +" "+lname;
-        String email = SharedPreference.getSharedPreference(this).setEmail();
-        customerID.setText(customerId);
-        fullname.setText(fullName);
-        emailAddress.setText(email);
-        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        Call<List<CartModel>> getUserCart = apiInterface.getCart(email);
-        getUserCart.enqueue(new Callback<List<CartModel>>() {
-            @Override
-            public void onResponse(Call<List<CartModel>> call, Response<List<CartModel>> response) {
-                orderModelLists = response.body();
-                orderListsAdapter = new OrderListsAdapter(PickUpPayment.this,orderModelLists);
-                recyclerViewOrder.setAdapter(orderListsAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<CartModel>> call, Throwable t) {
-
-            }
-        });
-    }
-    private String imageToString(){
+   private String imageToString(){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
         byte[] imgByte = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(imgByte,Base64.DEFAULT);
     }
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            totalPrice = intent.getStringExtra("totalorderprice");
+            total.setText(totalPrice);
+        }
+    };
     private void PickUpOrders() {
-        pickUpOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = emailAddress.getText().toString();
-                String fullName = fullname.getText().toString();
-                String address = "";
-                String labelAddress = "";
-                String phoneNumber = "";
-                String paymentPhoto = imageToString();
-                String orderStatus = "Pending";
-                String orderType = "Pick Up";
-               /* ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.insertOrder(productCode,date,date,time,fullName,address,labelAddress,email,phoneNumber,productName,variation,quantity,add_ons,price,subtotal,totalPrice,paymentPhoto,"",orderType,orderStatus);
-                insertOrder.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if (response.body() != null){
-                            String success = response.body().getSuccess();
-                            if (success.equals("1")){
-                                startActivity(new Intent(getApplicationContext(), home_activity.class));
-                                Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
-                        startActivity(new Intent(getApplicationContext(),home_activity.class));
-                    }
-                });*/
+       pickUpOrder.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               String fname = SharedPreference.getSharedPreference(PickUpPayment.this).setFname();
+               String lname = SharedPreference.getSharedPreference(PickUpPayment.this).setLname();
+               String email = SharedPreference.getSharedPreference(PickUpPayment.this).setEmail();
+               String fullname = fname.concat(lname);
+               String address = "";
+               String labelAddress = "";
+               String phoneNumber = "";
+               String orderType = "Pick Up";
+               String orderStatus = "Pending";
+               String paymentPhoto = imageToString();
+               ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+               Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,date,date,time,fullname,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,imgProductList,orderType,orderStatus);
+               insertOrder.enqueue(new Callback<CartModel>() {
+                   @Override
+                   public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                       if (response.body() != null) {
+                           String success = response.body().getSuccess();
+                           if (success.equals("1")) {
+                               startActivity(new Intent(getApplicationContext(), home_activity.class));
+                               Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
+                           }
+                       }
+                   }
 
-             int countOrder = recyclerViewOrder.getAdapter().getItemCount();
-             for (int i=0; i<countOrder; i++){
-                 View view1 = recyclerViewOrder.getChildAt(i);
-                 if (view1 != null){
-                     TextView product = (TextView) view1.findViewById(R.id.productName);
-                     String txtProduct = product.getText().toString();
-                     Toast.makeText(PickUpPayment.this,txtProduct,Toast.LENGTH_SHORT).show();
-                 }
-             }
-            }
-        });
+                   @Override
+                   public void onFailure(Call<CartModel> call, Throwable t) {
+                       startActivity(new Intent(getApplicationContext(), home_activity.class));
+                       Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
+                   }
+               });
+           }
+       });
     }
 
     private void Back() {
@@ -244,19 +243,47 @@ public class PickUpPayment extends AppCompatActivity {
             }
         });
     }
-    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            totalPrice = intent.getStringExtra("totalorderprice");
-            productCode = intent.getStringExtra("productCode");
-            productName = intent.getStringExtra("productName");
-            variation = intent.getStringExtra("variation");
-            quantity = intent.getIntExtra("quantity",0);
-            add_ons = intent.getStringExtra("add_ons");
-            price = intent.getIntExtra("price",0);
-            subtotal = intent.getIntExtra("subtotal",0);
-            imgProduct = intent.getStringExtra("imgProduct");
-            total.setText(totalPrice);
-        }
-    };
+    public void onProductsChange(ArrayList<String> products) {
+        orderLists = products;
+    }
+
+    @Override
+    public void onProductCodeChange(ArrayList<String> productCodes) {
+        productCodeList = productCodes;
+    }
+
+    @Override
+    public void onVariationChange(ArrayList<String> variations) {
+        variationList = variations;
+    }
+
+    @Override
+    public void onQuantityChange(ArrayList<String> quantity) {
+        quantityList = quantity;
+    }
+
+    @Override
+    public void onAddOnsChange(ArrayList<String> addOns) {
+        addOnsList = addOns;
+    }
+
+    @Override
+    public void onSubTotalChange(ArrayList<String> subTotal) {
+        subTotalList = subTotal;
+    }
+
+    @Override
+    public void onPriceChange(ArrayList<String> price) {
+        priceList = price;
+    }
+
+    @Override
+    public void onImgProductChange(ArrayList<String> imgProduct) {
+        imgProductList = imgProduct;
+    }
+
+    @Override
+    public void onCustomerIdChange(String customerId) {
+
+    }
 }

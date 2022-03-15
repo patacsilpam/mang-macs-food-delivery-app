@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:gravity="center"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
     <ImageView
         android:id="@+id/box"
         android:layout_width="200dp"
@@ -31,8 +31,9 @@
     <Button
         android:id="@+id/addOrder"
         android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:background="@color/icon_green"
+        android:layout_height="wrap_content"
+        android:background="@drawable/confirmation_button"
+        style="?android:attr/borderlessButtonStyle"
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:textAllCaps="false"

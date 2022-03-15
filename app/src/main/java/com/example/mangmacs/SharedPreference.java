@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class SharedPreference {
     public static final String PREF_NAME = "user_details";
-    public static final String CUSTOMER_ID="customer_id";
+    public static final String CUSTOMER_ID="customerId";
     public static final String FIRST_NAME = "fname";
     public static final String EMAIL = "email";
     public static final String LNAME = "lname";

@@ -18,10 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mangmacs.adapter.CartAdapter;
 import com.example.mangmacs.adapter.PopularAdapter;
 import com.example.mangmacs.model.CartModel;
+import com.example.mangmacs.model.CustomerLoginModel;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.R;
 import com.example.mangmacs.api.RetrofitInstance;

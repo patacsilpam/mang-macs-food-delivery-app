@@ -33,7 +33,10 @@
     <Button
         android:id="@+id/goBackMenu"
         android:layout_width="250dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/confirmation_button"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="@color/white"
         android:layout_gravity="center"
         android:textAllCaps="false"
         android:text="Go back to menu"

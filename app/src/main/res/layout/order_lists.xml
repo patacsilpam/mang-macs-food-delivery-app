@@ -7,7 +7,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/productContainer"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         app:cardBackgroundColor="@color/white"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
@@ -93,6 +93,56 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginRight="25dp"
+                android:text=".00"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="14sp"
+                android:textColor="@color/pressed"/>
+            <TextView
+                android:id="@+id/orders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/total"
+                android:text=".00"
+                android:visibility="invisible"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="14sp"
+                android:textColor="@color/pressed"/>
+            <TextView
+                android:id="@+id/productCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/orders"
+                android:visibility="invisible"
+                android:text=".00"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="14sp"
+                android:textColor="@color/pressed"/>
+            <TextView
+                android:id="@+id/reqDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/productCode"
+                android:visibility="gone"
+                android:text=".00"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="14sp"
+                android:textColor="@color/pressed"/>
+            <TextView
+                android:id="@+id/reqTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reqDate"
+                android:visibility="invisible"
+                android:text=".00"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="14sp"
+                android:textColor="@color/pressed"/>
+            <TextView
+                android:id="@+id/newVariation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reqTime"
+                android:visibility="invisible"
                 android:text=".00"
                 android:fontFamily="@font/roboto_light"
                 android:textSize="14sp"

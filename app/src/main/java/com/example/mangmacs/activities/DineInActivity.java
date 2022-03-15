@@ -21,10 +21,12 @@ import com.example.mangmacs.adapter.CartAdapter;
 import com.example.mangmacs.adapter.OrderListsAdapter;
 import com.example.mangmacs.adapter.OrderListsAdapter.ProductViewHolder;
 import com.example.mangmacs.api.ApiInterface;
+import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,14 +34,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DineInActivity extends AppCompatActivity {
+import static android.widget.Toast.LENGTH_SHORT;
+
+public class DineInActivity extends AppCompatActivity implements OrdersListener {
     private TextView arrowBack,total,customerID,fullName,emailAddress;
     private RecyclerView recyclerViewOrder;
     private Button placeOrder;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String productCode,imgProduct,totalPrice,productName,variation,add_ons,strDate;
-    private int quantity,price,subtotal;
+    private String strDate,totalPrice;
+    private ArrayList<String> orderLists = new ArrayList<>();
+    private ArrayList<String> productCodeList = new ArrayList<>();
+    private ArrayList<String> variationList = new ArrayList<>();
+    private ArrayList<String> quantityList = new ArrayList<>();
+    private ArrayList<String> addOnsList = new ArrayList<>();
+    private ArrayList<String> subTotalList = new ArrayList<>();
+    private ArrayList<String> priceList = new ArrayList<>();
+    private ArrayList<String> imgProductList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,48 +65,13 @@ public class DineInActivity extends AppCompatActivity {
         recyclerViewOrder.setHasFixedSize(true);
         recyclerViewOrder.setLayoutManager(new LinearLayoutManager(this));
         Date date = new Date();  //get date
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yy/MM/dd");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
         strDate = dateFormatter.format(date);
         showOrders();
         Back();
         PlaceOrder();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("TotalOrderPrice"));
-    }
 
-    private void PlaceOrder() {
-        placeOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String requiredDate = "";
-                String requiredTime = "";
-                String fullname = fullName.getText().toString();
-                String address = "";
-                String labelAddress = "";
-                String email = emailAddress.getText().toString();
-                String phoneNumber = "";
-                String paymentPhoto = "not required";
-                String orderStatus = "Pending";
-                String orderType = "Dine in";
-                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.insertOrder(productCode,strDate,requiredDate,requiredTime,fullname,address,labelAddress,email,phoneNumber,productName,variation,quantity,add_ons,price,subtotal,totalPrice,paymentPhoto,"",orderType,orderStatus);
-                insertOrder.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if (response.body() != null){
-                            String success = response.body().getSuccess();
-                            if (success.equals("1")){
-                                startActivity(new Intent(getApplicationContext(),home_activity.class));
-                                Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
-                        startActivity(new Intent(getApplicationContext(),home_activity.class));
-                    }
-                });
-            }
-        });
     }
 
     private void showOrders() {
@@ -113,10 +89,9 @@ public class DineInActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<CartModel>> call, Response<List<CartModel>> response) {
                 orderModelLists = response.body();
-                orderListsAdapter = new OrderListsAdapter(DineInActivity.this,orderModelLists);
+                orderListsAdapter = new OrderListsAdapter(DineInActivity.this,orderModelLists,DineInActivity.this);
                 recyclerViewOrder.setAdapter(orderListsAdapter);
 
-             //   recyclerViewOrder.setOnTouchListener();
             }
 
             @Override
@@ -139,15 +114,85 @@ public class DineInActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             totalPrice = intent.getStringExtra("totalorderprice");
-            productCode = intent.getStringExtra("productCode");
-            productName = intent.getStringExtra("productName");
-            variation = intent.getStringExtra("variation");
-            quantity = intent.getIntExtra("quantity",0);
-            add_ons = intent.getStringExtra("add_ons");
-            price = intent.getIntExtra("price",0);
-            subtotal = intent.getIntExtra("subtotal",0);
-            imgProduct = intent.getStringExtra("imgProduct");
             total.setText(totalPrice);
         }
     };
+    private void PlaceOrder() {
+        placeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String customerId = SharedPreference.getSharedPreference(DineInActivity.this).setID();
+                String requiredDate ="";
+                String requiredTime = "";
+                String fullname = fullName.getText().toString();
+                String address = "";
+                String labelAddress = "";
+                String email = emailAddress.getText().toString();
+                String phoneNumber = "";
+                String paymentPhoto = "not required";
+                String orderStatus = "Pending";
+                String orderType = "Dine in";
+                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,strDate,requiredDate,requiredTime,fullname,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,imgProductList,orderType,orderStatus);
+                insertOrder.enqueue(new Callback<CartModel>() {
+                    @Override
+                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                        if (response.body() != null) {
+                            String success = response.body().getSuccess();
+                            if (success.equals("1")) {
+                                startActivity(new Intent(getApplicationContext(), home_activity.class));
+                                Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                        @Override
+                        public void onFailure(Call<CartModel> call, Throwable t) {
+                            startActivity(new Intent(getApplicationContext(),home_activity.class));
+                            Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
+                        }});
+            }
+        });
+    }
+
+    @Override
+    public void onProductsChange(ArrayList<String> products) {
+        orderLists = products;
+    }
+    public void onProductCodeChange(ArrayList<String> productCodes){
+        productCodeList = productCodes;
+    }
+    @Override
+    public void onVariationChange(ArrayList<String> variations) {
+        variationList = variations;
+    }
+
+    @Override
+    public void onQuantityChange(ArrayList<String> quantity) {
+            quantityList = quantity;
+    }
+
+    @Override
+    public void onAddOnsChange(ArrayList<String> addOns) {
+        addOnsList = addOns;
+    }
+
+    @Override
+    public void onSubTotalChange(ArrayList<String> subTotal) {
+        subTotalList = subTotal;
+    }
+
+    @Override
+    public void onPriceChange(ArrayList<String> price) {
+        priceList = price;
+    }
+
+    @Override
+    public void onImgProductChange(ArrayList<String> imgProduct) {
+        imgProductList = imgProduct;
+    }
+
+    @Override
+    public void onCustomerIdChange(String customerId) {
+
+    }
 }

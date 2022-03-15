@@ -152,24 +152,6 @@
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:background="@color/pressed" />
-            <TextView
-                android:id="@+id/customerId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:visibility="invisible"/>
-            <TextView
-                android:id="@+id/fullname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:visibility="invisible"/>
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:visibility="invisible"/>
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 </RelativeLayout>

@@ -20,6 +20,7 @@
                 android:id="@+id/image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:padding="10dp"
                 android:src="@drawable/ic_baseline_settings"
                 android:layout_centerVertical="true"/>
             <LinearLayout

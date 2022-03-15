@@ -35,7 +35,7 @@ public class AdressList extends AppCompatActivity {
     private DeliveryAddressAdapter myAddressAdapter;
     private TextView arrowBack,chosenAddress;
     private Button chooseAddress;
-    private String fullname,phoneNumber,address,labelAddress;
+    private String fullname,phoneNumber,address,labelAddress,customerId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,6 @@ public class AdressList extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         chooseAddress = findViewById(R.id.chooseAddress);
-        //chosenAddress = findViewById(R.id.chosenAddress);
         ShowAddress();
         Back();
         ChooseAddress();
