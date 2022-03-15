@@ -37,7 +37,7 @@ import retrofit2.Response;
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class DineInActivity extends AppCompatActivity implements OrdersListener {
-    private TextView arrowBack,total,customerID,fullName,emailAddress;
+    private TextView arrowBack,total,fullName,emailAddress;
     private RecyclerView recyclerViewOrder;
     private Button placeOrder;
     private List<CartModel> orderModelLists;
@@ -75,12 +75,10 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     }
 
     private void showOrders() {
-        String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
         String fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
         String lname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
         String fullname = fname +" "+ lname;
         String email = SharedPreference.getSharedPreference(this).setEmail();
-        customerID.setText(customerId);
         fullName.setText(fullname);
         emailAddress.setText(email);
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);

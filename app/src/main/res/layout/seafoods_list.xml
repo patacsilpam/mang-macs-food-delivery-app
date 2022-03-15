@@ -16,13 +16,15 @@
         app:cardUseCompatPadding="true">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_baseline_settings"
-                android:layout_centerVertical="true"/>
+                android:padding="5dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true" />
             <LinearLayout
                 android:layout_toRightOf="@+id/image"
                 android:layout_width="match_parent"

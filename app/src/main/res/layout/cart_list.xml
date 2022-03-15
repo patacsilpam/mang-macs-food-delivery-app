@@ -15,10 +15,11 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:layout_gravity="center_vertical">
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/imgProduct"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_centerVertical="true" />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/deleteCart"
