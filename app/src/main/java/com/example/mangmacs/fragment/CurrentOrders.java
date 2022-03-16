@@ -60,6 +60,7 @@ public class CurrentOrders extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         String emailAddress = SharedPreference.getSharedPreference(getContext()).setEmail();
+        emptyCart.setVisibility(View.GONE);
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
         Call<List<CurrentOrdersModel>> getCurrentOrder = apiInterface.getCurrentOrders(emailAddress);
         getCurrentOrder.enqueue(new Callback<List<CurrentOrdersModel>>() {
@@ -78,6 +79,7 @@ public class CurrentOrders extends Fragment {
                             startActivity(new Intent(getActivity(), MenuActivty.class));
                         }
                     });
+
                 } else{
                     emptyCart.setVisibility(View.GONE);
                 }
@@ -89,4 +91,13 @@ public class CurrentOrders extends Fragment {
             }
         });
     }
+
+   /* private void addNewOrders() {
+        addOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), MenuActivty.class));
+            }
+        });
+    }*/
 }

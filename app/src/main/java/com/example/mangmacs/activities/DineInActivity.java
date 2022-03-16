@@ -57,7 +57,6 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
         setContentView(R.layout.activity_dine_in);
         arrowBack = findViewById(R.id.arrow_back);
         total = findViewById(R.id.total);
-        customerID = findViewById(R.id.customerId);
         fullName = findViewById(R.id.fullname);
         emailAddress = findViewById(R.id.email);
         placeOrder = findViewById(R.id.placeOrder);
@@ -119,7 +118,6 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String customerId = SharedPreference.getSharedPreference(DineInActivity.this).setID();
                 String requiredDate ="";
                 String requiredTime = "";
                 String fullname = fullName.getText().toString();

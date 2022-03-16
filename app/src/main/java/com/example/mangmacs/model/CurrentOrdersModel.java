@@ -23,9 +23,9 @@ public class CurrentOrdersModel {
     @SerializedName("phone_no")
     private String contactNumber;
     //customer order details
-    @SerializedName("product")
+    @SerializedName("product_name")
     private String products;
-    @SerializedName("variation")
+    @SerializedName("product_variation")
     private String variations;
     @SerializedName("quantity")
     private String quantities;
@@ -40,7 +40,7 @@ public class CurrentOrdersModel {
     //order time and date
     @SerializedName("payment_photo")
     private String paymentPhoto;
-    @SerializedName("img_product")
+    @SerializedName("product_image")
     private String imgProduct;
     @SerializedName("order_type")
     private String orderType;
