@@ -210,7 +210,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:padding="20dp">
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imgProduct"
                         android:layout_width="41dp"
                         android:layout_height="42dp" />

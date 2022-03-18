@@ -38,9 +38,10 @@ public class PreviousOrderAdapter extends RecyclerView.Adapter<PreviousOrderAdap
     public void onBindViewHolder(@NonNull PreviousOrderAdapter.ViewHolder holder, int position) {
         CurrentOrdersModel previousOrderModel = previousOrderList.get(position);
         Glide.with(context).load(previousOrderModel.getImgProduct()).into(holder.imgProduct);
+        int subTotal = Integer.parseInt(previousOrderModel.getPrice()) * Integer.parseInt(previousOrderModel.getQuantities());
         holder.textProduct.setText(previousOrderModel.getProducts());
         holder.textVariation.setText(previousOrderModel.getVariations());
-        holder.textPrice.setText(previousOrderModel.getSubTotal());
+        holder.textPrice.setText(previousOrderModel.getPrice());
         holder.items.setText(previousOrderModel.getQuantities());
         holder.orderStatus.setText(previousOrderModel.getOrderStatus());
         holder.orderType.setText(previousOrderModel.getOrderType());
@@ -63,10 +64,10 @@ public class PreviousOrderAdapter extends RecyclerView.Adapter<PreviousOrderAdap
                 intent.putExtra("totalAmount",previousOrderModel.getTotalAmount());
                 intent.putExtra("addOns",previousOrderModel.getAddOns());
                 intent.putExtra("paymentPhoto",previousOrderModel.getPaymentPhoto());
-                intent.putExtra("orderTime",previousOrderModel.getRequiredDate() + previousOrderModel.getRequiredTime());
-                intent.putExtra("shipTime",previousOrderModel.getRequiredTime());
+                intent.putExtra("orderTime",previousOrderModel.getOrderedDate());
+                intent.putExtra("deliveryTime",previousOrderModel.getRequiredTime());
                 intent.putExtra("paymentTime",previousOrderModel.getOrderedDate());
-                intent.putExtra("deliveredTime",previousOrderModel.getOrderedDate());
+                intent.putExtra("completedTime",previousOrderModel.getOrderedDate());
                 context.startActivity(intent);
             }
         });

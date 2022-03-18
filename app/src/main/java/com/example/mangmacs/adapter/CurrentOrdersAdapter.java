@@ -47,6 +47,8 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context,CurrentOrderDetailsActivity.class);
+                intent.putExtra("id",currentOrdersModel.getId());
+                intent.putExtra("orderId",currentOrdersModel.getOrderId());
                 intent.putExtra("orderStatus",currentOrdersModel.getOrderStatus());
                 intent.putExtra("customerName",currentOrdersModel.getCustomerName());
                 intent.putExtra("email",currentOrdersModel.getEmail());
@@ -59,6 +61,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                 intent.putExtra("quantity",currentOrdersModel.getQuantities());
                 intent.putExtra("totalAmount",currentOrdersModel.getTotalAmount());
                 intent.putExtra("paymentPhoto",currentOrdersModel.getPaymentPhoto());
+                intent.putExtra("orderType",currentOrdersModel.getOrderType());
                 context.startActivity(intent);
             }
         });

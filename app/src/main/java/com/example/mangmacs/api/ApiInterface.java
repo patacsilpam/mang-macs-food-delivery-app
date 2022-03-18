@@ -205,9 +205,6 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<CartModel> insertOrder(
             @Field("productCode[]") ArrayList<String> productCode,
-            @Field("orderDate") String orderDate,
-            @Field("requiredDate") String requiredDate,
-            @Field("requiredTime") String requiredTime,
             @Field("customerName") String customerName,
             @Field("customer_address") String address,
             @Field("labelAddress") String labelAddress,
@@ -223,7 +220,9 @@ public interface ApiInterface {
             @Field("paymentPhoto") String paymentPhoto,
             @Field("imgProduct[]") ArrayList<String> imgProduct,
             @Field("orderType") String orderType,
-            @Field("orderStatus") String orderStatus
+            @Field("orderStatus") String orderStatus,
+            @Field("requiredDate") String requiredDate,
+            @Field("requiredTime") String requiredTime
     );
     @GET("selectNewOrders.php")
     Call<List<CurrentOrdersModel>> getCurrentOrders(

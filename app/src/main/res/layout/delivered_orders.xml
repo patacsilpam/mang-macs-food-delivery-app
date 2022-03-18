@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="20dp">
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProduct"
                 android:layout_width="39dp"
                 android:layout_height="42dp" />
@@ -55,12 +55,22 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp">
                 <TextView
+                    android:id="@+id/x"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="x"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="16sp"
+                    android:textColor="#676A69"/>
+                <TextView
                     android:id="@+id/items"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="70dp"
+                    android:layout_marginRight="75dp"
+                    android:layout_toEndOf="@+id/x"
                     android:layout_marginTop="5dp"
-                    android:text="x3"
+                    android:text="3"
                     android:fontFamily="@font/roboto_light"
                     android:textSize="16sp"
                     android:textColor="#676A69"/>
@@ -118,6 +128,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="45dp"
                 android:layout_below="@+id/itemLayout"
+                android:background="@drawable/cart_button"
+                android:padding="7dp"
                 android:text=""
                 android:textSize="16sp"/>
             <TextView

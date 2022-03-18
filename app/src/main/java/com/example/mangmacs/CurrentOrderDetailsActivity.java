@@ -80,15 +80,16 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity {
     private void showOrderDetails(){
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
+        String orderId = intent.getStringExtra("orderId");
         String status = intent.getStringExtra("orderStatus");
         String name = intent.getStringExtra("customerName");
         String phone_number = intent.getStringExtra("phoneNumber");
         String customer_address = intent.getStringExtra("address");
         String price = intent.getStringExtra("price");
-        String product = intent.getStringExtra("product");
+        String product = intent.getStringExtra("productName");
         String variation = intent.getStringExtra("variation");
         String quantity = intent.getStringExtra("quantity");
-        String amount = intent.getStringExtra("totalAmount");
+        int amount = Integer.parseInt(quantity) * Integer.parseInt(price);
         String image = intent.getStringExtra("imgProduct");
         paymentPhoto = intent.getStringExtra("paymentPhoto");
         String orderType = intent.getStringExtra("orderType");
@@ -105,7 +106,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity {
         textProduct.setText(product);
         textVariation.setText(variation);
         items.setText("x"+quantity);
-        totalAmount.setText("₱ " +amount);
+        totalAmount.setText("₱ " +String.valueOf(amount));
         newOrderId.setText(id);
         dineInName.setText(fname.concat(" ").concat(lname));
         dineInEmail.setText(email);
@@ -159,6 +160,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity {
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    String id = newOrderId.getText().toString();
                                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                                     Call<CartModel> callOrder = apiInterface.cancelOrder(id);
                                     callOrder.enqueue(new Callback<CartModel>() {
@@ -169,6 +171,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity {
                                                 if (success.equals("1")){
                                                     Toast.makeText(getApplicationContext(),"Cancelled Order Successfully",Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(getApplicationContext(),MyOrdersActivity.class));
+                                                    finish();
                                                 }
                                             }
                                         }

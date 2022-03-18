@@ -211,7 +211,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
                String orderStatus = "Pending";
                String paymentPhoto = imageToString();
                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-               Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,date,date,time,fullname,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,imgProductList,orderType,orderStatus);
+               Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,fullname,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,imgProductList,orderType,orderStatus,date,time);
                insertOrder.enqueue(new Callback<CartModel>() {
                    @Override
                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
