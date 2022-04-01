@@ -58,7 +58,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     private ImageView imgPayment;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String date,time,fullname,phoneNumber,address,labelAddress,totalPrice;
+    private String date,time,recipientName,phoneNumber,address,labelAddress,totalPrice;
     private static final int STORAGE_PERMISSION_CODE = 100;
     private Bitmap bitmap;
     private Uri selectedImage;
@@ -88,7 +88,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         Intent intent = getIntent();
         date = intent.getStringExtra("date");
         time = intent.getStringExtra("time");
-        fullname = intent.getStringExtra("fullName");
+        recipientName = intent.getStringExtra("fullName");
         phoneNumber = intent.getStringExtra("phoneNumber");
         address = intent.getStringExtra("address");
         labelAddress = intent.getStringExtra("labelAddress");
@@ -215,11 +215,14 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
             @Override
             public void onClick(View view) {
                 String email = emailAddress.getText().toString();
+                String fname = SharedPreference.getSharedPreference(PaymentActivity.this).setFname();
+                String lname = SharedPreference.getSharedPreference(PaymentActivity.this).setLname();
+                String accountName = fname.concat(" ").concat(lname);
                 String paymentPhoto = imageToString();
                 String orderStatus = "Pending";
                 String orderType = "Deliver";
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,fullname,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,imgProductList,orderType,orderStatus,date,time);
+                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,recipientName,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,imgProductList,orderType,orderStatus,date,time);
                 insertOrder.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

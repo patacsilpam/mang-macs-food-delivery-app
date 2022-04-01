@@ -191,10 +191,6 @@ public interface ApiInterface {
     Call<CartModel> deleteCart(
             @Query("id") int id
     );
-    @GET("countCart.php")
-    Call<CartModel> countCart(
-            @Query("emailaddress") String email
-    );
     @POST("updateQuantity.php")
     @FormUrlEncoded
     Call<CartModel> updateQuantity(
@@ -205,7 +201,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<CartModel> insertOrder(
             @Field("productCode[]") ArrayList<String> productCode,
-            @Field("customerName") String customerName,
+            @Field("accountName") String accountName,
+            @Field("recipientName") String recipientName,
             @Field("customer_address") String address,
             @Field("labelAddress") String labelAddress,
             @Field("email") String email,

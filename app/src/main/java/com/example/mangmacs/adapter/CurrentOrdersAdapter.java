@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mangmacs.CurrentOrderDetailsActivity;
 import com.example.mangmacs.R;
+import com.example.mangmacs.activities.MyOrdersActivity;
 import com.example.mangmacs.model.CurrentOrdersModel;
 
 import java.util.List;
@@ -43,29 +44,14 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
         holder.textPrice.setText(currentOrdersModel.getPrice());
         holder.orderStatus.setText(currentOrdersModel.getOrderStatus());
         holder.orderType.setText(currentOrdersModel.getOrderType());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.viewMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,CurrentOrderDetailsActivity.class);
-                intent.putExtra("id",currentOrdersModel.getId());
-                intent.putExtra("orderId",currentOrdersModel.getOrderId());
-                intent.putExtra("orderStatus",currentOrdersModel.getOrderStatus());
-                intent.putExtra("customerName",currentOrdersModel.getCustomerName());
-                intent.putExtra("email",currentOrdersModel.getEmail());
-                intent.putExtra("phoneNumber",currentOrdersModel.getContactNumber());
-                intent.putExtra("address",currentOrdersModel.getCustomerAddress());
-                intent.putExtra("imgProduct",currentOrdersModel.getImgProduct());
-                intent.putExtra("productName",currentOrdersModel.getProducts());
-                intent.putExtra("variation",currentOrdersModel.getVariations());
-                intent.putExtra("price",currentOrdersModel.getPrice());
-                intent.putExtra("quantity",currentOrdersModel.getQuantities());
-                intent.putExtra("totalAmount",currentOrdersModel.getTotalAmount());
-                intent.putExtra("paymentPhoto",currentOrdersModel.getPaymentPhoto());
+                Intent intent = new Intent (context,CurrentOrderDetailsActivity.class);
                 intent.putExtra("orderType",currentOrdersModel.getOrderType());
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -75,8 +61,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgProduct;
-        private TextView textProduct,textVariation,items,textPrice,orderStatus,orderType;
-        private CardView cardView;
+        private TextView textProduct,textVariation,items,textPrice,orderStatus,orderType,viewMore;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
@@ -86,7 +71,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
             items = itemView.findViewById(R.id.items);
             orderStatus = itemView.findViewById(R.id.orderStatus);
             orderType = itemView.findViewById(R.id.orderType);
-            cardView = itemView.findViewById(R.id.cardView);
+            viewMore = itemView.findViewById(R.id.viewMore);
         }
     }
 }

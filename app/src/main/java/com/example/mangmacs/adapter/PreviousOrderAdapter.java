@@ -45,29 +45,11 @@ public class PreviousOrderAdapter extends RecyclerView.Adapter<PreviousOrderAdap
         holder.items.setText(previousOrderModel.getQuantities());
         holder.orderStatus.setText(previousOrderModel.getOrderStatus());
         holder.orderType.setText(previousOrderModel.getOrderType());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.viewMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PreviousOrderDetailsActivity.class);
-                intent.putExtra("customerName",previousOrderModel.getCustomerName());
-                intent.putExtra("phoneNumber",previousOrderModel.getContactNumber());
-                intent.putExtra("address",previousOrderModel.getCustomerAddress());
-                intent.putExtra("productCode",previousOrderModel.getProductCode());
-                intent.putExtra("product",previousOrderModel.getProducts());
-                intent.putExtra("variation",previousOrderModel.getVariations());
-                intent.putExtra("price",previousOrderModel.getPrice());
-                intent.putExtra("subtotal",previousOrderModel.getSubTotal());
-                intent.putExtra("quantity",previousOrderModel.getQuantities());
-                intent.putExtra("orderStatus",previousOrderModel.getOrderStatus());
                 intent.putExtra("orderType",previousOrderModel.getOrderType());
-                intent.putExtra("imgProduct",previousOrderModel.getImgProduct());
-                intent.putExtra("totalAmount",previousOrderModel.getTotalAmount());
-                intent.putExtra("addOns",previousOrderModel.getAddOns());
-                intent.putExtra("paymentPhoto",previousOrderModel.getPaymentPhoto());
-                intent.putExtra("orderTime",previousOrderModel.getOrderedDate());
-                intent.putExtra("deliveryTime",previousOrderModel.getRequiredTime());
-                intent.putExtra("paymentTime",previousOrderModel.getOrderedDate());
-                intent.putExtra("completedTime",previousOrderModel.getOrderedDate());
                 context.startActivity(intent);
             }
         });
@@ -80,8 +62,7 @@ public class PreviousOrderAdapter extends RecyclerView.Adapter<PreviousOrderAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgProduct;
-        private TextView textProduct,textVariation,items,textPrice,orderStatus,orderType;
-        private CardView cardView;
+        private TextView textProduct,textVariation,items,textPrice,orderStatus,orderType,viewMore;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
@@ -91,7 +72,7 @@ public class PreviousOrderAdapter extends RecyclerView.Adapter<PreviousOrderAdap
             items = itemView.findViewById(R.id.items);
             orderStatus = itemView.findViewById(R.id.orderStatus);
             orderType = itemView.findViewById(R.id.orderType);
-            cardView = itemView.findViewById(R.id.cardView);
+            viewMore = itemView.findViewById(R.id.viewMore);
         }
     }
 }

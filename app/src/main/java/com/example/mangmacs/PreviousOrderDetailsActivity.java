@@ -68,61 +68,20 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity {
         deliveryAddress.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
         dineInDetails.setVisibility(View.VISIBLE);
-        showOrderDetails();
-        Back();
-    }
-    private void showOrderDetails(){
-        Intent intent = getIntent();
-        String status = intent.getStringExtra("orderStatus");
-        String name = intent.getStringExtra("customerName");
-        String phone_number = intent.getStringExtra("phoneNumber");
-        String customer_address = intent.getStringExtra("address");
-        String price = intent.getStringExtra("price");
-        productCode = intent.getStringExtra("productCode");
-        String product = intent.getStringExtra("product");
-        String variation = intent.getStringExtra("variation");
-        String quantity = intent.getStringExtra("quantity");
-        int amount = Integer.parseInt(quantity) * Integer.parseInt(price);
-        image = intent.getStringExtra("imgProduct");
-        String paymentPhoto = intent.getStringExtra("paymentPhoto");
-        String orderTime = intent.getStringExtra("orderTime");
-        String deliveryTime = intent.getStringExtra("deliveryTime");
-        String paymentTime = intent.getStringExtra("paymentTime");
-        String completedTime = intent.getStringExtra("completedTime");
-        String fname = SharedPreference.getSharedPreference(this).setFname();
-        String lname = SharedPreference.getSharedPreference(this).setLname();
-        String email = SharedPreference.getSharedPreference(this).setEmail();
-        //display order details
-        orderStatus.setText(status);
-        deliveryName.setText(name);
-        deliveryPhoneNum.setText(phone_number);
-        devAddress.setText(customer_address);
-        dineInName.setText(fname.concat(" ").concat(lname));
-        dineInEmail.setText(email);
-        pickUpName.setText(fname.concat(" ").concat(lname));
-        pickUpEmail.setText(email);
-        textPrice.setText(price);
-        textProduct.setText(product);
-        textVariation.setText(variation);
-        items.setText(quantity);
-        totalAmount.setText(String.valueOf(amount));
-        newOrderTime.setText(orderTime);
-        newShipTime.setText(deliveryTime);
-        newPaymentTime.setText(paymentTime);
-        newCompletedTime.setText(completedTime);
-        Glide.with(getApplicationContext()).load(image).into(imgProduct);
         checkOrderType();
         reOrder();
+        Back();
     }
     private void checkOrderType(){
-        String getOrderType = orderType.getText().toString();
-        if (getOrderType.equals("Pick Up")){
+       Intent intent = getIntent();
+       String orderType = intent.getStringExtra("orderType");
+        if (orderType.equals("Pick Up")){
             deliveryAddress.setVisibility(View.GONE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
 
         }
-        else if (getOrderType.equals("Delivery")){
+        else if (orderType.equals("Delivery")){
             deliveryAddress.setVisibility(View.VISIBLE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);

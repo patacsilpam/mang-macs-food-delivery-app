@@ -14,7 +14,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#CDCACA"
+            android:background="#E8E7E7"
             android:layout_marginTop="120dp"/>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -108,43 +108,54 @@
                     android:textSize="16sp"
                     android:textColor="@color/pressed"/>
             </RelativeLayout>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/orderStatus"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="45dp"
-                android:layout_below="@+id/itemLayout"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="18dp"
-                android:background="@drawable/gray_button"
-                android:text=""
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:fontFamily="@font/roboto_light"
-                android:textSize="18sp"/>
-            <TextView
-                android:id="@+id/orderType"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/lineLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
-                android:layout_below="@+id/itemLayout"
-                android:background="@drawable/cart_button"
-                android:padding="7dp"
-                android:text=""
-                android:textSize="16sp"/>
-            <TextView
-                android:id="@+id/productID"
-                android:layout_width="wrap_content"
+                android:layout_below="@id/itemLayout"
+                android:layout_marginTop="30dp">
+                <TextView
+                    android:id="@+id/viewMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_centerInParent="true"
+                    android:text="View more"
+                    android:textColor="#676A69"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="16sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E8E7E7"
+                    android:layout_below="@id/viewMore"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text=""/>
-            <TextView
-                android:id="@+id/totalprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/productID"
-                android:visibility="invisible"
-                android:text=""/>
+                android:layout_below="@id/lineLayout"
+                android:layout_marginTop="30dp">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/orderStatus"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="18dp"
+                    android:background="@drawable/gray_button"
+                    android:text=""
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/orderType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cart_button"
+                    android:padding="7dp"
+                    android:text=""
+                    android:textSize="16sp"/>
+            </RelativeLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

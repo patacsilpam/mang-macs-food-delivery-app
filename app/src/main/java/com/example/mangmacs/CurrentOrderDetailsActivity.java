@@ -57,10 +57,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity {
         items = findViewById(R.id.items);
         totalAmount = findViewById(R.id.totalAmount);
         imgProduct = findViewById(R.id.imgProduct);
-        newPaymentPhoto = findViewById(R.id.paymentPhoto);
         arrowBack = findViewById(R.id.arrow_back);
-        cancelOrder = findViewById(R.id.cancelOrder);
-        newOrderId = findViewById(R.id.newOrderId);
         neworderType = findViewById(R.id.orderType);
         deliveryAddress = findViewById(R.id.deliveryAddress);
         pickUpDetails = findViewById(R.id.pickUpDetails);
@@ -69,75 +66,21 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity {
         pickUpDetails.setVisibility(View.VISIBLE);
         dineInDetails.setVisibility(View.VISIBLE);
         cancelOrder.setEnabled(false);
-        showOrderDetails();
         Back();
-        String imgString = textPayment.getText().toString();
-        byte [] encodeByte=Base64.decode(imgString.getBytes(), 0);
-        Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-        newPaymentPhoto.setImageBitmap(bitmap);
+        dismissOrder();
     }
 
-    private void showOrderDetails(){
-        Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        String orderId = intent.getStringExtra("orderId");
-        String status = intent.getStringExtra("orderStatus");
-        String name = intent.getStringExtra("customerName");
-        String phone_number = intent.getStringExtra("phoneNumber");
-        String customer_address = intent.getStringExtra("address");
-        String price = intent.getStringExtra("price");
-        String product = intent.getStringExtra("productName");
-        String variation = intent.getStringExtra("variation");
-        String quantity = intent.getStringExtra("quantity");
-        int amount = Integer.parseInt(quantity) * Integer.parseInt(price);
-        String image = intent.getStringExtra("imgProduct");
-        paymentPhoto = intent.getStringExtra("paymentPhoto");
-        String orderType = intent.getStringExtra("orderType");
-        String fname = SharedPreference.getSharedPreference(this).setFname();
-        String lname = SharedPreference.getSharedPreference(this).setLname();
-        String email = SharedPreference.getSharedPreference(this).setEmail();
-        //display order details
-        neworderType.setText(orderType);
-        orderStatus.setText(status);
-        deliveryName.setText(name);
-        deliveryPhoneNum.setText(phone_number);
-        devAddress.setText(customer_address);
-        textPrice.setText("₱ "+price);
-        textProduct.setText(product);
-        textVariation.setText(variation);
-        items.setText("x"+quantity);
-        totalAmount.setText("₱ " +String.valueOf(amount));
-        newOrderId.setText(id);
-        dineInName.setText(fname.concat(" ").concat(lname));
-        dineInEmail.setText(email);
-        pickUpName.setText(fname.concat(" ").concat(lname));
-        pickUpEmail.setText(email);
-        Glide.with(getApplicationContext()).load(image).into(imgProduct);
-        dismissOrder(); //a method to for cancellation of orders
-        textPayment.setText(paymentPhoto);
-
-        //Bitmap b=StringToBitMap(imgString);
 
 
-    }
-    /*public Bitmap StringToBitMap(String image){
-        try{
-            byte [] encodeByte=Base64.decode(image,Base64.DEFAULT);
-            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        }catch(Exception e){
-            e.getMessage();
-            return null;
-        }
-    }*/
     private void dismissOrder() {
-        String getOrderType = neworderType.getText().toString();
-        if (getOrderType.equals("Pick Up")){
+        Intent intent = getIntent();
+        String orderType = intent.getStringExtra("orderType");
+        if (orderType.equals("Pick Up")){
             deliveryAddress.setVisibility(View.GONE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
         }
-        else if (getOrderType.equals("Deliver")){
+        else if (orderType.equals("Deliver")){
             deliveryAddress.setVisibility(View.VISIBLE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);
