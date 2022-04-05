@@ -12,4 +12,5 @@ public interface OrdersListener {
     void onPriceChange(ArrayList<String> price);
     void onImgProductChange(ArrayList<String> imgProduct);
     void onCustomerIdChange(String customerId);
+    void onTotalAmountChange(ArrayList<String> totalAmount);
 }

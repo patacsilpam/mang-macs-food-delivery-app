@@ -364,70 +364,85 @@
                 android:layout_marginBottom="100dp"
                 android:layout_marginTop="10dp"
                 app:cardElevation="0dp">
-                <RelativeLayout
-                    android:id="@+id/otContainer"
-                    android:layout_width="wrap_content"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
-                    <TextView
-                        android:id="@+id/order"
-                        android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Order Time"/>
-                    <TextView
-                        android:id="@+id/orderTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:text="Order Time"/>
-                    <TextView
-                        android:id="@+id/payment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_below="@id/orderTime"
-                        android:text="Payment Time"/>
-                    <TextView
-                        android:id="@+id/paymentTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_below="@id/order"
-                        android:layout_alignParentEnd="true"
-                        android:text="Order Time"/>
-                    <TextView
-                        android:id="@+id/ship"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/payment"
-                        android:text="Ship Time"/>
-                    <TextView
-                        android:id="@+id/shipTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/payment"
-                        android:layout_alignParentEnd="true"
-                        android:text="Ship Time"/>
-                    <TextView
-                        android:id="@+id/completed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_below="@id/ship"
-                        android:text="Completed Time"/>
-                    <TextView
-                        android:id="@+id/completedTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_below="@id/shipTime"
-                        android:layout_alignParentEnd="true"
-                        android:text="Completed Time"/>
-                </RelativeLayout>
+                        android:orientation="vertical"
+                        android:padding="10dp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Order Id"
+                                android:fontFamily="@font/roboto"
+                                android:textSize="16sp"
+                                android:textColor="#413F3F"
+                                android:layout_centerVertical="true"/>
+                            <TextView
+                                android:id="@+id/orderId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:fontFamily="@font/roboto"
+                                android:textSize="16sp"
+                                android:textColor="#413F3F"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentEnd="true"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Order Time"
+                                android:fontFamily="@font/roboto"
+                                android:textSize="16sp"
+                                android:textColor="#413F3F"
+                                android:layout_centerVertical="true"/>
+                            <TextView
+                                android:id="@+id/orderTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:fontFamily="@font/roboto"
+                                android:textSize="16sp"
+                                android:textColor="#413F3F"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentEnd="true"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Completed Time"
+                                android:fontFamily="@font/roboto"
+                                android:textSize="16sp"
+                                android:textColor="#413F3F"
+                                android:layout_centerVertical="true"/>
+                            <TextView
+                                android:id="@+id/completedTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:fontFamily="@font/roboto"
+                                android:textSize="16sp"
+                                android:textColor="#413F3F"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentEnd="true"/>
+                        </RelativeLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>

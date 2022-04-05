@@ -190,4 +190,11 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     public void onCustomerIdChange(String customerId) {
 
     }
+
+    @Override
+    public void onTotalAmountChange(ArrayList<String> totalAmount) {
+
+    }
+
+
 }

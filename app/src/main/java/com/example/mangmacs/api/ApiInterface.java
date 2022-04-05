@@ -237,9 +237,14 @@ public interface ApiInterface {
     Call<List<ReservationModel>> getPreviousBookings(
             @Query("emailAddress") String emailAddress
     );
+    @GET("selectNewOrderDetails.php")
+    Call<List<CurrentOrdersModel>> getNewOrderDetails(
+            @Query("emailAddress") String emailAddress,
+            @Query("orderNumber") String orderNumber
+    );
     @POST("cancelOrders.php")
     @FormUrlEncoded
-    Call<CartModel> cancelOrder(
+    Call<CurrentOrdersModel> cancelOrder(
         @Field("id") String id
     );
     @POST("cancelBookings.php")

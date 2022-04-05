@@ -59,8 +59,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity {
         buyAgain = findViewById(R.id.buyAgain);
         newPaymentPhoto = findViewById(R.id.newPaymentPhoto);
         newOrderTime = findViewById(R.id.orderTime);
-        newPaymentTime = findViewById(R.id.paymentTime);
-        newShipTime= findViewById(R.id.shipTime);
         newCompletedTime = findViewById(R.id.completedTime);
         deliveryAddress = findViewById(R.id.deliveryAddress);
         pickUpDetails = findViewById(R.id.pickUpDetails);

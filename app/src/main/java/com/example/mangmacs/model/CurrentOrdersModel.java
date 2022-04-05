@@ -3,6 +3,8 @@ package com.example.mangmacs.model;
 import com.google.gson.annotations.SerializedName;
 
 public class CurrentOrdersModel {
+    @SerializedName("success")
+    private String success;
     @SerializedName("id")
     private String id;
     @SerializedName("product_code")
@@ -14,7 +16,7 @@ public class CurrentOrdersModel {
     @SerializedName("required_time")
     private String requiredTime;
     //customer information
-    @SerializedName("account_name")
+    @SerializedName("recipient_name")
     private String accountName;
     @SerializedName("customer_name")
     private String customerName;
@@ -55,7 +57,8 @@ public class CurrentOrdersModel {
     @SerializedName("order_status")
     private String orderStatus;
 
-    public CurrentOrdersModel(String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String accountName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String paymentPhoto, String imgProduct, String orderType, String orderStatus) {
+    public CurrentOrdersModel(String success,String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String accountName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String paymentPhoto, String imgProduct, String orderType, String orderStatus) {
+        this.success = success;
         this.id = id;
         this.productCode = productCode;
         this.orderedDate = orderedDate;
@@ -80,6 +83,10 @@ public class CurrentOrdersModel {
         this.imgProduct = imgProduct;
         this.orderType = orderType;
         this.orderStatus = orderStatus;
+    }
+
+    public String getSuccess() {
+        return success;
     }
 
     public String getId() {
