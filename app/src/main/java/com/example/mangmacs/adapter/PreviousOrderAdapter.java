@@ -38,7 +38,6 @@ public class PreviousOrderAdapter extends RecyclerView.Adapter<PreviousOrderAdap
     public void onBindViewHolder(@NonNull PreviousOrderAdapter.ViewHolder holder, int position) {
         CurrentOrdersModel previousOrderModel = previousOrderList.get(position);
         Glide.with(context).load(previousOrderModel.getImgProduct()).into(holder.imgProduct);
-        int subTotal = Integer.parseInt(previousOrderModel.getPrice()) * Integer.parseInt(previousOrderModel.getQuantities());
         holder.textProduct.setText(previousOrderModel.getProducts());
         holder.textVariation.setText(previousOrderModel.getVariations());
         holder.textPrice.setText(previousOrderModel.getPrice());
@@ -49,7 +48,19 @@ public class PreviousOrderAdapter extends RecyclerView.Adapter<PreviousOrderAdap
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PreviousOrderDetailsActivity.class);
+                intent.putExtra("orderDate",previousOrderModel.getOrderedDate());
+                intent.putExtra("deliveryTime",previousOrderModel.getRequiredDate().concat(" ").concat(previousOrderModel.getRequiredTime()));
+                intent.putExtra("completedTime",previousOrderModel.getCompletedTime());
+                intent.putExtra("customerName",previousOrderModel.getCustomerName());
+                intent.putExtra("recipientName",previousOrderModel.getRecipientName());
+                intent.putExtra("email",previousOrderModel.getEmail());
+                intent.putExtra("phoneNumber",previousOrderModel.getContactNumber());
+                intent.putExtra("labelAddress",previousOrderModel.getLabelAddress());
+                intent.putExtra("address",previousOrderModel.getCustomerAddress());
+                intent.putExtra("orderNumber",previousOrderModel.getOrderNumber());
                 intent.putExtra("orderType",previousOrderModel.getOrderType());
+                intent.putExtra("orderStatus",previousOrderModel.getOrderStatus());
+                intent.putExtra("totalAmount",previousOrderModel.getTotalAmount());
                 context.startActivity(intent);
             }
         });

@@ -242,6 +242,11 @@ public interface ApiInterface {
             @Query("emailAddress") String emailAddress,
             @Query("orderNumber") String orderNumber
     );
+    @GET("selectDeliveredOrderDetails.php")
+    Call<List<CurrentOrdersModel>> getPreviousOrderDetails(
+            @Query("emailAddress") String emailAddress,
+            @Query("orderNumber") String orderNumber
+    );
     @POST("cancelOrders.php")
     @FormUrlEncoded
     Call<CurrentOrdersModel> cancelOrder(

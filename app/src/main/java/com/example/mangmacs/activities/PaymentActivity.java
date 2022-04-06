@@ -299,9 +299,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     }
 
     @Override
-    public void onTotalAmountChange(ArrayList<String> totalAmount) {
+    public void onTotalAmountChange(String amount) {
 
     }
-
-
 }

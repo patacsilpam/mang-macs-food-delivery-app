@@ -17,7 +17,7 @@ public class CurrentOrdersModel {
     private String requiredTime;
     //customer information
     @SerializedName("recipient_name")
-    private String accountName;
+    private String recipientName;
     @SerializedName("customer_name")
     private String customerName;
     @SerializedName("customer_address")
@@ -56,15 +56,17 @@ public class CurrentOrdersModel {
     private String orderType;
     @SerializedName("order_status")
     private String orderStatus;
+    @SerializedName("completed_time")
+    private String completedTime;
 
-    public CurrentOrdersModel(String success,String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String accountName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String paymentPhoto, String imgProduct, String orderType, String orderStatus) {
+    public CurrentOrdersModel(String success,String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String paymentPhoto, String imgProduct, String orderType, String orderStatus,String completedTime) {
         this.success = success;
         this.id = id;
         this.productCode = productCode;
         this.orderedDate = orderedDate;
         this.requiredDate = requiredDate;
         this.requiredTime = requiredTime;
-        this.accountName = accountName;
+        this.recipientName = recipientName;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.labelAddress = labelAddress;
@@ -83,6 +85,7 @@ public class CurrentOrdersModel {
         this.imgProduct = imgProduct;
         this.orderType = orderType;
         this.orderStatus = orderStatus;
+        this.completedTime = completedTime;
     }
 
     public String getSuccess() {
@@ -109,8 +112,8 @@ public class CurrentOrdersModel {
         return requiredTime;
     }
 
-    public String getAccountName() {
-        return accountName;
+    public String getRecipientName() {
+        return recipientName;
     }
 
     public String getCustomerName() {
@@ -183,5 +186,9 @@ public class CurrentOrdersModel {
 
     public String getOrderStatus() {
         return orderStatus;
+    }
+
+    public String getCompletedTime() {
+        return completedTime;
     }
 }

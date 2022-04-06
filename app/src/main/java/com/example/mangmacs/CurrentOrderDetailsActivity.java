@@ -27,6 +27,7 @@ import com.example.mangmacs.adapter.OrderListsAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
+import com.example.mangmacs.fragment.CurrentOrders;
 import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.CurrentOrdersModel;
 
@@ -40,12 +41,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
-    private TextView orderStatus,orderNumber,totalAmount,arrowBack;
-    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress;
-    private CardView deliveryDetails,pickUpDetails,dineInDetails;
+    private TextView orderStatus,orderNumber,orderType,totalAmount,arrowBack;
+    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryTime;
+    private CardView deliveryDetails,pickUpDetails,dineInDetails,devTimeDetails;
     private RecyclerView newOrderDetailLists;
-    private String newAccountName,newEmail,newCustomerName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber;
-    private ArrayList<String> totalAmountList = new ArrayList<>();
+    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
     @Override
@@ -55,6 +55,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         arrowBack = findViewById(R.id.arrow_back);
         orderNumber = findViewById(R.id.orderNumber);
         orderStatus = findViewById(R.id.orderStatus);
+        orderType = findViewById(R.id.orderType);
         totalAmount = findViewById(R.id.totalAmount);
         dineInDetails = findViewById(R.id.dineInDetails);
         dineInName = findViewById(R.id.dineInName);
@@ -67,9 +68,12 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         devAddress = findViewById(R.id.devAddress);
         devLabelAddress = findViewById(R.id.labelAddress);
         deliveryDetails = findViewById(R.id.deliveryDetails);
+        devTimeDetails = findViewById(R.id.devTimeDetails);
+        deliveryTime = findViewById(R.id.deliveryTime);
         deliveryDetails.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
         dineInDetails.setVisibility(View.VISIBLE);
+        devTimeDetails.setVisibility(View.GONE);
         newOrderDetailLists = findViewById(R.id.newOrderDetailLists);
         newOrderDetailLists.setHasFixedSize(true);
         newOrderDetailLists.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -79,9 +83,10 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
     }
     private void dismissOrder() {
         Intent intent = getIntent();
+        newDeliveryTime = intent.getStringExtra("deliveryTime");
         newAccountName = intent.getStringExtra("customerName");
         newEmail = intent.getStringExtra("email");
-        newCustomerName = intent.getStringExtra("customerName");
+        newRecipientName = intent.getStringExtra("recipientName");
         newPhoneNumber = intent.getStringExtra("phoneNumber");
         newLabelAddress = intent.getStringExtra("labelAddress");
         newAddress = intent.getStringExtra("address");
@@ -89,20 +94,24 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         newOrderStatus = intent.getStringExtra("orderStatus");
         newOrderNumber = intent.getStringExtra("orderNumber");
         orderStatus.setText(newOrderStatus);
-        totalAmount.setText("₱ ".concat(String.valueOf(totalAmountList)).concat(".00"));
-        if (newOrderType.equals("Pick Up")){
+        orderType.setText(newOrderType);
+        orderNumber.setText(newOrderNumber);
+        deliveryTime.setText(newDeliveryTime);
+        String OrderType = orderType.getText().toString();
+        if (OrderType.equals("Pick Up")){
             pickUpName.setText(newAccountName);
             pickUpEmail.setText(newEmail);
             deliveryDetails.setVisibility(View.GONE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
         }
-        else if (newOrderType.equals("Deliver")){
-            deliveryName.setText(newCustomerName);
+        else if (OrderType.equals("Deliver")){
+            deliveryName.setText(newRecipientName);
             deliveryPhoneNum.setText(newPhoneNumber);
             devAddress.setText(newAddress);
             devLabelAddress.setText(newLabelAddress);
             deliveryDetails.setVisibility(View.VISIBLE);
+            devTimeDetails.setVisibility(View.VISIBLE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);
         }
@@ -115,7 +124,6 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         }
     }
     private void showOrders(){
-        orderNumber.setText(newOrderNumber);
         String email = SharedPreference.getSharedPreference(this).setEmail();
         String number = orderNumber.getText().toString();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -126,6 +134,8 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
                 currentOrdersModels = response.body();
                 newOrdersDetailAdapter = new NewOrdersDetailAdapter(CurrentOrderDetailsActivity.this,currentOrdersModels,CurrentOrderDetailsActivity.this);
                 newOrderDetailLists.setAdapter(newOrdersDetailAdapter);
+                newOrdersDetailAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -189,8 +199,8 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
     }
 
     @Override
-    public void onTotalAmountChange(ArrayList<String> totalAmount) {
-        totalAmountList = totalAmount;
+    public void onTotalAmountChange(String amount) {
+        totalAmount.setText("₱ ".concat(amount).concat(".00"));
     }
 
 

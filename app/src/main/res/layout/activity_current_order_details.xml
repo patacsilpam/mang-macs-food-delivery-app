@@ -212,9 +212,10 @@
                    android:textColor="#7E7A7A"
                    android:textSize="18sp" />
                <TextView
+                   android:id="@+id/orderType"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="Dine in"
+                   android:text=""
                    android:textColor="#413F3F"
                    android:textSize="18sp" />
            </LinearLayout>
@@ -228,8 +229,7 @@
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/newOrderDetailLists"
            android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:scrollbars="vertical"/>
+           android:layout_height="wrap_content" />
        <androidx.cardview.widget.CardView
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
@@ -261,6 +261,34 @@
                    android:textColor="#413F3F"
                    android:layout_alignParentEnd="true"
                    android:layout_centerVertical="true"/>
+           </RelativeLayout>
+       </androidx.cardview.widget.CardView>
+       <androidx.cardview.widget.CardView
+           android:id="@+id/devTimeDetails"
+           android:layout_width="match_parent"
+           android:layout_height="70dp"
+           app:cardElevation="0dp"
+           android:layout_marginTop="10dp"
+           android:background="@color/white">
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:padding="10dp">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Delivery Time"
+                   android:textColor="#7E7A7A"
+                   android:textSize="18sp" />
+               <TextView
+                   android:id="@+id/deliveryTime"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentEnd="true"
+                   android:text=""
+                   android:textColor="#413F3F"
+                   android:textSize="18sp" />
            </RelativeLayout>
        </androidx.cardview.widget.CardView>
    </LinearLayout>
