@@ -59,18 +59,45 @@
                android:padding="10dp"/>
            <RelativeLayout
                android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:padding="10dp">
+               <RadioGroup
+                   android:id="@+id/choosePayment"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:background="@color/white"
+                   android:padding="10dp">
+                   <RadioButton
+                       android:id="@+id/gcash"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:text="Gcash"/>
+                   <View
+                       android:layout_width="match_parent"
+                       android:layout_height="1dp"
+                       android:background="#DDDDDD"/>
+                   <RadioButton
+                       android:id="@+id/paypal"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:text="Paypal"/>
+               </RadioGroup>
+           </RelativeLayout>
+           <RelativeLayout
+               android:layout_width="match_parent"
                android:layout_height="wrap_content">
                <ImageView
-                   android:id="@+id/gcash"
+                   android:id="@+id/gcashImg"
                    android:layout_width="100dp"
                    android:layout_height="50dp"
-                   android:padding="10dp"
+                   android:padding="-20dp"
                    android:src="@drawable/gcash"/>
                <ImageView
                    android:layout_width="100dp"
                    android:layout_height="50dp"
                    android:padding="10dp"
-                   android:layout_toEndOf="@id/gcash"
+                   android:layout_toEndOf="@id/gcashImg"
                    android:src="@drawable/paymaya"/>
            </RelativeLayout>
            <TextView
@@ -148,7 +175,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
                 style="?android:attr/borderlessButtonStyle"
-                android:text="Next"
+                android:text="Place Order"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:background="@color/pressed" />

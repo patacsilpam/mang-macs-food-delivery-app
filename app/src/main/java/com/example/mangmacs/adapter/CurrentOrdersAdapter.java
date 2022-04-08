@@ -59,6 +59,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                 intent.putExtra("orderType",currentOrdersModel.getOrderType());
                 intent.putExtra("orderStatus",currentOrdersModel.getOrderStatus());
                 intent.putExtra("totalAmount",currentOrdersModel.getTotalAmount());
+                intent.putExtra("paymentMethod",currentOrdersModel.getPaymentType());
                 context.startActivity(intent);
             }
         });

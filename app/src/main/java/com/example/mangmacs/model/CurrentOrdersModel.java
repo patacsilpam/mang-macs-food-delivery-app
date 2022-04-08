@@ -50,6 +50,8 @@ public class CurrentOrdersModel {
     //order time and date
     @SerializedName("payment_photo")
     private String paymentPhoto;
+    @SerializedName("payment_type")
+    private String paymentType;
     @SerializedName("product_image")
     private String imgProduct;
     @SerializedName("order_type")
@@ -59,7 +61,7 @@ public class CurrentOrdersModel {
     @SerializedName("completed_time")
     private String completedTime;
 
-    public CurrentOrdersModel(String success,String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String paymentPhoto, String imgProduct, String orderType, String orderStatus,String completedTime) {
+    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime) {
         this.success = success;
         this.id = id;
         this.productCode = productCode;
@@ -82,6 +84,7 @@ public class CurrentOrdersModel {
         this.price = price;
         this.totalAmount = totalAmount;
         this.paymentPhoto = paymentPhoto;
+        this.paymentType = paymentType;
         this.imgProduct = imgProduct;
         this.orderType = orderType;
         this.orderStatus = orderStatus;
@@ -174,6 +177,10 @@ public class CurrentOrdersModel {
 
     public String getPaymentPhoto() {
         return paymentPhoto;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
     }
 
     public String getImgProduct() {

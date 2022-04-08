@@ -128,7 +128,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
                 String orderStatus = "Pending";
                 String orderType = "Dine in";
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,imgProductList,orderType,orderStatus,strDate,requiredTime);
+                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,"",imgProductList,orderType,orderStatus,strDate,requiredTime);
                 insertOrder.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

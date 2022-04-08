@@ -83,7 +83,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="Add instructions for your order" />
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/dimsumadd_ons"
+                android:id="@+id/promoAddOns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
@@ -94,9 +94,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:padding="5dp"
+                    android:hint="e.g no mayo"
                     android:inputType="text"
-                    android:hint="e.g no mayo"/>
+                    android:padding="5dp" />
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:id="@+id/customerId"

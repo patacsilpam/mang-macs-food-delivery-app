@@ -158,7 +158,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
                 style="?android:attr/borderlessButtonStyle"
-                android:text="Order"
+                android:text="Place Order"
                 android:textAllCaps="false"
                 android:background="@color/pressed" />
             <TextView

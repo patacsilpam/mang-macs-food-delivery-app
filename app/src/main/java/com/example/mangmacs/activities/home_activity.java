@@ -44,7 +44,7 @@ public class home_activity extends AppCompatActivity {
     private List<PopularListModel> popularList;
     private List<CartModel> cartList;
     private ApiInterface apiInterface;
-    private PopularAdapter popularAdatper;
+    private PopularAdapter popularAdapter;
     private CartAdapter cartAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textName, btnSeeAll,totalCart;
@@ -113,8 +113,8 @@ public class home_activity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<PopularListModel>> call, Response<List<PopularListModel>> response) {
                 popularList = response.body();
-                popularAdatper = new PopularAdapter(home_activity.this,popularList);
-                recyclerView.setAdapter(popularAdatper);
+                popularAdapter = new PopularAdapter(home_activity.this,popularList);
+                recyclerView.setAdapter(popularAdapter);
                 refresh();
             }
 
@@ -272,8 +272,8 @@ public class home_activity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<List<PopularListModel>> call, Response<List<PopularListModel>> response) {
                         popularList = response.body();
-                        popularAdatper = new PopularAdapter(home_activity.this,popularList);
-                        recyclerView.setAdapter(popularAdatper);
+                        popularAdapter = new PopularAdapter(home_activity.this,popularList);
+                        recyclerView.setAdapter(popularAdapter);
                         refresh();
                     }
 

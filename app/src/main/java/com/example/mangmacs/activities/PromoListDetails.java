@@ -29,7 +29,7 @@ public class PromoListDetails extends AppCompatActivity {
     private ImageView imageView;
     private TextView txt_arrow_back;
     private TextView productName,productPrice,status,customerId,fname,lname,productCode;
-    private TextInputLayout comboAddOns;
+    private TextInputLayout promoAddOns;
     private EditText quantity;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
     private Intent intent;
@@ -42,7 +42,7 @@ public class PromoListDetails extends AppCompatActivity {
         imageView = findViewById(R.id.image);
         productName = findViewById(R.id.dimsumproductName);
         productPrice = findViewById(R.id.dimsumproductPrice);
-        comboAddOns = findViewById(R.id.dimsumadd_ons);
+        promoAddOns = findViewById(R.id.promoAddOns);
         status = findViewById(R.id.status);
         txt_arrow_back = findViewById(R.id.txt_arrow_back);
         customerId = findViewById(R.id.customerId);
@@ -137,7 +137,7 @@ public class PromoListDetails extends AppCompatActivity {
                 String lastName = lname.getText().toString();
                 int price = Integer.parseInt(productPrice.getText().toString());
                 int number = Integer.parseInt(quantity.getText().toString());
-                String add_ons = "";//comboAddOns.getEditText().getText().toString();
+                String add_ons = promoAddOns.getEditText().getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons,image);
                 cartModelCall.enqueue(new Callback<CartModel>() {

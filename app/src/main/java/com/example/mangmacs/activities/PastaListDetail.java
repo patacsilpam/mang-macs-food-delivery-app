@@ -33,6 +33,7 @@ public class PastaListDetail extends AppCompatActivity {
     private EditText quantity;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
     private int count = 1;
+    private  String image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class PastaListDetail extends AppCompatActivity {
 
     private void AddToCart() {
         Intent intent = getIntent();
-        String image = intent.getStringExtra("image");
+        image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
         int productprice = intent.getIntExtra("price",0);
         String productstatus = intent.getStringExtra("status");
@@ -95,7 +96,6 @@ public class PastaListDetail extends AppCompatActivity {
                 int price = Integer.parseInt(productPrice.getText().toString());
                 int number = Integer.parseInt(quantity.getText().toString());
                 String add_ons = drinksAddons.getEditText().getText().toString();
-                String image = "image";
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons,image);
                 cartModelCall.enqueue(new Callback<CartModel>() {

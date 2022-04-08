@@ -16,7 +16,9 @@ import com.bumptech.glide.Glide;
 import com.example.mangmacs.R;
 import com.example.mangmacs.activities.DimsumListDetail;
 import com.example.mangmacs.activities.DrinksListDetail;
+import com.example.mangmacs.activities.NoodlesListDetail;
 import com.example.mangmacs.activities.PancitListDetail;
+import com.example.mangmacs.activities.PastaListDetail;
 import com.example.mangmacs.activities.PizzaListDetaill;
 import com.example.mangmacs.model.PopularListModel;
 
@@ -34,7 +36,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProductV
     @Override
     public PopularAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.bilao_list,null);
+        View view = layoutInflater.inflate(R.layout.popular_list,null);
         return new ProductViewHolder(view);
     }
 
@@ -55,35 +57,30 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProductV
                     intent.putExtra("price",popularListModel.getPrice());
                     intent.putExtra("status",popularListModel.getStatus());
                     intent.putExtra("productVariation",popularListModel.getProductVariation());
+                    intent.putExtra("code",popularListModel.getProductCodePopular());
                     context.startActivity(intent);
                 }
                 else if(position == 1){
-                    Intent intent = new Intent(context, PizzaListDetaill.class);
+                    Intent intent = new Intent(context, PastaListDetail.class);
                     intent.putExtra("image",popularListModel.getImage());
                     intent.putExtra("productName",popularListModel.getProductName());
                     intent.putExtra("price",popularListModel.getPrice());
                     intent.putExtra("status",popularListModel.getStatus());
                     intent.putExtra("productVariation",popularListModel.getProductVariation());
+                    intent.putExtra("code",popularListModel.getProductCodePopular());
                     context.startActivity(intent);
                 }
                 else if(position == 2){
-                    Intent intent = new Intent(context, DrinksListDetail.class);
+                    Intent intent = new Intent(context, NoodlesListDetail.class);
                     intent.putExtra("image",popularListModel.getImage());
                     intent.putExtra("productName",popularListModel.getProductName());
                     intent.putExtra("price",popularListModel.getPrice());
                     intent.putExtra("status",popularListModel.getStatus());
                     intent.putExtra("productVariation",popularListModel.getProductVariation());
+                    intent.putExtra("code",popularListModel.getProductCodePopular());
                     context.startActivity(intent);
                 }
-                else{
-                    Intent intent = new Intent(context, DimsumListDetail.class);
-                    intent.putExtra("image",popularListModel.getImage());
-                    intent.putExtra("productName",popularListModel.getProductName());
-                    intent.putExtra("price",popularListModel.getPrice());
-                    intent.putExtra("status",popularListModel.getStatus());
-                    intent.putExtra("productVariation",popularListModel.getProductVariation());
-                    context.startActivity(intent);
-                }
+
             }
         });
     }

@@ -42,10 +42,10 @@ import retrofit2.Response;
 
 public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
     private TextView orderStatus,orderNumber,orderType,totalAmount,arrowBack;
-    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryTime;
-    private CardView deliveryDetails,pickUpDetails,dineInDetails,devTimeDetails;
+    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryTime,paymentMethod;
+    private CardView deliveryDetails,pickUpDetails,dineInDetails,devTimeDetails,paymentMethodDetails;
     private RecyclerView newOrderDetailLists;
-    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime;
+    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
     @Override
@@ -70,10 +70,13 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         deliveryDetails = findViewById(R.id.deliveryDetails);
         devTimeDetails = findViewById(R.id.devTimeDetails);
         deliveryTime = findViewById(R.id.deliveryTime);
+        paymentMethodDetails = findViewById(R.id.paymentMethodDetails);
+        paymentMethod = findViewById(R.id.paymentMethod);
         deliveryDetails.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
         dineInDetails.setVisibility(View.VISIBLE);
         devTimeDetails.setVisibility(View.GONE);
+        paymentMethodDetails.setVisibility(View.GONE);
         newOrderDetailLists = findViewById(R.id.newOrderDetailLists);
         newOrderDetailLists.setHasFixedSize(true);
         newOrderDetailLists.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -93,10 +96,12 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         newOrderType = intent.getStringExtra("orderType");
         newOrderStatus = intent.getStringExtra("orderStatus");
         newOrderNumber = intent.getStringExtra("orderNumber");
+        newPaymentMethod = intent.getStringExtra("paymentMethod");
         orderStatus.setText(newOrderStatus);
         orderType.setText(newOrderType);
         orderNumber.setText(newOrderNumber);
         deliveryTime.setText(newDeliveryTime);
+        paymentMethod.setText(newPaymentMethod);
         String OrderType = orderType.getText().toString();
         if (OrderType.equals("Pick Up")){
             pickUpName.setText(newAccountName);
@@ -104,6 +109,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             deliveryDetails.setVisibility(View.GONE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
+            paymentMethodDetails.setVisibility(View.VISIBLE);
         }
         else if (OrderType.equals("Deliver")){
             deliveryName.setText(newRecipientName);
@@ -114,6 +120,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             devTimeDetails.setVisibility(View.VISIBLE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);
+            paymentMethodDetails.setVisibility(View.VISIBLE);
         }
         else{
             dineInName.setText(newAccountName);

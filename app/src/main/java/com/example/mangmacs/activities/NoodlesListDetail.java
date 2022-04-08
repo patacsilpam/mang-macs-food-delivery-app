@@ -134,7 +134,6 @@ public class NoodlesListDetail extends AppCompatActivity {
                 int price = Integer.parseInt(productPrice.getText().toString());
                 int number = Integer.parseInt(quantity.getText().toString());
                 String add_ons = drinksAddons.getEditText().getText().toString();
-                String image = "image";
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons,image);
                 cartModelCall.enqueue(new Callback<CartModel>() {

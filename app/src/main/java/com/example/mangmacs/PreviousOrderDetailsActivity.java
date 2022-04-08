@@ -38,12 +38,12 @@ import retrofit2.Response;
 
 public class PreviousOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
     private TextView orderStatus,orderNumber,orderType,totalAmount,arrowBack;
-    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress;
+    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,paymentMethod;
     private TextView orderId,orderTime,deliveryTime,completedTime;
     private RecyclerView prevOrderDetailList;
-    private CardView deliveryDetails,pickUpDetails,dineInDetails;
+    private CardView deliveryDetails,pickUpDetails,dineInDetails,paymentMethodDetails;
     private RelativeLayout devTimeDetails;
-    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime;
+    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod;
     private List<CurrentOrdersModel> prevOrderModel;
     private PreviousDetailAdapter previousDetailAdapter;
     @Override
@@ -71,10 +71,13 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderTime = findViewById(R.id.orderTime);
         deliveryTime = findViewById(R.id.deliveryTime);
         completedTime = findViewById(R.id.completedTime);
+        paymentMethodDetails = findViewById(R.id.paymentMethodDetails);
+        paymentMethod = findViewById(R.id.paymentMethod);
         deliveryDetails.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
         dineInDetails.setVisibility(View.VISIBLE);
         devTimeDetails.setVisibility(View.GONE);
+        paymentMethodDetails.setVisibility(View.GONE);
         prevOrderDetailList = findViewById(R.id.prevOrderDetailLists);
         prevOrderDetailList.setHasFixedSize(true);
         prevOrderDetailList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -97,6 +100,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         newOrderDate = intent.getStringExtra("orderDate");
         newDevTime = intent.getStringExtra("deliveryTime");
         newCompletedTime = intent.getStringExtra("completedTime");
+        newPaymentMethod = intent.getStringExtra("paymentMethod");
         orderId.setText(newOrderNumber);
         orderTime.setText(newOrderDate);
         deliveryTime.setText(newDevTime);
@@ -104,6 +108,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderStatus.setText(newOrderStatus);
         orderType.setText(newOrderType);
         orderNumber.setText(newOrderNumber);
+        paymentMethod.setText(newPaymentMethod);
         String OrderType = orderType.getText().toString();
         if (OrderType.equals("Pick Up")){
             pickUpName.setText(newAccountName);
@@ -111,9 +116,9 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             deliveryDetails.setVisibility(View.GONE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
-
+            paymentMethodDetails.setVisibility(View.VISIBLE);
         }
-        else if (OrderType.equals("Delivery")){
+        else if (OrderType.equals("Deliver")){
             deliveryName.setText(newRecipientName);
             deliveryPhoneNum.setText(newPhoneNumber);
             devAddress.setText(newAddress);
@@ -122,6 +127,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             deliveryDetails.setVisibility(View.VISIBLE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);
+            paymentMethodDetails.setVisibility(View.VISIBLE);
         }
         else{
             dineInName.setText(newAccountName);

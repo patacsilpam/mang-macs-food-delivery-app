@@ -29,6 +29,8 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +56,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     private TextView arrowBack,total,customerID,emailAddress;
     private Button payDelivery;
     private RecyclerView recyclerViewOrder;
+    private RadioGroup choosePayment;
     private CardView cardViewImg;
     private ImageView imgPayment;
     private List<CartModel> orderModelLists;
@@ -79,6 +82,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         customerID = findViewById(R.id.customerId);
         emailAddress = findViewById(R.id.email);
         payDelivery = findViewById(R.id.payDelivery);
+        choosePayment = findViewById(R.id.choosePayment);
         cardViewImg = findViewById(R.id.cardViewImg);
         imgPayment = findViewById(R.id.imgPayment);
         recyclerViewOrder = findViewById(R.id.recyclerViewOrder);
@@ -214,31 +218,38 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         payDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = emailAddress.getText().toString();
-                String fname = SharedPreference.getSharedPreference(PaymentActivity.this).setFname();
-                String lname = SharedPreference.getSharedPreference(PaymentActivity.this).setLname();
-                String accountName = fname.concat(" ").concat(lname);
-                String paymentPhoto = imageToString();
-                String orderStatus = "Pending";
-                String orderType = "Deliver";
-                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,recipientName,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,imgProductList,orderType,orderStatus,date,time);
-                insertOrder.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if (response.body() != null){
-                            String success = response.body().getSuccess();
-                            if (success.equals("1")){
-                                startActivity(new Intent(getApplicationContext(),home_activity.class));
-                                Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
-                        startActivity(new Intent(getApplicationContext(),home_activity.class));
-                    }
-                });
+               if (choosePayment.getCheckedRadioButtonId() == -1){
+                   Toast.makeText(getApplicationContext(),"Please select the type of your e-wallet payment",Toast.LENGTH_SHORT).show();
+               } else{
+                   String email = emailAddress.getText().toString();
+                   String fname = SharedPreference.getSharedPreference(PaymentActivity.this).setFname();
+                   String lname = SharedPreference.getSharedPreference(PaymentActivity.this).setLname();
+                   String accountName = fname.concat(" ").concat(lname);
+                   String paymentPhoto = imageToString();
+                   String orderStatus = "Pending";
+                   String orderType = "Deliver";
+                   int selectedPayment = choosePayment.getCheckedRadioButtonId();
+                   RadioButton radioButton = findViewById(selectedPayment);
+                   String paymentType = radioButton.getText().toString();
+                   ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,recipientName,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time);
+                   insertOrder.enqueue(new Callback<CartModel>() {
+                       @Override
+                       public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                           if (response.body() != null){
+                               String success = response.body().getSuccess();
+                               if (success.equals("1")){
+                                   startActivity(new Intent(getApplicationContext(),home_activity.class));
+                                   Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
+                               }
+                           }
+                       }
+                       @Override
+                       public void onFailure(Call<CartModel> call, Throwable t) {
+                           startActivity(new Intent(getApplicationContext(),home_activity.class));
+                       }
+                   });
+               }
             }
         });
     }

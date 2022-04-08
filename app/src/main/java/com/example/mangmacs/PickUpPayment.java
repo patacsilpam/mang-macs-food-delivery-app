@@ -28,6 +28,8 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     private Button pickUpOrder;
     private ImageView imgPayment;
     private RecyclerView recyclerViewOrder;
+    private RadioGroup choosePayment;
     private static final int STORAGE_PERMISSION_CODE = 100;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
@@ -77,6 +80,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
         total = findViewById(R.id.total);
         pickUpOrder = findViewById(R.id.pickUpOrder);
         imgPayment = findViewById(R.id.imgPayment);
+        choosePayment  = findViewById(R.id.choosePayment);
         recyclerViewOrder = findViewById(R.id.recyclerviewPayment);
         recyclerViewOrder.setHasFixedSize(true);
         recyclerViewOrder.setLayoutManager(new LinearLayoutManager(this));
@@ -197,41 +201,48 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
         }
     };
     private void PickUpOrders() {
-       pickUpOrder.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               String fname = SharedPreference.getSharedPreference(PickUpPayment.this).setFname();
-               String lname = SharedPreference.getSharedPreference(PickUpPayment.this).setLname();
-               String email = SharedPreference.getSharedPreference(PickUpPayment.this).setEmail();
-               String accountName = fname.concat(lname);
-               String address = "";
-               String labelAddress = "";
-               String phoneNumber = "";
-               String orderType = "Pick Up";
-               String orderStatus = "Pending";
-               String paymentPhoto = imageToString();
-               ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-               Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,imgProductList,orderType,orderStatus,date,time);
-               insertOrder.enqueue(new Callback<CartModel>() {
-                   @Override
-                   public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                       if (response.body() != null) {
-                           String success = response.body().getSuccess();
-                           if (success.equals("1")) {
-                               startActivity(new Intent(getApplicationContext(), home_activity.class));
-                               Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
+        pickUpOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if (choosePayment.getCheckedRadioButtonId() == -1){
+                   Toast.makeText(getApplicationContext(),"Please choose a payment method",Toast.LENGTH_SHORT).show();
+               } else{
+                   String fname = SharedPreference.getSharedPreference(PickUpPayment.this).setFname();
+                   String lname = SharedPreference.getSharedPreference(PickUpPayment.this).setLname();
+                   String email = SharedPreference.getSharedPreference(PickUpPayment.this).setEmail();
+                   String accountName = fname.concat(lname);
+                   String address = "";
+                   String labelAddress = "";
+                   String phoneNumber = "";
+                   String orderType = "Pick Up";
+                   String orderStatus = "Pending";
+                   String paymentPhoto = imageToString();
+                   int selectedPayment = choosePayment.getCheckedRadioButtonId();
+                   RadioButton radioButton = findViewById(selectedPayment);
+                   String paymentType = radioButton.getText().toString();
+                   ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time);
+                   insertOrder.enqueue(new Callback<CartModel>() {
+                       @Override
+                       public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                           if (response.body() != null) {
+                               String success = response.body().getSuccess();
+                               if (success.equals("1")) {
+                                   startActivity(new Intent(getApplicationContext(), home_activity.class));
+                                   Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
+                               }
                            }
                        }
-                   }
 
-                   @Override
-                   public void onFailure(Call<CartModel> call, Throwable t) {
-                       startActivity(new Intent(getApplicationContext(), home_activity.class));
-                       Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
-                   }
-               });
-           }
-       });
+                       @Override
+                       public void onFailure(Call<CartModel> call, Throwable t) {
+                           startActivity(new Intent(getApplicationContext(), home_activity.class));
+                           Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
+                       }
+                   });
+               }
+            }
+        });
     }
 
     private void Back() {

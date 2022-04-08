@@ -215,6 +215,7 @@ public interface ApiInterface {
             @Field("subTotal[]") ArrayList<String> subTotal,
             @Field("totalAmount") String totalAmount,
             @Field("paymentPhoto") String paymentPhoto,
+            @Field("paymentType") String paymentType,
             @Field("imgProduct[]") ArrayList<String> imgProduct,
             @Field("orderType") String orderType,
             @Field("orderStatus") String orderStatus,
