@@ -37,7 +37,41 @@
                            android:id="@+id/status"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
-                           android:text="Status"/>
+                           android:text=""/>
+                       <RelativeLayout
+                           android:id="@+id/priceLayout"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:visibility="invisible">
+                           <TextView
+                               android:id="@+id/pesoSign"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:textSize="14sp"
+                               android:text="₱ "/>
+                           <TextView
+                               android:id="@+id/price"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_toEndOf="@id/pesoSign"
+                               android:textSize="14sp"
+                               android:text=""/>
+                           <TextView
+                               android:id="@+id/decimal"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_toEndOf="@id/price"
+                               android:textSize="14sp"
+                               android:text=".00 "/>
+                       </RelativeLayout>
+                       <TextView
+                           android:id="@+id/productCode"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_toEndOf="@id/pesoSign"
+                           android:visibility="gone"
+                           android:textSize="14sp"
+                           android:text=""/>
                        <RadioGroup
                            android:id="@+id/bilaovariation"
                            android:layout_width="match_parent"

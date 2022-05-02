@@ -247,6 +247,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
                        @Override
                        public void onFailure(Call<CartModel> call, Throwable t) {
                            startActivity(new Intent(getApplicationContext(),home_activity.class));
+                           Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
                        }
                    });
                }

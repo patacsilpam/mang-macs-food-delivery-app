@@ -12,6 +12,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,8 @@ import com.example.mangmacs.adapter.MyAddressAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.AddressListModel;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Circle;
 
 import java.util.List;
 
@@ -33,13 +37,20 @@ public class AdressList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<AddressListModel> addressLists;
     private DeliveryAddressAdapter myAddressAdapter;
-    private TextView arrowBack,chosenAddress;
-    private Button chooseAddress;
-    private String fullname,phoneNumber,address,labelAddress,customerId;
+    private TextView arrowBack;
+    private Button chooseAddress,btnCreateAdress;
+    private ProgressBar progressBar;
+    private RelativeLayout chooseAddressLayout;
+    private String fullname,phoneNumber,address,labelAddress;
+    private View emptyAddress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adress_list);
+        chooseAddressLayout = findViewById(R.id.chooseAddressLayout);
+        emptyAddress = findViewById(R.id.emptyAddress);
+        btnCreateAdress = emptyAddress.findViewById(R.id.createAddress);
+        progressBar = findViewById(R.id.spin_kit);
         arrowBack = findViewById(R.id.arrow_back);
         recyclerView = findViewById(R.id.recyclerViewAddress);
         recyclerView.setHasFixedSize(true);
@@ -81,20 +92,38 @@ public class AdressList extends AppCompatActivity {
     }
 
     private void ShowAddress() {
+        Sprite circle = new Circle();
+        progressBar.setIndeterminateDrawable(circle);
+        progressBar.setVisibility(View.VISIBLE);
         String email = SharedPreference.getSharedPreference(this).setEmail();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
         Call<List<AddressListModel>> getUserAddress = apiInterface.getAddress(email);
         getUserAddress.enqueue(new Callback<List<AddressListModel>>() {
             @Override
             public void onResponse(Call<List<AddressListModel>> call, Response<List<AddressListModel>> response) {
+                progressBar.setVisibility(View.GONE);
                 addressLists = response.body();
                 myAddressAdapter = new DeliveryAddressAdapter(AdressList.this,addressLists);
                 recyclerView.setAdapter(myAddressAdapter);
+                int countAddreess = myAddressAdapter.getItemCount();
+                if (countAddreess == 0){
+                   chooseAddressLayout.setVisibility(View.GONE);
+                   emptyAddress.setVisibility(View.VISIBLE);
+                   btnCreateAdress.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View view) {
+                           startActivity(new Intent(getApplicationContext(),CreateAddressActivity.class));
+                       }
+                   });
+                } else{
+                    chooseAddressLayout.setVisibility(View.VISIBLE);
+                    emptyAddress.setVisibility(View.GONE);
+                }
             }
 
             @Override
             public void onFailure(Call<List<AddressListModel>> call, Throwable t) {
-
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

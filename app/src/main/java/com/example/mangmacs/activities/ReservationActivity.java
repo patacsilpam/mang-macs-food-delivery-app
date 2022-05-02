@@ -33,10 +33,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReservationActivity extends AppCompatActivity {
-    private EditText fname,lname,people,date,time;
+    private EditText fname,lname,people,date,time,phoneNumber;
     private int hour,min;
     private Button btnBookNow;
-    private  BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +46,7 @@ public class ReservationActivity extends AppCompatActivity {
         people = findViewById(R.id.people);
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
+        phoneNumber = findViewById(R.id.phoneNumber);
         btnBookNow = findViewById(R.id.btnBookNow);
         //bottom navigation
         bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -73,6 +74,7 @@ public class ReservationActivity extends AppCompatActivity {
                 String guests = people.getText().toString();
                 String sched_date = date.getText().toString();
                 String sched_time = time.getText().toString();
+                String phone_number = phoneNumber.getText().toString();
                 if(firstname.isEmpty()){
                     fname.setError("Required");
                 }
@@ -88,10 +90,13 @@ public class ReservationActivity extends AppCompatActivity {
                 if (sched_time.isEmpty()){
                     time.setError("Required");
                 }
+                if (phone_number.isEmpty()){
+                    phoneNumber.setError("Required");
+                }
                 else{
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                     String email = SharedPreference.getSharedPreference(ReservationActivity.this).setEmail();
-                    Call<ReservationModel> reservationCall = apiInterface.reservation(firstname,lastname,guests,email,sched_date,sched_time);
+                    Call<ReservationModel> reservationCall = apiInterface.reservation(firstname,lastname,guests,email,phone_number,sched_date,sched_time);
                     reservationCall.enqueue(new Callback<ReservationModel>() {
                         @Override
                         public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {

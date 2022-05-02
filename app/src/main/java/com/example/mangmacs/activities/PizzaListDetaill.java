@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,9 +42,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PizzaListDetaill extends AppCompatActivity {
+    private RelativeLayout priceLayout;
     private ImageView imageView;
-    private TextView txt_arrow_back,medium,large;
-    private TextView productName,status,email,fname,lname;;
+    private TextView txt_arrow_back,medium,large,price,productCode;
+    private TextView productName,status,email,fname,lname;
     private TextInputLayout pizza_addons;
     private EditText quantity;
     private RadioGroup variation,rdCode;
@@ -55,6 +57,7 @@ public class PizzaListDetaill extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pizza_list_detaill);
+        priceLayout = findViewById(R.id.priceLayout);
         imageView = findViewById(R.id.image);
         productName = findViewById(R.id.pizzaproductName);
         status = findViewById(R.id.status);
@@ -63,6 +66,8 @@ public class PizzaListDetaill extends AppCompatActivity {
         rdCode = findViewById(R.id.rdCode);
         medium = findViewById(R.id.medium);
         large = findViewById(R.id.large);
+        price = findViewById(R.id.price);
+        productCode = findViewById(R.id.productCode);
         email = findViewById(R.id.customerId);
         fname = findViewById(R.id.fname);
         lname = findViewById(R.id.lname);
@@ -122,37 +127,71 @@ public class PizzaListDetaill extends AppCompatActivity {
         //get the value from its adapter
         Intent intent = getIntent();
         image = intent.getStringExtra("image");
-        String productname = intent.getStringExtra("productName");
-        String groupPrice = intent.getStringExtra("groupPrice");
-        String groupVariation = intent.getStringExtra("productVariation");
-        String productstatus = intent.getStringExtra("status");
-        String groupCode = intent.getStringExtra("groupCode");
-        String firstname = SharedPreference.getSharedPreference(PizzaListDetaill.this).setFname();
-        String lastname = SharedPreference.getSharedPreference(PizzaListDetaill.this).setLname();
-        String emailAddress = SharedPreference.getSharedPreference(PizzaListDetaill.this).setEmail();
+        String newProductname = intent.getStringExtra("productName");
+        String newGroupPrice = intent.getStringExtra("groupPrice");
+        String newGroupVariation = intent.getStringExtra("productVariation");
+        String newProductStatus = intent.getStringExtra("status");
+        String newGroupCode = intent.getStringExtra("groupCode");
+        String newFirstName = SharedPreference.getSharedPreference(PizzaListDetaill.this).setFname();
+        String newLastName = SharedPreference.getSharedPreference(PizzaListDetaill.this).setLname();
+        String newEmailAddress = SharedPreference.getSharedPreference(PizzaListDetaill.this).setEmail();
         if(intent != null){
             Glide.with(PizzaListDetaill.this).load(image).into(imageView);
-            productName.setText(productname);
-            status.setText(productstatus);
-            String[] splitCode = groupCode.split(",");//split product code
-            String[] splitVariation = groupVariation.split(",");//split product variation or category
-            String[] splitPrice = groupPrice.split(",");//split product price
-            //get the first product variation or category
-            String product1 = splitVariation[0]+"          ₱ "+splitPrice[0]+".00"+splitCode[0];
-            SpannableString spannableCode1 = new SpannableString(product1);
-            ForegroundColorSpan fcsWhite1 = new ForegroundColorSpan(Color.WHITE);
-            spannableCode1.setSpan(fcsWhite1,23,33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            medium.setText(spannableCode1);
-            //get the second product variation or category
-            String product2 = splitVariation[1]+"         ₱ "+splitPrice[1]+".00"+splitCode[1];
-            SpannableString spannableCode2 = new SpannableString(product2);
-            ForegroundColorSpan fcsWhite2 = new ForegroundColorSpan(Color.WHITE);
-            spannableCode2.setSpan(fcsWhite2,23,33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            //display product category,user email,first and last name
-            large.setText(spannableCode2);
-            email.setText(emailAddress);
-            fname.setText(firstname);
-            lname.setText(lastname);
+            productName.setText(newProductname);
+            fname.setText(newFirstName);
+            lname.setText(newLastName);
+            email.setText(newEmailAddress);
+            String[] splitCode = newGroupCode.split(",");//split product code
+            String[] splitVariation = newGroupVariation.split(",");//split product variation or category
+            String[] splitPrice = newGroupPrice.split(",");//split product price
+            String[] splitStatus = newProductStatus.split(",");
+            if (splitVariation[0] != null){
+                medium.setText(splitVariation[0]);
+            } else{
+                medium.setVisibility(View.GONE);
+            }
+            if (splitVariation[1] != null){
+                large.setText(splitVariation[1]);
+            } else{
+                large.setVisibility(View.GONE);
+            }
+
+            variation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                   int selectedVariation = variation.getCheckedRadioButtonId();
+                   RadioButton radioButton = findViewById(selectedVariation);
+                   String variation = radioButton.getText().toString();
+                   String productStatus ="";
+                   priceLayout.setVisibility(View.VISIBLE);
+                   if (variation.equals("Medium")){
+                       price.setText(String.valueOf(splitPrice[0]));
+                       productCode.setText(String.valueOf(splitCode[0]));
+                       status.setText(String.valueOf(splitStatus[0]));
+                       productStatus = status.getText().toString();
+                   } else{
+                       price.setText(String.valueOf(splitPrice[1]));
+                       productCode.setText(String.valueOf(splitCode[1]));
+                       status.setText(String.valueOf(splitStatus[1]));
+                       productStatus = status.getText().toString();
+                   }
+                    if (productStatus.equals("Out of Stock")){
+                        status.setTextColor(Color.RED);
+                        btnPizza.setEnabled(false);
+                        btnIncrement.setEnabled(false);
+                        btnDecrement.setEnabled(false);
+                        btnDecrement.setBackground(getDrawable(R.drawable.minus_btn));
+                        btnIncrement.setBackground(getDrawable(R.drawable.plus_button));
+                    } else{
+                        status.setTextColor(Color.GREEN);
+                        btnPizza.setEnabled(true);
+                        btnIncrement.setEnabled(true);
+                        btnDecrement.setEnabled(true);
+                        btnDecrement.setBackground(getDrawable(R.drawable.decrement_btn));
+                        btnIncrement.setBackground(getDrawable(R.drawable.increment_btn));
+                    }
+                }
+            });
         }
         AddToCart();
     }
@@ -166,19 +205,18 @@ public class PizzaListDetaill extends AppCompatActivity {
                 }
                 else{
                     String email_address = email.getText().toString();
-                    String firstName = fname.getText().toString();
-                    String lastName = lname.getText().toString();
+                    String code = productCode.getText().toString();
                     String product = productName.getText().toString();
                     String add_ons = pizza_addons.getEditText().getText().toString();
                     int selectedSize = variation.getCheckedRadioButtonId();
-                    RadioButton size = findViewById(selectedSize);
-                    String getSize = size.getText().toString();
-                    String variation = getSize.replace("₱",",");
-                    String strPrice = size.getText().toString();
-                    int prices = Integer.parseInt(strPrice.substring(17,20));
-                    int number = Integer.parseInt(quantity.getText().toString());
+                    RadioButton radioVariation = findViewById(selectedSize);
+                    String getVariation = radioVariation.getText().toString();
+                    int prices = Integer.parseInt(price.getText().toString());
+                    int items = Integer.parseInt(quantity.getText().toString());
+                    String firstName = fname.getText().toString();
+                    String lastName = lname.getText().toString();
                     ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,getSize,product,variation,firstName,lastName,prices,number,add_ons,image);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,code,product,getVariation,firstName,lastName,prices,items,add_ons,image);
                     cartModelCall.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {

@@ -40,6 +40,15 @@
              android:text=" (0)"/>
       </RelativeLayout>
    </androidx.appcompat.widget.Toolbar>
+   <com.github.ybq.android.spinkit.SpinKitView
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       android:id="@+id/spin_kit"
+       style="@style/SpinKitView.Large.Circle"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerVertical="true"
+       android:layout_centerHorizontal="true"
+       app:SpinKit_Color="@color/pressed" />
    <LinearLayout
        android:layout_below="@+id/toolbar"
        android:layout_width="match_parent"

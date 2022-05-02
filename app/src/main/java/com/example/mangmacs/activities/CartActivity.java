@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.AddressListModel;
 import com.example.mangmacs.model.CartModel;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TextView cart,textProductPrice,arrowBack;
     private Button checkOut,goBackMenu;
+    private ProgressBar progressBar;
     private View emptyCart;
     private int countCart;
 
@@ -46,6 +50,7 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        progressBar = findViewById(R.id.spin_kit);
         recyclerView = findViewById(R.id.recyclerviewCart);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -83,18 +88,21 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void showCart() {
+            Sprite circle = new Circle();
+            progressBar.setIndeterminateDrawable(circle);
+            progressBar.setVisibility(View.VISIBLE);
             String email = SharedPreference.getSharedPreference(this).setEmail();
             ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
             Call<List<CartModel>> getUserCart = apiInterface.getCart(email);
             getUserCart.enqueue(new Callback<List<CartModel>>() {
                 @Override
                 public void onResponse(Call<List<CartModel>> call, Response<List<CartModel>> response) {
+                    progressBar.setVisibility(View.GONE);
                     cartModelList = response.body();
                     cartAdapter = new CartAdapter(CartActivity.this,cartModelList);
                     recyclerView.setAdapter(cartAdapter);
                     countCart = recyclerView.getAdapter().getItemCount();
                     cart.setText("("+String.valueOf(countCart)+")");
-
                     if(countCart == 0){
                         checkOut.setEnabled(false);
                         emptyCart.setVisibility(View.VISIBLE);
@@ -113,7 +121,7 @@ public class CartActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<List<CartModel>> call, Throwable t) {
-
+                    progressBar.setVisibility(View.GONE);
                 }
             });
         }

@@ -34,11 +34,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".CurrentReservationActivity"
+            android:name=".activities.CurrentReservationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".PreviousOrderDetailsActivity"
+            android:name=".activities.PreviousOrderDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity

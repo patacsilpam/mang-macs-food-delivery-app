@@ -29,6 +29,8 @@ import com.example.mangmacs.R;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.api.ApiInterface;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Circle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
@@ -51,10 +53,12 @@ public class home_activity extends AppCompatActivity {
     private CardView pizza,riceMeal,comboBudget,mealsGood,seafoods,soup,rice,pancit,bilao,noodles,pasta,dimsum,drinks;
     private FloatingActionButton floatingActionButton;
     private BottomNavigationView bottomNavigationView;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        progressBar = findViewById(R.id.spin_kit);
         textName = findViewById(R.id.textName);
         totalCart = findViewById(R.id.totalCart);
         bottomNavigationView =  findViewById(R.id.bottom_nav);
@@ -108,10 +112,14 @@ public class home_activity extends AppCompatActivity {
         });
     }
     private void ShowPopularLists() {
+        Sprite circle = new Circle();
+        progressBar.setIndeterminateDrawable(circle);
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<PopularListModel>> call= apiInterface.getPopular();
         call.enqueue(new Callback<List<PopularListModel>>() {
             @Override
             public void onResponse(Call<List<PopularListModel>> call, Response<List<PopularListModel>> response) {
+                progressBar.setVisibility(View.GONE);
                 popularList = response.body();
                 popularAdapter = new PopularAdapter(home_activity.this,popularList);
                 recyclerView.setAdapter(popularAdapter);
@@ -120,7 +128,7 @@ public class home_activity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<PopularListModel>> call, Throwable t) {
-
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -291,8 +299,7 @@ public class home_activity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (!SharedPreference.getSharedPreference(this).isLoggedIn()){
-            Intent intent = new Intent(this,home_activity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
     }

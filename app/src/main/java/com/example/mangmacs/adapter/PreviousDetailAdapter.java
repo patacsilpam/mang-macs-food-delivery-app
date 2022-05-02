@@ -8,13 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mangmacs.PreviousOrderDetailsActivity;
+import com.example.mangmacs.activities.PreviousOrderDetailsActivity;
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.activities.CartActivity;

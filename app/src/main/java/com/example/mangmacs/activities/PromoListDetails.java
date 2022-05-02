@@ -3,6 +3,7 @@ package com.example.mangmacs.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -111,7 +112,6 @@ public class PromoListDetails extends AppCompatActivity {
         String firstname = SharedPreference.getSharedPreference(PromoListDetails.this).setFname();
         String lastname = SharedPreference.getSharedPreference(PromoListDetails.this).setLname();
         String customerID = SharedPreference.getSharedPreference(PromoListDetails.this).setEmail();
-
         if(intent != null){
             Glide.with(PromoListDetails.this).load(image).into(imageView);
             productName.setText(productname);
@@ -121,6 +121,21 @@ public class PromoListDetails extends AppCompatActivity {
             fname.setText(firstname);
             lname.setText(lastname);
             productCode.setText(code);
+            if (productstatus.equals("Out of Stock")){
+                status.setTextColor(Color.RED);
+                btnAddtoCart.setEnabled(false);
+                btnIncrement.setEnabled(false);
+                btnDecrement.setEnabled(false);
+                btnDecrement.setBackground(getDrawable(R.drawable.minus_btn));
+                btnIncrement.setBackground(getDrawable(R.drawable.plus_button));
+            } else{
+                status.setTextColor(Color.GREEN);
+                btnAddtoCart.setEnabled(true);
+                btnIncrement.setEnabled(true);
+                btnDecrement.setEnabled(true);
+                btnDecrement.setBackground(getDrawable(R.drawable.decrement_btn));
+                btnIncrement.setBackground(getDrawable(R.drawable.increment_btn));
+            }
         }
         AddToCart();
     }

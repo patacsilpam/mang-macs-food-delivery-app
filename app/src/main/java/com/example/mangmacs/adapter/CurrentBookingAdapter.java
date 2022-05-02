@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mangmacs.CurrentReservationActivity;
+import com.example.mangmacs.activities.CurrentReservationActivity;
 import com.example.mangmacs.R;
 import com.example.mangmacs.model.ReservationModel;
 

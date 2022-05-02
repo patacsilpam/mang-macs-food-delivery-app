@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
@@ -21,6 +22,8 @@ import com.example.mangmacs.adapter.PreviousOrderAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CurrentOrdersModel;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Circle;
 
 import java.util.List;
 
@@ -32,6 +35,7 @@ public class PreviousOrders extends Fragment {
     private RecyclerView previousOrderLists;
     private List<CurrentOrdersModel> previousOrderModel;
     private PreviousOrderAdapter previousOrderAdapter;
+    private ProgressBar progressBar;
     private View emptyOrders;
     private Button addOrder;
     private int countCart;
@@ -49,17 +53,26 @@ public class PreviousOrders extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressBar = view.findViewById(R.id.spin_kit);
         emptyOrders = view.findViewById(R.id.emptyOrders);
         addOrder = getView().findViewById(R.id.addOrder);
         previousOrderLists = view.findViewById(R.id.previousOrderLists);
         previousOrderLists.setHasFixedSize(true);
         previousOrderLists.setLayoutManager(new LinearLayoutManager(getActivity()));
+        showPreviousOrder();
+    }
+
+    private void showPreviousOrder() {
+        Sprite circle = new Circle();
+        progressBar.setIndeterminateDrawable(circle);
+        progressBar.setVisibility(View.VISIBLE);
         String email = SharedPreference.getSharedPreference(getActivity()).setEmail();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
         Call<List<CurrentOrdersModel>> callDeliveredOrders = apiInterface.getDeliveredOrders(email);
         callDeliveredOrders.enqueue(new Callback<List<CurrentOrdersModel>>() {
             @Override
             public void onResponse(Call<List<CurrentOrdersModel>> call, Response<List<CurrentOrdersModel>> response) {
+                progressBar.setVisibility(View.GONE);
                 previousOrderModel = response.body();
                 previousOrderAdapter = new PreviousOrderAdapter(getActivity(),previousOrderModel);
                 previousOrderLists.setAdapter(previousOrderAdapter);
@@ -82,7 +95,7 @@ public class PreviousOrders extends Fragment {
 
             @Override
             public void onFailure(Call<List<CurrentOrdersModel>> call, Throwable t) {
-
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

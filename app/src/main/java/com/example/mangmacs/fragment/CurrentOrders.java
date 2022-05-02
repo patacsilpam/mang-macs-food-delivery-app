@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mangmacs.R;
@@ -23,6 +24,8 @@ import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.CurrentOrdersModel;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Circle;
 
 import java.util.List;
 
@@ -36,6 +39,7 @@ public class CurrentOrders extends Fragment {
     private CurrentOrdersAdapter currentOrdersAdapter;
     private Button addOrder;
     private TextView email;
+    private ProgressBar progressBar;
     private View emptyCart;
     private int countOrders;
     public CurrentOrders() {
@@ -53,12 +57,21 @@ public class CurrentOrders extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressBar = view.findViewById(R.id.spin_kit);
         emptyCart = view.findViewById(R.id.emptyOrders);
         addOrder = getView().findViewById(R.id.addOrder);
         email = view.findViewById(R.id.email);
         recyclerView = view.findViewById(R.id.currentOrderLists);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        showCurrentOrders();
+
+    }
+
+    private void showCurrentOrders() {
+        Sprite circle = new Circle();
+        progressBar.setIndeterminateDrawable(circle);
+        progressBar.setVisibility(View.VISIBLE);
         String emailAddress = SharedPreference.getSharedPreference(getContext()).setEmail();
         emptyCart.setVisibility(View.GONE);
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -66,6 +79,7 @@ public class CurrentOrders extends Fragment {
         getCurrentOrder.enqueue(new Callback<List<CurrentOrdersModel>>() {
             @Override
             public void onResponse(Call<List<CurrentOrdersModel>> call, Response<List<CurrentOrdersModel>> response) {
+                progressBar.setVisibility(View.GONE);
                 currentOrdersModel = response.body();
                 currentOrdersAdapter = new CurrentOrdersAdapter(getActivity(),currentOrdersModel);
                 recyclerView.setAdapter(currentOrdersAdapter);
@@ -87,17 +101,8 @@ public class CurrentOrders extends Fragment {
 
             @Override
             public void onFailure(Call<List<CurrentOrdersModel>> call, Throwable t) {
-
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
-
-   /* private void addNewOrders() {
-        addOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), MenuActivty.class));
-            }
-        });
-    }*/
 }

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
@@ -24,6 +25,8 @@ import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CurrentOrdersModel;
 import com.example.mangmacs.model.ReservationModel;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Circle;
 
 import java.util.List;
 
@@ -35,6 +38,7 @@ public class PreviousReservation extends Fragment {
     private RecyclerView previousBookingLists;
     private List<ReservationModel> reservationModel;
     private PreviousBookingAdapter previousBookingAdapter;
+    private ProgressBar progressBar;
     private View emptyBook;
     private Button addBook;
     private int countBook;
@@ -51,17 +55,26 @@ public class PreviousReservation extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressBar = view.findViewById(R.id.spin_kit);
         emptyBook = view.findViewById(R.id.emptyBook);
         addBook = getView().findViewById(R.id.addBook);
         previousBookingLists = view.findViewById(R.id.previousBookingLists);
         previousBookingLists.setLayoutManager(new LinearLayoutManager(getActivity()));
         previousBookingLists.setHasFixedSize(true);
+        showPreviousReservation();
+    }
+
+    private void showPreviousReservation() {
+        Sprite circle = new Circle();
+        progressBar.setIndeterminateDrawable(circle);
+        progressBar.setVisibility(View.VISIBLE);
         String email = SharedPreference.getSharedPreference(getActivity()).setEmail();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
         Call<List<ReservationModel>> callCurrentBookings = apiInterface.getPreviousBookings(email);
         callCurrentBookings.enqueue(new Callback<List<ReservationModel>>() {
             @Override
             public void onResponse(Call<List<ReservationModel>> call, Response<List<ReservationModel>> response) {
+                progressBar.setVisibility(View.GONE);
                 reservationModel = response.body();
                 previousBookingAdapter = new PreviousBookingAdapter(getActivity(),reservationModel);
                 previousBookingLists.setAdapter(previousBookingAdapter);
@@ -83,7 +96,7 @@ public class PreviousReservation extends Fragment {
 
             @Override
             public void onFailure(Call<List<ReservationModel>> call, Throwable t) {
-
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
