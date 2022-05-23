@@ -15,10 +15,10 @@
             android:orientation="vertical"
             android:gravity="center">
             <TextView
-                android:id="@+id/editcustomerId"
+                android:id="@+id/barangay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="customer id"
+                android:text=""
                 android:visibility="invisible"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -170,6 +170,13 @@
                     android:textSize="14sp"
                     android:text="Office"/>
             </RadioGroup>
+            <TextView
+                android:id="@+id/editcustomerId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="invisible"/>
+
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.appbar.AppBarLayout

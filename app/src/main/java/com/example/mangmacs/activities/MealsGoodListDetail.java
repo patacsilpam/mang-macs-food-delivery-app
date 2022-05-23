@@ -159,6 +159,7 @@ public class MealsGoodListDetail extends AppCompatActivity {
                             String success =response.body().getSuccess();
                             if(success.equals("1")){
                                 Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(),home_activity.class));
                             }
                         }
                     }

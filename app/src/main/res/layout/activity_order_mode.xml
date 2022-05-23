@@ -5,36 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.OrderModeActivity">
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/white">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/arrow_back1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:drawableStart="@drawable/ic_baseline_arrow_back"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/arrow_back1"
-                android:layout_centerVertical="true"
-                android:text="Select order mode"
-                android:textSize="18sp"
-                android:textColor="#000"
-                android:gravity="center_vertical"/>
-        </RelativeLayout>
-    </com.google.android.material.appbar.MaterialToolbar>
     <TextView
         android:id="@+id/orderMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appbar"
         android:layout_marginLeft="20dp"
         android:text="How would you like us to serve your order?"
         android:textSize="14sp"
@@ -46,7 +20,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:padding="20dp"
             android:orientation="vertical">
             <com.google.android.material.card.MaterialCardView

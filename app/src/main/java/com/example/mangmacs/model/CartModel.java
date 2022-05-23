@@ -25,6 +25,8 @@ public class CartModel {
     private int quantityCart;
     @SerializedName("totalprice")
     private int totalprice;
+    @SerializedName("deliveryChange")
+    private int deliveryChange;
     @SerializedName("add_ons")
     private String add_onsCart;
     @SerializedName("totalCart")
@@ -32,7 +34,7 @@ public class CartModel {
     @SerializedName("imageProduct")
     private String imageProduct;
 
-    public CartModel(String success, String emailCart, int productId, String productCodeCart, String prooductNameCart, String variationCart, String fnameCart, String lnameCart, int priceCart, int quantityCart, int totalprice, String add_onsCart, String totalcart, String imageProduct) {
+    public CartModel(String success, String emailCart, int productId, String productCodeCart, String prooductNameCart, String variationCart, String fnameCart, String lnameCart, int priceCart, int quantityCart, int totalprice, int deliveryChange, String add_onsCart, String totalcart, String imageProduct) {
         this.success = success;
         this.emailCart = emailCart;
         this.productId = productId;
@@ -44,20 +46,22 @@ public class CartModel {
         this.priceCart = priceCart;
         this.quantityCart = quantityCart;
         this.totalprice = totalprice;
+        this.deliveryChange = deliveryChange;
         this.add_onsCart = add_onsCart;
         this.totalcart = totalcart;
         this.imageProduct = imageProduct;
     }
 
-    public int getProductId() {
-        return productId;
-    }
     public String getSuccess() {
         return success;
     }
 
     public String getEmailCart() {
         return emailCart;
+    }
+
+    public int getProductId() {
+        return productId;
     }
 
     public String getProductCodeCart() {
@@ -88,12 +92,16 @@ public class CartModel {
         return quantityCart;
     }
 
-    public String getAdd_onsCart() {
-        return add_onsCart;
-    }
-
     public int getTotalprice() {
         return totalprice;
+    }
+
+    public int getDeliveryChange() {
+        return deliveryChange;
+    }
+
+    public String getAdd_onsCart() {
+        return add_onsCart;
     }
 
     public String getTotalcart() {

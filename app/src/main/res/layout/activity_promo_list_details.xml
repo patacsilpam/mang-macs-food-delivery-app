@@ -59,6 +59,14 @@
                     android:textSize="14sp"
                     android:text="317" />
                 <TextView
+                    android:id="@+id/variation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="14sp"
+                    android:text="Large" />
+                <TextView
                     android:id="@+id/decimal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

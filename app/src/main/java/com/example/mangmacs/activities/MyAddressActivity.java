@@ -65,29 +65,11 @@ public class MyAddressActivity extends AppCompatActivity {
                 addressLists = response.body();
                 myAddressAdapter = new MyAddressAdapter(MyAddressActivity.this,addressLists);
                 recyclerView.setAdapter(myAddressAdapter);
-                deleteAddress();
             }
 
             @Override
             public void onFailure(Call<List<AddressListModel>> call, Throwable t) {
 
-            }
-        });
-    }
-
-    private void deleteAddress() {
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                AddressListModel deleteAddress  = addressLists.get(viewHolder.getBindingAdapterPosition());
-                int position = viewHolder.getBindingAdapterPosition();
-                addressLists.remove(viewHolder.getBindingAdapterPosition());
-                myAddressAdapter.notifyItemChanged(viewHolder.getBindingAdapterPosition());
             }
         });
     }

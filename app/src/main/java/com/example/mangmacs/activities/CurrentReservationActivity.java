@@ -46,7 +46,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
         String id = intent.getStringExtra("id");
         String firstname = intent.getStringExtra("firstName");
         String lastname = intent.getStringExtra("lastName");
-        String phoneNumber = intent.getStringExtra("");
+        String phoneNumber = intent.getStringExtra("phoneNumber");
         String emailAddress = intent.getStringExtra("email");
         String schedDate = intent.getStringExtra("schedDate");
         String schedTime = intent.getStringExtra("schedTime");

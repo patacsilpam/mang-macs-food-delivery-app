@@ -81,7 +81,7 @@
                        android:id="@+id/paypal"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
-                       android:text="Paypal"/>
+                       android:text="PayMaya"/>
                </RadioGroup>
            </RelativeLayout>
            <RelativeLayout
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="50dp"
-                android:text="230"
+                android:text="0"
                 android:fontFamily="@font/roboto"
                 android:textSize="20sp"
                 android:textColor="@color/pressed"/>

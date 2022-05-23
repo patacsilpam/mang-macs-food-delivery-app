@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -22,8 +23,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditAddressActivity extends AppCompatActivity {
-    private TextView id,fullname,streetName,phoneNumber;
+public class EditAddressActivity extends AppCompatActivity{
+    private TextView id,fullname,streetName,phoneNumber,barangay;
     private Spinner spinnerBrgy;
     RadioGroup editRdAddress;
     RadioButton radioButton;
@@ -36,6 +37,7 @@ public class EditAddressActivity extends AppCompatActivity {
         fullname = findViewById(R.id.editfullname);
         streetName = findViewById(R.id.editstreetname);
         phoneNumber = findViewById(R.id.editphoneNumber);
+        barangay = findViewById(R.id.barangay);
         spinnerBrgy = findViewById(R.id.editbarangay);
         editRdAddress = findViewById(R.id.editrdAddress);
         editAddress = findViewById(R.id.editAddress);
@@ -50,6 +52,7 @@ public class EditAddressActivity extends AppCompatActivity {
         String phoneNo = intent.getStringExtra("phoneNumber");
         String brgy = intent.getStringExtra("brgy");
         String labelAddress = intent.getStringExtra("labelAddress");
+        barangay.setText(brgy);
         if(intent != null){
             id.setText(String.valueOf(customerID));
             fullname.setText(rfullname);
@@ -64,8 +67,10 @@ public class EditAddressActivity extends AppCompatActivity {
             ArrayAdapter<CharSequence> ad_urdaneta = ArrayAdapter.createFromResource(this,R.array.urdaneta, android.R.layout.simple_spinner_item);
             ad_urdaneta.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerBrgy.setAdapter(ad_urdaneta);
-            int spinnerPosition = ad_urdaneta.getPosition(brgy);
-            spinnerBrgy.setSelection(spinnerPosition);
+            int selectedPosition = ad_urdaneta.getPosition(String.valueOf(brgy).concat(""));
+            spinnerBrgy.setSelection(selectedPosition);
+
+
         }
         updateAddress();
     }
@@ -102,7 +107,7 @@ public class EditAddressActivity extends AppCompatActivity {
                                 String message = response.body().getMessage();
                                 if(success.equals("1")){
                                     Toast.makeText(EditAddressActivity.this,message,Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(EditAddressActivity.this, AccountActivity.class));
+                                    startActivity(new Intent(EditAddressActivity.this, MyAddressActivity.class));
                                 }
                                 else{
                                     Toast.makeText(EditAddressActivity.this,message,Toast.LENGTH_SHORT).show();

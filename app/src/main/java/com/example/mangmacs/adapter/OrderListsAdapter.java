@@ -80,7 +80,8 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         priceList.add(str_newPrice);
         imgProductList.add(str_newImgProduct);
         Intent intent = new Intent("TotalOrderPrice");
-        intent.putExtra("totalorderprice",String.valueOf(orderModel.getTotalprice()));
+        intent.putExtra("totalorderprice",orderModel.getTotalprice());
+        intent.putExtra("deliveryChange",orderModel.getDeliveryChange());
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         ordersListener.onProductsChange(productList);
         ordersListener.onProductCodeChange(productCodeList);

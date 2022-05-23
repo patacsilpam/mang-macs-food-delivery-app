@@ -221,7 +221,8 @@ public interface ApiInterface {
             @Field("orderType") String orderType,
             @Field("orderStatus") String orderStatus,
             @Field("requiredDate") String requiredDate,
-            @Field("requiredTime") String requiredTime
+            @Field("requiredTime") String requiredTime,
+            @Field("deliveryFee") int deliveryFee
     );
     @GET("selectNewOrders.php")
     Call<List<CurrentOrdersModel>> getCurrentOrders(

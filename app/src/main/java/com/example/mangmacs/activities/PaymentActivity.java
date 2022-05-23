@@ -53,7 +53,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PaymentActivity extends AppCompatActivity implements OrdersListener {
-    private TextView arrowBack,total,customerID,emailAddress;
+    private TextView arrowBack,total,customerID,emailAddress,deliveryFee;
     private Button payDelivery;
     private RecyclerView recyclerViewOrder;
     private RadioGroup choosePayment;
@@ -61,7 +61,8 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     private ImageView imgPayment;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String date,time,recipientName,phoneNumber,address,labelAddress,totalPrice;
+    private String date,time,recipientName,phoneNumber,address,labelAddress;
+    private int totalPrice,devChange;
     private static final int STORAGE_PERMISSION_CODE = 100;
     private Bitmap bitmap;
     private Uri selectedImage;
@@ -79,6 +80,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         setContentView(R.layout.activity_payment);
         arrowBack = findViewById(R.id.arrow_back);
         total = findViewById(R.id.total);
+        deliveryFee = findViewById(R.id.delivery_fee);
         customerID = findViewById(R.id.customerId);
         emailAddress = findViewById(R.id.email);
         payDelivery = findViewById(R.id.payDelivery);
@@ -210,8 +212,11 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            totalPrice = intent.getStringExtra("totalorderprice");
-            total.setText(totalPrice);
+            totalPrice = intent.getIntExtra("totalorderprice",0);
+            devChange = intent.getIntExtra("deliveryChange",0);
+            int totalAmount = totalPrice + devChange;
+            total.setText(String.valueOf(totalAmount));
+            deliveryFee.setText(String.valueOf(devChange));
         }
     };
     private void PayDelivery() {
@@ -232,7 +237,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
                    RadioButton radioButton = findViewById(selectedPayment);
                    String paymentType = radioButton.getText().toString();
                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,recipientName,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time);
+                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,recipientName,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time,devChange);
                    insertOrder.enqueue(new Callback<CartModel>() {
                        @Override
                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {

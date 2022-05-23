@@ -44,6 +44,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
                 .into(holder.image);
         holder.textProductName.setText(promoListModel.getProductNamePromo());
         holder.textProductPrice.setText("₱ "+String.valueOf(promoListModel.getPricePromo()+".00"));
+        holder.textVariation.setText(promoListModel.getProductVariationPromo());
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +55,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
                 intent.putExtra("status",promoListModel.getPromoStatus());
                 intent.putExtra("productVariation",promoListModel.getProductVariationPromo());
                 intent.putExtra("code",promoListModel.getProductPromoCode());
+                intent.putExtra("variation",promoListModel.getProductVariationPromo());
                 context.startActivity(intent);
             }
         });
@@ -66,13 +68,14 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView textProductName,textProductPrice;
+        TextView textProductName,textProductPrice,textVariation;
         CardView productContainer;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             textProductName = itemView.findViewById(R.id.productName);
             textProductPrice = itemView.findViewById(R.id.productPrice);
+            textVariation = itemView.findViewById(R.id.variation);
             productContainer = itemView.findViewById(R.id.productContainer);
         }
     }

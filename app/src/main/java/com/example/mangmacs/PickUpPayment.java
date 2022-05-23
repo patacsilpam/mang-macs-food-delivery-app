@@ -62,7 +62,8 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     private static final int STORAGE_PERMISSION_CODE = 100;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String date,time,totalPrice;
+    private String date,time;
+    private int totalPrice;
     private Bitmap bitmap;
     private ArrayList<String> orderLists = new ArrayList<>();
     private ArrayList<String> productCodeList = new ArrayList<>();
@@ -196,8 +197,8 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            totalPrice = intent.getStringExtra("totalorderprice");
-            total.setText(totalPrice);
+            totalPrice = intent.getIntExtra("totalorderprice",0);
+            total.setText(String.valueOf(totalPrice));
         }
     };
     private void PickUpOrders() {
@@ -221,7 +222,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
                    RadioButton radioButton = findViewById(selectedPayment);
                    String paymentType = radioButton.getText().toString();
                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList,totalPrice,paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time);
+                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time,0);
                    insertOrder.enqueue(new Callback<CartModel>() {
                        @Override
                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {

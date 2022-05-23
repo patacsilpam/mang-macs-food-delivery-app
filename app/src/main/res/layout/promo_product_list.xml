@@ -37,15 +37,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/image"
-                    android:text="Product"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_medium" />
+                <TextView
+                    android:id="@+id/variation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/image"
+                    android:text=""
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_medium" />
                 <TextView
                     android:id="@+id/productPrice"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/productName"
-                    android:text="200"
+                    android:layout_below="@+id/variation"
+                    android:text=""
                     android:textSize="12sp"
                     android:fontFamily="@font/roboto_medium"
                     android:layout_marginTop="10dp" />

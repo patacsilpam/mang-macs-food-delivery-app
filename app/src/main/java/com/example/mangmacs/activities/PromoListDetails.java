@@ -29,7 +29,7 @@ import retrofit2.Response;
 public class PromoListDetails extends AppCompatActivity {
     private ImageView imageView;
     private TextView txt_arrow_back;
-    private TextView productName,productPrice,status,customerId,fname,lname,productCode;
+    private TextView productName,productPrice,status,customerId,fname,lname,productCode,variation;
     private TextInputLayout promoAddOns;
     private EditText quantity;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
@@ -50,6 +50,7 @@ public class PromoListDetails extends AppCompatActivity {
         fname = findViewById(R.id.fname);
         lname = findViewById(R.id.lname);
         productCode =findViewById(R.id.productCode);
+        variation = findViewById(R.id.variation);
         btnAddtoCart = findViewById(R.id.btnAddtoCartPromo);
         quantity = findViewById(R.id.quantity);
         btnIncrement = findViewById(R.id.increment);
@@ -109,6 +110,7 @@ public class PromoListDetails extends AppCompatActivity {
         int productprice = intent.getIntExtra("price",0);
         String productstatus = intent.getStringExtra("status");
         String code = intent.getStringExtra("code");
+        String newVariation = intent.getStringExtra("variation");
         String firstname = SharedPreference.getSharedPreference(PromoListDetails.this).setFname();
         String lastname = SharedPreference.getSharedPreference(PromoListDetails.this).setLname();
         String customerID = SharedPreference.getSharedPreference(PromoListDetails.this).setEmail();
@@ -121,6 +123,7 @@ public class PromoListDetails extends AppCompatActivity {
             fname.setText(firstname);
             lname.setText(lastname);
             productCode.setText(code);
+            variation.setText(newVariation);
             if (productstatus.equals("Out of Stock")){
                 status.setTextColor(Color.RED);
                 btnAddtoCart.setEnabled(false);

@@ -67,8 +67,10 @@
             android:theme="@style/HomeTheme" />
         <activity
             android:name=".activities.OrderModeActivity"
+            android:label="Select Order Mode"
+            android:parentActivityName=".activities.CartActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/HomeTheme" />
+            android:theme="@style/ActionBarTheme" />
         <activity
             android:name=".activities.PaymentActivity"
             android:screenOrientation="portrait"

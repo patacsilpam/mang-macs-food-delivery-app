@@ -21,8 +21,10 @@ public class ReservationModel {
     private String scheduled_time;
     @SerializedName("status")
     private String status;
+    @SerializedName("phone_number")
+    private String phoneNumber;
 
-    public ReservationModel(String id,String email,String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String status) {
+    public ReservationModel(String id,String email,String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String status,String phoneNumber) {
         this.id = id;
         this.email = email;
         this.fname = fname;
@@ -32,6 +34,7 @@ public class ReservationModel {
         this.scheduled_date = scheduled_date;
         this.scheduled_time = scheduled_time;
         this.status = status;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getId() {
@@ -68,5 +71,9 @@ public class ReservationModel {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 }
