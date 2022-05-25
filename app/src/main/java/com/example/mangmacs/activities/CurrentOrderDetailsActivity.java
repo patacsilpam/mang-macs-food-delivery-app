@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -27,10 +28,10 @@ import retrofit2.Response;
 
 public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
     private TextView orderStatus,orderNumber,orderType,totalAmount,arrowBack;
-    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryTime,paymentMethod;
-    private CardView deliveryDetails,pickUpDetails,dineInDetails,devTimeDetails,paymentMethodDetails;
+    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryTime,paymentMethod,deliveryFee;
+    private CardView deliveryDetails,pickUpDetails,dineInDetails,devTimeDetails,paymentMethodDetails,deliveryFeeDetails;
     private RecyclerView newOrderDetailLists;
-    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod;
+    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
     @Override
@@ -57,6 +58,9 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         deliveryTime = findViewById(R.id.deliveryTime);
         paymentMethodDetails = findViewById(R.id.paymentMethodDetails);
         paymentMethod = findViewById(R.id.paymentMethod);
+        deliveryFee = findViewById(R.id.deliveryFee);
+        deliveryFeeDetails = findViewById(R.id.deliveryFeeDetails);
+        deliveryFeeDetails.setVisibility(View.VISIBLE);
         deliveryDetails.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
         dineInDetails.setVisibility(View.VISIBLE);
@@ -82,11 +86,14 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         newOrderStatus = intent.getStringExtra("orderStatus");
         newOrderNumber = intent.getStringExtra("orderNumber");
         newPaymentMethod = intent.getStringExtra("paymentMethod");
+        newDeliveryFee = intent.getStringExtra("deliveryFee");
+        Toast.makeText(getApplicationContext(),newDeliveryFee,Toast.LENGTH_SHORT).show();
         orderStatus.setText(newOrderStatus);
         orderType.setText(newOrderType);
         orderNumber.setText(newOrderNumber);
         deliveryTime.setText(newDeliveryTime);
         paymentMethod.setText(newPaymentMethod);
+        deliveryFee.setText(newDeliveryFee);
         String OrderType = orderType.getText().toString();
         if (OrderType.equals("Pick Up")){
             pickUpName.setText(newAccountName);
@@ -95,6 +102,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
             paymentMethodDetails.setVisibility(View.VISIBLE);
+            deliveryFeeDetails.setVisibility(View.GONE);
         }
         else if (OrderType.equals("Deliver")){
             deliveryName.setText(newRecipientName);
@@ -106,6 +114,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);
             paymentMethodDetails.setVisibility(View.VISIBLE);
+            deliveryFeeDetails.setVisibility(View.VISIBLE);
         }
         else{
             dineInName.setText(newAccountName);
@@ -113,6 +122,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             dineInDetails.setVisibility(View.VISIBLE);
             pickUpDetails.setVisibility(View.GONE);
             deliveryDetails.setVisibility(View.GONE);
+            deliveryFeeDetails.setVisibility(View.GONE);
         }
     }
     private void showOrders(){
@@ -192,7 +202,9 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
 
     @Override
     public void onTotalAmountChange(String amount) {
-        totalAmount.setText("₱ ".concat(amount).concat(".00"));
+        int totalOrder = Integer.parseInt(amount);
+        int totalPayment = totalOrder + Integer.parseInt(newDeliveryFee);
+        totalAmount.setText("₱ ".concat(String.valueOf(totalPayment)).concat(".00"));
     }
 
 

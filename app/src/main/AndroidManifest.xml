@@ -42,7 +42,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".CurrentOrderDetailsActivity"
+            android:name=".activities.CurrentOrderDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
@@ -50,7 +50,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".PickUpPayment"
+            android:name=".activities.PickUpPayment"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity

@@ -127,7 +127,7 @@ public class SoupListDetail extends AppCompatActivity {
                 btnDecrement.setBackground(getDrawable(R.drawable.minus_btn));
                 btnIncrement.setBackground(getDrawable(R.drawable.plus_button));
             } else{
-                status.setTextColor(Color.GREEN);
+                status.setTextColor(Color.parseColor("#36c76b"));
                 btnAddtoCart.setEnabled(true);
                 btnIncrement.setEnabled(true);
                 btnDecrement.setEnabled(true);

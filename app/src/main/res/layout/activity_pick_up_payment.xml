@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1DC2C2C6"
-    tools:context=".PickUpPayment">
+    tools:context=".activities.PickUpPayment">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/appbar"
         android:layout_width="match_parent"

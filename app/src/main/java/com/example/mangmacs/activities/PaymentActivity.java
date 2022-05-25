@@ -34,7 +34,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mangmacs.PickUpPayment;
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.adapter.OrderListsAdapter;

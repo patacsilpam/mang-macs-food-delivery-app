@@ -47,6 +47,8 @@ public class CurrentOrdersModel {
     private String price;
     @SerializedName("total_amount")
     private String totalAmount;
+    @SerializedName("delivery_fee")
+    private String deliveryChange;
     //order time and date
     @SerializedName("payment_photo")
     private String paymentPhoto;
@@ -61,7 +63,7 @@ public class CurrentOrdersModel {
     @SerializedName("completed_time")
     private String completedTime;
 
-    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime) {
+    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime) {
         this.success = success;
         this.id = id;
         this.productCode = productCode;
@@ -83,6 +85,7 @@ public class CurrentOrdersModel {
         this.subTotal = subTotal;
         this.price = price;
         this.totalAmount = totalAmount;
+        this.deliveryChange = deliveryChange;
         this.paymentPhoto = paymentPhoto;
         this.paymentType = paymentType;
         this.imgProduct = imgProduct;
@@ -173,6 +176,10 @@ public class CurrentOrdersModel {
 
     public String getTotalAmount() {
         return totalAmount;
+    }
+
+    public String getDeliveryChange() {
+        return deliveryChange;
     }
 
     public String getPaymentPhoto() {

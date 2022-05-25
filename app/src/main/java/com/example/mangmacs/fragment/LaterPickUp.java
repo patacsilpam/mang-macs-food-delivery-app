@@ -15,9 +15,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import com.example.mangmacs.PickUpPayment;
+import com.example.mangmacs.activities.PickUpPayment;
 import com.example.mangmacs.R;
-import com.example.mangmacs.activities.AdressList;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;

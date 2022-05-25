@@ -13,6 +13,8 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:orientation="vertical"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
             android:gravity="center">
             <TextView
                 android:id="@+id/barangay"

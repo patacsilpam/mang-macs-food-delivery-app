@@ -30,23 +30,33 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/pizzaproductName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Product Name"
-                android:textSize="22sp"
-                android:fontFamily="@font/roboto_medium"/>
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""/>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/pizzaproductName"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text=""
+                   android:textSize="16sp"
+                   android:fontFamily="@font/roboto_medium"/>
+               <TextView
+                   android:id="@+id/singleVariation"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_toEndOf="@id/pizzaproductName"
+                   android:text=""
+                   android:textSize="16sp"
+                   android:fontFamily="@font/roboto_light"
+                   android:visibility="gone"/>
+           </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/priceLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible">
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone">
                 <TextView
                     android:id="@+id/pesoSign"
                     android:layout_width="wrap_content"
@@ -69,6 +79,12 @@
                     android:text=".00 "/>
             </RelativeLayout>
             <TextView
+                android:id="@+id/status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"/>
+            <TextView
                 android:id="@+id/productCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,21 +96,8 @@
                 android:id="@+id/pizzavariation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-                <RadioButton
-                    android:id="@+id/medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="55dp"
-                    android:layout_marginRight="10dp"
-                    android:textSize="14sp"
-                    android:text=""/>
-                <RadioButton
-                    android:id="@+id/large"
-                    android:layout_width="wrap_content"
-                    android:layout_height="55dp"
-                    android:layout_toEndOf="@+id/home"
-                    android:textSize="14sp"
-                    android:text=""/>
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
             </RadioGroup>
             <TextView
                 android:layout_width="match_parent"

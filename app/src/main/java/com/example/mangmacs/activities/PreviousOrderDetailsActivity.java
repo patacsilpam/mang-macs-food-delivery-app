@@ -28,12 +28,12 @@ import retrofit2.Response;
 
 public class PreviousOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
     private TextView orderStatus,orderNumber,orderType,totalAmount,arrowBack;
-    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,paymentMethod;
+    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,paymentMethod,deliveryFee;
     private TextView orderId,orderTime,deliveryTime,completedTime;
     private RecyclerView prevOrderDetailList;
-    private CardView deliveryDetails,pickUpDetails,dineInDetails,paymentMethodDetails;
+    private CardView deliveryDetails,pickUpDetails,dineInDetails,paymentMethodDetails,deliveryFeeDetails;
     private RelativeLayout devTimeDetails;
-    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod;
+    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod,newDeliveryFee;
     private List<CurrentOrdersModel> prevOrderModel;
     private PreviousDetailAdapter previousDetailAdapter;
     @Override
@@ -63,6 +63,9 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         completedTime = findViewById(R.id.completedTime);
         paymentMethodDetails = findViewById(R.id.paymentMethodDetails);
         paymentMethod = findViewById(R.id.paymentMethod);
+        deliveryFee = findViewById(R.id.deliveryFee);
+        deliveryFeeDetails = findViewById(R.id.deliveryFeeDetails);
+        deliveryFeeDetails.setVisibility(View.VISIBLE);
         deliveryDetails.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
         dineInDetails.setVisibility(View.VISIBLE);
@@ -91,6 +94,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         newDevTime = intent.getStringExtra("deliveryTime");
         newCompletedTime = intent.getStringExtra("completedTime");
         newPaymentMethod = intent.getStringExtra("paymentMethod");
+        newDeliveryFee = intent.getStringExtra("deliveryFee");
         orderId.setText(newOrderNumber);
         orderTime.setText(newOrderDate);
         deliveryTime.setText(newDevTime);
@@ -99,6 +103,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderType.setText(newOrderType);
         orderNumber.setText(newOrderNumber);
         paymentMethod.setText(newPaymentMethod);
+        deliveryFee.setText(newDeliveryFee);
         String OrderType = orderType.getText().toString();
         if (OrderType.equals("Pick Up")){
             pickUpName.setText(newAccountName);
@@ -107,6 +112,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
             paymentMethodDetails.setVisibility(View.VISIBLE);
+            deliveryFeeDetails.setVisibility(View.GONE);
         }
         else if (OrderType.equals("Deliver")){
             deliveryName.setText(newRecipientName);
@@ -118,6 +124,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);
             paymentMethodDetails.setVisibility(View.VISIBLE);
+            deliveryFeeDetails.setVisibility(View.VISIBLE);
         }
         else{
             dineInName.setText(newAccountName);
@@ -125,6 +132,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             dineInDetails.setVisibility(View.VISIBLE);
             pickUpDetails.setVisibility(View.GONE);
             deliveryDetails.setVisibility(View.GONE);
+            deliveryFeeDetails.setVisibility(View.GONE);
         }
     }
     private void showOrders(){

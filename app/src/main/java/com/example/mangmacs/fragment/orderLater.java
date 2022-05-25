@@ -7,8 +7,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +15,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.example.mangmacs.PickUpPayment;
 import com.example.mangmacs.R;
 import com.example.mangmacs.activities.AdressList;
-import com.example.mangmacs.activities.PaymentActivity;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

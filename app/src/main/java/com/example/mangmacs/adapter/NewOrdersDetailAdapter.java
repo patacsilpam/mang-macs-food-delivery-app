@@ -4,37 +4,30 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mangmacs.CurrentOrderDetailsActivity;
 import com.example.mangmacs.R;
-import com.example.mangmacs.activities.CartActivity;
+import com.example.mangmacs.activities.CurrentOrderDetailsActivity;
 import com.example.mangmacs.activities.MyOrdersActivity;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
-import com.example.mangmacs.fragment.CurrentOrders;
 import com.example.mangmacs.model.CurrentOrdersModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.graphics.Color.LTGRAY;
 
 public class NewOrdersDetailAdapter extends RecyclerView.Adapter<NewOrdersDetailAdapter.ViewHolder> {
     private Context context;
@@ -64,6 +57,7 @@ public class NewOrdersDetailAdapter extends RecyclerView.Adapter<NewOrdersDetail
         String orderId = currentOrdersModels.getId();
         String totalAmount = currentOrdersModels.getTotalAmount();
         ordersListener.onTotalAmountChange(totalAmount);
+
         if (status.equals("Pending")){
             holder.cancelOrder.setEnabled(true);
             holder.cancelOrder.setVisibility(View.VISIBLE);

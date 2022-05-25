@@ -31,25 +31,18 @@
                 android:id="@+id/riceproductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Product Name"
+                android:text=""
                 android:textSize="16sp"
                 android:fontFamily="@font/roboto_medium"/>
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/riceproductName"
-                android:textColor="#303030"
-                android:textSize="14sp"
-                android:text="Status"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
                 <TextView
                     android:id="@+id/pesoSign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:textSize="14sp"
                     android:text="₱ " />
                 <TextView
@@ -57,18 +50,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/pesoSign"
-                    android:layout_marginTop="5dp"
                     android:textSize="14sp"
-                    android:text="317" />
+                    android:text="0" />
                 <TextView
                     android:id="@+id/decimal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_toEndOf="@+id/riceproductPrice"
                     android:textSize="14sp"
                     android:text=".00" />
             </RelativeLayout>
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/riceproductName"
+                android:textColor="#303030"
+                android:textSize="14sp"
+                android:text=""/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

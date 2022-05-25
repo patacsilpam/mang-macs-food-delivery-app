@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#1DC2C2C6"
-    tools:context=".CurrentOrderDetailsActivity">
+    tools:context=".activities.CurrentOrderDetailsActivity">
        <androidx.appcompat.widget.Toolbar
            android:id="@+id/toolbar"
            android:layout_width="match_parent"
@@ -266,6 +266,40 @@
               android:layout_height="wrap_content"
               android:scrollbars="none"/>
           <androidx.cardview.widget.CardView
+              android:id="@+id/deliveryFeeDetails"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+              <RelativeLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="70dp"
+                  android:background="@color/white">
+                  <View
+                      android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      android:background="#C6C6C6"/>
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:padding="10dp"
+                      android:text="Delivery Fee"
+                      android:fontFamily="@font/roboto"
+                      android:textSize="16sp"
+                      android:textColor="#413F3F"
+                      android:layout_centerVertical="true"/>
+                  <TextView
+                      android:id="@+id/deliveryFee"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:padding="10dp"
+                      android:text=""
+                      android:fontFamily="@font/roboto"
+                      android:textSize="16sp"
+                      android:textColor="#413F3F"
+                      android:layout_alignParentEnd="true"
+                      android:layout_centerVertical="true"/>
+              </RelativeLayout>
+          </androidx.cardview.widget.CardView>
+          <androidx.cardview.widget.CardView
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
               <RelativeLayout
@@ -301,6 +335,7 @@
           <androidx.cardview.widget.CardView
               android:id="@+id/devTimeDetails"
               android:layout_width="match_parent"
+              android:layout_marginBottom="10dp"
               android:layout_height="70dp"
               app:cardElevation="0dp"
               android:layout_marginTop="10dp"

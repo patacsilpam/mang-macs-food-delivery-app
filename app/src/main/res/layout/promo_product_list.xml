@@ -8,7 +8,6 @@
         android:id="@+id/productContainer"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        app:cardCornerRadius="10dp"
         app:cardBackgroundColor="@color/white"
         app:cardElevation="0dp"
         app:cardMaxElevation="5dp"
@@ -37,8 +36,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/image"
-                    android:text=""
+                    android:text="Promo"
                     android:textSize="18sp"
+                    android:fontFamily="@font/roboto_medium" />
+                <TextView
+                    android:id="@+id/productPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/productName"
+                    android:text="120"
+                    android:textSize="12sp"
                     android:fontFamily="@font/roboto_medium" />
                 <TextView
                     android:id="@+id/variation"
@@ -48,15 +55,7 @@
                     android:text=""
                     android:textSize="18sp"
                     android:fontFamily="@font/roboto_medium" />
-                <TextView
-                    android:id="@+id/productPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/variation"
-                    android:text=""
-                    android:textSize="12sp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:layout_marginTop="10dp" />
+
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

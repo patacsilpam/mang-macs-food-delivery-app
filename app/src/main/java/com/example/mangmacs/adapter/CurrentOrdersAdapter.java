@@ -9,13 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mangmacs.CurrentOrderDetailsActivity;
 import com.example.mangmacs.R;
-import com.example.mangmacs.activities.MyOrdersActivity;
+import com.example.mangmacs.activities.CurrentOrderDetailsActivity;
 import com.example.mangmacs.model.CurrentOrdersModel;
 
 import java.util.List;
@@ -47,7 +45,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
         holder.viewMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (context,CurrentOrderDetailsActivity.class);
+                Intent intent = new Intent (context, CurrentOrderDetailsActivity.class);
                 intent.putExtra("deliveryTime",currentOrdersModel.getRequiredDate().concat(" ").concat(currentOrdersModel.getRequiredTime()));
                 intent.putExtra("customerName",currentOrdersModel.getCustomerName());
                 intent.putExtra("recipientName",currentOrdersModel.getRecipientName());
@@ -60,6 +58,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                 intent.putExtra("orderStatus",currentOrdersModel.getOrderStatus());
                 intent.putExtra("totalAmount",currentOrdersModel.getTotalAmount());
                 intent.putExtra("paymentMethod",currentOrdersModel.getPaymentType());
+                intent.putExtra("deliveryFee",currentOrdersModel.getDeliveryChange());
                 context.startActivity(intent);
             }
         });

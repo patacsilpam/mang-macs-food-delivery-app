@@ -17,6 +17,7 @@ public class PizzaListModel {
     private String groupPrice;
     @SerializedName("groupCode")
     private String code;
+
    // private float rating;
     public PizzaListModel(String productName,String productVariation,String status,String image,int price,String groupPrice,  String code){
         this.productName = productName;
@@ -26,7 +27,7 @@ public class PizzaListModel {
         this.price = price;
         this.groupPrice = groupPrice;
         this.code = code;
-        //this.rating = rating;
+       // this.groupVariation = groupVariation;
     }
     public String getProductName(){
         return productName;
@@ -51,4 +52,5 @@ public class PizzaListModel {
     public String getCode() {
         return code;
     }
+
 }

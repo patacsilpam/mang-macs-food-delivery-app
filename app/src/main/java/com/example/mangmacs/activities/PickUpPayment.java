@@ -1,4 +1,4 @@
-package com.example.mangmacs;
+package com.example.mangmacs.activities;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -34,10 +34,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.mangmacs.activities.DineInActivity;
-import com.example.mangmacs.activities.PickUpActivity;
+import com.example.mangmacs.R;
+import com.example.mangmacs.SharedPreference;
 
-import com.example.mangmacs.activities.home_activity;
 import com.example.mangmacs.adapter.OrderListsAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.OrdersListener;
