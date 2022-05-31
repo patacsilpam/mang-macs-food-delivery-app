@@ -26,41 +26,40 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SoupListDetail extends AppCompatActivity {
+public class GrilledListDetail extends AppCompatActivity {
     private ImageView imageView;
     private TextView txt_arrow_back;
     private TextView productName,productPrice,status,customerId,fname,lname;
-    private TextInputLayout drinksAddons;
     private EditText quantity;
+    private TextInputLayout comboAddOns;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
+    int count = 1;
     private Intent intent;
     private String image;
-    private int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_soup_list_detail);
+        setContentView(R.layout.activity_grilled_list_detail);
         imageView = findViewById(R.id.image);
-        productName = findViewById(R.id.pancitproductName);
-        productPrice = findViewById(R.id.pancitproductPrice);
-        drinksAddons = findViewById(R.id.pancitadd_ons);
+        productName = findViewById(R.id.comboproductName);
+        productPrice = findViewById(R.id.comboproductPrice);
+        comboAddOns = findViewById(R.id.comboAddOns);
         status = findViewById(R.id.status);
+        txt_arrow_back = findViewById(R.id.txt_arrow_back);
         customerId = findViewById(R.id.customerId);
         fname = findViewById(R.id.fname);
         lname = findViewById(R.id.lname);
-        btnAddtoCart = findViewById(R.id.btnPancit);
-        txt_arrow_back = findViewById(R.id.txt_arrow_back);
+        btnAddtoCart = findViewById(R.id.btnAddtoCartCombo);
         quantity = findViewById(R.id.quantity);
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
-        btnDecrement.setEnabled(false); //set button decrement not clickable
+        btnDecrement.setEnabled(false);
         IncrementDecrement();
         DisplayProductDetails();
         Back();
-    }
 
+    }
     private void IncrementDecrement() {
-        //button increment
         btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +67,7 @@ public class SoupListDetail extends AppCompatActivity {
                 quantity.setText(String.valueOf(count));
             }
         });
-        //button decrement
+        //decrement button
         btnDecrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +75,7 @@ public class SoupListDetail extends AppCompatActivity {
                 quantity.setText(String.valueOf(count));
             }
         });
-        //disable button decrement to edit quantity if it is equal to one
+        //disable btndecrement to edit quantity if it is equal to one
         quantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -102,17 +101,16 @@ public class SoupListDetail extends AppCompatActivity {
         });
     }
     private void DisplayProductDetails() {
-        //get the value from its adapter
         intent = getIntent();
         image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
         int productprice = intent.getIntExtra("price",0);
         String productstatus = intent.getStringExtra("status");
-        String firstname = SharedPreference.getSharedPreference(SoupListDetail.this).setFname();
-        String lastname = SharedPreference.getSharedPreference(SoupListDetail.this).setLname();
-        String customerID = SharedPreference.getSharedPreference(SoupListDetail.this).setEmail();
-        if (intent != null) {
-            Glide.with(SoupListDetail.this).load(image).into(imageView);
+        String firstname = SharedPreference.getSharedPreference(GrilledListDetail.this).setFname();
+        String lastname = SharedPreference.getSharedPreference(GrilledListDetail.this).setLname();
+        String customerID = SharedPreference.getSharedPreference(GrilledListDetail.this).setEmail();
+        if(intent != null){
+            Glide.with(GrilledListDetail.this).load(image).into(imageView);
             productName.setText(productname);
             productPrice.setText(Integer.toString(productprice));
             status.setText(productstatus);
@@ -135,7 +133,7 @@ public class SoupListDetail extends AppCompatActivity {
                 btnIncrement.setBackground(getDrawable(R.drawable.increment_btn));
             }
         }
-       AddToCart();
+        AddToCart();
     }
 
     private void AddToCart() {
@@ -150,7 +148,7 @@ public class SoupListDetail extends AppCompatActivity {
                 String lastName = lname.getText().toString();
                 int price = Integer.parseInt(productPrice.getText().toString());
                 int number = Integer.parseInt(quantity.getText().toString());
-                String add_ons = drinksAddons.getEditText().getText().toString();
+                String add_ons = comboAddOns.getEditText().getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons,image);
                 cartModelCall.enqueue(new Callback<CartModel>() {
@@ -178,8 +176,9 @@ public class SoupListDetail extends AppCompatActivity {
         txt_arrow_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SoupListDetail.this, SoupActivity.class));
+                startActivity(new Intent(GrilledListDetail.this, GrilledActivity.class));
             }
         });
     }
+
 }

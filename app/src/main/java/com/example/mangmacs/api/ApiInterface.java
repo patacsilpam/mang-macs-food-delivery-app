@@ -2,7 +2,7 @@ package com.example.mangmacs.api;
 
 import com.example.mangmacs.model.AddressListModel;
 import com.example.mangmacs.model.CartModel;
-import com.example.mangmacs.model.ComboMealListModel;
+import com.example.mangmacs.model.GrilledListModel;
 import com.example.mangmacs.model.CurrentOrdersModel;
 import com.example.mangmacs.model.CustomerLoginModel;
 import com.example.mangmacs.model.CustomerModel;
@@ -11,51 +11,46 @@ import com.example.mangmacs.model.DrinksListModel;
 import com.example.mangmacs.model.MealsGoodListModel;
 import com.example.mangmacs.model.NoodlesListModel;
 import com.example.mangmacs.model.PancitBilaoListModel;
-import com.example.mangmacs.model.PancitListModel;
+import com.example.mangmacs.model.SoupListModel;
 import com.example.mangmacs.model.PastaListModel;
 import com.example.mangmacs.model.PizzaListModel;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.model.PromoListModel;
 import com.example.mangmacs.model.ReservationModel;
-import com.example.mangmacs.model.RiceListModel;
+import com.example.mangmacs.model.AppetizerModel;
 import com.example.mangmacs.model.RicecupListModel;
-import com.example.mangmacs.model.SeafoodsListModel;
-import com.example.mangmacs.model.SoupListModel;
+import com.example.mangmacs.model.SizzlingListModel;
+import com.example.mangmacs.model.DessertListModel;
 import com.example.mangmacs.model.UpdateAccountModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
     @GET("getPizzaProduct.php")
     Call<List<PizzaListModel>> getPizza();
     @GET("getRiceMealProduct.php")
-    Call<List<RiceListModel>> getRiceMeal();
+    Call<List<AppetizerModel>> getRiceMeal();
     @GET("getComboMealProduct.php")
-    Call<List<ComboMealListModel>> getComboMeal();
+    Call<List<GrilledListModel>> getComboMeal();
     @GET("getMealsGoodProduct.php")
     Call<List<MealsGoodListModel>> getMealsGood();
     @GET("getSeafoodsProduct.php")
-    Call<List<SeafoodsListModel>> getSeafoods();
+    Call<List<SizzlingListModel>> getSeafoods();
     @GET("getSoupProduct.php")
-    Call<List<SoupListModel>> getSoup();
+    Call<List<DessertListModel>> getSoup();
     @GET("getRiceProduct.php")
     Call<List<RicecupListModel>> getRice();
     @GET("getPancitProduct.php")
-    Call<List<PancitListModel>> getPancit();
+    Call<List<SoupListModel>> getPancit();
     @GET("getPancitBilaoProduct.php")
     Call<List<PancitBilaoListModel>> getPancitBilao();
     @GET("getPastaProduct.php")

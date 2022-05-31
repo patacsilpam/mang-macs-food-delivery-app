@@ -8,20 +8,20 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <!--Additional texts for home activity-->
+    <string name="appetizer">Appetizer</string>
     <string name="combo">Combo Budget\nMeals</string>
+    <string name="dessert">Dessert</string>
     <string name="dimsum">Dimsum</string>
     <string name="drinks">Drinks</string>
-    <string name="meals">Meals Good\nfor 3 px</string>
+    <string name="meals">Meals Good\nfor 3 pax</string>
     <string name="pasta">Pasta</string>
     <string name="pizza">Pizza</string>
-    <string name="rice">Rice Meals\nw/ Ice Tea</string>
     <string name="others">Others</string>
-    <string name="seafoods">Seafoods</string>
+    <string name="sizzling">Sizzling Plates</string>
     <string name="noodles">Noodles</string>
     <string name="soup">Soup</string>
     <string name="bilao">Bilao</string>
-    <string name="rice1">Rice</string>
-    <string name="pancit">Pancit</string>
+
     <string name="title_activity_seafoods">SeafoodsActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

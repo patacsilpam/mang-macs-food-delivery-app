@@ -14,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MenuActivty extends AppCompatActivity {
-    private CardView pizza,riceMeal,comboBudget,mealsGood,seafoods,soup,rice,pancit,bilao,noodles,pasta,dimsum,drinks;
+    private CardView pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
     private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +23,22 @@ public class MenuActivty extends AppCompatActivity {
         bottomNavigationView  =  findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.menu);
         BottomNav();
-        //initialize pizza
+        //initialize ids
         pizza = findViewById(R.id.btnPizza);
-        riceMeal = findViewById(R.id.ricemeal);
-        comboBudget = findViewById(R.id.comboBudget);
+        appetizer = findViewById(R.id.appetizer);
+        grilled = findViewById(R.id.grilled);
         mealsGood = findViewById(R.id.mealsgood);
-        seafoods = findViewById(R.id.seafoods);
-        soup = findViewById(R.id.soup);
-        rice = findViewById(R.id.rice);
-        pancit = findViewById(R.id.pancit);
-        bilao = findViewById(R.id.bilao);
+        sizzling = findViewById(R.id.sizzling);
         noodles = findViewById(R.id.noodles);
+        bilao = findViewById(R.id.bilao);
         pasta = findViewById(R.id.pasta);
         dimsum = findViewById(R.id.dimsum);
+        soup = findViewById(R.id.soup);
         drinks = findViewById(R.id.drinks);
+        dessert = findViewById(R.id.dessert);
+        pulutan = findViewById(R.id.pulutan);
+        wine = findViewById(R.id.wine);
+
         Activites();
     }
 
@@ -47,16 +49,16 @@ public class MenuActivty extends AppCompatActivity {
                 startActivity(new Intent(MenuActivty.this, PizzaActivity.class));
             }
         });
-        riceMeal.setOnClickListener(new View.OnClickListener() {
+        appetizer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuActivty.this, RiceMealActivity.class));
+                startActivity(new Intent(MenuActivty.this, AppetizerActivity.class));
             }
         });
-        comboBudget.setOnClickListener(new View.OnClickListener() {
+        grilled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuActivty.this, ComboMealActivity.class));
+                startActivity(new Intent(MenuActivty.this, GrilledActivity.class));
             }
         });
         mealsGood.setOnClickListener(new View.OnClickListener() {
@@ -65,42 +67,22 @@ public class MenuActivty extends AppCompatActivity {
                 startActivity(new Intent(MenuActivty.this, MealsGoodActivity.class));
             }
         });
-        seafoods.setOnClickListener(new View.OnClickListener() {
+        sizzling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuActivty.this, SeafoodsActivity.class));
-            }
-        });
-        soup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MenuActivty.this, SoupActivity.class));
-            }
-        });
-
-        rice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MenuActivty.this, RiceActivity.class));
-            }
-        });
-
-        pancit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MenuActivty.this, PancitActivity.class));
-            }
-        });
-        bilao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MenuActivty.this, BilaoActivity.class));
+                startActivity(new Intent(MenuActivty.this, SizzlingActivity.class));
             }
         });
         noodles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MenuActivty.this, NoodlesActivity.class));
+            }
+        });
+        bilao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MenuActivty.this, BilaoActivity.class));
             }
         });
         pasta.setOnClickListener(new View.OnClickListener() {
@@ -115,12 +97,34 @@ public class MenuActivty extends AppCompatActivity {
                 startActivity(new Intent(MenuActivty.this, DimsumActivity.class));
             }
         });
+        soup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MenuActivty.this, SoupActivity.class));
+            }
+        });
         drinks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MenuActivty.this, DrinksActivity.class));
             }
         });
+        dessert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MenuActivty.this, DessertActivity.class));
+            }
+        });
+        pulutan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MenuActivty.this, PulutanActivity.class));
+            }
+        });
+
+        /*
+            insert wine activity here:)
+        */
     }
 
     private void BottomNav() {

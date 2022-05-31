@@ -3,27 +3,20 @@ package com.example.mangmacs.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mangmacs.adapter.CartAdapter;
 import com.example.mangmacs.adapter.PopularAdapter;
 import com.example.mangmacs.model.CartModel;
-import com.example.mangmacs.model.CustomerLoginModel;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.R;
 import com.example.mangmacs.api.RetrofitInstance;
@@ -50,7 +43,7 @@ public class home_activity extends AppCompatActivity {
     private CartAdapter cartAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textName, btnSeeAll,totalCart;
-    private CardView pizza,riceMeal,comboBudget,mealsGood,seafoods,soup,rice,pancit,bilao,noodles,pasta,dimsum,drinks;
+    private CardView  pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
     private FloatingActionButton floatingActionButton;
     private BottomNavigationView bottomNavigationView;
     private ProgressBar progressBar;
@@ -62,19 +55,22 @@ public class home_activity extends AppCompatActivity {
         textName = findViewById(R.id.textName);
         totalCart = findViewById(R.id.totalCart);
         bottomNavigationView =  findViewById(R.id.bottom_nav);
+        //initialize ids
         pizza = findViewById(R.id.pizza);
-        riceMeal = findViewById(R.id.ricemeal);
-        comboBudget = findViewById(R.id.combo);
+        appetizer = findViewById(R.id.appetizer);
+        grilled = findViewById(R.id.grilled);
         mealsGood = findViewById(R.id.mealsgood);
-        seafoods = findViewById(R.id.seafoods);
-        soup = findViewById(R.id.soup);
-        rice = findViewById(R.id.rice);
-        pancit = findViewById(R.id.pancit);
-        bilao = findViewById(R.id.bilao);
+        sizzling = findViewById(R.id.sizzling);
         noodles = findViewById(R.id.noodles);
+        bilao = findViewById(R.id.bilao);
         pasta = findViewById(R.id.pasta);
         dimsum = findViewById(R.id.dimsum);
+        soup = findViewById(R.id.soup);
         drinks = findViewById(R.id.drinks);
+        dessert = findViewById(R.id.dessert);
+        pulutan = findViewById(R.id.pulutan);
+        wine = findViewById(R.id.wine);
+
         floatingActionButton = findViewById(R.id.iconCart);
         recyclerViewCart = findViewById(R.id.recyclerViewCart);
         recyclerView = findViewById(R.id.recyclerView);
@@ -147,91 +143,82 @@ public class home_activity extends AppCompatActivity {
                 startActivity(new Intent(home_activity.this, PizzaActivity.class));
             }
         });
-
-        riceMeal.setOnClickListener(new View.OnClickListener() {
+        appetizer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, RiceMealActivity.class));
+                startActivity(new Intent(home_activity.this, AppetizerActivity.class));
             }
         });
-        //initialize combo budget meal
-
-        comboBudget.setOnClickListener(new View.OnClickListener() {
+        grilled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, ComboMealActivity.class));
+                startActivity(new Intent(home_activity.this, GrilledActivity.class));
             }
         });
-
         mealsGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(home_activity.this, MealsGoodActivity.class));
             }
         });
-
-        seafoods.setOnClickListener(new View.OnClickListener() {
+        sizzling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, SeafoodsActivity.class));
+                startActivity(new Intent(home_activity.this, SizzlingActivity.class));
             }
         });
-
-        soup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, SoupActivity.class));
-            }
-        });
-
-        rice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, RiceActivity.class));
-            }
-        });
-
-        pancit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, PancitActivity.class));
-            }
-        });
-
-        bilao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this, BilaoActivity.class));
-            }
-        });
-
         noodles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(home_activity.this, NoodlesActivity.class));
             }
         });
-
+        bilao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, BilaoActivity.class));
+            }
+        });
         pasta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(home_activity.this, PastaActivity.class));
             }
         });
-
         dimsum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(home_activity.this, DimsumActivity.class));
             }
         });
-
+        soup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, SoupActivity.class));
+            }
+        });
         drinks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(home_activity.this, DrinksActivity.class));
             }
         });
+        dessert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, DessertActivity.class));
+            }
+        });
+        pulutan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, PulutanActivity.class));
+            }
+        });
+
+        /*
+            insert wine activity here:)
+        */
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

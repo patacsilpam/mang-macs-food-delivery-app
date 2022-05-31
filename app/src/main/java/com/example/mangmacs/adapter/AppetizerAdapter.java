@@ -13,53 +13,53 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mangmacs.activities.SoupListDetail;
-import com.example.mangmacs.model.SoupListModel;
 import com.example.mangmacs.R;
+import com.example.mangmacs.activities.AppetizerListDetail;
+import com.example.mangmacs.model.AppetizerModel;
 
 import java.util.List;
 
-public class SoupAdapter extends RecyclerView.Adapter<SoupAdapter.ProductViewHolder> {
+public class AppetizerAdapter extends RecyclerView.Adapter<AppetizerAdapter.ProductViewHolder>{
     private Context context;
-    private List<SoupListModel> pancitList;
-    public SoupAdapter(Context context, List<SoupListModel> pancitList){
+    private List<AppetizerModel> riceMealList;
+    public AppetizerAdapter(Context context, List<AppetizerModel> riceMealList){
         this.context = context;
-        this.pancitList = pancitList;
+        this.riceMealList = riceMealList;
     }
+
     @NonNull
     @Override
-    public SoupAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.pancit_list,null);
-        return new ProductViewHolder(view);
+        View view = layoutInflater.inflate(R.layout.rice_meal_list,null);
+        return new AppetizerAdapter.ProductViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SoupAdapter.ProductViewHolder holder, int position) {
-        SoupListModel soupListModel = pancitList.get(position);
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        AppetizerModel appetizerModel = riceMealList.get(position);
         Glide.with(context)
-                .load(soupListModel.getImage())
+                .load(appetizerModel.getImage())
                 .into(holder.image);
-        holder.textProductName.setText(soupListModel.getProductName());
-        holder.textProductPrice.setText("₱ "+String.valueOf(soupListModel.getPrice()+".00"));
+        holder.textProductName.setText(appetizerModel.getProductName());
+        holder.textProductPrice.setText("₱ "+String.valueOf(appetizerModel.getPrice()+".00"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, SoupListDetail.class);
-                intent.putExtra("image", soupListModel.getImage());
-                intent.putExtra("productName", soupListModel.getProductName());
-                intent.putExtra("price", soupListModel.getPrice());
-                intent.putExtra("status", soupListModel.getStatus());
-                intent.putExtra("productVariation", soupListModel.getProductVariation());
-                intent.putExtra("code", soupListModel.getCodePancit());
+                Intent intent = new Intent(context, AppetizerListDetail.class);
+                intent.putExtra("image", appetizerModel.getImage());
+                intent.putExtra("productName", appetizerModel.getProductName());
+                intent.putExtra("price", appetizerModel.getPrice());
+                intent.putExtra("status", appetizerModel.getStatus());
+                intent.putExtra("productVariation", appetizerModel.getProductVariation());
+                intent.putExtra("code", appetizerModel.getCodeRiceMeal());
                 context.startActivity(intent);
             }
         });
     }
-
     @Override
     public int getItemCount() {
-        return pancitList.size();
+        return riceMealList.size();
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {

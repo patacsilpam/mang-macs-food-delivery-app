@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SoupListDetail">
+    tools:context=".activities.GrilledListDetail">
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/pancitproductName"
+                android:id="@+id/comboproductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -43,10 +43,11 @@
                     android:id="@+id/pesoSign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:textSize="14sp"
                     android:text="₱ " />
                 <TextView
-                    android:id="@+id/pancitproductPrice"
+                    android:id="@+id/comboproductPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/pesoSign"
@@ -56,7 +57,8 @@
                     android:id="@+id/decimal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/pancitproductPrice"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@+id/comboproductPrice"
                     android:textSize="14sp"
                     android:text=".00" />
             </RelativeLayout>
@@ -64,7 +66,7 @@
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/pancitproductName"
+                android:layout_toEndOf="@id/comboproductName"
                 android:textColor="#303030"
                 android:textSize="14sp"
                 android:text=""/>
@@ -84,7 +86,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="Add instructions for your order" />
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/pancitadd_ons"
+                android:id="@+id/comboAddOns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
@@ -161,7 +163,7 @@
                 android:padding="3dp"
                 android:drawableLeft="@drawable/ic_baseline_add_24"/>
             <Button
-                android:id="@+id/btnPancit"
+                android:id="@+id/btnAddtoCartCombo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add to Order"

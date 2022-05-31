@@ -75,7 +75,7 @@
             </androidx.cardview.widget.CardView>
             <!--Rice Meals-->
             <androidx.cardview.widget.CardView
-                android:id="@+id/ricemeal"
+                android:id="@+id/appetizer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_columnWeight="1"
@@ -94,11 +94,11 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ricemeal"/>
+                        android:src="@drawable/appetizer"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/rice"
+                        android:text="@string/appetizer"
                         android:fontFamily="@font/roboto_medium"
                         android:textSize="14sp"
                         android:gravity="center"/>
@@ -106,7 +106,7 @@
                 <!--Combo BudgetMeals-->
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
-                android:id="@+id/comboBudget"
+                android:id="@+id/grilled"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_columnWeight="1"
@@ -125,11 +125,11 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/combo"/>
+                        android:src="@drawable/bbq"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/combo"
+                        android:text="Mang Mac's Grilled Menu"
                         android:fontFamily="@font/roboto_medium"
                         android:textSize="14sp"
                         android:gravity="center"/>
@@ -168,7 +168,7 @@
             </androidx.cardview.widget.CardView>
             <!--Seafood-->
             <androidx.cardview.widget.CardView
-                android:id="@+id/seafoods"
+                android:id="@+id/sizzling"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_columnWeight="1"
@@ -187,141 +187,17 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/seafoods_12_11zon"/>
+                        android:src="@drawable/sizzling"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/seafoods"
+                        android:text="@string/sizzling"
                         android:fontFamily="@font/roboto_medium"
                         android:textSize="14sp"
                         android:gravity="center"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <!--Soup-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/soup"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
-                app:layout_rowWeight="1"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="30dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="10dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/soup"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/soup"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textSize="14sp"
-                        android:gravity="center"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <!--Rice-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/rice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
-                app:layout_rowWeight="1"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="30dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="10dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/rice_10_11zon"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/rice1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textSize="14sp"
-                        android:gravity="center"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <!--Pancit-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/pancit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
-                app:layout_rowWeight="1"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="30dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="10dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/pancit_7_11zon"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/pancit"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textSize="14sp"
-                        android:gravity="center"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <!--Bilao-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/bilao"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
-                app:layout_rowWeight="1"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="30dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="10dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/bilao_1_11zon"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/bilao"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textSize="14sp"
-                        android:gravity="center"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <!--Noodles-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/noodles"
                 android:layout_width="0dp"
@@ -342,7 +218,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/noodles_6_11zon"/>
+                        android:src="@drawable/noodles"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -352,7 +228,38 @@
                         android:gravity="center"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <!--Pasta-->
+            <!--Rice-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/bilao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="30dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/bilao"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/bilao"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="14sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!--Pancit-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/pasta"
                 android:layout_width="0dp"
@@ -383,7 +290,7 @@
                         android:gravity="center"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <!--Dimsum-->
+            <!--Bilao-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/dimsum"
                 android:layout_width="0dp"
@@ -414,9 +321,102 @@
                         android:gravity="center"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <!--Meals Good for 3px-->
+            <!--Noodles-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/soup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="30dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/soup"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/soup"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="14sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!--Pasta-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/drinks"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="30dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/drinks_4_11zon"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/drinks"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="14sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!--Dimsum-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dessert"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="30dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/dessert"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/dessert"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="14sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!--Wine-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/pulutan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_columnWeight="1"
@@ -435,11 +435,41 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/drinks_4_11zon"/>
+                        android:src="@drawable/combo"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/drinks"
+                        android:text="Mang Mac's Pulutan"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="14sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/wine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="70dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/beer_bucket"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Mang Mac's Drinks"
                         android:fontFamily="@font/roboto_medium"
                         android:textSize="14sp"
                         android:gravity="center"/>

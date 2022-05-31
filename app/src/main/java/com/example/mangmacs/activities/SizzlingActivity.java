@@ -10,11 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.mangmacs.adapter.SoupAdapter;
-import com.example.mangmacs.model.SoupListModel;
 import com.example.mangmacs.R;
-import com.example.mangmacs.api.RetrofitInstance;
+import com.example.mangmacs.adapter.SizzlingAdapter;
+import com.example.mangmacs.model.SizzlingListModel;
 import com.example.mangmacs.api.ApiInterface;
+import com.example.mangmacs.api.RetrofitInstance;
 
 import java.util.List;
 
@@ -22,24 +22,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SoupActivity extends AppCompatActivity {
+public class SizzlingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private List<SoupListModel> pancitList;
+    private List<SizzlingListModel> seafoodsList;
     private ApiInterface apiInterface;
-    private SoupAdapter soupAdapter;
+    private SizzlingAdapter sizzlingAdapter;
     private TextView btnArrowBack;
     private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_soup);
+        setContentView(R.layout.activity_sizzling);
         btnArrowBack = findViewById(R.id.arrow_back);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        ShowPancitLists();
+        ShowSeafoodsLists();
         Back();
     }
 
@@ -47,46 +47,45 @@ public class SoupActivity extends AppCompatActivity {
         btnArrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SoupActivity.this,home_activity.class));
+                startActivity(new Intent(SizzlingActivity.this,home_activity.class));
             }
         });
     }
 
-    private void ShowPancitLists() {
-        //call pizza list model
-        Call<List<SoupListModel>> call= apiInterface.getPancit();
-        call.enqueue(new Callback<List<SoupListModel>>() {
+    private void ShowSeafoodsLists() {
+        Call<List<SizzlingListModel>> call= apiInterface.getSeafoods();
+        call.enqueue(new Callback<List<SizzlingListModel>>() {
             @Override
-            public void onResponse(Call<List<SoupListModel>> call, Response<List<SoupListModel>> response) {
-                pancitList = response.body();
-                soupAdapter = new SoupAdapter(SoupActivity.this,pancitList);
-                recyclerView.setAdapter(soupAdapter);
+            public void onResponse(Call<List<SizzlingListModel>> call, Response<List<SizzlingListModel>> response) {
+                seafoodsList = response.body();
+                sizzlingAdapter = new SizzlingAdapter(SizzlingActivity.this,seafoodsList);
+                recyclerView.setAdapter(sizzlingAdapter);
                 refresh();
             }
 
             @Override
-            public void onFailure(Call<List<SoupListModel>> call, Throwable t) {
+            public void onFailure(Call<List<SizzlingListModel>> call, Throwable t) {
 
             }
         });
     }
 
-    public void refresh(){
+    private void refresh() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Call<List<SoupListModel>> call= apiInterface.getPancit();
-                call.enqueue(new Callback<List<SoupListModel>>() {
+                Call<List<SizzlingListModel>> call= apiInterface.getSeafoods();
+                call.enqueue(new Callback<List<SizzlingListModel>>() {
                     @Override
-                    public void onResponse(Call<List<SoupListModel>> call, Response<List<SoupListModel>> response) {
-                        pancitList = response.body();
-                        soupAdapter = new SoupAdapter(SoupActivity.this,pancitList);
-                        recyclerView.setAdapter(soupAdapter);
+                    public void onResponse(Call<List<SizzlingListModel>> call, Response<List<SizzlingListModel>> response) {
+                        seafoodsList = response.body();
+                        sizzlingAdapter = new SizzlingAdapter(SizzlingActivity.this,seafoodsList);
+                        recyclerView.setAdapter(sizzlingAdapter);
                         refresh();
                     }
 
                     @Override
-                    public void onFailure(Call<List<SoupListModel>> call, Throwable t) {
+                    public void onFailure(Call<List<SizzlingListModel>> call, Throwable t) {
 
                     }
                 });

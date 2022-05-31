@@ -4,42 +4,41 @@ import com.google.gson.annotations.SerializedName;
 
 public class SoupListModel {
     @SerializedName("productName")
-    private String productNameSoup;
+    private String productNamePancit;
     @SerializedName("productVariation")
-    private String productVariationSoup;
+    private String productVariationPancit;
     @SerializedName("status")
-    private String statusSoup;
+    private String statusPancit;
     @SerializedName("productImage")
-    private String imageSoup;
+    private String imagePancit;
     @SerializedName("price")
-    private int priceSoup;
+    private int pricePancit;
     @SerializedName("code")
-    private String codeSoup;
-    public SoupListModel(String productName,String productVariation,String status,String image,int price, String codeSoup){
-        this.productNameSoup = productName;
-        this.productVariationSoup = productVariation;
-        this.statusSoup = status;
-        this.imageSoup = image;
-        this.priceSoup = price;
-        this.codeSoup = codeSoup;
+    private String codePancit;
+    public SoupListModel(String productName, String productVariation, String status, String image, int price, String codePancit){
+        this.productNamePancit = productName;
+        this.productVariationPancit = productVariation;
+        this.statusPancit = status;
+        this.imagePancit = image;
+        this.pricePancit = price;
+        this.codePancit = codePancit;
     }
     public String getProductName(){
-        return productNameSoup;
+        return productNamePancit;
     }
     public String getProductVariation(){
-        return productVariationSoup;
+        return productVariationPancit;
     }
     public String getStatus(){
-        return statusSoup;
+        return statusPancit;
     }
     public String getImage(){
-        return imageSoup;
+        return imagePancit;
     }
     public int getPrice(){
-        return priceSoup;
+        return pricePancit;
     }
-
-    public String getCodeSoup() {
-        return codeSoup;
+    public String getCodePancit() {
+        return codePancit;
     }
 }

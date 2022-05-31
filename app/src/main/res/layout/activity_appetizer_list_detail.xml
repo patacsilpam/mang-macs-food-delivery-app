@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SoupListDetail">
+    android:orientation="vertical"
+    tools:context=".activities.AppetizerListDetail">
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/pancitproductName"
+                android:id="@+id/riceMealProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -46,7 +47,7 @@
                     android:textSize="14sp"
                     android:text="₱ " />
                 <TextView
-                    android:id="@+id/pancitproductPrice"
+                    android:id="@+id/riceMealPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/pesoSign"
@@ -56,18 +57,18 @@
                     android:id="@+id/decimal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/pancitproductPrice"
+                    android:layout_toEndOf="@+id/riceMealPrice"
                     android:textSize="14sp"
                     android:text=".00" />
             </RelativeLayout>
             <TextView
-                android:id="@+id/status"
+                android:id="@+id/riceMealStatus"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/pancitproductName"
+                android:layout_height="28dp"
+                android:layout_toEndOf="@id/riceMealProduct"
+                android:text=""
                 android:textColor="#303030"
-                android:textSize="14sp"
-                android:text=""/>
+                android:textSize="14sp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +85,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="Add instructions for your order" />
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/pancitadd_ons"
+                android:id="@+id/riceMeal_addOns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
@@ -161,7 +162,7 @@
                 android:padding="3dp"
                 android:drawableLeft="@drawable/ic_baseline_add_24"/>
             <Button
-                android:id="@+id/btnPancit"
+                android:id="@+id/btnRiceMeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add to Order"

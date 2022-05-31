@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#1DC2C2C6"
     android:orientation="vertical"
-    tools:context=".activities.MealsGoodActivity">
+    tools:context=".activities.PulutanActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:layout_toEndOf="@id/arrow_back"
             android:textColor="#434547"
             android:layout_marginTop="-5dp"
-            android:text="Meals Good For 3 pax"
+            android:text="Mang Mac's Pulutan"
             android:textSize="22sp"
             android:fontFamily="@font/roboto" />
     </RelativeLayout>

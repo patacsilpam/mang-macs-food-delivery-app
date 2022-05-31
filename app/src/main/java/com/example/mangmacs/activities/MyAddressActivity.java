@@ -1,8 +1,6 @@
 package com.example.mangmacs.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,8 +11,6 @@ import android.widget.TextView;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
-import com.example.mangmacs.adapter.BilaoAdapter;
-import com.example.mangmacs.adapter.ComboMealAdapter;
 import com.example.mangmacs.adapter.MyAddressAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;

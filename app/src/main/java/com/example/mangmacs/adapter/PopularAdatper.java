@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mangmacs.activities.DimsumListDetail;
 import com.example.mangmacs.activities.DrinksListDetail;
-import com.example.mangmacs.activities.PancitListDetail;
+import com.example.mangmacs.activities.SoupListDetail;
 import com.example.mangmacs.activities.PizzaListDetaill;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.R;
@@ -50,7 +50,7 @@ public class PopularAdatper  extends RecyclerView.Adapter<PopularAdatper.Product
             @Override
             public void onClick(View view) {
              if(position == 0){
-                 Intent intent = new Intent(context,PancitListDetail.class);
+                 Intent intent = new Intent(context, SoupListDetail.class);
                  intent.putExtra("image",popularListModel.getImage());
                  intent.putExtra("productName",popularListModel.getProductName());
                  intent.putExtra("price",popularListModel.getPrice());

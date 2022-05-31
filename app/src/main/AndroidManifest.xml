@@ -140,19 +140,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".activities.PancitListDetail"
-            android:screenOrientation="portrait"
-            android:theme="@style/HomeTheme" />
-        <activity
-            android:name=".activities.RiceListDetail"
-            android:screenOrientation="portrait"
-            android:theme="@style/HomeTheme" />
-        <activity
             android:name=".activities.SoupListDetail"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".activities.SeafoodsListDetail"
+            android:name=".activities.PulutanListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".activities.DessertListDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".activities.SizzlingListDetail"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
@@ -160,11 +160,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".activities.ComboBudgetListDetail"
+            android:name=".activities.GrilledListDetail"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".activities.RiceMealListDetail"
+            android:name=".activities.AppetizerListDetail"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
@@ -188,19 +188,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".activities.PancitActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/HomeTheme" />
-        <activity
-            android:name=".activities.RiceActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/HomeTheme" />
-        <activity
             android:name=".activities.SoupActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".activities.SeafoodsActivity"
+            android:name=".activities.PulutanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".activities.DessertActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
+        <activity
+            android:name=".activities.SizzlingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
@@ -208,11 +208,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".activities.ComboMealActivity"
+            android:name=".activities.GrilledActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
-            android:name=".activities.RiceMealActivity"
+            android:name=".activities.AppetizerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme" />
         <activity
