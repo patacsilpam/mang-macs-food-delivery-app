@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.adapter.PromoAdapter;
@@ -32,9 +33,9 @@ import retrofit2.Response;
 public class PromoActivity extends AppCompatActivity {
     private List<PromoListModel> promoListModel;
     private PromoAdapter promoAdapter;
-    private BottomNavigationView bottomNavigationView;
     private RecyclerView recyclerViewPromo;
     private ProgressBar progressBar;
+    private TextView arrowBack;
     private View emptyPromo;
     private int countPromo;
     @Override
@@ -42,15 +43,14 @@ public class PromoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promo);
         progressBar = findViewById(R.id.spin_kit);
+        arrowBack = findViewById(R.id.arrow_back);
         emptyPromo = findViewById(R.id.emptyPromo);
-        bottomNavigationView  =  findViewById(R.id.bottom_nav);
-        bottomNavigationView.setSelectedItemId(R.id.promos);
         recyclerViewPromo = findViewById(R.id.recyclerViewPromo);
         recyclerViewPromo.setHasFixedSize(true);
         recyclerViewPromo.setLayoutManager(new LinearLayoutManager(this));
         emptyPromo.setVisibility(View.GONE);
         showPromoProducts();
-        BottomNav();
+        Back();
     }
     private void showPromoProducts(){
         Sprite circle = new Circle();
@@ -80,33 +80,13 @@ public class PromoActivity extends AppCompatActivity {
             }
         });
     }
-    private void BottomNav() {
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
+    private void Back(){
+        arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), home_activity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.menu:
-                        startActivity(new Intent(getApplicationContext(), MenuActivty.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.promos:
-                        return true;
-                    case R.id.reservation:
-                        startActivity(new Intent(getApplicationContext(), ReservationActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.account:
-                        startActivity(new Intent(getApplicationContext(), AccountActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return true;
+            public void onClick(View view) {
+                startActivity(new Intent(PromoActivity.this,home_activity.class));
             }
         });
     }
+
 }

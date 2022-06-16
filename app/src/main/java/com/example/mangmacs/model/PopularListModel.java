@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 public class PopularListModel {
     @SerializedName("code")
     private String productCodePopular;
+    @SerializedName("productCategory")
+    private String productCategoryPopular;
     @SerializedName("productName")
     private String productNamePopular;
     @SerializedName("productVariation")
@@ -15,31 +17,57 @@ public class PopularListModel {
     private String imagePopular;
     @SerializedName("price")
     private int pricePopular;
+    @SerializedName("stocks")
+    private String stocks;
+    @SerializedName("preparationTime")
+    private String preparationTime;
     // private float rating;
-    public PopularListModel(String productCodePopular,String productName,String productVariation,String status,String image,int price){
-        this.productNamePopular = productName;
-        this.productVariationPopular = productVariation;
-        this.statusPopular = status;
-        this.imagePopular = image;
-        this.pricePopular = price;
+
+    public PopularListModel(String productCodePopular, String productCategoryPopular, String productNamePopular, String productVariationPopular, String statusPopular, String imagePopular, int pricePopular, String stocks, String preparationTime) {
         this.productCodePopular = productCodePopular;
+        this.productCategoryPopular = productCategoryPopular;
+        this.productNamePopular = productNamePopular;
+        this.productVariationPopular = productVariationPopular;
+        this.statusPopular = statusPopular;
+        this.imagePopular = imagePopular;
+        this.pricePopular = pricePopular;
+        this.stocks = stocks;
+        this.preparationTime = preparationTime;
     }
+
     public String getProductCodePopular() {
         return productCodePopular;
     }
-    public String getProductName(){
+
+    public String getProductCategoryPopular() {
+        return productCategoryPopular;
+    }
+
+    public String getProductNamePopular() {
         return productNamePopular;
     }
-    public String getProductVariation(){
+
+    public String getProductVariationPopular() {
         return productVariationPopular;
     }
-    public String getStatus(){
+
+    public String getStatusPopular() {
         return statusPopular;
     }
-    public String getImage(){
+
+    public String getImagePopular() {
         return imagePopular;
     }
-    public int getPrice(){
+
+    public int getPricePopular() {
         return pricePopular;
+    }
+
+    public String getStocks() {
+        return stocks;
+    }
+
+    public String getPreparationTime() {
+        return preparationTime;
     }
 }

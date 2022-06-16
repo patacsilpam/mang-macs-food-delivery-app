@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.mangmacs.adapter.DimsumAdapter;
-import com.example.mangmacs.model.DimsumListModel;
 import com.example.mangmacs.R;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.api.ApiInterface;
+import com.example.mangmacs.model.ProductListModel;
 
 import java.util.List;
 
@@ -24,16 +24,19 @@ import retrofit2.Response;
 
 public class DimsumActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private List<DimsumListModel> dimsumList;
+    private List<ProductListModel> dimsumList;
     private ApiInterface apiInterface;
     private DimsumAdapter dimsumAdapter;
     private TextView btnArrowBack;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private View emptyProduct;
+    private int countProduct = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dimsum);
         btnArrowBack = findViewById(R.id.arrow_back);
+        emptyProduct = findViewById(R.id.emptyProduct);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -53,18 +56,24 @@ public class DimsumActivity extends AppCompatActivity {
     }
 
     private void ShowDimsumLists() {
-        Call<List<DimsumListModel>> call= apiInterface.getDimsum();
-        call.enqueue(new Callback<List<DimsumListModel>>() {
+        Call<List<ProductListModel>> call= apiInterface.getDimsum();
+        call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
-            public void onResponse(Call<List<DimsumListModel>> call, Response<List<DimsumListModel>> response) {
+            public void onResponse(Call<List<ProductListModel>> call, Response<List<ProductListModel>> response) {
                 dimsumList = response.body();
                 dimsumAdapter = new DimsumAdapter(DimsumActivity.this,dimsumList);
                 recyclerView.setAdapter(dimsumAdapter);
+                countProduct = dimsumAdapter.getItemCount();
+                if(countProduct == 0){
+                    emptyProduct.setVisibility(View.VISIBLE);
+                } else{
+                    emptyProduct.setVisibility(View.GONE);
+                }
                 refresh();
             }
 
             @Override
-            public void onFailure(Call<List<DimsumListModel>> call, Throwable t) {
+            public void onFailure(Call<List<ProductListModel>> call, Throwable t) {
 
             }
         });
@@ -74,18 +83,24 @@ public class DimsumActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Call<List<DimsumListModel>> call= apiInterface.getDimsum();
-                call.enqueue(new Callback<List<DimsumListModel>>() {
+                Call<List<ProductListModel>> call= apiInterface.getDimsum();
+                call.enqueue(new Callback<List<ProductListModel>>() {
                     @Override
-                    public void onResponse(Call<List<DimsumListModel>> call, Response<List<DimsumListModel>> response) {
+                    public void onResponse(Call<List<ProductListModel>> call, Response<List<ProductListModel>> response) {
                         dimsumList = response.body();
                         dimsumAdapter = new DimsumAdapter(DimsumActivity.this,dimsumList);
                         recyclerView.setAdapter(dimsumAdapter);
+                        countProduct = dimsumAdapter.getItemCount();
+                        if(countProduct == 0){
+                            emptyProduct.setVisibility(View.VISIBLE);
+                        } else{
+                            emptyProduct.setVisibility(View.GONE);
+                        }
                         refresh();
                     }
 
                     @Override
-                    public void onFailure(Call<List<DimsumListModel>> call, Throwable t) {
+                    public void onFailure(Call<List<ProductListModel>> call, Throwable t) {
 
                     }
                 });

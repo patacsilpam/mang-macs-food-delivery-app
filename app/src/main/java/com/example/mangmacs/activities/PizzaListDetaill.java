@@ -53,7 +53,7 @@ public class PizzaListDetaill extends AppCompatActivity {
     private RadioButton radioButton;
     private Button btnPizza,btnIncrement,btnDecrement;
     private int count = 1;
-    private String image;
+    private String image,category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,6 @@ public class PizzaListDetaill extends AppCompatActivity {
         pizza_addons = findViewById(R.id.pizzaadd_ons);
         variation = findViewById(R.id.pizzavariation);
         rdCode = findViewById(R.id.rdCode);
-        singleVariation = findViewById(R.id.singleVariation);
         price = findViewById(R.id.price);
         productCode = findViewById(R.id.productCode);
         email = findViewById(R.id.customerId);
@@ -129,86 +128,44 @@ public class PizzaListDetaill extends AppCompatActivity {
         Intent intent = getIntent();
         image = intent.getStringExtra("image");
         String newProductname = intent.getStringExtra("productName");
+        category = intent.getStringExtra("productCategory");
         String newGroupPrice = intent.getStringExtra("groupPrice");
         String newGroupVariation = intent.getStringExtra("productVariation");
-        String newProductStatus = intent.getStringExtra("status");
+        String newProductStatus = intent.getStringExtra("preparationTime");
         String newGroupCode = intent.getStringExtra("groupCode");
         String newFirstName = SharedPreference.getSharedPreference(PizzaListDetaill.this).setFname();
         String newLastName = SharedPreference.getSharedPreference(PizzaListDetaill.this).setLname();
         String newEmailAddress = SharedPreference.getSharedPreference(PizzaListDetaill.this).setEmail();
+        String[] splitPrice = newGroupPrice.split(",");
+        String[] splitVariation = newGroupVariation.split(",");
         if(intent != null){
             Glide.with(PizzaListDetaill.this).load(image).into(imageView);
             productName.setText(newProductname);
             fname.setText(newFirstName);
             lname.setText(newLastName);
             email.setText(newEmailAddress);
-            status.setVisibility(View.VISIBLE);
-            String[] variations = newGroupVariation.split(",");
-            StringBuilder size= new StringBuilder();
-            //check variation array length
-            if(variations.length ==  1){
-               for(String sizes:variations){
-                   size.append(sizes);
-               }
-                status.setText(newProductStatus);
-                price.setText(newGroupPrice);
-                priceLayout.setVisibility(View.VISIBLE);
-                variation.setVisibility(View.GONE);
-                singleVariation.setText("(".concat(newGroupVariation).concat(")"));
-                singleVariation.setVisibility(View.VISIBLE);
-                productCode.setText(newGroupCode);
-                String statusColor = status.getText().toString();
-                if (statusColor.equals("In Stock")){
-                    status.setTextColor(Color.parseColor("#36c76b"));
-                }
-                else{
-                    status.setTextColor(Color.RED);
-                }
-            } else{
-                for(int i = 0; i<variations.length; i++) {
-                    variation.setVisibility(View.VISIBLE);
-                    RadioButton radioButton = new RadioButton(this);
-                    radioButton.setText(variations[i]);
-                    variation.addView(radioButton);
-                }
+            status.setText(newProductStatus.concat("min"));
+            price.setText(splitPrice[0]);
+            for(int i = 0; i<splitVariation.length; i++){
+                radioButton = new RadioButton(this);
+                radioButton.setText(splitVariation[i]);
+                radioButton.setTextAppearance(this, android.R.style.TextAppearance);
+                variation.addView(radioButton);
             }
+            //check variation array length
             variation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                    int selectedVariation = variation.getCheckedRadioButtonId();
                    radioButton = findViewById(selectedVariation);
                    String variation = radioButton.getText().toString();
-                   priceLayout.setVisibility(View.VISIBLE);
-                   String[] groupPrice = newGroupPrice.split(",");
-                   String[] groupStatus = newProductStatus.split(",");
-                   String[] groupCode = newGroupCode.split(",");
-                   if(variation.equals("Medium")){
-                       price.setText(groupPrice[0]);
-                       status.setText(groupStatus[0]);
-                       productCode.setText(groupCode[0]);
-                       //change status color
-                       String statusColor = status.getText().toString();
-                       if (statusColor.equals("In Stock")){
-                           status.setTextColor(Color.parseColor("#36c76b"));
-                       }
-                       else{
-                           status.setTextColor(Color.RED);
-                       }
+                   if(variation.contains("Medium")){
+                       price.setText(splitPrice[0]);
                    }
                    else{
-                       if(variation.equals("Large")){
-                           price.setText(groupPrice[1]);
-                           status.setText(groupStatus[1]);
-                           productCode.setText(groupCode[1]);
-                           String statusColor = status.getText().toString();
-                           if (statusColor.equals("In Stock")){
-                               status.setTextColor(Color.parseColor("#36c76b"));
-                           }
-                           else{
-                               status.setTextColor(Color.RED);
-                           }
-                       }
+                       price.setText(splitPrice[1]);
                    }
+
                 }
             });
 
@@ -233,9 +190,9 @@ public class PizzaListDetaill extends AppCompatActivity {
                     int items = Integer.parseInt(quantity.getText().toString());
                     String firstName = fname.getText().toString();
                     String lastName = lname.getText().toString();
-                    String getSingleVariation = singleVariation.getText().toString().replace("(","").replace(")","");
+                    String getSingleVariation = "";
                     ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,code,product,getSingleVariation,firstName,lastName,prices,items,add_ons,image);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,code,product,category,getSingleVariation,firstName,lastName,prices,items,add_ons,image);
                     cartModelCall.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -265,7 +222,7 @@ public class PizzaListDetaill extends AppCompatActivity {
                     radioButton = findViewById(selectedSize);
                     String getVariation = radioButton.getText().toString();
                     ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,code,product,getVariation,firstName,lastName,prices,items,add_ons,image);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,code,product,category,getVariation,firstName,lastName,prices,items,add_ons,image);
                     cartModelCall.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {

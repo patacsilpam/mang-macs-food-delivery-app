@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public class PizzaListModel {
     @SerializedName("productName")
     private String productName;
+    @SerializedName("productCategory")
+    private String productCategory;
     @SerializedName("productVariation")
     private String productVariation;
-    @SerializedName("status")
-    private String status;
     @SerializedName("productImage")
     private String image;
     @SerializedName("price")
@@ -17,31 +17,43 @@ public class PizzaListModel {
     private String groupPrice;
     @SerializedName("groupCode")
     private String code;
+    @SerializedName("stocks")
+    private String stocks;
+    @SerializedName("preparationTime")
+    private String preparationTime;
+    @SerializedName("groupPreparationTime")
+    private String groupPreparationTime;
 
-   // private float rating;
-    public PizzaListModel(String productName,String productVariation,String status,String image,int price,String groupPrice,  String code){
+    public PizzaListModel(String productName, String productCategory, String productVariation, String image, int price, String groupPrice, String code, String stocks, String preparationTime, String groupPreparationTime) {
         this.productName = productName;
+        this.productCategory = productCategory;
         this.productVariation = productVariation;
-        this.status = status;
         this.image = image;
         this.price = price;
         this.groupPrice = groupPrice;
         this.code = code;
-       // this.groupVariation = groupVariation;
+        this.stocks = stocks;
+        this.preparationTime = preparationTime;
+        this.groupPreparationTime = groupPreparationTime;
     }
-    public String getProductName(){
+
+    public String getProductName() {
         return productName;
     }
-    public String getProductVariation(){
+
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public String getProductVariation() {
         return productVariation;
     }
-    public String getStatus(){
-        return status;
-    }
-    public String getImage(){
+
+    public String getImage() {
         return image;
     }
-    public int getPrice(){
+
+    public int getPrice() {
         return price;
     }
 
@@ -53,4 +65,16 @@ public class PizzaListModel {
         return code;
     }
 
+    public String getStocks() {
+        return stocks;
+    }
+
+    public String getPreparationTime() {
+        return preparationTime;
+    }
+
+    public String getGroupPreparationTime() {
+        return groupPreparationTime;
+    }
 }
+

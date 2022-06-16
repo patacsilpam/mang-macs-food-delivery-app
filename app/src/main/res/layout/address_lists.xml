@@ -34,7 +34,7 @@
                 android:layout_toEndOf="@+id/radioGrp"
                 android:text="John Cruz"
                 android:textSize="16sp"
-                android:fontFamily="@font/roboto_light"
+                android:fontFamily="@font/roboto"
                 android:textColor="@color/black"/>
 
             <TextView
@@ -46,7 +46,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Zone 4, Brgy. San Vicente West, Urdaneta City"
                 android:textSize="14sp"
-                android:fontFamily="@font/roboto_light"
+                android:fontFamily="@font/roboto"
                 android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/number"
@@ -58,17 +58,20 @@
                 android:text="09305944356"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:fontFamily="@font/roboto_light"/>
+                android:fontFamily="@font/roboto"/>
             <TextView
                 android:id="@+id/categoryaddress"
-                android:layout_width="match_parent"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/dark_square"
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@+id/radioGrp"
                 android:layout_below="@id/number"
+                android:gravity="center"
+                android:padding="5dp"
                 android:text="Home"
                 android:textSize="14sp"
-                android:fontFamily="@font/roboto_light"/>
+                android:fontFamily="@font/roboto"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

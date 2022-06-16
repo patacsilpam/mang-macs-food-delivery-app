@@ -9,9 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -21,11 +19,10 @@ import android.widget.Toast;
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.adapter.CartAdapter;
-import com.example.mangmacs.adapter.MyAddressAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
-import com.example.mangmacs.model.AddressListModel;
 import com.example.mangmacs.model.CartModel;
+import com.example.mangmacs.model.SettingsModel;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Circle;
 
@@ -65,7 +62,6 @@ public class CartActivity extends AppCompatActivity {
         CheckOut();
         Back();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("TotalPrice"));
-        //get total items
     }
     private void Back() {
         //arrow back button
@@ -132,4 +128,5 @@ public class CartActivity extends AppCompatActivity {
             textProductPrice.setText(totalPrice);
         }
     };
+
 }

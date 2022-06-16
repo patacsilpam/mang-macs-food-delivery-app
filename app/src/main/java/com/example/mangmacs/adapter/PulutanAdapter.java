@@ -15,14 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mangmacs.R;
 import com.example.mangmacs.activities.PulutanListDetail;
-import com.example.mangmacs.model.RicecupListModel;
+import com.example.mangmacs.model.ProductListModel;
 
 import java.util.List;
 
 public class PulutanAdapter extends RecyclerView.Adapter<PulutanAdapter.ProductViewHolder> {
     private Context context;
-    private List<RicecupListModel> ricecupList;
-    public PulutanAdapter(Context context, List<RicecupListModel> ricecupList){
+    private List<ProductListModel> ricecupList;
+    public PulutanAdapter(Context context, List<ProductListModel> ricecupList){
         this.context = context;
         this.ricecupList = ricecupList;
     }
@@ -30,28 +30,31 @@ public class PulutanAdapter extends RecyclerView.Adapter<PulutanAdapter.ProductV
     @Override
     public PulutanAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.rice_list,null);
+        View view = layoutInflater.inflate(R.layout.product_lists,null);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PulutanAdapter.ProductViewHolder holder, int position) {
-        RicecupListModel ricecupListModel = ricecupList.get(position);
+        ProductListModel pulutanListModel = ricecupList.get(position);
         Glide.with(context)
-                .load(ricecupListModel.getImage())
+                .load(pulutanListModel.getImage())
                 .into(holder.image);
-        holder.textProductName.setText(ricecupListModel.getProductName());
-        holder.textProductPrice.setText("₱ "+String.valueOf(ricecupListModel.getPrice()+".00"));
+        holder.textProductName.setText(pulutanListModel.getProductName());
+        holder.textProductPrice.setText("₱ "+String.valueOf(pulutanListModel.getPrice()+".00"));
+        holder.textDevTime.setText(pulutanListModel.getPreparationTime().concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PulutanListDetail.class);
-                intent.putExtra("image",ricecupListModel.getImage());
-                intent.putExtra("productName",ricecupListModel.getProductName());
-                intent.putExtra("price",ricecupListModel.getPrice());
-                intent.putExtra("status",ricecupListModel.getStatus());
-                intent.putExtra("productVariation",ricecupListModel.getProductVariation());
-                intent.putExtra("code",ricecupListModel.getCodeRice());
+                intent.putExtra("image", pulutanListModel.getImage());
+                intent.putExtra("productName", pulutanListModel.getProductName());
+                intent.putExtra("productCategory",pulutanListModel.getProductCategoryCombo());
+                intent.putExtra("price", pulutanListModel.getPrice());
+                intent.putExtra("productVariation", pulutanListModel.getProductVariation());
+                intent.putExtra("code", pulutanListModel.getCodeCombo());
+                intent.putExtra("status", pulutanListModel.getStocks());
+                intent.putExtra("preparationTime",pulutanListModel.getPreparationTime());
                 context.startActivity(intent);
             }
         });
@@ -64,7 +67,7 @@ public class PulutanAdapter extends RecyclerView.Adapter<PulutanAdapter.ProductV
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView textProductName,textProductPrice;
+        TextView textProductName,textProductPrice,textDevTime;
         CardView productContainer;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +75,7 @@ public class PulutanAdapter extends RecyclerView.Adapter<PulutanAdapter.ProductV
             textProductName = itemView.findViewById(R.id.productName);
             textProductPrice = itemView.findViewById(R.id.productPrice);
             productContainer = itemView.findViewById(R.id.productContainer);
+            textDevTime = itemView.findViewById(R.id.devTime);
         }
     }
 }

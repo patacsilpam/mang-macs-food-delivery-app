@@ -75,7 +75,7 @@
                         android:id="@+id/people"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Guests"
+                        android:hint="No. of Guests"
                         android:drawableStart="@drawable/custom_people_icon"
                         android:drawablePadding="5dp"
                         android:inputType="number"/>

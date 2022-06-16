@@ -11,21 +11,24 @@ public class PromoListModel {
     private String productCategoryPromo;
     @SerializedName("productVariation")
     private String productVariationPromo;
-    @SerializedName("status")
-    private String promoStatus;
     @SerializedName("price")
     private int pricePromo;
     @SerializedName("productImage")
     private String productImgPromo;
+    @SerializedName("stocks")
+    private String stocks;
+    @SerializedName("preparationTime")
+    private String preparationTime;
 
-    public PromoListModel(String productPromoCode, String productNamePromo, String productCategoryPromo, String productVariationPromo, String promoStatus, int pricePromo, String productImgPromo) {
+    public PromoListModel(String productPromoCode, String productNamePromo, String productCategoryPromo, String productVariationPromo, int pricePromo, String productImgPromo, String stocks, String preparationTime) {
         this.productPromoCode = productPromoCode;
         this.productNamePromo = productNamePromo;
         this.productCategoryPromo = productCategoryPromo;
         this.productVariationPromo = productVariationPromo;
-        this.promoStatus = promoStatus;
         this.pricePromo = pricePromo;
         this.productImgPromo = productImgPromo;
+        this.stocks = stocks;
+        this.preparationTime = preparationTime;
     }
 
     public String getProductPromoCode() {
@@ -44,9 +47,6 @@ public class PromoListModel {
         return productVariationPromo;
     }
 
-    public String getPromoStatus() {
-        return promoStatus;
-    }
 
     public int getPricePromo() {
         return pricePromo;
@@ -54,5 +54,13 @@ public class PromoListModel {
 
     public String getProductImgPromo() {
         return productImgPromo;
+    }
+
+    public String getStocks() {
+        return stocks;
+    }
+
+    public String getPreparationTime() {
+        return preparationTime;
     }
 }

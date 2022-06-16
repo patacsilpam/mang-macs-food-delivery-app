@@ -67,47 +67,7 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyAd
                 context.startActivity(intent);
             }
         });
-        holder.deleted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-                alertDialog.setMessage("Are you sure you want to delete this address?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                String id = String.valueOf(addressListModel.getId());
-                                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                                Call<UpdateAccountModel> deleteAddressCall = apiInterface.deleteAddress(id);
-                                deleteAddressCall.enqueue(new Callback<UpdateAccountModel>() {
-                                    @Override
-                                    public void onResponse(Call<UpdateAccountModel> call, Response<UpdateAccountModel> response) {
-                                        if(response.body() != null){
-                                            String success = response.body().getSuccess();
-                                            if(success.equals("1")){
-                                                addressList.remove(holder.getBindingAdapterPosition());
-                                                notifyDataSetChanged();
-                                            }
-                                        }
-                                    }
 
-                                    @Override
-                                    public void onFailure(Call<UpdateAccountModel> call, Throwable t) {
-
-                                    }
-                                });
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                            }
-                        });
-                AlertDialog alert = alertDialog.create();
-                alert.show();
-            }
-        });
     }
 
     @Override
@@ -116,10 +76,9 @@ public class MyAddressAdapter extends RecyclerView.Adapter<MyAddressAdapter.MyAd
     }
 
     public class MyAddressHolder extends RecyclerView.ViewHolder {
-        private TextView edit,deleted,ID,fullname,street,brgy,city,province,phoneNumber,labelAddress;
+        private TextView edit,ID,fullname,street,brgy,city,province,phoneNumber,labelAddress;
         public MyAddressHolder(@NonNull View itemView) {
             super(itemView);
-            deleted = itemView.findViewById(R.id.delete);
             edit = itemView.findViewById(R.id.edit);
             ID = itemView.findViewById(R.id.ID);
             fullname = itemView.findViewById(R.id.afullname);

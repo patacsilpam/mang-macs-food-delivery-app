@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mangmacs.R;
+import com.example.mangmacs.activities.MealsGoodListDetail;
 import com.example.mangmacs.activities.NoodlesListDetail;
+import com.example.mangmacs.activities.PopularDetailActivity;
+import com.example.mangmacs.activities.SizzlingListDetail;
 import com.example.mangmacs.activities.SoupListDetail;
 import com.example.mangmacs.activities.PastaListDetail;
 import com.example.mangmacs.model.PopularListModel;
@@ -33,49 +36,82 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProductV
     @Override
     public PopularAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.popular_list,null);
+        View view = layoutInflater.inflate(R.layout.product_lists,null);
         return new ProductViewHolder(view);
     }
 
     public void onBindViewHolder(@NonNull PopularAdapter.ProductViewHolder holder, int position) {
         PopularListModel popularListModel = popularList.get(position);
         Glide.with(context)
-                .load(popularListModel.getImage())
+                .load(popularListModel.getImagePopular())
                 .into(holder.image);
-        holder.textProductName.setText(popularListModel.getProductName());
-        holder.textProductPrice.setText(String.valueOf(popularListModel.getPrice()));
+        holder.textProductName.setText(popularListModel.getProductNamePopular());
+        holder.textProductPrice.setText("₱ "+String.valueOf(popularListModel.getPricePopular()).concat(".00"));
+        holder.textDevTime.setText(popularListModel.getPreparationTime().concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(position == 0){
-                    Intent intent = new Intent(context, SoupListDetail.class);
-                    intent.putExtra("image",popularListModel.getImage());
-                    intent.putExtra("productName",popularListModel.getProductName());
-                    intent.putExtra("price",popularListModel.getPrice());
-                    intent.putExtra("status",popularListModel.getStatus());
-                    intent.putExtra("productVariation",popularListModel.getProductVariation());
+                    Intent intent = new Intent(context, PopularDetailActivity.class);
+                    intent.putExtra("image",popularListModel.getImagePopular());
+                    intent.putExtra("productName",popularListModel.getProductNamePopular());
+                    intent.putExtra("productCategory",popularListModel.getProductCategoryPopular());
+                    intent.putExtra("price",popularListModel.getPricePopular());
+                    intent.putExtra("productVariation",popularListModel.getProductVariationPopular());
                     intent.putExtra("code",popularListModel.getProductCodePopular());
+                    intent.putExtra("status", popularListModel.getStocks());
+                    intent.putExtra("preparationTime",popularListModel.getPreparationTime());
                     context.startActivity(intent);
                 }
                 else if(position == 1){
-                    Intent intent = new Intent(context, PastaListDetail.class);
-                    intent.putExtra("image",popularListModel.getImage());
-                    intent.putExtra("productName",popularListModel.getProductName());
-                    intent.putExtra("price",popularListModel.getPrice());
-                    intent.putExtra("status",popularListModel.getStatus());
-                    intent.putExtra("productVariation",popularListModel.getProductVariation());
+                    Intent intent = new Intent(context, PopularDetailActivity.class);
+                    intent.putExtra("image",popularListModel.getImagePopular());
+                    intent.putExtra("productName",popularListModel.getProductNamePopular());
+                    intent.putExtra("productCategory",popularListModel.getProductCategoryPopular());
+                    intent.putExtra("price",popularListModel.getPricePopular());
+                    intent.putExtra("status", popularListModel.getStocks());
+                    intent.putExtra("preparationTime",popularListModel.getPreparationTime());
+                    intent.putExtra("productVariation",popularListModel.getProductVariationPopular());
                     intent.putExtra("code",popularListModel.getProductCodePopular());
                     context.startActivity(intent);
                 }
                 else if(position == 2){
-                    Intent intent = new Intent(context, NoodlesListDetail.class);
-                    intent.putExtra("image",popularListModel.getImage());
-                    intent.putExtra("productName",popularListModel.getProductName());
-                    intent.putExtra("price",popularListModel.getPrice());
-                    intent.putExtra("status",popularListModel.getStatus());
-                    intent.putExtra("productVariation",popularListModel.getProductVariation());
+                    Intent intent = new Intent(context, PopularDetailActivity.class);
+                    intent.putExtra("image",popularListModel.getImagePopular());
+                    intent.putExtra("productName",popularListModel.getProductNamePopular());
+                    intent.putExtra("productCategory",popularListModel.getProductCategoryPopular());
+                    intent.putExtra("price",popularListModel.getPricePopular());
+                    intent.putExtra("status", popularListModel.getStocks());
+                    intent.putExtra("preparationTime",popularListModel.getPreparationTime());
+                    intent.putExtra("productVariation",popularListModel.getProductVariationPopular());
                     intent.putExtra("code",popularListModel.getProductCodePopular());
                     context.startActivity(intent);
+                }
+                else if(position == 3){
+                    Intent intent = new Intent(context, PopularDetailActivity.class);
+                    intent.putExtra("image",popularListModel.getImagePopular());
+                    intent.putExtra("productName",popularListModel.getProductNamePopular());
+                    intent.putExtra("productCategory",popularListModel.getProductCategoryPopular());
+                    intent.putExtra("price",popularListModel.getPricePopular());
+                    intent.putExtra("status", popularListModel.getStocks());
+                    intent.putExtra("preparationTime",popularListModel.getPreparationTime());
+                    intent.putExtra("productVariation",popularListModel.getProductVariationPopular());
+                    intent.putExtra("code",popularListModel.getProductCodePopular());
+                    context.startActivity(intent);
+                }
+                else{
+                    if(position == 4){
+                        Intent intent = new Intent(context, PopularDetailActivity.class);
+                        intent.putExtra("image",popularListModel.getImagePopular());
+                        intent.putExtra("productName",popularListModel.getProductNamePopular());
+                        intent.putExtra("productCategory",popularListModel.getProductCategoryPopular());
+                        intent.putExtra("price",popularListModel.getPricePopular());
+                        intent.putExtra("status", popularListModel.getStocks());
+                        intent.putExtra("preparationTime",popularListModel.getPreparationTime());
+                        intent.putExtra("productVariation",popularListModel.getProductVariationPopular());
+                        intent.putExtra("code",popularListModel.getProductCodePopular());
+                        context.startActivity(intent);
+                    }
                 }
 
             }
@@ -89,7 +125,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProductV
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView textProductName,textProductPrice;
+        TextView textProductName,textProductPrice,textDevTime;
         CardView productContainer;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +133,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProductV
             textProductName = itemView.findViewById(R.id.productName);
             textProductPrice = itemView.findViewById(R.id.productPrice);
             productContainer = itemView.findViewById(R.id.productContainer);
+            textDevTime = itemView.findViewById(R.id.devTime);
         }
     }
 }

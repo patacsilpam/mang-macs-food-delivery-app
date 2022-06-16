@@ -14,17 +14,10 @@
                 android:id="@+id/edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_baseline_edit"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="45dp"
-                android:textColor="@color/pressed"/>
-            <TextView
-                android:id="@+id/delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_baseline_delete_24"
-                android:layout_alignParentEnd="true"
-                android:textColor="@color/pressed"/>
+                android:layout_marginRight="10dp"
+                android:text="Edit"
+                android:textColor="#9F9F9F"/>
             <TextView
                 android:id="@+id/ID"
                 android:layout_width="wrap_content"
@@ -37,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:text="John Cruz"
                 android:textColor="@color/black"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/roboto_medium"/>
             <TextView
                 android:id="@+id/street"
                 android:layout_width="wrap_content"
@@ -79,8 +73,12 @@
                 />
             <TextView
                 android:id="@+id/labelAddress"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/dark_square"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:gravity="center"
                 android:text="Home"
                 android:layout_below="@id/phoneNo"
                 android:fontFamily="@font/roboto" />

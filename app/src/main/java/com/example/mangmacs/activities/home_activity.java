@@ -43,7 +43,7 @@ public class home_activity extends AppCompatActivity {
     private CartAdapter cartAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textName, btnSeeAll,totalCart;
-    private CardView  pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
+    private CardView  promo,pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
     private FloatingActionButton floatingActionButton;
     private BottomNavigationView bottomNavigationView;
     private ProgressBar progressBar;
@@ -56,6 +56,7 @@ public class home_activity extends AppCompatActivity {
         totalCart = findViewById(R.id.totalCart);
         bottomNavigationView =  findViewById(R.id.bottom_nav);
         //initialize ids
+        promo = findViewById(R.id.promo);
         pizza = findViewById(R.id.pizza);
         appetizer = findViewById(R.id.appetizer);
         grilled = findViewById(R.id.grilled);
@@ -70,7 +71,6 @@ public class home_activity extends AppCompatActivity {
         dessert = findViewById(R.id.dessert);
         pulutan = findViewById(R.id.pulutan);
         wine = findViewById(R.id.wine);
-
         floatingActionButton = findViewById(R.id.iconCart);
         recyclerViewCart = findViewById(R.id.recyclerViewCart);
         recyclerView = findViewById(R.id.recyclerView);
@@ -99,6 +99,13 @@ public class home_activity extends AppCompatActivity {
                 recyclerViewCart.setAdapter(cartAdapter);
                 int countCart = recyclerViewCart.getAdapter().getItemCount();
                 totalCart.setText(String.valueOf(countCart));
+                String str_totalCart = totalCart.getText().toString();
+                if(str_totalCart.equals("0")){
+                    totalCart.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    totalCart.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -135,6 +142,12 @@ public class home_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(home_activity.this,MenuActivty.class));
+            }
+        });
+        promo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this,PromoActivity.class));
             }
         });
         pizza.setOnClickListener(new View.OnClickListener() {
@@ -215,10 +228,12 @@ public class home_activity extends AppCompatActivity {
                 startActivity(new Intent(home_activity.this, PulutanActivity.class));
             }
         });
-
-        /*
-            insert wine activity here:)
-        */
+        wine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this, WineActivity.class));
+            }
+        });
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,16 +255,16 @@ public class home_activity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), MenuActivty.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.promos:
-                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
                     case R.id.reservation:
                         startActivity(new Intent(getApplicationContext(), ReservationActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.account:
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.notif:
+                        startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

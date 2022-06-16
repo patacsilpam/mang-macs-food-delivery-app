@@ -46,6 +46,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     private int totalPrice;
     private ArrayList<String> orderLists = new ArrayList<>();
     private ArrayList<String> productCodeList = new ArrayList<>();
+    private ArrayList<String> productCategoryList = new ArrayList<>();
     private ArrayList<String> variationList = new ArrayList<>();
     private ArrayList<String> quantityList = new ArrayList<>();
     private ArrayList<String> addOnsList = new ArrayList<>();
@@ -129,7 +130,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
                 String orderStatus = "Pending";
                 String orderType = "Dine in";
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus,strDate,requiredTime,0);
+                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus,strDate,requiredTime,0,"");
                 insertOrder.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -154,6 +155,12 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     public void onProductsChange(ArrayList<String> products) {
         orderLists = products;
     }
+
+    @Override
+    public void onProductCategoryChange(ArrayList<String> category) {
+        productCategoryList = category;
+    }
+
     public void onProductCodeChange(ArrayList<String> productCodes){
         productCodeList = productCodes;
     }

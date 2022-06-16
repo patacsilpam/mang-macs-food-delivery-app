@@ -179,14 +179,14 @@ public class ReservationActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), MenuActivty.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.promos:
-                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
                     case R.id.reservation:
                         return true;
                     case R.id.account:
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.notif:
+                        startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

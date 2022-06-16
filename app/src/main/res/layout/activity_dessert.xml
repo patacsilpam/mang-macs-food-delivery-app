@@ -27,15 +27,23 @@
             android:textSize="22sp"
             android:fontFamily="@font/roboto" />
     </RelativeLayout>
+    <include
+        android:id="@+id/emptyProduct"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       android:layout_gravity="center"
+        layout="@layout/empty_product"/>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:clipToPadding="false"
             android:scrollbars="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 </LinearLayout>

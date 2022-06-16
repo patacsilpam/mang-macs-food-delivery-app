@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="invisible"/>
+                android:visibility="gone"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                 android:text="Recepient's Name"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="5dp"/>
 
             <EditText
                 android:id="@+id/editfullname"
@@ -154,7 +154,6 @@
                 android:id="@+id/editrdAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="100dp"
                 android:orientation="horizontal"
                 android:weightSum="1">
                 <RadioButton
@@ -172,13 +171,25 @@
                     android:textSize="14sp"
                     android:text="Office"/>
             </RadioGroup>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnDeleteAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="100dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/dark_square"
+                android:text="Delete Address"
+                android:textColor="#222222"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto"/>
             <TextView
                 android:id="@+id/editcustomerId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:visibility="invisible"/>
-
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.appbar.AppBarLayout
@@ -190,6 +201,7 @@
             android:id="@+id/editAddress"
             android:layout_width="250dp"
             android:layout_height="50dp"
+            style="?android:attr/borderlessButtonStyle"
             android:background="@drawable/confirmation_button"
             android:layout_gravity="center"
             android:text="Save"

@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mangmacs.activities.DimsumListDetail;
-import com.example.mangmacs.model.DimsumListModel;
 import com.example.mangmacs.R;
+import com.example.mangmacs.model.ProductListModel;
 
 import java.util.List;
 
 public class DimsumAdapter extends RecyclerView.Adapter<DimsumAdapter.ProductViewHolder> {
     private Context context;
-    private List<DimsumListModel> dimsumList;
-    public DimsumAdapter(Context context, List<DimsumListModel> dimsumList){
+    private List<ProductListModel> dimsumList;
+    public DimsumAdapter(Context context, List<ProductListModel> dimsumList){
         this.context = context;
         this.dimsumList = dimsumList;
     }
@@ -30,28 +30,31 @@ public class DimsumAdapter extends RecyclerView.Adapter<DimsumAdapter.ProductVie
     @Override
     public DimsumAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.dimsum_list,null);
+        View view = inflater.inflate(R.layout.product_lists,null);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DimsumAdapter.ProductViewHolder holder, int position) {
-        DimsumListModel dimsumListModel = dimsumList.get(position);
+        ProductListModel dimsumListModel = dimsumList.get(position);
         Glide.with(context)
                 .load(dimsumListModel.getImage())
                 .into(holder.image);
         holder.textProductName.setText(dimsumListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(dimsumListModel.getPrice()+".00"));
+        holder.textDevTime.setText(dimsumListModel.getPreparationTime().concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DimsumListDetail.class);
                 intent.putExtra("image",dimsumListModel.getImage());
                 intent.putExtra("productName",dimsumListModel.getProductName());
+                intent.putExtra("productCategory",dimsumListModel.getProductCategoryCombo());
                 intent.putExtra("price",dimsumListModel.getPrice());
-                intent.putExtra("status",dimsumListModel.getStatus());
                 intent.putExtra("productVariation",dimsumListModel.getProductVariation());
-                intent.putExtra("code",dimsumListModel.getCodeDimsum());
+                intent.putExtra("code",dimsumListModel.getCodeCombo());
+                intent.putExtra("status", dimsumListModel.getStocks());
+                intent.putExtra("preparationTime",dimsumListModel.getPreparationTime());
                 context.startActivity(intent);
             }
         });
@@ -64,7 +67,7 @@ public class DimsumAdapter extends RecyclerView.Adapter<DimsumAdapter.ProductVie
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView textProductName,textProductPrice;
+        TextView textProductName,textProductPrice,textDevTime;
         CardView productContainer;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +75,7 @@ public class DimsumAdapter extends RecyclerView.Adapter<DimsumAdapter.ProductVie
             textProductName = itemView.findViewById(R.id.productName);
             textProductPrice = itemView.findViewById(R.id.productPrice);
             productContainer = itemView.findViewById(R.id.productContainer);
+            textDevTime = itemView.findViewById(R.id.devTime);
         }
     }
 }

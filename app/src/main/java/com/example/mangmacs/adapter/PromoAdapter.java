@@ -32,7 +32,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
     @Override
     public PromoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.promo_product_list,null);
+        View view = layoutInflater.inflate(R.layout.product_lists,null);
         return new ViewHolder(view);
     }
 
@@ -45,17 +45,20 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
         holder.textProductName.setText(promoListModel.getProductNamePromo());
         holder.textProductPrice.setText("₱ "+String.valueOf(promoListModel.getPricePromo()+".00"));
         holder.textVariation.setText(promoListModel.getProductVariationPromo());
+        holder.textDevTime.setText(promoListModel.getPreparationTime().concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PromoListDetails.class);
                 intent.putExtra("image",promoListModel.getProductImgPromo());
                 intent.putExtra("productName",promoListModel.getProductNamePromo());
+                intent.putExtra("productCategory",promoListModel.getProductCategoryPromo());
                 intent.putExtra("price",promoListModel.getPricePromo());
-                intent.putExtra("status",promoListModel.getPromoStatus());
                 intent.putExtra("productVariation",promoListModel.getProductVariationPromo());
                 intent.putExtra("code",promoListModel.getProductPromoCode());
                 intent.putExtra("variation",promoListModel.getProductVariationPromo());
+                intent.putExtra("status", promoListModel.getStocks());
+                intent.putExtra("preparationTime",promoListModel.getPreparationTime());
                 context.startActivity(intent);
             }
         });
@@ -68,7 +71,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView textProductName,textProductPrice,textVariation;
+        TextView textProductName,textProductPrice,textVariation,textDevTime;
         CardView productContainer;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +80,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
             textProductPrice = itemView.findViewById(R.id.productPrice);
             textVariation = itemView.findViewById(R.id.variation);
             productContainer = itemView.findViewById(R.id.productContainer);
+            textDevTime = itemView.findViewById(R.id.devTime);
         }
     }
 }

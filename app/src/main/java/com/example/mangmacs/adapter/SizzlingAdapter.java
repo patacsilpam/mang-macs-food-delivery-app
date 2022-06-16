@@ -15,43 +15,46 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mangmacs.R;
 import com.example.mangmacs.activities.SizzlingListDetail;
-import com.example.mangmacs.model.SizzlingListModel;
+import com.example.mangmacs.model.ProductListModel;
 
 import java.util.List;
 
 public class SizzlingAdapter extends RecyclerView.Adapter<SizzlingAdapter.ProductViewHolder> {
     private Context context;
-    private List<SizzlingListModel> seafoodsList;
-    public SizzlingAdapter(Context context, List<SizzlingListModel> seafoodsList){
+    private List<ProductListModel> sizzlingList;
+    public SizzlingAdapter(Context context, List<ProductListModel> sizzlingList){
         this.context = context;
-        this.seafoodsList = seafoodsList;
+        this.sizzlingList = sizzlingList;
     }
     @NonNull
     @Override
     public SizzlingAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.seafoods_list,null);
+        View view = layoutInflater.inflate(R.layout.product_lists,null);
         return new SizzlingAdapter.ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SizzlingAdapter.ProductViewHolder holder, int position) {
-        SizzlingListModel sizzlingListModel = seafoodsList.get(position);
+        ProductListModel sizzlingListModel = sizzlingList.get(position);
         Glide.with(context)
                 .load(sizzlingListModel.getImage())
                 .into(holder.image);
         holder.textProductName.setText(sizzlingListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(sizzlingListModel.getPrice()+".00"));
+        holder.textDevTime.setText(sizzlingListModel.getPreparationTime().concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, SizzlingListDetail.class);
                 intent.putExtra("image", sizzlingListModel.getImage());
                 intent.putExtra("productName", sizzlingListModel.getProductName());
+                intent.putExtra("productCategory",sizzlingListModel.getProductCategoryCombo());
                 intent.putExtra("price", sizzlingListModel.getPrice());
-                intent.putExtra("status", sizzlingListModel.getStatus());
                 intent.putExtra("productVariation", sizzlingListModel.getProductVariation());
-                intent.putExtra("code", sizzlingListModel.getCodeSeafoods());
+                intent.putExtra("code", sizzlingListModel.getCodeCombo());
+                intent.putExtra("status", sizzlingListModel.getStocks());
+                intent.putExtra("preparationTime",sizzlingListModel.getPreparationTime());
                 context.startActivity(intent);
             }
         });
@@ -59,12 +62,12 @@ public class SizzlingAdapter extends RecyclerView.Adapter<SizzlingAdapter.Produc
 
     @Override
     public int getItemCount() {
-        return seafoodsList.size();
+        return sizzlingList.size();
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView textProductName,textProductPrice;
+        TextView textProductName,textProductPrice,textDevTime;
         CardView productContainer;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +75,7 @@ public class SizzlingAdapter extends RecyclerView.Adapter<SizzlingAdapter.Produc
             textProductName = itemView.findViewById(R.id.productName);
             textProductPrice = itemView.findViewById(R.id.productPrice);
             productContainer = itemView.findViewById(R.id.productContainer);
+            textDevTime = itemView.findViewById(R.id.devTime);
         }
     }
 }

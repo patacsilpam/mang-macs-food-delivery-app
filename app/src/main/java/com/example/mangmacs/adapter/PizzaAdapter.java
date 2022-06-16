@@ -31,7 +31,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ProductViewH
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.product_list_pizza,null);
+        View view = layoutInflater.inflate(R.layout.product_lists,null);
         return new ProductViewHolder(view);
     }
 
@@ -41,20 +41,21 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ProductViewH
         Glide.with(context)
                 .load(pizzaListModel.getImage())
                 .into(holder.image);
-        holder.textProductPrice.setText("₱ "+String.valueOf(pizzaListModel.getPrice()+" .00"));
+        holder.textProductPrice.setText("₱ "+String.valueOf(pizzaListModel.getPrice()+".00"));
         holder.textProductName.setText(pizzaListModel.getProductName());
-        holder.textGroupPrice.setText(pizzaListModel.getGroupPrice());
+        holder.textDevTime.setText(pizzaListModel.getPreparationTime().concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PizzaListDetaill.class);
                 intent.putExtra("image",pizzaListModel.getImage());
                 intent.putExtra("productName",pizzaListModel.getProductName());
-                intent.putExtra("status",pizzaListModel.getStatus());
+                intent.putExtra("productCategory",pizzaListModel.getProductCategory());
+                intent.putExtra("stocks",pizzaListModel.getStocks());
                 intent.putExtra("groupPrice",pizzaListModel.getGroupPrice());
                 intent.putExtra("productVariation",pizzaListModel.getProductVariation());
                 intent.putExtra("groupCode",pizzaListModel.getCode());
-               // intent.putExtra("groupVariation",pizzaListModel.getGroupVariation());
+                intent.putExtra("preparationTime",pizzaListModel.getPreparationTime());
                 context.startActivity(intent);
             }
         });
@@ -67,7 +68,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ProductViewH
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView textProductName,textProductPrice,textGroupPrice;
+        TextView textProductName,textProductPrice,textDevTime;
         CardView productContainer;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,7 +76,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ProductViewH
             textProductName = itemView.findViewById(R.id.productName);
             textProductPrice = itemView.findViewById(R.id.productPrice);
             productContainer = itemView.findViewById(R.id.productContainer);
-            textGroupPrice = itemView.findViewById(R.id.groupPrice);
+            textDevTime = itemView.findViewById(R.id.devTime);
         }
     }
 

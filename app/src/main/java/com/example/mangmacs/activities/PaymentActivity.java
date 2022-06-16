@@ -52,7 +52,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PaymentActivity extends AppCompatActivity implements OrdersListener {
-    private TextView arrowBack,total,customerID,emailAddress,deliveryFee;
+    private TextView arrowBack,total,customerID,emailAddress,deliveryFee,waitingTime;
     private Button payDelivery;
     private RecyclerView recyclerViewOrder;
     private RadioGroup choosePayment;
@@ -60,13 +60,14 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     private ImageView imgPayment;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String date,time,recipientName,phoneNumber,address,labelAddress;
+    private String date,time,recipientName,phoneNumber,address,labelAddress,orderTime;
     private int totalPrice,devChange;
     private static final int STORAGE_PERMISSION_CODE = 100;
     private Bitmap bitmap;
     private Uri selectedImage;
     private ArrayList<String> orderLists = new ArrayList<>();
     private ArrayList<String> productCodeList = new ArrayList<>();
+    private ArrayList<String> productCategoryList = new ArrayList<>();
     private ArrayList<String> variationList = new ArrayList<>();
     private ArrayList<String> quantityList = new ArrayList<>();
     private ArrayList<String> addOnsList = new ArrayList<>();
@@ -80,6 +81,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         arrowBack = findViewById(R.id.arrow_back);
         total = findViewById(R.id.total);
         deliveryFee = findViewById(R.id.delivery_fee);
+        waitingTime = findViewById(R.id.waitingTime);
         customerID = findViewById(R.id.customerId);
         emailAddress = findViewById(R.id.email);
         payDelivery = findViewById(R.id.payDelivery);
@@ -91,6 +93,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         recyclerViewOrder.setLayoutManager(new LinearLayoutManager(this));
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("TotalOrderPrice"));
         Intent intent = getIntent();
+        orderTime = intent.getStringExtra("orderTime");
         date = intent.getStringExtra("date");
         time = intent.getStringExtra("time");
         recipientName = intent.getStringExtra("fullName");
@@ -213,9 +216,17 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         public void onReceive(Context context, Intent intent) {
             totalPrice = intent.getIntExtra("totalorderprice",0);
             devChange = intent.getIntExtra("deliveryChange",0);
+            String estTime = intent.getStringExtra("waitingTime");
             int totalAmount = totalPrice + devChange;
             total.setText(String.valueOf(totalAmount));
             deliveryFee.setText(String.valueOf(devChange));
+            if(orderTime.contains("now")){
+                waitingTime.setText(String.valueOf(estTime).concat(":00 mins"));
+            }
+            else{
+                waitingTime.setText(date.concat(" ").concat(time));
+            }
+
         }
     };
     private void PayDelivery() {
@@ -226,6 +237,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
                    Toast.makeText(getApplicationContext(),"Please select the type of your e-wallet payment",Toast.LENGTH_SHORT).show();
                } else{
                    String email = emailAddress.getText().toString();
+                   String estTime = waitingTime.getText().toString();
                    String fname = SharedPreference.getSharedPreference(PaymentActivity.this).setFname();
                    String lname = SharedPreference.getSharedPreference(PaymentActivity.this).setLname();
                    String accountName = fname.concat(" ").concat(lname);
@@ -236,7 +248,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
                    RadioButton radioButton = findViewById(selectedPayment);
                    String paymentType = radioButton.getText().toString();
                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,recipientName,address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time,devChange);
+                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,recipientName,address,labelAddress,email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time,devChange,estTime);
                    insertOrder.enqueue(new Callback<CartModel>() {
                        @Override
                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -272,6 +284,11 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     @Override
     public void onProductsChange(ArrayList<String> products) {
         orderLists = products;
+    }
+
+    @Override
+    public void onProductCategoryChange(ArrayList<String> category) {
+        productCategoryList = category;
     }
 
     @Override

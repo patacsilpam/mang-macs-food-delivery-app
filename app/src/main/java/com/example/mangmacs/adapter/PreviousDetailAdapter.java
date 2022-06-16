@@ -65,6 +65,7 @@ public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAd
                 String email = previousOrderModel.getEmail();
                 String productCode = previousOrderModel.getProductCode();
                 String productName = previousOrderModel.getProducts();
+                String productCategory = "category";
                 String productVariation = previousOrderModel.getVariations();
                 String fname = holder.fname.getText().toString();
                 String lname = holder.lname.getText().toString();
@@ -73,7 +74,7 @@ public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAd
                 String add_ons = previousOrderModel.getAddOns();
                 String productImage = previousOrderModel.getImgProduct();
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> callCart = apiInterface.addcart(email,productCode,productName,productVariation,fname,lname,price,quantity,add_ons,productImage);
+                Call<CartModel> callCart = apiInterface.addcart(email,productCode,productName,productCategory,productVariation,fname,lname,price,quantity,add_ons,productImage);
                 callCart.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

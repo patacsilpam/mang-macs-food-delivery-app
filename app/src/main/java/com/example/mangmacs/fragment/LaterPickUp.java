@@ -91,7 +91,7 @@ public class LaterPickUp extends Fragment {
             }
 
             private void updateCalendar() {
-                String Format = "yy/MM/dd";
+                String Format = "yyyy/MM/dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Format, Locale.TAIWAN);
                 date.setText(simpleDateFormat.format(calendar.getTime()));
             }
@@ -110,6 +110,7 @@ public class LaterPickUp extends Fragment {
             public void onClick(View view) {
                 String strDate = date.getText().toString();
                 String strTime = time.getText().toString();
+                String orderTime = "later";
                 if (strDate.isEmpty()){
                     date.setError("Required");
                 }
@@ -120,6 +121,7 @@ public class LaterPickUp extends Fragment {
                     Intent intent = new Intent(getContext(), PickUpPayment.class);
                     intent.putExtra("date",strDate);
                     intent.putExtra("time",strTime);
+                    intent.putExtra("orderTime",orderTime);
                     startActivity(intent);
                 }
             }

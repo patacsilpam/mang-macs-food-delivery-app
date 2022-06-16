@@ -1,7 +1,9 @@
 package com.example.mangmacs.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +30,7 @@ public class EditAddressActivity extends AppCompatActivity{
     private Spinner spinnerBrgy;
     RadioGroup editRdAddress;
     RadioButton radioButton;
-    private Button editAddress;
+    private Button editAddress,btnDeleteAddress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,53 @@ public class EditAddressActivity extends AppCompatActivity{
         spinnerBrgy = findViewById(R.id.editbarangay);
         editRdAddress = findViewById(R.id.editrdAddress);
         editAddress = findViewById(R.id.editAddress);
+        btnDeleteAddress = findViewById(R.id.btnDeleteAddress);
         AddressAdapter();
+        DeleteAddress();
+    }
+
+    private void DeleteAddress() {
+        btnDeleteAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(EditAddressActivity.this);
+                alertDialog.setMessage("Are you sure you want to delete this address?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String addressId = id.getText().toString();
+                                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                                Call<UpdateAccountModel> deleteAddressCall = apiInterface.deleteAddress(addressId);
+                                deleteAddressCall.enqueue(new Callback<UpdateAccountModel>() {
+                                    @Override
+                                    public void onResponse(Call<UpdateAccountModel> call, Response<UpdateAccountModel> response) {
+                                        if(response.body() != null){
+                                            String success = response.body().getSuccess();
+                                            if(success.equals("1")){
+                                               startActivity(new Intent(getApplicationContext(),MyAddressActivity.class));
+                                               finish();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<UpdateAccountModel> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alert = alertDialog.create();
+                alert.show();
+            }
+        });
     }
 
     private void AddressAdapter() {

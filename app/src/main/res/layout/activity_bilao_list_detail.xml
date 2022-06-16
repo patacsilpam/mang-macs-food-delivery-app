@@ -37,51 +37,80 @@
                                android:layout_height="wrap_content"
                                android:fontFamily="@font/roboto_medium"
                                android:text=""
-                               android:textSize="16sp" />
-                           <TextView
-                               android:id="@+id/singleVariation"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:layout_below="@+id/bilaoproductName"
-                               android:textSize="16sp"
-                               android:fontFamily="@font/roboto_light"
-                               android:text=""
-                               android:visibility="gone"/>
+                               android:textSize="20sp" />
                        </RelativeLayout>
                        <RelativeLayout
                            android:id="@+id/priceLayout"
-                           android:layout_width="match_parent"
+                           android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:layout_marginTop="5dp"
-                           android:layout_marginBottom="5dp"
-                           android:visibility="gone">
+                           android:layout_gravity="top|right"
+                           android:layout_marginTop="-25dp">
                            <TextView
                                android:id="@+id/pesoSign"
                                android:layout_width="wrap_content"
                                android:layout_height="wrap_content"
-                               android:textSize="14sp"
+                               android:textSize="20sp"
+                               android:textColor="@color/pressed"
                                android:text="₱ "/>
                            <TextView
                                android:id="@+id/price"
                                android:layout_width="wrap_content"
                                android:layout_height="wrap_content"
                                android:layout_toEndOf="@id/pesoSign"
-                               android:textSize="14sp"
+                               android:textSize="20sp"
+                               android:textColor="@color/pressed"
                                android:text=""/>
                            <TextView
                                android:id="@+id/decimal"
                                android:layout_width="wrap_content"
                                android:layout_height="wrap_content"
                                android:layout_toEndOf="@id/price"
-                               android:textSize="14sp"
+                               android:textSize="20sp"
+                               android:textColor="@color/pressed"
                                android:text=".00 "/>
                        </RelativeLayout>
                        <TextView
                            android:id="@+id/status"
+                           android:layout_width="85dp"
+                           android:layout_height="30dp"
+                           android:layout_toEndOf="@+id/preparationTime"
+                           android:padding="3dp"
+                           android:text=""
+                           android:gravity="center"
+                           android:textSize="16sp"
+                           android:fontFamily="@font/roboto_medium"
+                           android:layout_marginTop="10dp"
+                           android:textColor="#616161"
+                           android:background="@drawable/gray_square"
+                           android:drawableStart="@drawable/ic_baseline_access_clock"/>
+                       <RelativeLayout
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
-                           android:text=""
-                           android:visibility="gone"/>
+                           android:layout_marginTop="20dp">
+                           <TextView
+                               android:id="@+id/textVariation"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="Variation"
+                               android:textSize="18sp"/>
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_alignParentEnd="true"
+                               android:background="@drawable/gray_square"
+                               android:padding="3dp"
+                               android:text="1 Required"
+                               android:textSize="12sp"
+                               android:textColor="#616161"/>
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_below="@+id/textVariation"
+                               android:padding="3dp"
+                               android:text="Select one"
+                               android:textSize="14sp"
+                               android:textColor="#919191"/>
+                       </RelativeLayout>
                        <TextView
                            android:id="@+id/productCode"
                            android:layout_width="wrap_content"
@@ -94,8 +123,7 @@
                            android:id="@+id/bilaovariation"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
-                           android:layout_marginTop="30dp"
-                           android:visibility="gone">
+                           android:layout_marginTop="15dp">
                        </RadioGroup>
                        <TextView
                            android:layout_width="match_parent"

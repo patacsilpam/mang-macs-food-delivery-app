@@ -30,12 +30,163 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:clipToPadding="false"
-            android:scrollbars="vertical"
+        android:layout_height="wrap_content">
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--Pork Layout-->
+                <LinearLayout
+                    android:id="@+id/porkLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pork"
+                        android:textSize="22sp"
+                        android:textColor="#434547"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewPork"
+                        android:clipToPadding="false"
+                        android:scrollbars="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--Chicken Layout-->
+                <LinearLayout
+                    android:id="@+id/chickenLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Chicken"
+                        android:textSize="22sp"
+                        android:textColor="#434547"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewChicken"
+                        android:clipToPadding="false"
+                        android:scrollbars="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--Beef Layout-->
+                <LinearLayout
+                    android:id="@+id/beefLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Beef"
+                        android:textSize="22sp"
+                        android:textColor="#434547"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewBeef"
+                        android:clipToPadding="false"
+                        android:scrollbars="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--Pigar Pigar Layout-->
+                <LinearLayout
+                    android:id="@+id/pigarPigarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pigar Pigar"
+                        android:textSize="22sp"
+                        android:textColor="#434547"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewPigarPigar"
+                        android:clipToPadding="false"
+                        android:scrollbars="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--Seafoods Layout-->
+                <LinearLayout
+                    android:id="@+id/seafoodsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Seafoods"
+                        android:textSize="22sp"
+                        android:textColor="#434547"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewSeafoods"
+                        android:clipToPadding="false"
+                        android:scrollbars="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--Vegetable Layout-->
+                <LinearLayout
+                    android:id="@+id/vegetableLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Vegetable"
+                        android:textSize="22sp"
+                        android:textColor="#434547"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewVegatables"
+                        android:clipToPadding="false"
+                        android:scrollbars="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <!--Rice Layout-->
+                <LinearLayout
+                    android:id="@+id/riceLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Rice"
+                        android:textSize="22sp"
+                        android:textColor="#434547"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewRice"
+                        android:clipToPadding="false"
+                        android:scrollbars="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

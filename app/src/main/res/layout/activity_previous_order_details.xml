@@ -392,30 +392,6 @@
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
                     <RelativeLayout
-                        android:id="@+id/devTimeDetails"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Delivery Time"
-                            android:fontFamily="@font/roboto"
-                            android:textSize="16sp"
-                            android:textColor="#413F3F"
-                            android:layout_centerVertical="true"/>
-                        <TextView
-                            android:id="@+id/deliveryTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:fontFamily="@font/roboto"
-                            android:textSize="16sp"
-                            android:textColor="#413F3F"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentEnd="true"/>
-                    </RelativeLayout>
-                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white">

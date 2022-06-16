@@ -4,28 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#1DC2C2C6"
     tools:context=".activities.PromoActivity">
-    <androidx.appcompat.widget.Toolbar
+    <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/arrow_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:drawableStart="@drawable/ic_baseline_arrow_back" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Promos"
-            android:textSize="24sp"
-            android:fontFamily="@font/roboto_medium"/>
-    </androidx.appcompat.widget.Toolbar>
+            android:layout_toEndOf="@id/arrow_back"
+            android:textColor="#434547"
+            android:layout_marginTop="-5dp"
+            android:text="Promo"
+            android:textSize="22sp"
+            android:fontFamily="@font/roboto" />
+    </RelativeLayout>
     <com.github.ybq.android.spinkit.SpinKitView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/spin_kit"
-        style="@style/SpinKitView.Large.Circle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        app:SpinKit_Color="@color/pressed" />
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Large.Circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:SpinKit_Color="@color/pressed" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,15 +53,4 @@
             android:layout_gravity="center_vertical"
             layout="@layout/empty_promos"/>
     </LinearLayout>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:background="@drawable/home_bg_color"
-        app:itemIconTint="@drawable/icon_pressed"
-        app:itemTextColor="@drawable/icon_pressed"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav" />
 </RelativeLayout>

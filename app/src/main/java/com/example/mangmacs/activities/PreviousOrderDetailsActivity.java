@@ -29,10 +29,9 @@ import retrofit2.Response;
 public class PreviousOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
     private TextView orderStatus,orderNumber,orderType,totalAmount,arrowBack;
     private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,paymentMethod,deliveryFee;
-    private TextView orderId,orderTime,deliveryTime,completedTime;
+    private TextView orderId,orderTime,completedTime;
     private RecyclerView prevOrderDetailList;
     private CardView deliveryDetails,pickUpDetails,dineInDetails,paymentMethodDetails,deliveryFeeDetails;
-    private RelativeLayout devTimeDetails;
     private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod,newDeliveryFee;
     private List<CurrentOrdersModel> prevOrderModel;
     private PreviousDetailAdapter previousDetailAdapter;
@@ -45,7 +44,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderStatus = findViewById(R.id.orderStatus);
         orderType = findViewById(R.id.orderType);
         totalAmount = findViewById(R.id.totalAmount);
-        devTimeDetails = findViewById(R.id.devTimeDetails);
         deliveryDetails = findViewById(R.id.deliveryAddress);
         deliveryName = findViewById(R.id.deliveryName);
         deliveryPhoneNum = findViewById(R.id.deliveryPhoneNum);
@@ -59,7 +57,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         pickUpEmail = findViewById(R.id.pickUpEmail);
         orderId = findViewById(R.id.orderId);
         orderTime = findViewById(R.id.orderTime);
-        deliveryTime = findViewById(R.id.deliveryTime);
         completedTime = findViewById(R.id.completedTime);
         paymentMethodDetails = findViewById(R.id.paymentMethodDetails);
         paymentMethod = findViewById(R.id.paymentMethod);
@@ -69,13 +66,11 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         deliveryDetails.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
         dineInDetails.setVisibility(View.VISIBLE);
-        devTimeDetails.setVisibility(View.GONE);
         paymentMethodDetails.setVisibility(View.GONE);
         prevOrderDetailList = findViewById(R.id.prevOrderDetailLists);
         prevOrderDetailList.setHasFixedSize(true);
         prevOrderDetailList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         checkOrderType();
-        reOrder();
         showOrders();
         Back();
     }
@@ -95,9 +90,8 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         newCompletedTime = intent.getStringExtra("completedTime");
         newPaymentMethod = intent.getStringExtra("paymentMethod");
         newDeliveryFee = intent.getStringExtra("deliveryFee");
-        orderId.setText(newOrderNumber);
+        orderId.setText("#".concat(newOrderNumber));
         orderTime.setText(newOrderDate);
-        deliveryTime.setText(newDevTime);
         completedTime.setText(newCompletedTime);
         orderStatus.setText(newOrderStatus);
         orderType.setText(newOrderType);
@@ -119,7 +113,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             deliveryPhoneNum.setText(newPhoneNumber);
             devAddress.setText(newAddress);
             devLabelAddress.setText(newLabelAddress);
-            devTimeDetails.setVisibility(View.VISIBLE);
             deliveryDetails.setVisibility(View.VISIBLE);
             dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);
@@ -154,39 +147,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             }
         });
     }
-    private void reOrder() {
-        /*buyAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = "pammpatacsil@gmail.com";
-                String fname = "Pamela";
-                String lname = "Patacsil";
-                String product = textProduct.getText().toString();
-                String variation = textVariation.getText().toString();
-                String add_ons = "";
-                int newPrice = Integer.parseInt(textPrice.getText().toString());
-                int newItems = Integer.parseInt(items.getText().toString());
-                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> callCart = apiInterface.addcart(email,productCode,product,variation,fname,lname,newPrice,newItems,add_ons,image);
-                callCart.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if (response.body() != null){
-                            String success = response.body().getSuccess();
-                            if (success.equals("1")){
-                                startActivity(new Intent(getApplicationContext(), CartActivity.class));
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
-
-                    }
-                });
-            }
-        });*/
-    }
 
     private void Back() {
         arrowBack.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +159,11 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
 
     @Override
     public void onProductsChange(ArrayList<String> products) {
+
+    }
+
+    @Override
+    public void onProductCategoryChange(ArrayList<String> category) {
 
     }
 

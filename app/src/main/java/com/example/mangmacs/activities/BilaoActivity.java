@@ -29,11 +29,15 @@ public class BilaoActivity extends AppCompatActivity {
     private BilaoAdapter bilaoAdapter;
     private TextView btnArrowBack;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private View emptyProduct;
+    private int countProduct = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bilao);
         btnArrowBack = findViewById(R.id.arrow_back);
+        emptyProduct = findViewById(R.id.emptyProduct);
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -51,6 +55,13 @@ public class BilaoActivity extends AppCompatActivity {
                 pancitBilaoList = response.body();
                 bilaoAdapter = new BilaoAdapter(BilaoActivity.this,pancitBilaoList);
                 recyclerView.setAdapter(bilaoAdapter);
+                countProduct = bilaoAdapter.getItemCount();
+                if(countProduct == 0){
+                    emptyProduct.setVisibility(View.VISIBLE);
+                }
+                else{
+                    emptyProduct.setVisibility(View.GONE);
+                }
                 refresh();
             }
             @Override
@@ -79,6 +90,14 @@ public class BilaoActivity extends AppCompatActivity {
                         pancitBilaoList = response.body();
                         bilaoAdapter = new BilaoAdapter(BilaoActivity.this,pancitBilaoList);
                         recyclerView.setAdapter(bilaoAdapter);
+                        countProduct = bilaoAdapter.getItemCount();
+                        if(countProduct == 0){
+                            emptyProduct.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            emptyProduct.setVisibility(View.GONE);
+                        }
+                        refresh();
                     }
                     @Override
                     public void onFailure(Call<List<PancitBilaoListModel>> call, Throwable t) {

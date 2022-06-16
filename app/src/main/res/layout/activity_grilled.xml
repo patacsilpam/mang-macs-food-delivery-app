@@ -30,12 +30,77 @@
    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
        android:id="@+id/swipeRefresh"
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/recyclerView"
-           android:clipToPadding="false"
-           android:scrollbars="vertical"
+       android:layout_height="wrap_content">
+       <ScrollView
            android:layout_width="match_parent"
-           android:layout_height="match_parent" />
+           android:layout_height="wrap_content"
+           android:fillViewport="true">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+              <LinearLayout
+                  android:id="@+id/grilledSiomaiLayout"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+                  <TextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="Grilled Siomai"
+                      android:textSize="22sp"
+                      android:textColor="#434547"
+                      android:fontFamily="@font/roboto"
+                      android:padding="5dp" />
+                  <androidx.recyclerview.widget.RecyclerView
+                      android:id="@+id/recyclerView"
+                      android:clipToPadding="false"
+                      android:scrollbars="none"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content" />
+              </LinearLayout>
+            <LinearLayout
+                android:id="@+id/barbequeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Barbeque"
+                    android:textSize="22sp"
+                    android:textColor="#434547"
+                    android:fontFamily="@font/roboto"
+                    android:padding="5dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewBbq"
+                    android:clipToPadding="false"
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+              <LinearLayout
+                  android:id="@+id/addOnsLayout"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+                  <TextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="Add Ons"
+                      android:textSize="22sp"
+                      android:textColor="#434547"
+                      android:fontFamily="@font/roboto"
+                      android:padding="5dp" />
+                  <androidx.recyclerview.widget.RecyclerView
+                      android:id="@+id/recyclerViewAddOns"
+                      android:clipToPadding="false"
+                      android:scrollbars="none"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content" />
+              </LinearLayout>
+          </LinearLayout>
+       </ScrollView>
    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </LinearLayout>

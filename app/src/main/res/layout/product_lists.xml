@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/productContainer"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/image"
+                android:padding="5dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@drawable/dark_square"
+                android:layout_marginEnd="15dp"
+                android:layout_centerVertical="true" />
+                <TextView
+                    android:id="@+id/productName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/image"
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_marginTop="10dp"
+                    android:text="Pancit Bilao(Canton Bihon)"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#202020"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/devTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/productName"
+                    android:layout_toEndOf="@+id/image"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_marginTop="15dp"
+                    android:textColor="#616161"
+                    android:background="@drawable/gray_square"
+                    android:drawableStart="@drawable/ic_baseline_access_clock"
+                    android:drawablePadding="2dp" />
+                <TextView
+                    android:id="@+id/productPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/devTime"
+                    android:text="P 200.00"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:textColor="#202020"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

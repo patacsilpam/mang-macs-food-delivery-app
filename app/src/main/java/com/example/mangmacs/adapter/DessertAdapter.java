@@ -15,44 +15,47 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mangmacs.R;
 import com.example.mangmacs.activities.DessertListDetail;
-import com.example.mangmacs.model.DessertListModel;
+import com.example.mangmacs.model.ProductListModel;
 
 import java.util.List;
 
 public class DessertAdapter extends RecyclerView.Adapter<DessertAdapter.ProductViewHolder> {
     private Context context;
-    private List<DessertListModel> soupList;
-    public DessertAdapter(Context context, List<DessertListModel> soupList){
+    private List<ProductListModel> dessertList;
+    public DessertAdapter(Context context, List<ProductListModel> dessertList){
         this.context = context;
-        this.soupList = soupList;
+        this.dessertList = dessertList;
     }
 
     @NonNull
     @Override
     public DessertAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.soup_list,null);
+        View view = layoutInflater.inflate(R.layout.product_lists,null);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DessertAdapter.ProductViewHolder holder, int position) {
-        DessertListModel dessertListModel = soupList.get(position);
+        ProductListModel dessertListModel = dessertList.get(position);
         Glide.with(context)
                 .load(dessertListModel.getImage())
                 .into(holder.image);
         holder.textProductName.setText(dessertListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(dessertListModel.getPrice()+".00"));
+        holder.textDevTime.setText(dessertListModel.getPreparationTime().concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DessertListDetail.class);
                 intent.putExtra("image", dessertListModel.getImage());
                 intent.putExtra("productName", dessertListModel.getProductName());
+                intent.putExtra("productCategory",dessertListModel.getProductCategoryCombo());
                 intent.putExtra("price", dessertListModel.getPrice());
-                intent.putExtra("status", dessertListModel.getStatus());
                 intent.putExtra("productVariation", dessertListModel.getProductVariation());
-                intent.putExtra("code", dessertListModel.getCodeSoup());
+                intent.putExtra("code", dessertListModel.getCodeCombo());
+                intent.putExtra("status", dessertListModel.getStocks());
+                intent.putExtra("preparationTime",dessertListModel.getPreparationTime());
                 context.startActivity(intent);
             }
         });
@@ -60,12 +63,12 @@ public class DessertAdapter extends RecyclerView.Adapter<DessertAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        return soupList.size();
+        return dessertList.size();
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView textProductName,textProductPrice;
+        TextView textProductName,textProductPrice,textDevTime;
         CardView productContainer;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +76,7 @@ public class DessertAdapter extends RecyclerView.Adapter<DessertAdapter.ProductV
             textProductName = itemView.findViewById(R.id.productName);
             textProductPrice = itemView.findViewById(R.id.productPrice);
             productContainer = itemView.findViewById(R.id.productContainer);
+            textDevTime = itemView.findViewById(R.id.devTime);
         }
     }
 }

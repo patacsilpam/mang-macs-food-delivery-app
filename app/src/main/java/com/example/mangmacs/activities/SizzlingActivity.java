@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.adapter.SizzlingAdapter;
-import com.example.mangmacs.model.SizzlingListModel;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
+import com.example.mangmacs.model.ProductListModel;
 
 import java.util.List;
 
@@ -24,16 +24,19 @@ import retrofit2.Response;
 
 public class SizzlingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private List<SizzlingListModel> seafoodsList;
+    private List<ProductListModel> seafoodsList;
     private ApiInterface apiInterface;
     private SizzlingAdapter sizzlingAdapter;
     private TextView btnArrowBack;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private View emptyProduct;
+    private int countProduct = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sizzling);
         btnArrowBack = findViewById(R.id.arrow_back);
+        emptyProduct = findViewById(R.id.emptyProduct);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -53,18 +56,25 @@ public class SizzlingActivity extends AppCompatActivity {
     }
 
     private void ShowSeafoodsLists() {
-        Call<List<SizzlingListModel>> call= apiInterface.getSeafoods();
-        call.enqueue(new Callback<List<SizzlingListModel>>() {
+        Call<List<ProductListModel>> call= apiInterface.getSizzling();
+        call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
-            public void onResponse(Call<List<SizzlingListModel>> call, Response<List<SizzlingListModel>> response) {
+            public void onResponse(Call<List<ProductListModel>> call, Response<List<ProductListModel>> response) {
                 seafoodsList = response.body();
                 sizzlingAdapter = new SizzlingAdapter(SizzlingActivity.this,seafoodsList);
                 recyclerView.setAdapter(sizzlingAdapter);
+                countProduct = sizzlingAdapter.getItemCount();
+                if(countProduct == 0){
+                    emptyProduct.setVisibility(View.VISIBLE);
+                }
+                else{
+                    emptyProduct.setVisibility(View.GONE);
+                }
                 refresh();
             }
 
             @Override
-            public void onFailure(Call<List<SizzlingListModel>> call, Throwable t) {
+            public void onFailure(Call<List<ProductListModel>> call, Throwable t) {
 
             }
         });
@@ -74,18 +84,25 @@ public class SizzlingActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Call<List<SizzlingListModel>> call= apiInterface.getSeafoods();
-                call.enqueue(new Callback<List<SizzlingListModel>>() {
+                Call<List<ProductListModel>> call= apiInterface.getSizzling();
+                call.enqueue(new Callback<List<ProductListModel>>() {
                     @Override
-                    public void onResponse(Call<List<SizzlingListModel>> call, Response<List<SizzlingListModel>> response) {
+                    public void onResponse(Call<List<ProductListModel>> call, Response<List<ProductListModel>> response) {
                         seafoodsList = response.body();
                         sizzlingAdapter = new SizzlingAdapter(SizzlingActivity.this,seafoodsList);
                         recyclerView.setAdapter(sizzlingAdapter);
+                        countProduct = sizzlingAdapter.getItemCount();
+                        if(countProduct == 0){
+                            emptyProduct.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            emptyProduct.setVisibility(View.GONE);
+                        }
                         refresh();
                     }
 
                     @Override
-                    public void onFailure(Call<List<SizzlingListModel>> call, Throwable t) {
+                    public void onFailure(Call<List<ProductListModel>> call, Throwable t) {
 
                     }
                 });

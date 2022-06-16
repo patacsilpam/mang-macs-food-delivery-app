@@ -59,6 +59,9 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                 intent.putExtra("totalAmount",currentOrdersModel.getTotalAmount());
                 intent.putExtra("paymentMethod",currentOrdersModel.getPaymentType());
                 intent.putExtra("deliveryFee",currentOrdersModel.getDeliveryChange());
+                intent.putExtra("requiredTime",currentOrdersModel.getRequiredTime());
+                intent.putExtra("requiredDate",currentOrdersModel.getRequiredDate());
+                intent.putExtra("waitingTime",currentOrdersModel.getWaitingTime());
                 context.startActivity(intent);
             }
         });

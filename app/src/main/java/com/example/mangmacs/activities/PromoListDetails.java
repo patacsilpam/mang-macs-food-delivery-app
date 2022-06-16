@@ -34,7 +34,7 @@ public class PromoListDetails extends AppCompatActivity {
     private EditText quantity;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
     private Intent intent;
-    private String image;
+    private String image,category;
     private int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +107,9 @@ public class PromoListDetails extends AppCompatActivity {
         intent = getIntent();
         image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
+        category = intent.getStringExtra("productCategory");
         int productprice = intent.getIntExtra("price",0);
-        String productstatus = intent.getStringExtra("status");
+        String productstatus = intent.getStringExtra("preparationTime");
         String code = intent.getStringExtra("code");
         String newVariation = intent.getStringExtra("variation");
         String firstname = SharedPreference.getSharedPreference(PromoListDetails.this).setFname();
@@ -118,27 +119,12 @@ public class PromoListDetails extends AppCompatActivity {
             Glide.with(PromoListDetails.this).load(image).into(imageView);
             productName.setText(productname);
             productPrice.setText(Integer.toString(productprice));
-            status.setText(productstatus);
+            status.setText(productstatus.concat(" min"));
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);
             productCode.setText(code);
             variation.setText(newVariation);
-            if (productstatus.equals("Out of Stock")){
-                status.setTextColor(Color.RED);
-                btnAddtoCart.setEnabled(false);
-                btnIncrement.setEnabled(false);
-                btnDecrement.setEnabled(false);
-                btnDecrement.setBackground(getDrawable(R.drawable.minus_btn));
-                btnIncrement.setBackground(getDrawable(R.drawable.plus_button));
-            } else{
-                status.setTextColor(Color.parseColor("#36c76b"));
-                btnAddtoCart.setEnabled(true);
-                btnIncrement.setEnabled(true);
-                btnDecrement.setEnabled(true);
-                btnDecrement.setBackground(getDrawable(R.drawable.decrement_btn));
-                btnIncrement.setBackground(getDrawable(R.drawable.increment_btn));
-            }
         }
         AddToCart();
     }
@@ -157,7 +143,7 @@ public class PromoListDetails extends AppCompatActivity {
                 int number = Integer.parseInt(quantity.getText().toString());
                 String add_ons = promoAddOns.getEditText().getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,price,number,add_ons,image);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,number,add_ons,image);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

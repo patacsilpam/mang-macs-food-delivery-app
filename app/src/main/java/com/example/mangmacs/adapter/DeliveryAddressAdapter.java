@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangmacs.R;
+import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.model.AddressListModel;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
     private Context context;
     private List<AddressListModel> addressLists;
     private String strFullName,strPhoneNumber,strAddress,strLabelAddress;
+    private int isCheckButton = 0;
     public DeliveryAddressAdapter(Context context, List<AddressListModel> addressLists){
         this.context = context;
         this.addressLists = addressLists;
@@ -44,7 +47,6 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
       String phoneNumber = addressListModel.getPhoneNumber();
       String categoryAddress = addressListModel.getLabelAddress();
       String customerIds = addressListModel.getCustomerID();
-
       holder.name.setText(addressListModel.getFullname());
       holder.address.setText(street+" "+brgy+","+city);
       holder.number.setText(phoneNumber);
@@ -61,13 +63,22 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
                 strLabelAddress = holder.categoryaddress.getText().toString();
             }
         });
+        if (holder.radioGroup.getCheckedRadioButtonId() == -1){
+            isCheckButton = 0;
+        }
+        else{
+            isCheckButton = 1;
+        }
         Intent intent = new Intent("MyUserDetails");
         intent.putExtra("fullName", strFullName);
         intent.putExtra("phoneNumber",strPhoneNumber);
         intent.putExtra("address",strAddress);
         intent.putExtra("labelAddress",strLabelAddress);
         intent.putExtra("customerId",customerIds);
+        intent.putExtra("checkedButton",isCheckButton);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+
     }
 
     private void itemCheckChanged(View v) {
@@ -82,10 +93,12 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
 
     public class AddressViewHolder extends RecyclerView.ViewHolder {
         private RadioButton radioButton;
+        private RadioGroup radioGroup;
         private TextView name,address,number,categoryaddress;
         public AddressViewHolder(@NonNull View itemView) {
             super(itemView);
             radioButton = itemView.findViewById(R.id.radiobtn);
+            radioGroup = itemView.findViewById(R.id.radioGrp);
             name = itemView.findViewById(R.id.name);
             address = itemView.findViewById(R.id.address);
             number = itemView.findViewById(R.id.number);

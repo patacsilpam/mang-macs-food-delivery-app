@@ -84,7 +84,7 @@ public class orderLater extends Fragment {
             }
 
             private void updateCalendar() {
-                String Format = "yy/MM/dd";
+                String Format = "yyyy/MM/dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Format, Locale.TAIWAN);
                 date.setText(simpleDateFormat.format(calendar.getTime()));
             }
@@ -110,9 +110,11 @@ public class orderLater extends Fragment {
                     time.setError("Required");
                 }
                 else{
+                    String orderTime = "later";
                     Intent intent = new Intent(getContext(), AdressList.class);
                     intent.putExtra("date",strDate);
                     intent.putExtra("time",strTime);
+                    intent.putExtra("orderTime",orderTime);
                     startActivity(intent);
                 }
             }

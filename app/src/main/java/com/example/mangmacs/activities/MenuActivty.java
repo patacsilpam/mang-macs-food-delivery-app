@@ -14,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MenuActivty extends AppCompatActivity {
-    private CardView pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
+    private CardView promo,pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
     private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class MenuActivty extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.menu);
         BottomNav();
         //initialize ids
+        promo = findViewById(R.id.btnPromo);
         pizza = findViewById(R.id.btnPizza);
         appetizer = findViewById(R.id.appetizer);
         grilled = findViewById(R.id.grilled);
@@ -43,6 +44,12 @@ public class MenuActivty extends AppCompatActivity {
     }
 
     private void Activites() {
+        promo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MenuActivty.this, PromoActivity.class));
+            }
+        });
         pizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,10 +128,13 @@ public class MenuActivty extends AppCompatActivity {
                 startActivity(new Intent(MenuActivty.this, PulutanActivity.class));
             }
         });
+        wine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MenuActivty.this, WineActivity.class));
+            }
+        });
 
-        /*
-            insert wine activity here:)
-        */
     }
 
     private void BottomNav() {
@@ -138,8 +148,8 @@ public class MenuActivty extends AppCompatActivity {
                         return true;
                     case R.id.menu:
                         return true;
-                    case R.id.promos:
-                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
+                    case R.id.notif:
+                        startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.reservation:

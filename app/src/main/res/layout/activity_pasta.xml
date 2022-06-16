@@ -27,6 +27,12 @@
             android:textSize="22sp"
             android:fontFamily="@font/roboto" />
     </RelativeLayout>
+    <include
+        android:id="@+id/emptyProduct"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        layout="@layout/empty_product"/>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"

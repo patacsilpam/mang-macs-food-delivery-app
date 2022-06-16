@@ -42,6 +42,7 @@ import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
+import com.example.mangmacs.model.SettingsModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -53,7 +54,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PickUpPayment extends AppCompatActivity implements OrdersListener {
-    private TextView arrowBack,total;
+    private TextView arrowBack,total,waitingTime;
     private Button pickUpOrder;
     private ImageView imgPayment;
     private RecyclerView recyclerViewOrder;
@@ -61,11 +62,12 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     private static final int STORAGE_PERMISSION_CODE = 100;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String date,time;
+    private String date,time,orderTime;
     private int totalPrice;
     private Bitmap bitmap;
     private ArrayList<String> orderLists = new ArrayList<>();
     private ArrayList<String> productCodeList = new ArrayList<>();
+    private ArrayList<String> productCategoryList = new ArrayList<>();
     private ArrayList<String> variationList = new ArrayList<>();
     private ArrayList<String> quantityList = new ArrayList<>();
     private ArrayList<String> addOnsList = new ArrayList<>();
@@ -76,6 +78,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_up_payment);
+        waitingTime = findViewById(R.id.waitingTime);
         arrowBack = findViewById(R.id.arrow_back);
         total = findViewById(R.id.total);
         pickUpOrder = findViewById(R.id.pickUpOrder);
@@ -88,6 +91,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
         Intent intent = getIntent();
         date = intent.getStringExtra("date");
         time = intent.getStringExtra("time");
+        orderTime = intent.getStringExtra("orderTime");
         pickUpOrder.setEnabled(false);
         showOrders();
         PickUpOrders();
@@ -211,6 +215,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
                    String lname = SharedPreference.getSharedPreference(PickUpPayment.this).setLname();
                    String email = SharedPreference.getSharedPreference(PickUpPayment.this).setEmail();
                    String accountName = fname.concat(lname);
+                   String estTime = waitingTime.getText().toString();
                    String address = "";
                    String labelAddress = "";
                    String phoneNumber = "";
@@ -221,7 +226,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
                    RadioButton radioButton = findViewById(selectedPayment);
                    String paymentType = radioButton.getText().toString();
                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time,0);
+                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time,0,estTime);
                    insertOrder.enqueue(new Callback<CartModel>() {
                        @Override
                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -259,8 +264,53 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     }
 
     @Override
+    public void onProductCategoryChange(ArrayList<String> category) {
+        productCategoryList = category;
+
+    }
+
+    @Override
     public void onProductCodeChange(ArrayList<String> productCodes) {
         productCodeList = productCodes;
+        Toast.makeText(getApplicationContext(), String.valueOf(productCodeList), Toast.LENGTH_SHORT).show();
+        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        Call<List<SettingsModel>> callId = apiInterface.getSettings(productCodeList);
+        callId.enqueue(new Callback<List<SettingsModel>>() {
+            @Override
+            public void onResponse(Call<List<SettingsModel>> call, Response<List<SettingsModel>> response) {
+
+                List<SettingsModel> settingsList = response.body();
+                for(SettingsModel list: settingsList) {
+                    Toast.makeText(getApplicationContext(), list.getWaitingTime(), Toast.LENGTH_SHORT).show();
+                    int[] stocks = {1,8};
+                    int[] cartQuantity = {1,7};
+                    ArrayList<String> strBool = new ArrayList<>();
+                    for(int i=0; i<stocks.length; i++){
+                        if(cartQuantity[i]<=stocks[i]){
+                            strBool.add("True");
+                        }
+                        else{
+                            strBool.add("False");
+                        }
+
+                        if(strBool.contains("False")){
+                            Toast.makeText(getApplicationContext(), "You can't pick up anytime",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "Pick up anytime",Toast.LENGTH_SHORT).show();
+                        }
+                        Toast.makeText(getApplicationContext(), String.valueOf(strBool),Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<SettingsModel>> call, Throwable t) {
+
+            }
+
+        });
     }
 
     @Override

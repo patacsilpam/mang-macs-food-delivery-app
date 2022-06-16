@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +34,7 @@ import retrofit2.Response;
 public class BilaoListDetail extends AppCompatActivity {
     private RelativeLayout priceLayout;
     private ImageView imageView;
-    private TextView productName,price,productCode,singleVariation;
+    private TextView productName,price,productCode,sidePrice;
     private TextView txt_arrow_back,status,customerId,fname,lname;
     private TextInputLayout bilaoAddOns;
     private EditText quantity;
@@ -41,7 +42,7 @@ public class BilaoListDetail extends AppCompatActivity {
     private RadioButton radioButton;
     private RadioGroup rdVariation;
     private int count = 1;
-    private String image;
+    private String image,category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,6 @@ public class BilaoListDetail extends AppCompatActivity {
         imageView = findViewById(R.id.image);
         productName = findViewById(R.id.bilaoproductName);
         bilaoAddOns = findViewById(R.id.bilaoadd_ons);
-        singleVariation = findViewById(R.id.singleVariation);
         status = findViewById(R.id.status);
         customerId = findViewById(R.id.customerId);
         fname = findViewById(R.id.fname);
@@ -115,109 +115,47 @@ public class BilaoListDetail extends AppCompatActivity {
         Intent intent = getIntent();
         image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
+        category = intent.getStringExtra("productCategory");
         String productprice = intent.getStringExtra("groupPriceBilao");
         String productvariation = intent.getStringExtra("productVariationBilao");
-        String newProductStatus = intent.getStringExtra("status");
+        String newProductStatus = intent.getStringExtra("preparationTime");
         String groupCode = intent.getStringExtra("groupCode");
         String customerID = SharedPreference.getSharedPreference(BilaoListDetail.this).setEmail();
         String firstname = SharedPreference.getSharedPreference(BilaoListDetail.this).setFname();
         String lastname = SharedPreference.getSharedPreference(BilaoListDetail.this).setLname();
+        String[] splitVariation = productvariation.split(",");
+        String[] splitPrice = productprice.split(",");
         if(intent != null){
             Glide.with(BilaoListDetail.this).load(image).into(imageView);
             productName.setText(productname);
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);
-            String[] splitPrice = productprice.split(","); //split product price
-            String[] splitVariation = productvariation.split(",");//split product variation or category
-            String[] splitCode = groupCode.split(",");//split product code
-            String[] splitStatus = newProductStatus.split(",");
-            if(splitVariation.length == 1){
-                status.setText(newProductStatus);
-                productCode.setText(groupCode);
-                price.setText(productprice);
-                singleVariation.setText(productvariation);
-                status.setVisibility(View.VISIBLE);
-                singleVariation.setVisibility(View.VISIBLE);
-                priceLayout.setVisibility(View.VISIBLE);
-                rdVariation.setVisibility(View.GONE);
-                String statusColor = status.getText().toString();
-                if (statusColor.equals("In Stock")){
-                    status.setTextColor(Color.parseColor("#36c76b"));
-                }
-                else{
-                    status.setTextColor(Color.RED);
-                }
+            status.setText(newProductStatus.concat("min"));
+            price.setText(splitPrice[0]);
+            for (int i = 0; i<splitVariation.length; i++){
+                radioButton = new RadioButton(this);
+                radioButton.setText(splitVariation[i]);
+                radioButton.setTextAppearance(this, android.R.style.TextAppearance);
+                rdVariation.addView(radioButton);
 
             }
-            else{
-                for (int i = 0; i<splitVariation.length; i++){
-                    RadioButton radioButton = new RadioButton(this);
-                    radioButton.setText(splitVariation[i]);
-                    rdVariation.addView(radioButton);
-                    rdVariation.setVisibility(View.VISIBLE);
-                    String statusColor = status.getText().toString();
-                    if (statusColor.equals("In Stock")){
-                        status.setTextColor(Color.parseColor("#36c76b"));
-                    }
-                    else{
-                        status.setTextColor(Color.RED);
-                    }
-                }
-            }
+            //get radio button text
             rdVariation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    int selectedVariation = rdVariation.getCheckedRadioButtonId();
-                    radioButton = findViewById(selectedVariation);
-                    String variation = radioButton.getText().toString();
-                    priceLayout.setVisibility(View.VISIBLE);
-                    status.setVisibility(View.VISIBLE);
-                    String[] splitPrice = productprice.split(",");
-                    String[] splitStatus = newProductStatus.split(",");
-                    String[] splitCode = groupCode.split(",");
-                    try {
-                        if(variation.equals("7-10 Person")){
-                            price.setText(splitPrice[0]);
-                            status.setText(splitStatus[0]);
-                            productCode.setText(splitCode[0]);
-                            String statusColor = status.getText().toString();
-                            if (statusColor.equals("In Stock")){
-                                status.setTextColor(Color.parseColor("#36c76b"));
-                            }
-                            else{
-                                status.setTextColor(Color.RED);
-                            }
-                        }
-                        else if(variation.equals("10-15 Person")){
-                            price.setText(splitPrice[1]);
-                            status.setText(splitStatus[1]);
-                            productCode.setText(splitCode[1]);
-                            String statusColor = status.getText().toString();
-                            if (statusColor.equals("In Stock")){
-                                status.setTextColor(Color.parseColor("#36c76b"));
-                            }
-                            else{
-                                status.setTextColor(Color.RED);
-                            }
-                        }
-                        else{
-                            price.setText(splitPrice[2]);
-                            status.setText(splitStatus[2]);
-                            productCode.setText(splitCode[2]);
-                            String statusColor = status.getText().toString();
-                            if (statusColor.equals("In Stock")){
-                                status.setTextColor(Color.parseColor("#36c76b"));
-                            }
-                            else{
-                                status.setTextColor(Color.RED);
-                            }
-                        }
+                    int selectSize = rdVariation.getCheckedRadioButtonId();
+                    radioButton = findViewById(selectSize);
+                    String variation =  radioButton.getText().toString();
+                    if(variation.contains("7 - 10 Person")){
+                        price.setText(splitPrice[0]);
                     }
-                    catch (Exception e){
-
+                    else if(variation.contains("10 -15 Person")){
+                        price.setText(splitPrice[1]);
                     }
-
+                    else{
+                        price.setText(splitPrice[2]);
+                    }
                 }
             });
         }
@@ -236,13 +174,13 @@ public class BilaoListDetail extends AppCompatActivity {
                     String code = productCode.getText().toString();
                     String product = productName.getText().toString();
                     String add_ons = bilaoAddOns.getEditText().getText().toString();
-                    String getSingleVar = singleVariation.getText().toString();
+                    String getSingleVar = "";
                     int prices = Integer.parseInt(price.getText().toString());
                     int number = Integer.parseInt(quantity.getText().toString());
                     String firstName = fname.getText().toString();
                     String lastName = lname.getText().toString();
                     ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,getSingleVar,firstName,lastName,prices,number,add_ons,image);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,getSingleVar,firstName,lastName,prices,number,add_ons,image);
                     cartModelCall.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -274,7 +212,7 @@ public class BilaoListDetail extends AppCompatActivity {
                     String firstName = fname.getText().toString();
                     String lastName = lname.getText().toString();
                     ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,variation,firstName,lastName,prices,number,add_ons,image);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,prices,number,add_ons,image);
                     cartModelCall.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {

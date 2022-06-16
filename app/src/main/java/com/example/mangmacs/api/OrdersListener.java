@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public interface OrdersListener {
     void onProductsChange(ArrayList<String> products);
+    void onProductCategoryChange(ArrayList<String> category);
     void onProductCodeChange(ArrayList<String> productCode);
     void onVariationChange(ArrayList<String> variations);
     void onQuantityChange(ArrayList<String> quantity);

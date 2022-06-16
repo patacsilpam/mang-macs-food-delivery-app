@@ -13,6 +13,8 @@ public class CartModel {
     private String productCodeCart;
     @SerializedName("productName")
     private String prooductNameCart;
+    @SerializedName("productCategory")
+    private String productCategory;
     @SerializedName("variation")
     private String variationCart;
     @SerializedName("fname")
@@ -33,13 +35,16 @@ public class CartModel {
     private String totalcart;
     @SerializedName("imageProduct")
     private String imageProduct;
+   // @SerializedName("waitingTime")
+    //private String waitingTime;
 
-    public CartModel(String success, String emailCart, int productId, String productCodeCart, String prooductNameCart, String variationCart, String fnameCart, String lnameCart, int priceCart, int quantityCart, int totalprice, int deliveryChange, String add_onsCart, String totalcart, String imageProduct) {
+    public CartModel(String success, String emailCart, int productId, String productCodeCart, String prooductNameCart, String productCategory, String variationCart, String fnameCart, String lnameCart, int priceCart, int quantityCart, int totalprice, int deliveryChange, String add_onsCart, String totalcart, String imageProduct) {
         this.success = success;
         this.emailCart = emailCart;
         this.productId = productId;
         this.productCodeCart = productCodeCart;
         this.prooductNameCart = prooductNameCart;
+        this.productCategory = productCategory;
         this.variationCart = variationCart;
         this.fnameCart = fnameCart;
         this.lnameCart = lnameCart;
@@ -50,6 +55,7 @@ public class CartModel {
         this.add_onsCart = add_onsCart;
         this.totalcart = totalcart;
         this.imageProduct = imageProduct;
+      //  this.waitingTime = waitingTime;
     }
 
     public String getSuccess() {
@@ -70,6 +76,10 @@ public class CartModel {
 
     public String getProoductNameCart() {
         return prooductNameCart;
+    }
+
+    public String getProductCategory() {
+        return productCategory;
     }
 
     public String getVariationCart() {
@@ -111,4 +121,8 @@ public class CartModel {
     public String getImageProduct() {
         return imageProduct;
     }
+
+   /* public String getWaitingTime() {
+        return waitingTime;
+    }*/
 }

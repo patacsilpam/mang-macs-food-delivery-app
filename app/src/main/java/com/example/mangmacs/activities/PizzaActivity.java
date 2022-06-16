@@ -29,11 +29,14 @@ public class PizzaActivity extends AppCompatActivity {
     private PizzaAdapter pizzaAdapter;
     private TextView btnArrowBack;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private View emptyProduct;
+    private int countProduct = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pizza);
         btnArrowBack = findViewById(R.id.arrow_back);
+        emptyProduct = findViewById(R.id.emptyProduct);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -61,6 +64,13 @@ public class PizzaActivity extends AppCompatActivity {
                 pizzaList = response.body();
                 pizzaAdapter = new PizzaAdapter(PizzaActivity.this,pizzaList);
                 recyclerView.setAdapter(pizzaAdapter);
+                countProduct = pizzaAdapter.getItemCount();
+                if(countProduct == 0){
+                    emptyProduct.setVisibility(View.VISIBLE);
+                }
+                else{
+                    emptyProduct.setVisibility(View.GONE);
+                }
                 refresh();
             }
 
@@ -82,6 +92,13 @@ public class PizzaActivity extends AppCompatActivity {
                         pizzaList = response.body();
                         pizzaAdapter = new PizzaAdapter(PizzaActivity.this,pizzaList);
                         recyclerView.setAdapter(pizzaAdapter);
+                        countProduct = pizzaAdapter.getItemCount();
+                        if(countProduct == 0){
+                            emptyProduct.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            emptyProduct.setVisibility(View.GONE);
+                        }
                         refresh();
                     }
 

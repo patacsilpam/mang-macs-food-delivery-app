@@ -45,6 +45,7 @@ public class orderNow extends Fragment {
                 Intent intent = new Intent(getContext(),AdressList.class);
                 intent.putExtra("date",strDate);
                 intent.putExtra("time",strTime);
+                intent.putExtra("orderTime",strTime);
                 startActivity(intent);
             }
         });

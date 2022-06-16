@@ -35,6 +35,8 @@ public class CurrentOrdersModel {
     private String orderId;
     @SerializedName("product_name")
     private String products;
+    @SerializedName("productCategory")
+    private String category;
     @SerializedName("product_variation")
     private String variations;
     @SerializedName("quantity")
@@ -62,8 +64,10 @@ public class CurrentOrdersModel {
     private String orderStatus;
     @SerializedName("completed_time")
     private String completedTime;
+    @SerializedName("waiting_time")
+    private String waitingTime;
 
-    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime) {
+    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime) {
         this.success = success;
         this.id = id;
         this.productCode = productCode;
@@ -79,6 +83,7 @@ public class CurrentOrdersModel {
         this.orderNumber = orderNumber;
         this.orderId = orderId;
         this.products = products;
+        this.category = category;
         this.variations = variations;
         this.quantities = quantities;
         this.addOns = addOns;
@@ -92,6 +97,7 @@ public class CurrentOrdersModel {
         this.orderType = orderType;
         this.orderStatus = orderStatus;
         this.completedTime = completedTime;
+        this.waitingTime = waitingTime;
     }
 
     public String getSuccess() {
@@ -154,6 +160,10 @@ public class CurrentOrdersModel {
         return products;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     public String getVariations() {
         return variations;
     }
@@ -204,5 +214,9 @@ public class CurrentOrdersModel {
 
     public String getCompletedTime() {
         return completedTime;
+    }
+
+    public String getWaitingTime() {
+        return waitingTime;
     }
 }

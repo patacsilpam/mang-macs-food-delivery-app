@@ -30,7 +30,7 @@ public class BilaoAdapter extends RecyclerView.Adapter<BilaoAdapter.ProductViewH
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.bilao_list,null);
+        View view = layoutInflater.inflate(R.layout.product_lists,null);
         return new ProductViewHolder(view);
     }
 
@@ -41,18 +41,21 @@ public class BilaoAdapter extends RecyclerView.Adapter<BilaoAdapter.ProductViewH
                 .load(pancitBilaoListModel.getImage())
                 .into(holder.image);
         holder.textProductName.setText(pancitBilaoListModel.getProductName());
-        holder.textProductPrice.setText("₱ "+String.valueOf(pancitBilaoListModel.getPrice()+" .00"));
+        holder.textProductPrice.setText("₱ "+String.valueOf(pancitBilaoListModel.getPrice()+".00"));
+        holder.textDevTime.setText(pancitBilaoListModel.getPreparationTime().concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, BilaoListDetail.class);
                 intent.putExtra("image",pancitBilaoListModel.getImage());
                 intent.putExtra("productName",pancitBilaoListModel.getProductName());
+                intent.putExtra("productCategory",pancitBilaoListModel.getProductCategoryBilao());
                 intent.putExtra("price",pancitBilaoListModel.getPrice());
-                intent.putExtra("status",pancitBilaoListModel.getStatus());
                 intent.putExtra("productVariationBilao",pancitBilaoListModel.getProductVariation());
                 intent.putExtra("groupPriceBilao",pancitBilaoListModel.getGroupPriceBilao());
                 intent.putExtra("groupCode",pancitBilaoListModel.getGroupCode());
+                intent.putExtra("stocks",pancitBilaoListModel.getStocks());
+                intent.putExtra("preparationTime",pancitBilaoListModel.getPreparationTime());
                 context.startActivity(intent);
             }
         });
@@ -65,7 +68,7 @@ public class BilaoAdapter extends RecyclerView.Adapter<BilaoAdapter.ProductViewH
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView textProductName,textProductPrice;
+        TextView textProductName,textProductPrice,textDevTime;
         CardView productContainer;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +76,7 @@ public class BilaoAdapter extends RecyclerView.Adapter<BilaoAdapter.ProductViewH
             textProductName = itemView.findViewById(R.id.productName);
             textProductPrice = itemView.findViewById(R.id.productPrice);
             productContainer = itemView.findViewById(R.id.productContainer);
+            textDevTime = itemView.findViewById(R.id.devTime);
         }
     }
 }

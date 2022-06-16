@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.mangmacs.adapter.PastaAdapter;
-import com.example.mangmacs.model.PastaListModel;
 import com.example.mangmacs.R;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.api.ApiInterface;
+import com.example.mangmacs.model.ProductListModel;
 
 import java.util.List;
 
@@ -24,16 +24,19 @@ import retrofit2.Response;
 
 public class PastaActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private List<PastaListModel> pastaList;
+    private List<ProductListModel> pastaList;
     private ApiInterface apiInterface;
     private PastaAdapter pastaAdapter;
     private TextView btnArrowBack;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private View emptyProduct;
+    private int countProduct = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pasta);
         btnArrowBack = findViewById(R.id.arrow_back);
+        emptyProduct = findViewById(R.id.emptyProduct);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -55,18 +58,25 @@ public class PastaActivity extends AppCompatActivity {
 
     private void ShowPastaLists() {
         //call pasta list model
-        Call<List<PastaListModel>> call= apiInterface.getPasta();
-        call.enqueue(new Callback<List<PastaListModel>>() {
+        Call<List<ProductListModel>> call= apiInterface.getPasta();
+        call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
-            public void onResponse(Call<List<PastaListModel>> call, Response<List<PastaListModel>> response) {
+            public void onResponse(Call<List<ProductListModel>> call, Response<List<ProductListModel>> response) {
                 pastaList = response.body();
                 pastaAdapter = new PastaAdapter(PastaActivity.this,pastaList);
                 recyclerView.setAdapter(pastaAdapter);
+                countProduct = pastaAdapter.getItemCount();
+                if(countProduct == 0){
+                    emptyProduct.setVisibility(View.VISIBLE);
+                }
+                else{
+                    emptyProduct.setVisibility(View.GONE);
+                }
                 refresh();
             }
 
             @Override
-            public void onFailure(Call<List<PastaListModel>> call, Throwable t) {
+            public void onFailure(Call<List<ProductListModel>> call, Throwable t) {
 
             }
         });
@@ -76,18 +86,25 @@ public class PastaActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Call<List<PastaListModel>> call= apiInterface.getPasta();
-                call.enqueue(new Callback<List<PastaListModel>>() {
+                Call<List<ProductListModel>> call= apiInterface.getPasta();
+                call.enqueue(new Callback<List<ProductListModel>>() {
                     @Override
-                    public void onResponse(Call<List<PastaListModel>> call, Response<List<PastaListModel>> response) {
+                    public void onResponse(Call<List<ProductListModel>> call, Response<List<ProductListModel>> response) {
                         pastaList = response.body();
                         pastaAdapter = new PastaAdapter(PastaActivity.this,pastaList);
                         recyclerView.setAdapter(pastaAdapter);
+                        countProduct = pastaAdapter.getItemCount();
+                        if(countProduct == 0){
+                            emptyProduct.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            emptyProduct.setVisibility(View.GONE);
+                        }
                         refresh();
                     }
 
                     @Override
-                    public void onFailure(Call<List<PastaListModel>> call, Throwable t) {
+                    public void onFailure(Call<List<ProductListModel>> call, Throwable t) {
 
                     }
                 });

@@ -18,6 +18,7 @@ import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CurrentOrdersModel;
+import com.example.mangmacs.model.SettingsModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +27,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
-    private TextView orderStatus,orderNumber,orderType,totalAmount,arrowBack;
+public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener{
+    private TextView orderStatus,orderNumber,orderType,totalAmount,arrowBack,estTime;
     private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryTime,paymentMethod,deliveryFee;
     private CardView deliveryDetails,pickUpDetails,dineInDetails,devTimeDetails,paymentMethodDetails,deliveryFeeDetails;
     private RecyclerView newOrderDetailLists;
-    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee;
+    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
     @Override
@@ -39,6 +40,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_order_details);
         arrowBack = findViewById(R.id.arrow_back);
+        estTime = findViewById(R.id.estTime);
         orderNumber = findViewById(R.id.orderNumber);
         orderStatus = findViewById(R.id.orderStatus);
         orderType = findViewById(R.id.orderType);
@@ -87,10 +89,12 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         newOrderNumber = intent.getStringExtra("orderNumber");
         newPaymentMethod = intent.getStringExtra("paymentMethod");
         newDeliveryFee = intent.getStringExtra("deliveryFee");
-        Toast.makeText(getApplicationContext(),newDeliveryFee,Toast.LENGTH_SHORT).show();
+        newRequiredTme = intent.getStringExtra("requiredTime");
+        newRequiredDate = intent.getStringExtra("requiredDate");
+        newWaitingTime = intent.getStringExtra("waitingTime");
         orderStatus.setText(newOrderStatus);
         orderType.setText(newOrderType);
-        orderNumber.setText(newOrderNumber);
+        orderNumber.setText("#".concat(newOrderNumber));
         deliveryTime.setText(newDeliveryTime);
         paymentMethod.setText(newPaymentMethod);
         deliveryFee.setText(newDeliveryFee);
@@ -124,12 +128,19 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             deliveryDetails.setVisibility(View.GONE);
             deliveryFeeDetails.setVisibility(View.GONE);
         }
+
+        if(newRequiredTme.contains("now")){
+
+            estTime.setText(newWaitingTime);
+        }
+        else{
+            estTime.setText(newRequiredDate.concat(" ").concat(newRequiredTme));
+        }
     }
     private void showOrders(){
         String email = SharedPreference.getSharedPreference(this).setEmail();
-        String number = orderNumber.getText().toString();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        Call<List<CurrentOrdersModel>> call = apiInterface.getNewOrderDetails(email,number);
+        Call<List<CurrentOrdersModel>> call = apiInterface.getNewOrderDetails(email,newOrderNumber);
         call.enqueue(new Callback<List<CurrentOrdersModel>>() {
             @Override
             public void onResponse(Call<List<CurrentOrdersModel>> call, Response<List<CurrentOrdersModel>> response) {
@@ -157,6 +168,11 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
 
     @Override
     public void onProductsChange(ArrayList<String> products) {
+
+    }
+
+    @Override
+    public void onProductCategoryChange(ArrayList<String> category) {
 
     }
 

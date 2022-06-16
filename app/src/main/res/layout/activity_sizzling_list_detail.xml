@@ -32,42 +32,51 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:fontFamily="@font/roboto_medium"/>
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp">
+                android:layout_gravity="top|right"
+                android:layout_marginTop="-25dp">
                 <TextView
                     android:id="@+id/pesoSign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="20sp"
+                    android:textColor="@color/pressed"
                     android:text="₱ " />
                 <TextView
                     android:id="@+id/seafoodsproductPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/pesoSign"
-                    android:textSize="14sp"
+                    android:textSize="20sp"
+                    android:textColor="@color/pressed"
                     android:text="0" />
                 <TextView
                     android:id="@+id/decimal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/seafoodsproductPrice"
-                    android:textSize="14sp"
+                    android:textSize="20sp"
+                    android:textColor="@color/pressed"
                     android:text=".00" />
             </RelativeLayout>
             <TextView
                 android:id="@+id/status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/seafoodsproductName"
-                android:textColor="#303030"
-                android:textSize="14sp"
-                android:text=""/>
+                android:layout_width="85dp"
+                android:layout_height="30dp"
+                android:layout_toEndOf="@+id/preparationTime"
+                android:padding="3dp"
+                android:text=""
+                android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginTop="10dp"
+                android:textColor="#616161"
+                android:background="@drawable/gray_square"
+                android:drawableStart="@drawable/ic_baseline_access_clock"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

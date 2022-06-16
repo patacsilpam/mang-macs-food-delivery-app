@@ -22,11 +22,13 @@ import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.adapter.DeliveryAddressAdapter;
 import com.example.mangmacs.adapter.MyAddressAdapter;
 import com.example.mangmacs.api.ApiInterface;
+import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.AddressListModel;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Circle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -42,6 +44,7 @@ public class AdressList extends AppCompatActivity {
     private ProgressBar progressBar;
     private RelativeLayout chooseAddressLayout;
     private String fullname,phoneNumber,address,labelAddress;
+    private int isChecked = 0;
     private View emptyAddress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class AdressList extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         chooseAddress = findViewById(R.id.chooseAddress);
+        emptyAddress.setVisibility(View.GONE);
+        chooseAddress.setEnabled(false);
         ShowAddress();
         Back();
         ChooseAddress();
@@ -67,10 +72,12 @@ public class AdressList extends AppCompatActivity {
         Intent intent = getIntent();
         String date = intent.getStringExtra("date");
         String time = intent.getStringExtra("time");
+        String orderTime = intent.getStringExtra("orderTime");
         chooseAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(getApplicationContext(),PaymentActivity.class);
+                intent1.putExtra("orderTime",orderTime);
                 intent1.putExtra("date",date);
                 intent1.putExtra("time",time);
                 intent1.putExtra("fullName",fullname);
@@ -134,6 +141,14 @@ public class AdressList extends AppCompatActivity {
             phoneNumber = intent.getStringExtra("phoneNumber");
             address = intent.getStringExtra("address");
             labelAddress = intent.getStringExtra("labelAddress");
+            isChecked = intent.getIntExtra("checkedButton",0);
+            if(isChecked == 0){
+               chooseAddress.setEnabled(false);
+            }
+            else{
+                chooseAddress.setEnabled(true);
+            }
         }
     };
+
 }

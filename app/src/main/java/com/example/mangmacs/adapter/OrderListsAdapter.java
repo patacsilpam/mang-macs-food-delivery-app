@@ -37,6 +37,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
     ArrayList<String> priceList = new ArrayList<>();
     ArrayList<String> subTotalList = new ArrayList<>();
     ArrayList<String> imgProductList = new ArrayList<>();
+    ArrayList<String> productCategoryList = new ArrayList<>();
     public OrderListsAdapter(Context context, List<CartModel> orderList,OrdersListener ordersListener){
         this.context = context;
         this.orderList = orderList;
@@ -70,6 +71,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         String str_newPrice = String.valueOf(orderModel.getPriceCart());
         String str_newImgProduct = orderModel.getImageProduct();
         String str_subTotal = String.valueOf(orderModel.getQuantityCart() * orderModel.getPriceCart());
+        String str_productCategory = orderModel.getProductCategory();
 
         productList.add(str_product);
         productCodeList.add(str_productCode);
@@ -79,11 +81,14 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         subTotalList.add(str_subTotal);
         priceList.add(str_newPrice);
         imgProductList.add(str_newImgProduct);
+        productCategoryList.add(str_productCategory);
         Intent intent = new Intent("TotalOrderPrice");
         intent.putExtra("totalorderprice",orderModel.getTotalprice());
         intent.putExtra("deliveryChange",orderModel.getDeliveryChange());
+        //intent.putExtra("waitingTime",orderModel.getW());
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         ordersListener.onProductsChange(productList);
+        ordersListener.onProductCategoryChange(productCategoryList);
         ordersListener.onProductCodeChange(productCodeList);
         ordersListener.onVariationChange(variationList);
         ordersListener.onQuantityChange(quantityList);
