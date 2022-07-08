@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:text="Special Instruction"
+                android:text="Special Request"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/roboto"/>
@@ -92,6 +92,51 @@
                 android:paddingBottom="10dp"
                 android:fontFamily="@font/roboto_light"
                 android:text="Add instructions for your order" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/baseCardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewIngredients"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="View main ingredients" />
+                        <ImageView
+                            android:id="@+id/showIngredients"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/textViewIngredients"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:id="@+id/ingredientLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/ingredients"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_light"
+                            android:text=""
+                            android:textColor="#3A3A3A"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/pastaadd_ons"
                 android:layout_width="match_parent"

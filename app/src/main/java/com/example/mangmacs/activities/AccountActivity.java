@@ -84,8 +84,8 @@ public class AccountActivity extends AppCompatActivity {
                         return true;
                     case R.id.account:
                         return true;
-                    case R.id.notif:
-                        startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
+                    case R.id.promo:
+                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

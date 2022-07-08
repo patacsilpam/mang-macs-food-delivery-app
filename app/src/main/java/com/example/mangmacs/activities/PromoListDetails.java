@@ -1,6 +1,7 @@
 package com.example.mangmacs.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,14 +24,18 @@ import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PromoListDetails extends AppCompatActivity {
-    private ImageView imageView;
+    private LinearLayout ingredientsLayout;
+    private CardView baseCardview;
+    private ImageView imageView,showIngredients;
     private TextView txt_arrow_back;
-    private TextView productName,productPrice,status,customerId,fname,lname,productCode,variation;
+    private TextView productName,productPrice,ingredients,status,customerId,fname,lname,productCode,variation;
     private TextInputLayout promoAddOns;
     private EditText quantity;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
@@ -53,12 +59,32 @@ public class PromoListDetails extends AppCompatActivity {
         variation = findViewById(R.id.variation);
         btnAddtoCart = findViewById(R.id.btnAddtoCartPromo);
         quantity = findViewById(R.id.quantity);
+        ingredients = findViewById(R.id.ingredients);
+        showIngredients = findViewById(R.id.showIngredients);
+        ingredientsLayout = findViewById(R.id.ingredientLayout);
+        baseCardview = findViewById(R.id.baseCardview);
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
         btnDecrement.setEnabled(false); //set button decrement not clickable
+        ShowIngredients();
         IncrementDecrement();
         DisplayProductDetails();
         Back();
+    }
+    private void ShowIngredients(){
+        showIngredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ingredientsLayout.getVisibility() == View.GONE){
+                    ingredientsLayout.setVisibility(View.VISIBLE);
+                    showIngredients.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+                }
+                else{
+                    ingredientsLayout.setVisibility(View.GONE);
+                    showIngredients.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+                }
+            }
+        });
     }
     private void IncrementDecrement() {
         //button increment
@@ -112,6 +138,7 @@ public class PromoListDetails extends AppCompatActivity {
         String productstatus = intent.getStringExtra("preparationTime");
         String code = intent.getStringExtra("code");
         String newVariation = intent.getStringExtra("variation");
+        String newIngredients =intent.getStringExtra("mainIngredients");
         String firstname = SharedPreference.getSharedPreference(PromoListDetails.this).setFname();
         String lastname = SharedPreference.getSharedPreference(PromoListDetails.this).setLname();
         String customerID = SharedPreference.getSharedPreference(PromoListDetails.this).setEmail();
@@ -119,6 +146,7 @@ public class PromoListDetails extends AppCompatActivity {
             Glide.with(PromoListDetails.this).load(image).into(imageView);
             productName.setText(productname);
             productPrice.setText(Integer.toString(productprice));
+            ingredients.setText(newIngredients.toLowerCase(Locale.ROOT));
             status.setText(productstatus.concat(" min"));
             customerId.setText(customerID);
             fname.setText(firstname);
@@ -142,8 +170,9 @@ public class PromoListDetails extends AppCompatActivity {
                 int price = Integer.parseInt(productPrice.getText().toString());
                 int number = Integer.parseInt(quantity.getText().toString());
                 String add_ons = promoAddOns.getEditText().getText().toString();
+                String preparedTime = status.getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,number,add_ons,image);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,number,add_ons,image,preparedTime);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -151,6 +180,7 @@ public class PromoListDetails extends AppCompatActivity {
                             String success =response.body().getSuccess();
                             if(success.equals("1")){
                                 Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(),home_activity.class));
                             }
                         }
                     }

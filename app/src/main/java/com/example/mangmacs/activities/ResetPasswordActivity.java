@@ -3,17 +3,33 @@ package com.example.mangmacs.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mangmacs.Config;
 import com.example.mangmacs.R;
+import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.UpdateAccountModel;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import java.util.TimeZone;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +39,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private TextView backVerification;
     private TextInputLayout newPword,confirmPword;
     private Button btnResetPword;
+    private Session session;
+    private String email,fname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +49,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         confirmPword = findViewById(R.id.resetConfirmPword);
         btnResetPword = findViewById(R.id.btnResetPword);
         backVerification = findViewById(R.id.backVerification);
+        fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
         BackVerification();
         ResetPassword();
     }
@@ -57,7 +76,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 }
                 else{
                     Intent intent = getIntent();
-                    String email = intent.getStringExtra("email");
+                     email = intent.getStringExtra("email");
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                     Call<UpdateAccountModel> passwordCall = apiInterface.resetPassword(email,newPassword,confirmPassword);
                     passwordCall.enqueue(new Callback<UpdateAccountModel>() {
@@ -68,6 +87,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                 String message = response.body().getMessage();
                                 if(success.equals("1")){
                                     startActivity(new Intent(ResetPasswordActivity.this,LoginActivity.class));
+                                    resetPassword();
                                 }
                                 else{
                                     Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
@@ -87,6 +107,64 @@ public class ResetPasswordActivity extends AppCompatActivity {
         });
     }
 
+    private void resetPassword() {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+        session = javax.mail.Session.getDefaultInstance(props,
+                new javax.mail.Authenticator(){
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(Config.EMAIL,Config.PASSWORD);
+                    }
+                });
+        try {
+            //get current time
+            Date newDate = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("hh:mm:ss");
+            df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
+            String getCurrentTime = String.valueOf(df.format(newDate));
+            //
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.setFrom(new InternetAddress(Config.EMAIL));
+            mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(email)));
+            mimeMessage.setSubject("Your Mang Mac's Password has been change");
+            mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
+                    "<header style='display: flex; align-items: center;'>\n" +
+                    "  <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                    "  <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
+                    "</header>\n" +
+                    "<article style=\"display: flex; justify-content:center; align-items:center; flex-direction:column;\">\n" +
+                    "   <img src='checkmark.png' width='70' alt='checked'>" +
+                    "   <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Hi "+ fname +",</p>" +
+                    "   <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>\nyour password has been changed on" +getCurrentTime+".</p>\n" +
+                    "</article>"+
+                    "<footer style='text-align: center; margin-top: 30px;'>\n" +
+                    "   <p style='margin: 10px 0 5px 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>from</p>\n" +
+                    "   <strong style='font-family: Arial, Helvetica, sans-serif;'>MangMac's Foodshop</strong>\n" +
+                    "   <p style='margin: 7px 0 0 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Zone 5, Brgy. Sta. Lucia Bypass Road,<br>Urdaneta Philippines</p>\n" +
+                    "</footer>\n" +
+                    "</main>", "text/html");
+            new SendEmail().execute(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class SendEmail extends AsyncTask<Message,String,String> {
+        @Override
+        protected String doInBackground(Message... messages) {
+            try {
+                Transport.send(messages[0]);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
     private void BackVerification() {
         backVerification.setOnClickListener(new View.OnClickListener() {
             @Override

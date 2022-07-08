@@ -3,8 +3,16 @@ package com.example.mangmacs.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +22,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MenuActivty extends AppCompatActivity {
-    private CardView promo,pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
+    private CardView pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
     private BottomNavigationView bottomNavigationView;
-    @Override
+       @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_activty);
@@ -24,7 +32,6 @@ public class MenuActivty extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.menu);
         BottomNav();
         //initialize ids
-        promo = findViewById(R.id.btnPromo);
         pizza = findViewById(R.id.btnPizza);
         appetizer = findViewById(R.id.appetizer);
         grilled = findViewById(R.id.grilled);
@@ -39,17 +46,10 @@ public class MenuActivty extends AppCompatActivity {
         dessert = findViewById(R.id.dessert);
         pulutan = findViewById(R.id.pulutan);
         wine = findViewById(R.id.wine);
-
-        Activites();
+               Activites();
     }
 
     private void Activites() {
-        promo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MenuActivty.this, PromoActivity.class));
-            }
-        });
         pizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,8 +148,8 @@ public class MenuActivty extends AppCompatActivity {
                         return true;
                     case R.id.menu:
                         return true;
-                    case R.id.notif:
-                        startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
+                    case R.id.promo:
+                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.reservation:

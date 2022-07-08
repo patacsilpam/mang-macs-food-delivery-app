@@ -5,49 +5,79 @@
     android:layout_height="match_parent"
     android:background="#1DC2C2C6"
     tools:context=".activities.AdressList">
+
     <RelativeLayout
         android:id="@+id/chooseAddressLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white">
+
             <TextView
                 android:id="@+id/arrow_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_arrow_back"
-                android:padding="5dp"/>
+                android:padding="5dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose delivery address"/>
+                android:text="Choose delivery address" />
         </androidx.appcompat.widget.Toolbar>
-        <com.github.ybq.android.spinkit.SpinKitView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/spin_kit"
             style="@style/SpinKitView.Large.Circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             app:SpinKit_Color="@color/pressed" />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewAddress"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
-            android:scrollbars="vertical"
-            android:clipToPadding="false"
-            android:paddingBottom="100dp"/>
+            android:layout_below="@+id/toolbar"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toolbar"
+                android:clipToPadding="false"
+                android:scrollbars="vertical" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addNewAddress"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="50dp"
+                android:background="#FFFFFF"
+                android:drawableEnd="@drawable/ic_baseline_plus"
+                android:fontFamily="@font/roboto"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="Add new address"
+                android:textAllCaps="false"
+                android:textColor="#434141"
+                android:textSize="16sp" />
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:padding="20dp">
+
             <Button
                 android:id="@+id/chooseAddress"
                 android:layout_width="match_parent"
@@ -56,13 +86,12 @@
                 android:text="Next"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </RelativeLayout>
     </RelativeLayout>
     <include
         android:id="@+id/emptyAddress"
         layout="@layout/empty_address"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent" />
 </RelativeLayout>

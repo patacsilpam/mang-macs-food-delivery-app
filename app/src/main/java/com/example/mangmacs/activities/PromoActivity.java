@@ -15,9 +15,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mangmacs.R;
+import com.example.mangmacs.adapter.PopularAdapter;
 import com.example.mangmacs.adapter.PromoAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
+import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.model.PromoListModel;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Circle;
@@ -34,14 +36,18 @@ public class PromoActivity extends AppCompatActivity {
     private List<PromoListModel> promoListModel;
     private PromoAdapter promoAdapter;
     private RecyclerView recyclerViewPromo;
+    private BottomNavigationView bottomNavigationView;
     private ProgressBar progressBar;
     private TextView arrowBack;
     private View emptyPromo;
-    private int countPromo;
+    private int countPromo = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promo);
+        bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.promo);
         progressBar = findViewById(R.id.spin_kit);
         arrowBack = findViewById(R.id.arrow_back);
         emptyPromo = findViewById(R.id.emptyPromo);
@@ -51,6 +57,7 @@ public class PromoActivity extends AppCompatActivity {
         emptyPromo.setVisibility(View.GONE);
         showPromoProducts();
         Back();
+        BottomNav();
     }
     private void showPromoProducts(){
         Sprite circle = new Circle();
@@ -76,7 +83,35 @@ public class PromoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<PromoListModel>> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+    private void BottomNav() {
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), home_activity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.menu:
+                        startActivity(new Intent(getApplicationContext(), MenuActivty.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.reservation:
+                        startActivity(new Intent(getApplicationContext(), ReservationActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.account:
+                        startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.promo:
+                        return true;
+                }
+                return true;
             }
         });
     }
@@ -88,5 +123,4 @@ public class PromoActivity extends AppCompatActivity {
             }
         });
     }
-
 }

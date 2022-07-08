@@ -56,6 +56,7 @@ public class BilaoAdapter extends RecyclerView.Adapter<BilaoAdapter.ProductViewH
                 intent.putExtra("groupCode",pancitBilaoListModel.getGroupCode());
                 intent.putExtra("stocks",pancitBilaoListModel.getStocks());
                 intent.putExtra("preparationTime",pancitBilaoListModel.getPreparationTime());
+                intent.putExtra("mainIngredients",pancitBilaoListModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

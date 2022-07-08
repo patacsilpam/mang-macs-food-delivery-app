@@ -22,14 +22,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CurrentReservationActivity extends AppCompatActivity {
-    private TextView newReservedName,newPhoneNumber,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack;
+    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack;
     private Button bookingStatus,cancelBooking;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_reservation);
         newReservedName = findViewById(R.id.newReservedName);
-        newPhoneNumber = findViewById(R.id.newPhoneNumber);
         newEmailAddress = findViewById(R.id.newEmailAddress);
         newScheduledTime = findViewById(R.id.newScheduledTime);
         newGuests = findViewById(R.id.newGuests);
@@ -46,7 +45,6 @@ public class CurrentReservationActivity extends AppCompatActivity {
         String id = intent.getStringExtra("id");
         String firstname = intent.getStringExtra("firstName");
         String lastname = intent.getStringExtra("lastName");
-        String phoneNumber = intent.getStringExtra("phoneNumber");
         String emailAddress = intent.getStringExtra("email");
         String schedDate = intent.getStringExtra("schedDate");
         String schedTime = intent.getStringExtra("schedTime");
@@ -56,7 +54,6 @@ public class CurrentReservationActivity extends AppCompatActivity {
         String time = schedDate.concat(" - ").concat(schedTime);
         //display booking details
         newReservedName.setText(firstLastName);
-        newPhoneNumber.setText(phoneNumber);
         newEmailAddress.setText(emailAddress);
         newScheduledTime.setText(time);
         newGuests.setText(guests);

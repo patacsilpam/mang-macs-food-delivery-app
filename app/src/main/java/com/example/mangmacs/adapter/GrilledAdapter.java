@@ -55,6 +55,7 @@ public class GrilledAdapter extends RecyclerView.Adapter<GrilledAdapter.ProductV
                 intent.putExtra("code", productListModel.getCodeCombo());
                 intent.putExtra("status", productListModel.getStocks());
                 intent.putExtra("preparationTime",productListModel.getPreparationTime());
+                intent.putExtra("mainIngredients",productListModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

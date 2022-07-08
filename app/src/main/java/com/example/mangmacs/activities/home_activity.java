@@ -1,21 +1,32 @@
 package com.example.mangmacs.activities;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mangmacs.adapter.CartAdapter;
 import com.example.mangmacs.adapter.PopularAdapter;
+import com.example.mangmacs.api.OrderStatusListener;
+import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.R;
@@ -24,9 +35,13 @@ import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.api.ApiInterface;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Circle;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.iid.FirebaseInstanceIdReceiver;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.List;
 
@@ -34,7 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class home_activity extends AppCompatActivity {
+public class home_activity extends AppCompatActivity{
     private RecyclerView recyclerView,recyclerViewCart;
     private List<PopularListModel> popularList;
     private List<CartModel> cartList;
@@ -43,10 +58,11 @@ public class home_activity extends AppCompatActivity {
     private CartAdapter cartAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textName, btnSeeAll,totalCart;
-    private CardView  promo,pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
+    private CardView pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
     private FloatingActionButton floatingActionButton;
     private BottomNavigationView bottomNavigationView;
     private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +72,6 @@ public class home_activity extends AppCompatActivity {
         totalCart = findViewById(R.id.totalCart);
         bottomNavigationView =  findViewById(R.id.bottom_nav);
         //initialize ids
-        promo = findViewById(R.id.promo);
         pizza = findViewById(R.id.pizza);
         appetizer = findViewById(R.id.appetizer);
         grilled = findViewById(R.id.grilled);
@@ -86,7 +101,9 @@ public class home_activity extends AppCompatActivity {
         Activites();
         ShowPopularLists();
         CountCart();
+        createNotificationChannel();
     }
+
     private void CountCart(){
         String email = SharedPreference.getSharedPreference(this).setEmail();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -118,7 +135,7 @@ public class home_activity extends AppCompatActivity {
         Sprite circle = new Circle();
         progressBar.setIndeterminateDrawable(circle);
         progressBar.setVisibility(View.VISIBLE);
-        Call<List<PopularListModel>> call= apiInterface.getPopular();
+       Call<List<PopularListModel>> call= apiInterface.getPopular();
         call.enqueue(new Callback<List<PopularListModel>>() {
             @Override
             public void onResponse(Call<List<PopularListModel>> call, Response<List<PopularListModel>> response) {
@@ -142,12 +159,6 @@ public class home_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(home_activity.this,MenuActivty.class));
-            }
-        });
-        promo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(home_activity.this,PromoActivity.class));
             }
         });
         pizza.setOnClickListener(new View.OnClickListener() {
@@ -263,8 +274,8 @@ public class home_activity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.notif:
-                        startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
+                    case R.id.promo:
+                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -296,7 +307,14 @@ public class home_activity extends AppCompatActivity {
             }
         });
     }
-
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(sign_up_activity.CHANNEL_ID, sign_up_activity.CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(sign_up_activity.CHANNEL_DESC);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -305,5 +323,6 @@ public class home_activity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
 
 }

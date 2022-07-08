@@ -23,9 +23,11 @@ public class PancitBilaoListModel {
     private String preparationTime;
     @SerializedName("groupPreparationTime")
     private String groupPreparationTime;
+    @SerializedName("mainIngredients")
+    private String mainIngredients;
     // private float rating;
 
-    public PancitBilaoListModel(String productNameBilao, String productCategoryBilao, String productVariationBilao, String imageBilao, int priceBilao, String groupPriceBilao, String groupCode, String stocks, String preparationTime, String groupPreparationTime) {
+    public PancitBilaoListModel(String productNameBilao, String productCategoryBilao, String productVariationBilao, String imageBilao, int priceBilao, String groupPriceBilao, String groupCode, String stocks, String preparationTime, String groupPreparationTime,String mainIngredients) {
         this.productNameBilao = productNameBilao;
         this.productCategoryBilao = productCategoryBilao;
         this.productVariationBilao = productVariationBilao;
@@ -36,6 +38,7 @@ public class PancitBilaoListModel {
         this.stocks = stocks;
         this.preparationTime = preparationTime;
         this.groupPreparationTime = groupPreparationTime;
+        this.mainIngredients = mainIngredients;
     }
 
     public String getProductName(){
@@ -59,16 +62,16 @@ public class PancitBilaoListModel {
     public String getGroupCode() {
         return groupCode;
     }
-
     public String getStocks() {
         return stocks;
     }
-
     public String getPreparationTime() {
         return preparationTime;
     }
-
     public String getGroupPreparationTime() {
         return groupPreparationTime;
+    }
+    public String getMainIngredients() {
+        return mainIngredients;
     }
 }

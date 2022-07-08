@@ -73,8 +73,8 @@
                   android:layout_height="wrap_content"
                   android:layout_below="@id/txt_dev_fee"
                   android:fontFamily="@font/roboto"
+                  android:text="1"
                   android:textColor="#878484"
-                  android:text="20 min"
                   android:textSize="16sp" />
 
               <TextView
@@ -97,79 +97,28 @@
                   android:text="0"
                   android:textSize="16sp" />
           </RelativeLayout>
-
           <TextView
-              android:id="@+id/textPayment"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_below="@+id/checkoutlists"
-              android:text="Choose a payment method"
-              android:layout_marginTop="5dp"
-              android:padding="10dp"
               android:fontFamily="@font/roboto"
-              android:textSize="16sp"/>
-          <RelativeLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:padding="10dp">
-              <RadioGroup
-                  android:id="@+id/choosePayment"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:background="@color/white"
-                  android:padding="10dp">
-                  <RadioButton
-                      android:id="@+id/gcash"
-                      android:layout_width="match_parent"
-                      android:layout_height="50dp"
-                      android:text="Gcash"/>
-                  <View
-                      android:layout_width="match_parent"
-                      android:layout_height="1dp"
-                      android:background="#DDDDDD"/>
-                  <RadioButton
-                      android:id="@+id/paypal"
-                      android:layout_width="match_parent"
-                      android:layout_height="50dp"
-                      android:text="Paymaya"/>
-              </RadioGroup>
-          </RelativeLayout>
-          <RelativeLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
-              <ImageView
-                  android:id="@+id/gcashImg"
-                  android:layout_width="100dp"
-                  android:layout_height="50dp"
-                  android:padding="-20dp"
-                  android:src="@drawable/gcash"/>
-              <ImageView
-                  android:layout_width="100dp"
-                  android:layout_height="50dp"
-                  android:padding="10dp"
-                  android:layout_toEndOf="@id/gcashImg"
-                  android:src="@drawable/paymaya"/>
-          </RelativeLayout>
-          <TextView
-              android:id="@+id/textUpload"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
               android:padding="10dp"
-              android:text="@string/textUpload"/>
-          <androidx.cardview.widget.CardView
-              android:id="@+id/cardViewImg"
+              android:text="Upload screenshot gcash payment"
+              android:textSize="18sp" />
+          <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:layout_marginLeft="10dp"
+              android:fontFamily="@font/roboto_light"
+              android:textColor="#76787A"
+              android:text="Please upload a screenshot of your gcash e-wallet payment." />
+          <ImageView
+              android:id="@+id/imgPayment"
+              android:layout_width="80dp"
+              android:layout_height="70dp"
+              android:src="@drawable/camera"
               android:background="@color/white"
-              android:layout_marginLeft="10dp">
-              <ImageView
-                  android:id="@+id/imgPayment"
-                  android:layout_width="80dp"
-                  android:layout_height="70dp"
-                  android:src="@drawable/camera"
-                  android:layout_margin="10dp" />
-          </androidx.cardview.widget.CardView>
+              android:layout_margin="10dp" />
       </LinearLayout>
   </ScrollView>
     <com.google.android.material.appbar.AppBarLayout

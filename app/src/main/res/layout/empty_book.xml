@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You have no reservation yet"
+        android:text="You have no table reservation yet"
         android:textSize="24sp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
@@ -31,8 +31,8 @@
     <Button
         android:id="@+id/addBook"
         android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:background="@color/icon_green"
+        android:layout_height="wrap_content"
+        android:background="@drawable/confirmation_button"
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:textAllCaps="false"

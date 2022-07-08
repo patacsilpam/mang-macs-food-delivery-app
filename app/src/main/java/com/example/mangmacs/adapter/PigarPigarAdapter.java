@@ -56,6 +56,7 @@ public class PigarPigarAdapter extends RecyclerView.Adapter<PigarPigarAdapter.Pr
                 intent.putExtra("code", pigarPigarModel.getCodeCombo());
                 intent.putExtra("status", pigarPigarModel.getStocks());
                 intent.putExtra("preparationTime",pigarPigarModel.getPreparationTime());
+                intent.putExtra("mainIngredients",pigarPigarModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

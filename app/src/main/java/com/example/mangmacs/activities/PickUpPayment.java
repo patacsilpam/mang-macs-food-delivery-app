@@ -1,5 +1,7 @@
 package com.example.mangmacs.activities;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -25,6 +27,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,33 +46,42 @@ import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.SettingsModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PickUpPayment extends AppCompatActivity implements OrdersListener {
-    private TextView arrowBack,total,waitingTime;
+    private TextView arrowBack,total,waitingTime,zeroText;
     private Button pickUpOrder;
     private ImageView imgPayment;
     private RecyclerView recyclerViewOrder;
-    private RadioGroup choosePayment;
     private static final int STORAGE_PERMISSION_CODE = 100;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String date,time,orderTime;
+    private String date,time,orderTime,estTime,token,recipientName,address,labelAddress,phoneNumber;
     private int totalPrice;
     private Bitmap bitmap;
     private ArrayList<String> orderLists = new ArrayList<>();
     private ArrayList<String> productCodeList = new ArrayList<>();
     private ArrayList<String> productCategoryList = new ArrayList<>();
     private ArrayList<String> variationList = new ArrayList<>();
-    private ArrayList<String> quantityList = new ArrayList<>();
+    private ArrayList<Integer> quantityList = new ArrayList<>();
     private ArrayList<String> addOnsList = new ArrayList<>();
     private ArrayList<String> subTotalList = new ArrayList<>();
     private ArrayList<String> priceList = new ArrayList<>();
@@ -81,22 +93,40 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
         waitingTime = findViewById(R.id.waitingTime);
         arrowBack = findViewById(R.id.arrow_back);
         total = findViewById(R.id.total);
+        zeroText = findViewById(R.id.zeroText);
         pickUpOrder = findViewById(R.id.pickUpOrder);
         imgPayment = findViewById(R.id.imgPayment);
-        choosePayment  = findViewById(R.id.choosePayment);
         recyclerViewOrder = findViewById(R.id.recyclerviewPayment);
         recyclerViewOrder.setHasFixedSize(true);
         recyclerViewOrder.setLayoutManager(new LinearLayoutManager(this));
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("TotalOrderPrice"));
         Intent intent = getIntent();
-        date = intent.getStringExtra("date");
-        time = intent.getStringExtra("time");
-        orderTime = intent.getStringExtra("orderTime");
+        date = intent.getStringExtra("pickUpDate");
+        time = intent.getStringExtra("pickUpTime");
+        orderTime = intent.getStringExtra("pickUpOrderTime");
+        //Toast.makeText(getApplicationContext(),date+time,Toast.LENGTH_SHORT).show();
         pickUpOrder.setEnabled(false);
         showOrders();
         PickUpOrders();
         Back();
         CameraPermission();
+        setFirebaseToken();
+    }
+    private void setFirebaseToken(){
+        FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (task.isSuccessful()){
+                            token = task.getResult().getToken();
+                            Log.d(TAG,"On complete " + token);
+                        }
+                        else{
+                            Log.d(TAG,"Token not generated");
+                        }
+                    }
+                });
     }
     private void showOrders() {
         String email = SharedPreference.getSharedPreference(this).setEmail();
@@ -202,54 +232,9 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
         public void onReceive(Context context, Intent intent) {
             totalPrice = intent.getIntExtra("totalorderprice",0);
             total.setText(String.valueOf(totalPrice));
+           estTime = intent.getStringExtra("waitingTime");
         }
     };
-    private void PickUpOrders() {
-        pickUpOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               if (choosePayment.getCheckedRadioButtonId() == -1){
-                   Toast.makeText(getApplicationContext(),"Please choose a payment method",Toast.LENGTH_SHORT).show();
-               } else{
-                   String fname = SharedPreference.getSharedPreference(PickUpPayment.this).setFname();
-                   String lname = SharedPreference.getSharedPreference(PickUpPayment.this).setLname();
-                   String email = SharedPreference.getSharedPreference(PickUpPayment.this).setEmail();
-                   String accountName = fname.concat(lname);
-                   String estTime = waitingTime.getText().toString();
-                   String address = "";
-                   String labelAddress = "";
-                   String phoneNumber = "";
-                   String orderType = "Pick Up";
-                   String orderStatus = "Pending";
-                   String paymentPhoto = imageToString();
-                   int selectedPayment = choosePayment.getCheckedRadioButtonId();
-                   RadioButton radioButton = findViewById(selectedPayment);
-                   String paymentType = radioButton.getText().toString();
-                   ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time,0,estTime);
-                   insertOrder.enqueue(new Callback<CartModel>() {
-                       @Override
-                       public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                           if (response.body() != null) {
-                               String success = response.body().getSuccess();
-                               if (success.equals("1")) {
-                                   startActivity(new Intent(getApplicationContext(), home_activity.class));
-                                   Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
-                               }
-                           }
-                       }
-
-                       @Override
-                       public void onFailure(Call<CartModel> call, Throwable t) {
-                           startActivity(new Intent(getApplicationContext(), home_activity.class));
-                           Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
-                       }
-                   });
-               }
-            }
-        });
-    }
-
     private void Back() {
         //arrow back button
         arrowBack.setOnClickListener(new View.OnClickListener() {
@@ -272,35 +257,47 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     @Override
     public void onProductCodeChange(ArrayList<String> productCodes) {
         productCodeList = productCodes;
-        Toast.makeText(getApplicationContext(), String.valueOf(productCodeList), Toast.LENGTH_SHORT).show();
+        ArrayList<String> stockList = new ArrayList<>();
+        String emailAddress = SharedPreference.getSharedPreference(this).setEmail();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        Call<List<SettingsModel>> callId = apiInterface.getSettings(productCodeList);
+        Call<List<SettingsModel>> callId = apiInterface.getSettings(productCodeList,emailAddress);
         callId.enqueue(new Callback<List<SettingsModel>>() {
             @Override
             public void onResponse(Call<List<SettingsModel>> call, Response<List<SettingsModel>> response) {
-
                 List<SettingsModel> settingsList = response.body();
                 for(SettingsModel list: settingsList) {
-                    Toast.makeText(getApplicationContext(), list.getWaitingTime(), Toast.LENGTH_SHORT).show();
-                    int[] stocks = {1,8};
-                    int[] cartQuantity = {1,7};
-                    ArrayList<String> strBool = new ArrayList<>();
-                    for(int i=0; i<stocks.length; i++){
-                        if(cartQuantity[i]<=stocks[i]){
-                            strBool.add("True");
-                        }
-                        else{
-                            strBool.add("False");
-                        }
+                    int stocks = list.getStocks();
+                   for (int i = 0; i<quantityList.size(); i++){
+                       if(quantityList.get(i) <= stocks){
+                          stockList.add("True");
+                       }
+                       else{
+                           stockList.add("False");
+                       }
+                   }
+                }
+               if(orderTime.equals("later")){
+                    waitingTime.setText(date + " " + time);
 
-                        if(strBool.contains("False")){
-                            Toast.makeText(getApplicationContext(), "You can't pick up anytime",Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), "Pick up anytime",Toast.LENGTH_SHORT).show();
-                        }
-                        Toast.makeText(getApplicationContext(), String.valueOf(strBool),Toast.LENGTH_SHORT).show();
-                    }
+                }
+               else if(stockList.contains("False")){
+                   try {
+                       Date newDate = new Date();
+                       SimpleDateFormat df = new SimpleDateFormat("hh:mm aa");
+                       df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
+                       String getCurrentTime = String.valueOf(df.format(newDate));
+                       Date currentTime = df.parse(getCurrentTime);
+                       Calendar cal = Calendar.getInstance();
+                       cal.setTime(currentTime);
+                       cal.add(Calendar.MINUTE, Integer.parseInt(estTime));
+                       String newTime = df.format(cal.getTime());
+                       waitingTime.setText(newTime);
+                   } catch (ParseException e) {
+                       e.printStackTrace();
+                   }
+               }
+                else{
+                    waitingTime.setText("Pick Up anytime");
                 }
 
             }
@@ -319,7 +316,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     }
 
     @Override
-    public void onQuantityChange(ArrayList<String> quantity) {
+    public void onQuantityChange(ArrayList<Integer> quantity) {
         quantityList = quantity;
     }
 
@@ -351,5 +348,43 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     @Override
     public void onTotalAmountChange(String amount) {
 
+    }
+    private void PickUpOrders() {
+        pickUpOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    String fname = SharedPreference.getSharedPreference(PickUpPayment.this).setFname();
+                    String lname = SharedPreference.getSharedPreference(PickUpPayment.this).setLname();
+                    String email = SharedPreference.getSharedPreference(PickUpPayment.this).setEmail();
+                    String accountName = fname.concat(" ").concat(lname);
+                    zeroText.setText(accountName);
+                    String estTime = waitingTime.getText().toString();
+                    String orderType = "Pick Up";
+                    String orderStatus = "Pending";
+                    String emptyValue = zeroText.getText().toString();
+                    String paymentPhoto = imageToString();
+                    String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
+                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                    Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,"","","",token,email,"",orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus,date,time,0,estTime);
+                    insertOrder.enqueue(new Callback<CartModel>() {
+                        @Override
+                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                            if (response.body() != null) {
+                                String success = response.body().getSuccess();
+                                if (success.equals("1")) {
+                                    startActivity(new Intent(getApplicationContext(), home_activity.class));
+                                    Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<CartModel> call, Throwable t) {
+                            startActivity(new Intent(getApplicationContext(), home_activity.class));
+                            Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            }
+        });
     }
 }

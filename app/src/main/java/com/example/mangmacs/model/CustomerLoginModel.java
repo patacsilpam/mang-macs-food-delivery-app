@@ -17,8 +17,10 @@ public class CustomerLoginModel {
     private String gender;
     @SerializedName("customer_id")
     private String customerID;
+    @SerializedName("token")
+    private String token;
 
-    public CustomerLoginModel(String success, String message, String fname,String lname, String email_address,String gender,String customerID) {
+    public CustomerLoginModel(String success, String message, String fname,String lname, String email_address,String gender,String customerID,String token) {
         this.success = success;
         this.message = message;
         this.fname = fname;
@@ -26,6 +28,7 @@ public class CustomerLoginModel {
         this.email_address = email_address;
         this.gender = gender;
         this.customerID = customerID;
+        this.token = token;
     }
 
     public String getSuccess() {
@@ -54,5 +57,9 @@ public class CustomerLoginModel {
 
     public String getCustomerID() {
         return customerID;
+    }
+
+    public String getToken() {
+        return token;
     }
 }

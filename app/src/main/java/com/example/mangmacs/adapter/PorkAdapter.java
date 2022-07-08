@@ -55,6 +55,7 @@ public class PorkAdapter extends RecyclerView.Adapter<PorkAdapter.ProductViewHol
                 intent.putExtra("code",porkModel.getCodeCombo());
                 intent.putExtra("status", porkModel.getStocks());
                 intent.putExtra("preparationTime",porkModel.getPreparationTime());
+                intent.putExtra("mainIngredients",porkModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

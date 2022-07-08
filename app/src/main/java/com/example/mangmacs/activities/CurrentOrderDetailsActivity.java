@@ -1,13 +1,17 @@
 package com.example.mangmacs.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +19,7 @@ import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.adapter.NewOrdersDetailAdapter;
 import com.example.mangmacs.api.ApiInterface;
+import com.example.mangmacs.api.OrderStatusListener;
 import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CurrentOrdersModel;
@@ -28,11 +33,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener{
-    private TextView orderStatus,orderNumber,orderType,totalAmount,arrowBack,estTime;
-    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryTime,paymentMethod,deliveryFee;
-    private CardView deliveryDetails,pickUpDetails,dineInDetails,devTimeDetails,paymentMethodDetails,deliveryFeeDetails;
-    private RecyclerView newOrderDetailLists;
+    private TextView orderNumber,orderType,totalAmount,arrowBack,estTime,changeableStatus;
+    private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,paymentMethod,deliveryFee;
+    private CardView deliveryDetails,pickUpDetails,paymentMethodDetails,deliveryFeeDetails;
     private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime;
+    private RecyclerView newOrderDetailLists;
+    private ImageView pendingIcon,receiveIcon,processingIcon,forDeliveryIcon;
+    private View line1,line2,line3,line4;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
     @Override
@@ -40,14 +47,19 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_order_details);
         arrowBack = findViewById(R.id.arrow_back);
+        changeableStatus = findViewById(R.id.changeableStatus);
         estTime = findViewById(R.id.estTime);
         orderNumber = findViewById(R.id.orderNumber);
-        orderStatus = findViewById(R.id.orderStatus);
         orderType = findViewById(R.id.orderType);
         totalAmount = findViewById(R.id.totalAmount);
-        dineInDetails = findViewById(R.id.dineInDetails);
-        dineInName = findViewById(R.id.dineInName);
-        dineInEmail = findViewById(R.id.dineInEmail);
+        pendingIcon = findViewById(R.id.pendingIcon);
+        receiveIcon = findViewById(R.id.receivedIcon);
+        processingIcon = findViewById(R.id.processingIcon);
+        forDeliveryIcon = findViewById(R.id.forDeliveryIcon);
+        line1 = findViewById(R.id.line1);
+        line2 = findViewById(R.id.line2);
+        line3 = findViewById(R.id.line3);
+        line4 = findViewById(R.id.line4);
         pickUpDetails = findViewById(R.id.pickUpDetails);
         pickUpName = findViewById(R.id.pickUpName);
         pickUpEmail = findViewById(R.id.pickUpEmail);
@@ -56,8 +68,6 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         devAddress = findViewById(R.id.devAddress);
         devLabelAddress = findViewById(R.id.labelAddress);
         deliveryDetails = findViewById(R.id.deliveryDetails);
-        devTimeDetails = findViewById(R.id.devTimeDetails);
-        deliveryTime = findViewById(R.id.deliveryTime);
         paymentMethodDetails = findViewById(R.id.paymentMethodDetails);
         paymentMethod = findViewById(R.id.paymentMethod);
         deliveryFee = findViewById(R.id.deliveryFee);
@@ -65,8 +75,6 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         deliveryFeeDetails.setVisibility(View.VISIBLE);
         deliveryDetails.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
-        dineInDetails.setVisibility(View.VISIBLE);
-        devTimeDetails.setVisibility(View.GONE);
         paymentMethodDetails.setVisibility(View.GONE);
         newOrderDetailLists = findViewById(R.id.newOrderDetailLists);
         newOrderDetailLists.setHasFixedSize(true);
@@ -75,6 +83,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         showOrders();
         Back();
     }
+    @SuppressLint("ResourceAsColor")
     private void dismissOrder() {
         Intent intent = getIntent();
         newDeliveryTime = intent.getStringExtra("deliveryTime");
@@ -92,21 +101,49 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         newRequiredTme = intent.getStringExtra("requiredTime");
         newRequiredDate = intent.getStringExtra("requiredDate");
         newWaitingTime = intent.getStringExtra("waitingTime");
-        orderStatus.setText(newOrderStatus);
         orderType.setText(newOrderType);
         orderNumber.setText("#".concat(newOrderNumber));
-        deliveryTime.setText(newDeliveryTime);
         paymentMethod.setText(newPaymentMethod);
         deliveryFee.setText(newDeliveryFee);
         String OrderType = orderType.getText().toString();
+        //show order status
+        if (newOrderStatus.equals("Pending")){
+            pendingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            line1.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
+        }
+        if(newOrderStatus.equals("Order Received")){
+            pendingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            receiveIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            line1.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
+            line2.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
+        }
+        if(newOrderStatus.equals("Order Processing")){
+            pendingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            receiveIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            processingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            line1.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
+            line2.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
+            line3.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
+        }
+        if(newOrderStatus.equals("Out for Delivery") || newOrderStatus.equals("Ready for Pick Up")){
+            pendingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            receiveIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            processingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            forDeliveryIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
+            line1.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
+            line2.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
+            line3.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
+            line4.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
+        }
+        //show customer details
         if (OrderType.equals("Pick Up")){
             pickUpName.setText(newAccountName);
             pickUpEmail.setText(newEmail);
             deliveryDetails.setVisibility(View.GONE);
-            dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
             paymentMethodDetails.setVisibility(View.VISIBLE);
             deliveryFeeDetails.setVisibility(View.GONE);
+            changeableStatus.setText("Ready\nfor\nPick up");
         }
         else if (OrderType.equals("Deliver")){
             deliveryName.setText(newRecipientName);
@@ -114,21 +151,16 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             devAddress.setText(newAddress);
             devLabelAddress.setText(newLabelAddress);
             deliveryDetails.setVisibility(View.VISIBLE);
-            devTimeDetails.setVisibility(View.VISIBLE);
-            dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);
             paymentMethodDetails.setVisibility(View.VISIBLE);
             deliveryFeeDetails.setVisibility(View.VISIBLE);
         }
         else{
-            dineInName.setText(newAccountName);
-            dineInEmail.setText(newEmail);
-            dineInDetails.setVisibility(View.VISIBLE);
             pickUpDetails.setVisibility(View.GONE);
             deliveryDetails.setVisibility(View.GONE);
             deliveryFeeDetails.setVisibility(View.GONE);
         }
-
+        //show estimated delivery time
         if(newRequiredTme.contains("now")){
 
             estTime.setText(newWaitingTime);
@@ -137,6 +169,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             estTime.setText(newRequiredDate.concat(" ").concat(newRequiredTme));
         }
     }
+    //show customer orders
     private void showOrders(){
         String email = SharedPreference.getSharedPreference(this).setEmail();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -187,7 +220,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
     }
 
     @Override
-    public void onQuantityChange(ArrayList<String> quantity) {
+    public void onQuantityChange(ArrayList<Integer> quantity) {
 
     }
 

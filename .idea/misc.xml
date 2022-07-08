@@ -1,6 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/bg_color.xml" value="0.1965" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/confirm_delivery_address_input.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/confirmation_button.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/custom_date_icon.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/custom_icon_email.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/custom_input.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/custom_people_icon.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/custom_person_edit_icon.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/custom_time_icon.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/custom_white_square.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/customer_lock_icon.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/customer_mobile_no_icon.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/customize_input_book.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/dark_square.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_access_clock.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_access_time_1.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_access_time_filled_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_access_time_filled_focused.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_add.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.1965" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_check_circle_outline_24.xml" value="0.1965" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_delete_outline_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_details_24.xml" value="0.1775" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_edit.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_horizontal_rule_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_local_pizza.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_minimize.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_people_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_phone.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_photo_camera_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_plus.xml" value="0.1965" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_restaurant_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/red_circle.xml" value="0.2385" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_account.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_adress_list.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_appetizer_list_detail.xml" value="0.264" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_bilao_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_change_password.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_create_address.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_current_order_details.xml" value="0.2784471218206158" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_current_reservation.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_dessert_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_dimsum_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_drinks.xml" value="0.24547101449275363" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_drinks_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_edit_address.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_grilled.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_grilled_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_home.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_meals_good_list_detail.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_menu_activty.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_my_account.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_noodles.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_noodles_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_notifications.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_order.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_pasta_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_payment.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_pick_up.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_pick_up_payment.xml" value="0.4" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_pizza_list_detaill.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_popular_detail.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_previous_order_details.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_promo.xml" value="0.1671875" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_promo_list_details.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_pulutan_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_reservation.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_sign_up.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_sizzling_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_soup_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_verify_email.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_verify_phone_number.xml" value="0.4" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_wine_actiivity.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_wine_list_detail.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/address_list.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/address_lists.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/book_update_lists.xml" value="0.215625" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/current_order_details.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/current_orders.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/delivered_order_details.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/delivered_orders.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/empty_address.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/empty_book.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/empty_cart.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/empty_phone_number.xml" value="0.215625" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/empty_promos.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/fragment_current_orders.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/fragment_later_pick_up.xml" value="0.4" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/fragment_order_later.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/fragment_previous_orders.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/fragment_previous_reservation.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/notification_badge.xml" value="0.264" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/order_update_lists.xml" value="0.215625" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/previous_booking.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/product_lists.xml" value="0.215625" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/menu/bottom_nav.xml" value="0.1671875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

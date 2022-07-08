@@ -46,6 +46,10 @@ public class orderNow extends Fragment {
                 intent.putExtra("date",strDate);
                 intent.putExtra("time",strTime);
                 intent.putExtra("orderTime",strTime);
+                intent.putExtra("recipientName","none");
+                intent.putExtra("labelAddress","none");
+                intent.putExtra("phoneNumber","none");
+                intent.putExtra("address","none");
                 startActivity(intent);
             }
         });

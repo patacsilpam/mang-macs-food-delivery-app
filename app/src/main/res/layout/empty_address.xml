@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Looks like you haven't added any address yet"
+        android:text="Please update your your personal details"
         android:textSize="18sp"
         android:textColor="#6E6A6A"
         android:fontFamily="@font/roboto"
@@ -38,7 +38,7 @@
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:textAllCaps="false"
-        android:text="Create Address"
+        android:text="Update Details"
         android:textSize="18sp"
         android:fontFamily="@font/roboto"/>
 </LinearLayout>

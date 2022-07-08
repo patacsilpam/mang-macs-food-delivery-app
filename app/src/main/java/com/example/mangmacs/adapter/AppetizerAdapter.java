@@ -56,6 +56,7 @@ public class AppetizerAdapter extends RecyclerView.Adapter<AppetizerAdapter.Prod
                 intent.putExtra("code", appetizerModel.getCodeCombo());
                 intent.putExtra("status", appetizerModel.getStocks());
                 intent.putExtra("preparationTime",appetizerModel.getPreparationTime());
+                intent.putExtra("mainIngredients",appetizerModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

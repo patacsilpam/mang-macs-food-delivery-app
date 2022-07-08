@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +43,7 @@ public class CartActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private View emptyCart;
     private int countCart;
+    private int maxTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,26 +65,14 @@ public class CartActivity extends AppCompatActivity {
         Back();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("TotalPrice"));
     }
-    private void Back() {
-        //arrow back button
-        arrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CartActivity.this,home_activity.class));
-            }
-        });
-    }
-
-    private void CheckOut() {
-        //check out button
-        checkOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CartActivity.this,OrderModeActivity.class));
-            }
-        });
-    }
-
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String totalPrice = intent.getStringExtra("totalprice");
+            maxTime = intent.getIntExtra("maxTime",0);
+            textProductPrice.setText(totalPrice);
+        }
+    };
     private void showCart() {
             Sprite circle = new Circle();
             progressBar.setIndeterminateDrawable(circle);
@@ -121,12 +111,29 @@ public class CartActivity extends AppCompatActivity {
                 }
             });
         }
-    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String totalPrice = intent.getStringExtra("totalprice");
-            textProductPrice.setText(totalPrice);
-        }
-    };
+    private void CheckOut() {
+        //check out button
+        checkOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartActivity.this,OrderModeActivity.class);
+                intent.putExtra("maxPrepTime",maxTime);
+                startActivity(intent);
+                SharedPreferences sharedPreferences = getSharedPreferences(SharedPreference.PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(SharedPreference.PREP_TIME, String.valueOf(maxTime));
+                editor.apply();
+            }
+        });
+    }
+    private void Back() {
+        //arrow back button
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this,home_activity.class));
+            }
+        });
+    }
 
 }

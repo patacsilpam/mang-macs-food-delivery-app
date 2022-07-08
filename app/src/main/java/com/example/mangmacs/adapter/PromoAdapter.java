@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.mangmacs.R;
 import com.example.mangmacs.activities.DimsumListDetail;
 import com.example.mangmacs.activities.PromoListDetails;
+import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.model.PromoListModel;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import java.util.List;
 public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> {
     private List<PromoListModel> promoLists;
     private Context context;
-    public PromoAdapter(Context context,List<PromoListModel> promoLists){
+    public PromoAdapter(Context context, List<PromoListModel> promoLists){
         this.context = context;
         this.promoLists = promoLists;
     }
@@ -42,10 +43,9 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
         Glide.with(context)
                 .load(promoListModel.getProductImgPromo())
                 .into(holder.image);
-        holder.textProductName.setText(promoListModel.getProductNamePromo());
-        holder.textProductPrice.setText("₱ "+String.valueOf(promoListModel.getPricePromo()+".00"));
-        holder.textVariation.setText(promoListModel.getProductVariationPromo());
-        holder.textDevTime.setText(promoListModel.getPreparationTime().concat("min"));
+         holder.textProductName.setText(promoListModel.getProductNamePromo());
+         holder.textProductPrice.setText("₱ "+String.valueOf(promoListModel.getPricePromo()+".00"));
+         holder.textDevTime.setText(String.valueOf(promoListModel.getPreparationTime()).concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +59,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
                 intent.putExtra("variation",promoListModel.getProductVariationPromo());
                 intent.putExtra("status", promoListModel.getStocks());
                 intent.putExtra("preparationTime",promoListModel.getPreparationTime());
+                intent.putExtra("mainIngredients",promoListModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });
@@ -78,7 +79,6 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
             image = itemView.findViewById(R.id.image);
             textProductName = itemView.findViewById(R.id.productName);
             textProductPrice = itemView.findViewById(R.id.productPrice);
-            textVariation = itemView.findViewById(R.id.variation);
             productContainer = itemView.findViewById(R.id.productContainer);
             textDevTime = itemView.findViewById(R.id.devTime);
         }

@@ -2,10 +2,18 @@ package com.example.mangmacs.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -14,20 +22,29 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.mangmacs.R;
+import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.activities.AdressList;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class orderLater extends Fragment {
     private Button orderLater;
     private EditText time,date;
-    Calendar calendar = Calendar.getInstance();
-    int hour,min;
+    private TextView textRequired;
+    private Calendar calendar;
+    private int hour,min,prepTime;
     public orderLater() {
         // Required empty public constructor
     }
@@ -39,30 +56,57 @@ public class orderLater extends Fragment {
         orderLater = view.findViewById(R.id.orderLater);
         time = view.findViewById(R.id.time);
         date = view.findViewById(R.id.date);
+        textRequired = view.findViewById(R.id.textRequired);
+        textRequired.setVisibility(View.GONE);
         OrderLater();
         SetDate();
         SetTime();
         return view;
     }
     private void SetTime() {
-        //time picker
+        int storedPrepTime = Integer.parseInt(SharedPreference.getSharedPreference(getContext()).setPrepTime());
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(
                         getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 hour = hourOfDay;
                                 min = minute;
-                                //initialize calendar
                                 Calendar calendar1 = calendar.getInstance();
-                                //set hour and date
                                 calendar1.set(0,0,0,hour,min);
-                                //set selected time on edittext
                                 time.setText(DateFormat.format("hh:mm aa",calendar1));
-
+                                try {
+                                    //get current time
+                                    Date newDate = new Date();
+                                    SimpleDateFormat df = new SimpleDateFormat("hh:mm aa");
+                                    df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
+                                    String getCurrentTime = String.valueOf(df.format(newDate));
+                                    String getSelectedTime = time.getText().toString();
+                                    //parse selected time and date
+                                    Date currentTime = df.parse(getCurrentTime);
+                                    Date selectedTime = df.parse(getSelectedTime);
+                                    //add current time to prep time
+                                    Calendar cal = Calendar.getInstance();
+                                    cal.setTime(currentTime);
+                                    cal.add(Calendar.MINUTE,storedPrepTime);
+                                    String getEstTime = df.format(cal.getTime());
+                                    Date estTime = df.parse(getEstTime);
+                                    //disable pick up button if selected is less than preptime
+                                    if (selectedTime.after(estTime)){
+                                        orderLater.setEnabled(true);
+                                        textRequired.setVisibility(View.GONE);
+                                    }
+                                    else{
+                                        orderLater.setEnabled(false);
+                                        textRequired.setVisibility(View.VISIBLE);
+                                    }
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         },12,0,false
                 );
@@ -74,6 +118,8 @@ public class orderLater extends Fragment {
     }
 
     private void SetDate() {
+        calendar = Calendar.getInstance();
+        long today = calendar.getTimeInMillis();
         DatePickerDialog.OnDateSetListener setDate = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -92,7 +138,15 @@ public class orderLater extends Fragment {
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getContext(), setDate, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // adding the selected date in the edittext
+                        date.setText(year + "/" + (month+1) + "/" + dayOfMonth);
+                    }
+                },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(today);
+                datePickerDialog.show();
             }
         });
     }
@@ -119,5 +173,5 @@ public class orderLater extends Fragment {
                 }
             }
         });
-    }
+    };
 }

@@ -40,7 +40,7 @@ public class AdressList extends AppCompatActivity {
     private List<AddressListModel> addressLists;
     private DeliveryAddressAdapter myAddressAdapter;
     private TextView arrowBack;
-    private Button chooseAddress,btnCreateAdress;
+    private Button chooseAddress,btnCreateAdress,addNewAddress;
     private ProgressBar progressBar;
     private RelativeLayout chooseAddressLayout;
     private String fullname,phoneNumber,address,labelAddress;
@@ -55,6 +55,7 @@ public class AdressList extends AppCompatActivity {
         btnCreateAdress = emptyAddress.findViewById(R.id.createAddress);
         progressBar = findViewById(R.id.spin_kit);
         arrowBack = findViewById(R.id.arrow_back);
+        addNewAddress = findViewById(R.id.addNewAddress);
         recyclerView = findViewById(R.id.recyclerViewAddress);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -64,6 +65,7 @@ public class AdressList extends AppCompatActivity {
         ShowAddress();
         Back();
         ChooseAddress();
+        AddNewAddress();
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(broadcastReceiver,new IntentFilter("MyUserDetails"));
 
     }
@@ -88,7 +90,14 @@ public class AdressList extends AppCompatActivity {
             }
         });
     }
-
+    private void AddNewAddress(){
+        addNewAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),CreateAddressActivity.class));
+            }
+        });
+    }
     private void Back() {
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -55,6 +55,7 @@ public class VegetableAdapter extends RecyclerView.Adapter<VegetableAdapter.Prod
                 intent.putExtra("code",vegetableModel.getCodeCombo());
                 intent.putExtra("status", vegetableModel.getStocks());
                 intent.putExtra("preparationTime",vegetableModel.getPreparationTime());
+                intent.putExtra("mainIngredients",vegetableModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

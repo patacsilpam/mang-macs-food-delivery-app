@@ -39,13 +39,14 @@
                 android:text="Zone 4"
                 android:layout_below="@+id/afullname"
                 android:fontFamily="@font/roboto" />
+
             <TextView
                 android:id="@+id/brgy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="San Vicente West "
                 android:layout_below="@+id/street"
-                android:fontFamily="@font/roboto" />
+                android:fontFamily="@font/roboto"
+                android:text="San Vicente West " />
             <TextView
                 android:id="@+id/city"
                 android:layout_width="wrap_content"

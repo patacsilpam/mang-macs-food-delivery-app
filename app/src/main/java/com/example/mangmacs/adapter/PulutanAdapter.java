@@ -55,6 +55,7 @@ public class PulutanAdapter extends RecyclerView.Adapter<PulutanAdapter.ProductV
                 intent.putExtra("code", pulutanListModel.getCodeCombo());
                 intent.putExtra("status", pulutanListModel.getStocks());
                 intent.putExtra("preparationTime",pulutanListModel.getPreparationTime());
+                intent.putExtra("mainIngredients",pulutanListModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

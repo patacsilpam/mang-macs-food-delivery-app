@@ -38,14 +38,14 @@ public class NowPickUp extends Fragment  {
             @Override
             public void onClick(View view) {
                 Date date = new Date();  //get date
-                SimpleDateFormat dateFormatter = new SimpleDateFormat("yy/MM/dd");
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
                 String strDate = dateFormatter.format(date);
                 String strTime = "now";
                 //intent time and date
                 Intent intent = new Intent(getContext(), PickUpPayment.class);
-                intent.putExtra("date",strDate);
-                intent.putExtra("time",strTime);
-                intent.putExtra("orderTime",strTime);
+                intent.putExtra("pickUpDate",strDate);
+                intent.putExtra("pickUpTime",strTime);
+                intent.putExtra("pickUpOrderTime",strTime);
                 startActivity(intent);
             }
         });

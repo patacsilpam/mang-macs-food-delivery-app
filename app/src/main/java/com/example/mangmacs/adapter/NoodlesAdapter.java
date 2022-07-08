@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mangmacs.activities.DessertListDetail;
+import com.example.mangmacs.activities.NoodlesActivity;
 import com.example.mangmacs.activities.NoodlesListDetail;
 import com.example.mangmacs.R;
 import com.example.mangmacs.model.ProductListModel;
@@ -47,7 +48,7 @@ public class NoodlesAdapter extends RecyclerView.Adapter<NoodlesAdapter.ProductV
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, DessertListDetail.class);
+                Intent intent = new Intent(context, NoodlesListDetail.class);
                 intent.putExtra("image",noodlesListModel.getImage());
                 intent.putExtra("productName",noodlesListModel.getProductName());
                 intent.putExtra("productCategory",noodlesListModel.getProductCategoryCombo());
@@ -56,6 +57,7 @@ public class NoodlesAdapter extends RecyclerView.Adapter<NoodlesAdapter.ProductV
                 intent.putExtra("code",noodlesListModel.getCodeCombo());
                 intent.putExtra("status", noodlesListModel.getStocks());
                 intent.putExtra("preparationTime",noodlesListModel.getPreparationTime());
+                intent.putExtra("mainIngredients",noodlesListModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

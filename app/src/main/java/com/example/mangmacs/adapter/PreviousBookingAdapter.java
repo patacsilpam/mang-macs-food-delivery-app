@@ -37,18 +37,6 @@ public class PreviousBookingAdapter extends RecyclerView.Adapter<PreviousBooking
         holder.reservedDateTime.setText(reservationModel.getScheduled_date().concat(" - ").concat(reservationModel.getScheduled_time()));
         holder.guests.setText(reservationModel.getGuests().concat(" people"));
         holder.createdAt.setText(reservationModel.getCreatedAt());
-        holder.reservationStatus.setText(reservationModel.getStatus());
-        holder.reservationStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ReservationActivity.class);
-                intent.putExtra("firstname",reservationModel.getFname());
-                intent.putExtra("lastname",reservationModel.getLname());
-                intent.putExtra("time",reservationModel.getScheduled_time());
-                intent.putExtra("guests",reservationModel.getGuests());
-                context.startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -64,7 +52,6 @@ public class PreviousBookingAdapter extends RecyclerView.Adapter<PreviousBooking
             reservedDateTime = itemView.findViewById(R.id.reservedDateTime);
             guests = itemView.findViewById(R.id.guests);
             createdAt = itemView.findViewById(R.id.createdAt);
-            reservationStatus = itemView.findViewById(R.id.reservationStatus);
         }
     }
 }

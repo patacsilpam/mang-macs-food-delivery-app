@@ -55,6 +55,7 @@ public class BarbequeAdapter extends RecyclerView.Adapter<BarbequeAdapter.ViewHo
                 intent.putExtra("code", grilledModel.getCodeCombo());
                 intent.putExtra("status", grilledModel.getStocks());
                 intent.putExtra("preparationTime",grilledModel.getPreparationTime());
+                intent.putExtra("mainIngredients",grilledModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

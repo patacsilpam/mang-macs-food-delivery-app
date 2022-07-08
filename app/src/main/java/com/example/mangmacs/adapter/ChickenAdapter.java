@@ -56,6 +56,7 @@ public class ChickenAdapter extends RecyclerView.Adapter<ChickenAdapter.ProductV
                 intent.putExtra("code", chickenModel.getCodeCombo());
                 intent.putExtra("status", chickenModel.getStocks());
                 intent.putExtra("preparationTime",chickenModel.getPreparationTime());
+                intent.putExtra("mainIngredients",chickenModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

@@ -172,7 +172,7 @@
                android:background="@color/white"
                android:textColor="#232323"
                android:textSize="14sp"
-               android:text="My Book"
+               android:text="My Table Reservation"
                android:fontFamily="@font/roboto_medium"/>
            <View
                android:layout_width="match_parent"

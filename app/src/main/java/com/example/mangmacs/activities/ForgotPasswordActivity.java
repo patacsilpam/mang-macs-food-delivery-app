@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.mangmacs.Config;
 import com.example.mangmacs.R;
 import com.example.mangmacs.SendCode;
+import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.UpdateAccountModel;
@@ -63,7 +64,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SendCode getCode = new SendCode();
                 int code = getCode.getRandomCode();
-
                 String email = recover_email.getEditText().getText().toString().trim();
                 Properties props = new Properties();
                 props.put("mail.smtp.host", "smtp.gmail.com");
@@ -80,29 +80,31 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         });
 
                 try {
+                    Intent intent = getIntent();
+                    String fname = intent.getStringExtra("fname");
                     MimeMessage mimeMessage = new MimeMessage(session);
                     mimeMessage.setFrom(new InternetAddress(Config.EMAIL));
                     mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(email)));
-                    mimeMessage.setSubject("Reset Password");
+                    mimeMessage.setSubject("Reset your Mang Mac's password");
                     mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
-                            "                        <header style='display: flex; align-items: center;'>\n" +
-                            "                            <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
-                            "                            <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
-                            "                        </header>\n" +
-                            "                        <article>\n" +
-                            "                            <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>\n" +
-                            "                                Hi,<br>Welcome to Mang Mac's Foodshop. Please use the mentioned code below to reset your password.\n" +
-                            "                            </p>\n" +
-                            "                        </article>\n" +
-                            "                        <article style='display: flex; justify-content: center;'>\n" +
-                            "                            <strong style='width:100%; text-align:center; background: #E7E7E7; padding: 2rem; font-size: 2rem; letter-spacing: 3px;'>\n" +code+"</strong>"+
-                            "                        </article>\n" +
-                            "                        <footer style='text-align: center; margin-top: 30px;'>\n" +
-                            "                            <p style='margin: 10px 0 5px 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>from</p>\n" +
-                            "                            <strong style='font-family: Arial, Helvetica, sans-serif;'>MangMac's Foodshop</strong>\n" +
-                            "                            <p style='margin: 7px 0 0 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Zone 5, Brgy. Sta. Lucia Bypass Road,<br>Urdaneta Philippines</p>\n" +
-                            "                        </footer>\n" +
-                            "                        </main>", "text/html");
+                            "<header style='display: flex; align-items: center;'>\n" +
+                            "    <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                            "    <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
+                            "</header>\n" +
+                            "<article>\n" +
+                            "    <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>"+
+                            "    <br> Please use the mentioned code below to reset your password.\n" +
+                            "    </p>\n" +
+                            "</article>\n" +
+                            "<article style='display: flex; justify-content: center;'>\n" +
+                            "    <strong style='width:100%; text-align:center; background: #E7E7E7; padding: 2rem; font-size: 2rem; letter-spacing: 3px;'>\n" +code+"</strong>"+
+                            "</article>\n" +
+                            "<footer style='text-align: center; margin-top: 30px;'>\n" +
+                            "    <p style='margin: 10px 0 5px 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>from</p>\n" +
+                            "    <strong style='font-family: Arial, Helvetica, sans-serif;'>MangMac's Foodshop</strong>\n" +
+                            "    <p style='margin: 7px 0 0 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Zone 5, Brgy. Sta. Lucia Bypass Road,<br>Urdaneta Philippines</p>\n" +
+                            "</footer>\n" +
+                            "</main>", "text/html");
                     new SendEmail().execute(mimeMessage);
                 } catch (MessagingException e) {
                     e.printStackTrace();
@@ -121,7 +123,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 intent.putExtra("email",email);
                                 intent.putExtra("code", String.valueOf(code));
                                 startActivity(intent);
-                               // startActivity(new Intent(ForgotPasswordActivity.this,VerificationActivity.class));
                             }
                         }
 

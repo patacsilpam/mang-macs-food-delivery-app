@@ -113,6 +113,7 @@ public interface ApiInterface {
     @POST("customer-Signup.php")
     @FormUrlEncoded
     Call<CustomerModel> registerUser(
+            @Field("token") String token,
             @Field("fname") String fname,
             @Field("lname") String lname,
             @Field("email_address") String email,
@@ -135,8 +136,8 @@ public interface ApiInterface {
             @Field("birthdate") String birthdate
     );
     //updating users password
-    @Multipart
     @POST("customerUpdatePword.php")
+    @FormUrlEncoded
     Call<UpdateAccountModel> updatePassword(
             @Field("email") String email,
             @Field("currentPassword") String oldPword,
@@ -209,6 +210,7 @@ public interface ApiInterface {
     @POST("reservation.php")
     @FormUrlEncoded
     Call<ReservationModel> reservation(
+            @Field("token") String token,
             @Field("fname") String fname,
             @Field("lname") String lname,
             @Field("guests") String guests,
@@ -231,7 +233,8 @@ public interface ApiInterface {
             @Field("price") int amount,
             @Field("quantity") int quantity,
             @Field("add_ons") String addOns,
-            @Field("imageProduct") String image
+            @Field("imageProduct") String image,
+            @Field("preparedTime") String preparedTime
     );
     //get all user's add to cart product
     @GET("selectCart.php")
@@ -255,16 +258,18 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<CartModel> insertOrder(
             @Field("productCode[]") ArrayList<String> productCode,
+            @Field("customerId") String customerId,
             @Field("accountName") String accountName,
             @Field("recipientName") String recipientName,
             @Field("customer_address") String address,
             @Field("labelAddress") String labelAddress,
+            @Field("token") String token,
             @Field("email") String email,
             @Field("phoneNumber") String phoneNumber,
             @Field("product[]") ArrayList<String> product,
             @Field("productCategory[]") ArrayList<String> productCategory,
             @Field("variation[]") ArrayList<String> variation,
-            @Field("quantity[]") ArrayList<String> quantity,
+            @Field("quantity[]") ArrayList<Integer> quantity,
             @Field("addOns[]") ArrayList<String> addOns,
             @Field("price[]") ArrayList<String> price,
             @Field("subTotal[]") ArrayList<String> subTotal,
@@ -272,6 +277,35 @@ public interface ApiInterface {
             @Field("paymentPhoto") String paymentPhoto,
             @Field("paymentType") String paymentType,
             @Field("imgProduct[]") ArrayList<String> imgProduct,
+            @Field("orderType") String orderType,
+            @Field("orderStatus") String orderStatus,
+            @Field("requiredDate") String requiredDate,
+            @Field("requiredTime") String requiredTime,
+            @Field("deliveryFee") int deliveryFee,
+            @Field("waitingTime") String waitingTime
+    );
+    @POST("customerOrders.php")
+    @FormUrlEncoded
+    Call<CartModel> insertPickUp(
+            @Field("productCode") String productCode,
+            @Field("accountName") String accountName,
+            @Field("recipientName") String recipientName,
+            @Field("customer_address") String address,
+            @Field("labelAddress") String labelAddress,
+            @Field("token") String token,
+            @Field("email") String email,
+            @Field("phoneNumber") String phoneNumber,
+            @Field("product") String product,
+            @Field("productCategory") String productCategory,
+            @Field("variation") String variation,
+            @Field("quantity") String quantity,
+            @Field("addOns") String addOns,
+            @Field("price") String price,
+            @Field("subTotal") String subTotal,
+            @Field("totalAmount") String totalAmount,
+            @Field("paymentPhoto") String paymentPhoto,
+            @Field("paymentType") String paymentType,
+            @Field("imgProduct") String imgProduct,
             @Field("orderType") String orderType,
             @Field("orderStatus") String orderStatus,
             @Field("requiredDate") String requiredDate,
@@ -324,8 +358,17 @@ public interface ApiInterface {
             @Field("id") String id
     );
     //get settings -- delivery time and charges
-    @GET("sample.php")
+    @GET("getStocks.php")
     Call <List<SettingsModel>> getSettings(
-            @Query("id[]") ArrayList<String> id
+            @Query("id[]") ArrayList<String> id,
+            @Query("email") String email
+    );
+    @GET("getOrders.php")
+    Call <List<CurrentOrdersModel>> getOrdersNotif(
+            @Query("emailAddress") String email
+    );
+    @GET("getReservation.php")
+    Call <List<ReservationModel>> getBookNotif(
+            @Query("emailAddress") String email
     );
 }

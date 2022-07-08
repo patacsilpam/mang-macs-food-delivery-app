@@ -23,8 +23,9 @@ public class PizzaListModel {
     private String preparationTime;
     @SerializedName("groupPreparationTime")
     private String groupPreparationTime;
-
-    public PizzaListModel(String productName, String productCategory, String productVariation, String image, int price, String groupPrice, String code, String stocks, String preparationTime, String groupPreparationTime) {
+    @SerializedName("mainIngredients")
+    private String mainIngredients;
+    public PizzaListModel(String productName, String productCategory, String productVariation, String image, int price, String groupPrice, String code, String stocks, String preparationTime, String groupPreparationTime,String mainIngredients) {
         this.productName = productName;
         this.productCategory = productCategory;
         this.productVariation = productVariation;
@@ -35,46 +36,40 @@ public class PizzaListModel {
         this.stocks = stocks;
         this.preparationTime = preparationTime;
         this.groupPreparationTime = groupPreparationTime;
+        this.mainIngredients = mainIngredients;
     }
-
     public String getProductName() {
         return productName;
     }
-
     public String getProductCategory() {
         return productCategory;
     }
-
     public String getProductVariation() {
         return productVariation;
     }
-
     public String getImage() {
         return image;
     }
-
     public int getPrice() {
         return price;
     }
-
     public String getGroupPrice() {
         return groupPrice;
     }
-
     public String getCode() {
         return code;
     }
-
     public String getStocks() {
         return stocks;
     }
-
     public String getPreparationTime() {
         return preparationTime;
     }
-
     public String getGroupPreparationTime() {
         return groupPreparationTime;
+    }
+    public String getMainIngredients() {
+        return mainIngredients;
     }
 }
 

@@ -1,6 +1,7 @@
 package com.example.mangmacs.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,14 +24,18 @@ import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WineListDetailActivity extends AppCompatActivity {
-    private ImageView imageView;
+    private LinearLayout ingredientsLayout;
+    private CardView baseCardview;
+    private ImageView imageView,showIngredients;
     private TextView txt_arrow_back;
-    private TextView productName,productPrice,status,customerId,fname,lname;
+    private TextView productName,productPrice,ingredients,status,customerId,fname,lname;
     private TextInputLayout drinksAddons;
     private EditText quantity;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
@@ -51,12 +57,32 @@ public class WineListDetailActivity extends AppCompatActivity {
         btnAddtoCart = findViewById(R.id.btnRiceMeal);
         txt_arrow_back = findViewById(R.id.txt_arrow_back);
         quantity = findViewById(R.id.quantity);
+        ingredients = findViewById(R.id.ingredients);
+        showIngredients = findViewById(R.id.showIngredients);
+        ingredientsLayout = findViewById(R.id.ingredientLayout);
+        baseCardview = findViewById(R.id.baseCardview);
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
         btnDecrement.setEnabled(false); //set button decrement not clickable
+        ShowIngredients();
         IncrementDecrement();
         DisplayProductDetails();
         Back();
+    }
+    private void ShowIngredients(){
+        showIngredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ingredientsLayout.getVisibility() == View.GONE){
+                    ingredientsLayout.setVisibility(View.VISIBLE);
+                    showIngredients.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+                }
+                else{
+                    ingredientsLayout.setVisibility(View.GONE);
+                    showIngredients.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+                }
+            }
+        });
     }
     private void IncrementDecrement() {
         //button increment
@@ -108,6 +134,7 @@ public class WineListDetailActivity extends AppCompatActivity {
         category = intent.getStringExtra("productCategory");
         int productprice = intent.getIntExtra("price",0);
         String productstatus = intent.getStringExtra("preparationTime");
+        String newIngredients =intent.getStringExtra("mainIngredients");
         String firstname = SharedPreference.getSharedPreference(WineListDetailActivity.this).setFname();
         String lastname = SharedPreference.getSharedPreference(WineListDetailActivity.this).setLname();
         String customerID = SharedPreference.getSharedPreference(WineListDetailActivity.this).setEmail();
@@ -115,6 +142,7 @@ public class WineListDetailActivity extends AppCompatActivity {
             Glide.with(WineListDetailActivity.this).load(image).into(imageView);
             productName.setText(productname);
             productPrice.setText(Integer.toString(productprice));
+            ingredients.setText(newIngredients.toLowerCase(Locale.ROOT));
             status.setText(productstatus.concat(" min"));
             customerId.setText(customerID);
             fname.setText(firstname);
@@ -136,8 +164,9 @@ public class WineListDetailActivity extends AppCompatActivity {
                 int price = Integer.parseInt(productPrice.getText().toString());
                 int number = Integer.parseInt(quantity.getText().toString());
                 String add_ons = drinksAddons.getEditText().getText().toString();
+                String preparedTime = status.getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,number,add_ons,image);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,number,add_ons,image,preparedTime);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -163,7 +192,7 @@ public class WineListDetailActivity extends AppCompatActivity {
         txt_arrow_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WineListDetailActivity.this, AppetizerActivity.class));
+                startActivity(new Intent(WineListDetailActivity.this, WineActivity.class));
             }
         });
     }

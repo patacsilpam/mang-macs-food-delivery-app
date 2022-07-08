@@ -73,9 +73,6 @@ public class CreateAddressActivity extends AppCompatActivity {
                 if(fullname.isEmpty()) {
                     rfullname.setError("Required");
                 }
-                if(sstreet.isEmpty()){
-                    street.setError("Required");
-                }
                 if(phoneNumber.isEmpty()){
                     phoneNo.setError("Required");
                 }
@@ -89,7 +86,7 @@ public class CreateAddressActivity extends AppCompatActivity {
                                 String success = response.body().getSuccess();
                                 String message = response.body().getMessage();
                                 if(success.equals("1")){
-                                    startActivity(new Intent(CreateAddressActivity.this,MyAddressActivity.class));
+                                    startActivity(new Intent(CreateAddressActivity.this,AccountActivity.class));
                                 }
                                 else{
                                     Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

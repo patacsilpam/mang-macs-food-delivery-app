@@ -1,5 +1,7 @@
 package com.example.mangmacs.activities;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -26,6 +28,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -41,6 +44,12 @@ import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
+import com.example.mangmacs.model.SettingsModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -55,12 +64,11 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     private TextView arrowBack,total,customerID,emailAddress,deliveryFee,waitingTime;
     private Button payDelivery;
     private RecyclerView recyclerViewOrder;
-    private RadioGroup choosePayment;
     private CardView cardViewImg;
     private ImageView imgPayment;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String date,time,recipientName,phoneNumber,address,labelAddress,orderTime;
+    private String date,time,recipientName,phoneNumber,address,labelAddress,orderTime,token;
     private int totalPrice,devChange;
     private static final int STORAGE_PERMISSION_CODE = 100;
     private Bitmap bitmap;
@@ -69,7 +77,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     private ArrayList<String> productCodeList = new ArrayList<>();
     private ArrayList<String> productCategoryList = new ArrayList<>();
     private ArrayList<String> variationList = new ArrayList<>();
-    private ArrayList<String> quantityList = new ArrayList<>();
+    private ArrayList<Integer> quantityList = new ArrayList<>();
     private ArrayList<String> addOnsList = new ArrayList<>();
     private ArrayList<String> subTotalList = new ArrayList<>();
     private ArrayList<String> priceList = new ArrayList<>();
@@ -85,8 +93,6 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         customerID = findViewById(R.id.customerId);
         emailAddress = findViewById(R.id.email);
         payDelivery = findViewById(R.id.payDelivery);
-        choosePayment = findViewById(R.id.choosePayment);
-        cardViewImg = findViewById(R.id.cardViewImg);
         imgPayment = findViewById(R.id.imgPayment);
         recyclerViewOrder = findViewById(R.id.recyclerViewOrder);
         recyclerViewOrder.setHasFixedSize(true);
@@ -105,8 +111,24 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         Back();
         PayDelivery();
         CameraPermission();
+        setFirebaseToken();
     }
-
+    private void setFirebaseToken(){
+        FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (task.isSuccessful()){
+                            token = task.getResult().getToken();
+                            Log.d(TAG,"On complete " + token);
+                        }
+                        else{
+                            Log.d(TAG,"Token not generated");
+                        }
+                    }
+                });
+    }
    private void CameraPermission(){
        imgPayment.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -220,22 +242,18 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
             int totalAmount = totalPrice + devChange;
             total.setText(String.valueOf(totalAmount));
             deliveryFee.setText(String.valueOf(devChange));
-            if(orderTime.contains("now")){
-                waitingTime.setText(String.valueOf(estTime).concat(":00 mins"));
+            if(orderTime.equals("now")){
+                waitingTime.setText(estTime + " min");
             }
             else{
-                waitingTime.setText(date.concat(" ").concat(time));
+                waitingTime.setText(date + " " + time);
             }
-
         }
     };
     private void PayDelivery() {
         payDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if (choosePayment.getCheckedRadioButtonId() == -1){
-                   Toast.makeText(getApplicationContext(),"Please select the type of your e-wallet payment",Toast.LENGTH_SHORT).show();
-               } else{
                    String email = emailAddress.getText().toString();
                    String estTime = waitingTime.getText().toString();
                    String fname = SharedPreference.getSharedPreference(PaymentActivity.this).setFname();
@@ -244,11 +262,9 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
                    String paymentPhoto = imageToString();
                    String orderStatus = "Pending";
                    String orderType = "Deliver";
-                   int selectedPayment = choosePayment.getCheckedRadioButtonId();
-                   RadioButton radioButton = findViewById(selectedPayment);
-                   String paymentType = radioButton.getText().toString();
                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,recipientName,address,labelAddress,email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,paymentType,imgProductList,orderType,orderStatus,date,time,devChange,estTime);
+                   String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
+                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,recipientName,address,labelAddress,token,email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus,date,time,devChange,estTime);
                    insertOrder.enqueue(new Callback<CartModel>() {
                        @Override
                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -267,7 +283,6 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
                        }
                    });
                }
-            }
         });
     }
 
@@ -289,11 +304,35 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     @Override
     public void onProductCategoryChange(ArrayList<String> category) {
         productCategoryList = category;
+
+
     }
 
     @Override
     public void onProductCodeChange(ArrayList<String> productCodes) {
         productCodeList = productCodes;
+        ArrayList<String> preparedList = new ArrayList<>();
+        String emailAddress = SharedPreference.getSharedPreference(this).setEmail();
+        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        Call<List<SettingsModel>> callId = apiInterface.getSettings(productCodeList,emailAddress);
+        callId.enqueue(new Callback<List<SettingsModel>>() {
+            @Override
+            public void onResponse(Call<List<SettingsModel>> call, Response<List<SettingsModel>> response) {
+                List<SettingsModel> settingsList = response.body();
+
+                if (settingsList != null) {
+                    for (SettingsModel list : settingsList) {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SettingsModel>> call, Throwable t) {
+
+            }
+        });
+
     }
 
     @Override
@@ -302,7 +341,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     }
 
     @Override
-    public void onQuantityChange(ArrayList<String> quantity) {
+    public void onQuantityChange(ArrayList<Integer> quantity) {
         quantityList = quantity;
     }
 

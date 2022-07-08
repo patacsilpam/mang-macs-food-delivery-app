@@ -55,6 +55,7 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.ProductViewHol
                 intent.putExtra("code",riceModel.getCodeCombo());
                 intent.putExtra("status", riceModel.getStocks());
                 intent.putExtra("preparationTime",riceModel.getPreparationTime());
+                intent.putExtra("mainIngredients",riceModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

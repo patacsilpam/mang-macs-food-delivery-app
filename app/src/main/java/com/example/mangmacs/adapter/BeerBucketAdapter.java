@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mangmacs.R;
 import com.example.mangmacs.activities.GrilledListDetail;
+import com.example.mangmacs.activities.WineActivity;
+import com.example.mangmacs.activities.WineListDetailActivity;
 import com.example.mangmacs.model.ProductListModel;
 
 import java.util.List;
@@ -46,7 +48,7 @@ public class BeerBucketAdapter extends RecyclerView.Adapter<BeerBucketAdapter.Pr
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, GrilledListDetail.class);
+                Intent intent = new Intent(context, WineListDetailActivity.class);
                 intent.putExtra("image", beerBucketModel.getImage());
                 intent.putExtra("productName", beerBucketModel.getProductName());
                 intent.putExtra("productCategory",beerBucketModel.getProductCategoryCombo());
@@ -55,6 +57,7 @@ public class BeerBucketAdapter extends RecyclerView.Adapter<BeerBucketAdapter.Pr
                 intent.putExtra("code", beerBucketModel.getCodeCombo());
                 intent.putExtra("status", beerBucketModel.getStocks());
                 intent.putExtra("preparationTime",beerBucketModel.getPreparationTime());
+                intent.putExtra("mainIngredients",beerBucketModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

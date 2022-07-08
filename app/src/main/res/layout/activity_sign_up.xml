@@ -138,6 +138,7 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:text="Sign In"
+            android:textIsSelectable="true"
             android:textSize="18sp"
             android:textColor="#2C2B2B"
             android:fontFamily="@font/roboto"/>

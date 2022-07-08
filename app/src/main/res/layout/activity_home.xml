@@ -108,41 +108,11 @@
                        android:layout_height="wrap_content">
                        <!--Pizza-->
                        <androidx.cardview.widget.CardView
-                           android:id="@+id/promo"
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:layout_marginLeft="20dp"
-                           android:layout_marginRight="20dp"
-                           app:cardElevation="0dp"
-                           app:cardCornerRadius="10dp"
-                           app:cardBackgroundColor="@color/white">
-                           <LinearLayout
-                               android:layout_width="100dp"
-                               android:layout_height="120dp"
-                               android:orientation="vertical">
-                               <androidx.appcompat.widget.AppCompatImageView
-                                   android:layout_width="80dp"
-                                   android:layout_height="80dp"
-                                   android:layout_gravity="center"
-                                   android:src="@drawable/combo" />
-                               <TextView
-                                   android:layout_width="match_parent"
-                                   android:layout_height="wrap_content"
-                                   android:text="Promo"
-                                   android:textSize="12sp"
-                                   android:gravity="center"
-                                   android:textColor="#222121"
-                                   android:fontFamily="@font/roboto_medium"/>
-                           </LinearLayout>
-                       </androidx.cardview.widget.CardView>
-                       <!--Pizza-->
-                       <androidx.cardview.widget.CardView
                            android:id="@+id/pizza"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
                            android:layout_marginLeft="20dp"
                            android:layout_marginRight="20dp"
-                           android:layout_toEndOf="@id/promo"
                            app:cardElevation="0dp"
                            app:cardCornerRadius="10dp"
                            app:cardBackgroundColor="@color/white">
@@ -566,13 +536,14 @@
                    android:fontFamily="@font/roboto_medium"
                    android:layout_marginTop="20dp"
                    android:layout_marginBottom="10dp"/>
+
                <androidx.recyclerview.widget.RecyclerView
                    android:id="@+id/recyclerView"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:scrollbars="vertical"
                    android:layout_below="@+id/textPopular"
-                   android:layout_marginBottom="100dp"/>
+                   android:layout_marginBottom="100dp"
+                   android:scrollbars="vertical" />
                <androidx.recyclerview.widget.RecyclerView
                    android:id="@+id/recyclerViewCart"
                    android:layout_width="match_parent"

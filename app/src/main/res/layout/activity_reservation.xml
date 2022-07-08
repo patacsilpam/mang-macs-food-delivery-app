@@ -14,7 +14,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="Reservation"
+           android:text="Table Reservation"
            android:textSize="24sp"
            android:textColor="#000"
            android:drawablePadding="10dp"
@@ -25,47 +25,15 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:layout_below="@+id/appbar">
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/reservationLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_marginTop="30dp"
                 android:padding="20dp"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/firstname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="First Name"
-                        android:drawableStart="@drawable/custom_person_icon"
-                        android:drawablePadding="5dp"
-                        android:inputType="text"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/lastname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Last Name"
-                        android:drawableStart="@drawable/custom_person_icon"
-                        android:drawablePadding="5dp"
-                        android:inputType="text"/>
-                </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,21 +46,6 @@
                         android:hint="No. of Guests"
                         android:drawableStart="@drawable/custom_people_icon"
                         android:drawablePadding="5dp"
-                        android:inputType="number"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/phoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Phone Number"
-                        android:drawableStart="@drawable/customer_mobile_no_icon"
-                        android:drawablePadding="5dp"
-                        android:maxLength="11"
                         android:inputType="number"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -127,11 +80,19 @@
                         android:focusable="false"
                         android:inputType="none"/>
                 </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/textRequired"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="#FF6666"
+                    android:textSize="14sp"
+                    android:text="*Table reservation will not accept if selected time is earlier than the current time"/>
                 <Button
                     android:id="@+id/btnBookNow"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="70dp"
                     android:text="Book Now"
                     android:textSize="24sp"
@@ -139,9 +100,14 @@
                     android:textColor="#fff"
                     android:background="@drawable/confirmation_button"/>
             </LinearLayout>
-        </FrameLayout>
     </ScrollView>
 
+    <include
+        android:id="@+id/emptyPhoneNumber"
+        layout="@layout/empty_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"

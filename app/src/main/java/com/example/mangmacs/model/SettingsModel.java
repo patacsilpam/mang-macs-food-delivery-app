@@ -4,19 +4,28 @@ import com.google.gson.annotations.SerializedName;
 
 public class SettingsModel {
     @SerializedName("code")
-    private String waitingTime;
+    private String code;
     @SerializedName("stocks")
     private int stocks;
-    public SettingsModel(String waitingTime, int stocks) {
-        this.waitingTime = waitingTime;
+    @SerializedName("preparationTime")
+    private String preparationTime;
+
+    public SettingsModel(String code, int stocks, String preparationTime) {
+        this.code = code;
         this.stocks = stocks;
+        this.preparationTime = preparationTime;
     }
 
     public String getWaitingTime() {
-        return waitingTime;
+        return code;
     }
 
     public int getStocks() {
         return stocks;
+    }
+
+
+    public String getPreparationTime() {
+        return preparationTime;
     }
 }

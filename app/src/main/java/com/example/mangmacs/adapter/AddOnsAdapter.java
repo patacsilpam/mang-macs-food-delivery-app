@@ -55,6 +55,7 @@ public class AddOnsAdapter extends RecyclerView.Adapter<AddOnsAdapter.ProductVie
                 intent.putExtra("code", addOnsModel.getCodeCombo());
                 intent.putExtra("status", addOnsModel.getStocks());
                 intent.putExtra("preparationTime",addOnsModel.getPreparationTime());
+                intent.putExtra("mainIngredients",addOnsModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

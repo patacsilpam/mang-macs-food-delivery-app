@@ -28,80 +28,188 @@
                 android:textColor="@android:color/black"/>
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
     <ScrollView
-        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!--Delivery Details-->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/orderStatus"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/pressed"
-                android:gravity="center"
-                android:text="Completed"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
             <androidx.cardview.widget.CardView
-                android:id="@+id/dineInDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/white">
-
-                <LinearLayout
+                app:cardElevation="0dp">
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-                    <TextView
+                    android:gravity="center"
+                    android:padding="5dp">
+                    <LinearLayout
+                        android:id="@+id/pendingLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_baseline_info_24"
-                        android:drawablePadding="5dp"
-                        android:text="Customer Information"
-                        android:textColor="#413F3F"
-                        android:textSize="18sp" />
-                    <TextView
-                        android:id="@+id/dineInName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:padding="5dp"
-                        android:text=""
-                        android:textColor="#747474"
-                        android:textSize="18sp" />
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/pendingIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_check_circle_24" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:textColor="#636363"
+                            android:fontFamily="@font/roboto"
+                            android:textSize="11sp"
+                            android:text="Pending"/>
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/dineInEmail"
+                    <View
+                        android:id="@+id/line1"
+                        android:layout_width="55dp"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="-15dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_toEndOf="@id/pendingLayout"
+                        android:background="@color/pressed" />
+                    <LinearLayout
+                        android:id="@+id/receivedLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:padding="5dp"
-                        android:text=""
-                        android:textColor="#747474"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                        android:layout_toEndOf="@+id/line1"
+                        android:layout_marginLeft="-15dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/receivedIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_check_circle_24"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:textColor="#636363"
+                            android:fontFamily="@font/roboto"
+                            android:textSize="11sp"
+                            android:text="Order\nReceived"/>
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/line2"
+                        android:layout_width="55dp"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="-15dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_toEndOf="@id/receivedLayout"
+                        android:background="@color/pressed"  />
+                    <LinearLayout
+                        android:id="@+id/processingLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/line2"
+                        android:layout_marginLeft="-20dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/processingIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_check_circle_24" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:textColor="#636363"
+                            android:fontFamily="@font/roboto"
+                            android:textSize="11sp"
+                            android:text="Order\nProcessing"/>
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/line3"
+                        android:layout_width="55dp"
+                        android:layout_height="2dp"
+                        android:layout_toEndOf="@id/processingLayout"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginLeft="-20dp"
+                        android:background="@color/pressed" />
+                    <LinearLayout
+                        android:id="@+id/forDeliveryLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/line3"
+                        android:layout_marginLeft="-15dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/forDeliveryIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_check_circle_24" />
+                        <TextView
+                            android:id="@+id/changeableStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textColor="#636363"
+                            android:fontFamily="@font/roboto"
+                            android:textSize="11sp"
+                            android:text="Out for\nDelivery"/>
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/line4"
+                        android:layout_width="55dp"
+                        android:layout_height="2dp"
+                        android:layout_toEndOf="@id/forDeliveryLayout"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginLeft="-15dp"
+                        android:background="@color/pressed" />
+                    <LinearLayout
+                        android:id="@+id/completedLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/line4"
+                        android:layout_marginLeft="-22dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/completedIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_check_circle_24"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textColor="#636363"
+                            android:fontFamily="@font/roboto"
+                            android:textSize="11sp"
+                            android:text="Order\nCompleted"/>
+                    </LinearLayout>
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
+            <!--Delivery Details-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/pickUpDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                app:cardElevation="0dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -132,13 +240,14 @@
                         android:textSize="18sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/deliveryAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -184,6 +293,7 @@
                         android:text=""
                         android:textColor="#747474"
                         android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/labelAddress"
                         android:layout_width="80dp"
@@ -198,23 +308,27 @@
                         android:textSize="18sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                app:cardElevation="0dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Order Type"
                         android:textColor="#7E7A7A"
                         android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/orderType"
                         android:layout_width="wrap_content"
@@ -224,13 +338,14 @@
                         android:textSize="18sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/paymentMethodDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -254,165 +369,188 @@
                         android:textSize="18sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <TextView
                 android:id="@+id/orderNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/prevOrderDetailLists"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"/>
+                android:scrollbars="none" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/deliveryFeeDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:background="@color/white">
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#C6C6C6"/>
+                        android:background="#C6C6C6" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto"
                         android:padding="10dp"
                         android:text="Delivery Fee"
-                        android:fontFamily="@font/roboto"
-                        android:textSize="16sp"
                         android:textColor="#413F3F"
-                        android:layout_centerVertical="true"/>
+                        android:textSize="16sp" />
+
                     <TextView
                         android:id="@+id/deliveryFee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto"
                         android:padding="10dp"
                         android:text=""
-                        android:fontFamily="@font/roboto"
-                        android:textSize="16sp"
                         android:textColor="#413F3F"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"/>
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:background="@color/white">
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#C6C6C6"/>
+                        android:background="#C6C6C6" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto"
                         android:padding="10dp"
                         android:text="Order Total"
-                        android:fontFamily="@font/roboto"
-                        android:textSize="16sp"
                         android:textColor="#413F3F"
-                        android:layout_centerVertical="true"/>
+                        android:textSize="16sp" />
+
                     <TextView
                         android:id="@+id/totalAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto"
                         android:padding="10dp"
                         android:text=""
-                        android:fontFamily="@font/roboto"
-                        android:textSize="16sp"
                         android:textColor="#413F3F"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"/>
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 app:cardElevation="0dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Order Id"
+                            android:layout_centerVertical="true"
                             android:fontFamily="@font/roboto"
-                            android:textSize="16sp"
+                            android:text="Order Id"
                             android:textColor="#413F3F"
-                            android:layout_centerVertical="true"/>
+                            android:textSize="16sp" />
+
                         <TextView
                             android:id="@+id/orderId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:fontFamily="@font/roboto"
-                            android:textSize="16sp"
-                            android:textColor="#413F3F"
+                            android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:layout_alignParentEnd="true"/>
+                            android:fontFamily="@font/roboto"
+                            android:text=""
+                            android:textColor="#413F3F"
+                            android:textSize="16sp" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@color/white">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Order Time"
+                            android:layout_centerVertical="true"
                             android:fontFamily="@font/roboto"
-                            android:textSize="16sp"
+                            android:text="Order Time"
                             android:textColor="#413F3F"
-                            android:layout_centerVertical="true"/>
+                            android:textSize="16sp" />
+
                         <TextView
                             android:id="@+id/orderTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:fontFamily="@font/roboto"
-                            android:textSize="16sp"
-                            android:textColor="#413F3F"
+                            android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:layout_alignParentEnd="true"/>
+                            android:fontFamily="@font/roboto"
+                            android:text=""
+                            android:textColor="#413F3F"
+                            android:textSize="16sp" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Completed Time"
+                            android:layout_centerVertical="true"
                             android:fontFamily="@font/roboto"
-                            android:textSize="16sp"
+                            android:text="Completed Time"
                             android:textColor="#413F3F"
-                            android:layout_centerVertical="true"/>
+                            android:textSize="16sp" />
+
                         <TextView
                             android:id="@+id/completedTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:fontFamily="@font/roboto"
-                            android:textSize="16sp"
-                            android:textColor="#413F3F"
+                            android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:layout_alignParentEnd="true"/>
+                            android:fontFamily="@font/roboto"
+                            android:text=""
+                            android:textColor="#413F3F"
+                            android:textSize="16sp" />
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

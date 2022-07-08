@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.mangmacs.Config;
 import com.example.mangmacs.R;
+import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.activities.ForgotPasswordActivity;
 import com.example.mangmacs.activities.VerificationActivity;
 import com.example.mangmacs.api.ApiInterface;
@@ -19,7 +20,10 @@ import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.UpdateAccountModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -39,7 +43,8 @@ public class VerifyEmailActivity extends AppCompatActivity {
     private TextInputLayout code;
     private Button btnVerifyCode;
     private Intent intent;
-    private String email,vercode;
+    private String email,vercode,fname;
+    //verify user email
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +56,12 @@ public class VerifyEmailActivity extends AppCompatActivity {
         intent = getIntent();
         email = intent.getStringExtra("email");
         vercode = intent.getStringExtra("code");
+        fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
         ForgotPassword();
         VerifyCode();
         ResendCode();
     }
-
+    //resend email code
     private void ResendCode() {
         resendCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,33 +85,32 @@ public class VerifyEmailActivity extends AppCompatActivity {
                     mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(email)));
                     mimeMessage.setSubject("Verify Email");
                     mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
-                            "                        <header style='display: flex; align-items: center;'>\n" +
-                            "                            <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
-                            "                            <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
-                            "                        </header>\n" +
-                            "                        <article>\n" +
-                            "                            <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>\n" +
-                            "                                Hi,<br>Welcome to Mang Mac's Foodshop. Please use the mentioned code below to verify your email.\n" +
-                            "                            </p>\n" +
-                            "                        </article>\n" +
-                            "                        <article style='display: flex; justify-content: center;'>\n" +
-                            "                            <strong style='width:100%; text-align:center; background: #E7E7E7; padding: 2rem; font-size: 2rem; letter-spacing: 3px;'>\n" +vercode+"</strong>"+
-                            "                        </article>\n" +
-                            "                        <footer style='text-align: center; margin-top: 30px;'>\n" +
-                            "                            <p style='margin: 10px 0 5px 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>from</p>\n" +
-                            "                            <strong style='font-family: Arial, Helvetica, sans-serif;'>MangMac's Foodshop</strong>\n" +
-                            "                            <p style='margin: 7px 0 0 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Zone 5, Brgy. Sta. Lucia Bypass Road,<br>Urdaneta Philippines</p>\n" +
-                            "                        </footer>\n" +
-                            "                        </main>", "text/html");
+                            "<header style='display: flex; align-items: center;'>\n" +
+                            "  <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                            "  <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
+                            "</header>\n" +
+                            "<article>\n" +
+                            "  <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>\n Hi "+fname +
+                            ",<br>Welcome to Mang Mac's Foodshop. Please use the mentioned code below to verify your account.\n" +
+                            "  </p>\n" +
+                            "</article>\n" +
+                            "<article style='display: flex; justify-content: center;'>\n" +
+                            "  <strong style='width:100%; text-align:center; background: #E7E7E7; padding: 2rem; font-size: 2rem; letter-spacing: 3px;'>\n" +code+"</strong>"+
+                            "</article>\n" +
+                            "<footer style='text-align: center; margin-top: 30px;'>\n" +
+                            " <p style='margin: 10px 0 5px 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>from</p>\n" +
+                            " <strong style='font-family: Arial, Helvetica, sans-serif;'>MangMac's Foodshop</strong>\n" +
+                            " <p style='margin: 7px 0 0 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Zone 5, Brgy. Sta. Lucia Bypass Road,<br>Urdaneta Philippines</p>\n" +
+                            "</footer>\n" +
+                            "</main>", "text/html");
                     new SendEmail().execute(mimeMessage);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
-
+    //validate code and verifying email
     private void VerifyCode() {
         btnVerifyCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +130,8 @@ public class VerifyEmailActivity extends AppCompatActivity {
                                 String message = response.body().getMessage();
                                 if(success.equals("1")){
                                     startActivity(new Intent(VerifyEmailActivity.this,LoginActivity.class));
+                                    finish();
+                                    verifyEmail();
                                 }
                                 else{
                                     Toast.makeText(VerifyEmailActivity.this,message,Toast.LENGTH_SHORT).show();
@@ -141,8 +148,49 @@ public class VerifyEmailActivity extends AppCompatActivity {
             }
         });
     }
+    //send email registration successful
+    private void verifyEmail() {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+        session = javax.mail.Session.getDefaultInstance(props,
+                new javax.mail.Authenticator(){
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(Config.EMAIL,Config.PASSWORD);
+                    }
+                });
+        try {
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.setFrom(new InternetAddress(Config.EMAIL));
+            mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(email)));
+            mimeMessage.setSubject("Registration Successful");
+            mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
+                    "<header style='display: flex; align-items: center;'>\n" +
+                    "   <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                    "   <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
+                    "</header>\n" +
+                    "<article style='text-align:center;'>\n" +
+                    "   <h1 style='font-size: 1.5rem;  font-family: Arial, Helvetica, sans-serif;'>Welcome <span style=\"color:#36E49A;\">"+ fname+ "</span></h1>\n" +
+                    "   <h3 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif; padding: 5px;'>Thank you for choosing Mang Macs food shop.</h3>\n" +
+                    "   <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>You are now ready with your new account.</p>\n<br>" +
+                    "</article>"+
+                    "<footer style='text-align: center; margin-top: 30px;'>\n" +
+                    "   <p style='margin: 10px 0 5px 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>from</p>\n" +
+                    "   <strong style='font-family: Arial, Helvetica, sans-serif;'>MangMac's Foodshop</strong>\n" +
+                    "   <p style='margin: 7px 0 0 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Zone 5, Brgy. Sta. Lucia Bypass Road,<br>Urdaneta Philippines</p>\n" +
+                    "</footer>\n" +
+                    "</main>", "text/html");
+            new SendEmail().execute(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
-    private class SendEmail extends AsyncTask<Message,String,String> {
+    class SendEmail extends AsyncTask<Message,String,String> {
 
         @Override
         protected String doInBackground(Message... messages) {

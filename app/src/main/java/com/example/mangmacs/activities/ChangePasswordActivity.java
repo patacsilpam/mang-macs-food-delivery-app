@@ -3,18 +3,33 @@ package com.example.mangmacs.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mangmacs.Config;
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.UpdateAccountModel;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import java.util.TimeZone;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +38,8 @@ import retrofit2.Response;
 public class ChangePasswordActivity extends AppCompatActivity {
     private TextInputLayout currentPword,newPword,confirmPword;
     private Button updatePword;
+    private Session session;
+    private String email,fname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +48,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
         newPword = findViewById(R.id.newPword);
         confirmPword = findViewById(R.id.confirmPword);
         updatePword = findViewById(R.id.updatePword);
+        //fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
+        //email = SharedPreference.getSharedPreference(getApplicationContext()).setEmail();
         UpdatePassword();
     }
 

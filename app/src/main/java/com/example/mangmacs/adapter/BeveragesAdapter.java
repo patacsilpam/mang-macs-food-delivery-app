@@ -55,6 +55,7 @@ public class BeveragesAdapter extends RecyclerView.Adapter<BeveragesAdapter.Prod
                 intent.putExtra("code", beveragesModel.getCodeCombo());
                 intent.putExtra("status", beveragesModel.getStocks());
                 intent.putExtra("preparationTime",beveragesModel.getPreparationTime());
+                intent.putExtra("mainIngredients",beveragesModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

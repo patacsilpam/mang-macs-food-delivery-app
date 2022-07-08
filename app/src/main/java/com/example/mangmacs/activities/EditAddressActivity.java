@@ -67,8 +67,7 @@ public class EditAddressActivity extends AppCompatActivity{
                                         if(response.body() != null){
                                             String success = response.body().getSuccess();
                                             if(success.equals("1")){
-                                               startActivity(new Intent(getApplicationContext(),MyAddressActivity.class));
-                                               finish();
+                                               startActivity(new Intent(getApplicationContext(),AccountActivity.class));
                                             }
                                         }
                                     }
@@ -137,9 +136,6 @@ public class EditAddressActivity extends AppCompatActivity{
                 String getAddress = radioButton.getText().toString();
                 if(sfullname.isEmpty()) {
                     fullname.setError("Required");
-                }
-                else  if(street.isEmpty()){
-                    streetName.setError("Required");
                 }
                 else if(phoneNo.isEmpty()){
                     phoneNumber.setError("Required");

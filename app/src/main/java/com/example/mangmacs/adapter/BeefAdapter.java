@@ -56,6 +56,7 @@ public class BeefAdapter extends RecyclerView.Adapter<BeefAdapter.ProductViewHol
                 intent.putExtra("code", beefModel.getCodeCombo());
                 intent.putExtra("status", beefModel.getStocks());
                 intent.putExtra("preparationTime",beefModel.getPreparationTime());
+                intent.putExtra("mainIngredients",beefModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

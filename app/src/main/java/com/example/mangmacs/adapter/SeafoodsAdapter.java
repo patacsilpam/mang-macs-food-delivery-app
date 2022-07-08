@@ -56,6 +56,7 @@ public class SeafoodsAdapter extends RecyclerView.Adapter<SeafoodsAdapter.Produc
                 intent.putExtra("code", seafoodsModel.getCodeCombo());
                 intent.putExtra("status", seafoodsModel.getStocks());
                 intent.putExtra("preparationTime",seafoodsModel.getPreparationTime());
+                intent.putExtra("mainIngredients",seafoodsModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

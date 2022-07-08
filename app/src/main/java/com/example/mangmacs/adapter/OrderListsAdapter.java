@@ -32,7 +32,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
     ArrayList<String> productList = new ArrayList<>();
     ArrayList<String> productCodeList = new ArrayList<>();
     ArrayList<String> variationList = new ArrayList<>();
-    ArrayList<String> quantityList = new ArrayList<>();
+    ArrayList<Integer> quantityList = new ArrayList<>();
     ArrayList<String> addOnsList = new ArrayList<>();
     ArrayList<String> priceList = new ArrayList<>();
     ArrayList<String> subTotalList = new ArrayList<>();
@@ -66,7 +66,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         String str_product = orderModel.getProoductNameCart();
         String str_productCode = orderModel.getProductCodeCart();
         String str_newVariation = orderModel.getVariationCart();
-        String str_newQuantity = String.valueOf(orderModel.getQuantityCart());
+        int str_newQuantity = orderModel.getQuantityCart();
         String str_newAddons = orderModel.getAdd_onsCart();
         String str_newPrice = String.valueOf(orderModel.getPriceCart());
         String str_newImgProduct = orderModel.getImageProduct();
@@ -85,7 +85,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         Intent intent = new Intent("TotalOrderPrice");
         intent.putExtra("totalorderprice",orderModel.getTotalprice());
         intent.putExtra("deliveryChange",orderModel.getDeliveryChange());
-        //intent.putExtra("waitingTime",orderModel.getW());
+        intent.putExtra("waitingTime",orderModel.getPreparedTime());
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         ordersListener.onProductsChange(productList);
         ordersListener.onProductCategoryChange(productCategoryList);

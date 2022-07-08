@@ -44,37 +44,6 @@
             app:rowCount="3">
             <!--Pizza-->
             <androidx.cardview.widget.CardView
-                android:id="@+id/btnPromo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_columnWeight="1"
-                app:layout_rowWeight="1"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="30dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="10dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/combo"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Promo"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textSize="14sp"
-                        android:gravity="center"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <!--Pizza-->
-            <androidx.cardview.widget.CardView
                android:id="@+id/btnPizza"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -454,7 +423,7 @@
                 app:layout_rowWeight="1"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="100dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardElevation="0dp"
                 app:cardCornerRadius="10dp">
@@ -484,7 +453,7 @@
                 app:layout_rowWeight="1"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="100dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardElevation="0dp"
                 app:cardCornerRadius="10dp">

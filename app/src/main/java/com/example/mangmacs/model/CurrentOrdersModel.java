@@ -66,8 +66,10 @@ public class CurrentOrdersModel {
     private String completedTime;
     @SerializedName("waiting_time")
     private String waitingTime;
+    @SerializedName("notif_date")
+    private String notifDate;
 
-    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime) {
+    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime,String notifDate) {
         this.success = success;
         this.id = id;
         this.productCode = productCode;
@@ -98,6 +100,7 @@ public class CurrentOrdersModel {
         this.orderStatus = orderStatus;
         this.completedTime = completedTime;
         this.waitingTime = waitingTime;
+        this.notifDate = notifDate;
     }
 
     public String getSuccess() {
@@ -218,5 +221,9 @@ public class CurrentOrdersModel {
 
     public String getWaitingTime() {
         return waitingTime;
+    }
+
+    public String getNotifDate() {
+        return notifDate;
     }
 }

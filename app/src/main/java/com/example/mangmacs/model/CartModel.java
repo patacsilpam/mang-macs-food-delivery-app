@@ -35,10 +35,10 @@ public class CartModel {
     private String totalcart;
     @SerializedName("imageProduct")
     private String imageProduct;
-   // @SerializedName("waitingTime")
-    //private String waitingTime;
+    @SerializedName("preparation_time")
+    private String preparedTime;
 
-    public CartModel(String success, String emailCart, int productId, String productCodeCart, String prooductNameCart, String productCategory, String variationCart, String fnameCart, String lnameCart, int priceCart, int quantityCart, int totalprice, int deliveryChange, String add_onsCart, String totalcart, String imageProduct) {
+    public CartModel(String success, String emailCart, int productId, String productCodeCart, String prooductNameCart, String productCategory, String variationCart, String fnameCart, String lnameCart, int priceCart, int quantityCart, int totalprice, int deliveryChange, String add_onsCart, String totalcart, String imageProduct,String preparedTime) {
         this.success = success;
         this.emailCart = emailCart;
         this.productId = productId;
@@ -55,7 +55,7 @@ public class CartModel {
         this.add_onsCart = add_onsCart;
         this.totalcart = totalcart;
         this.imageProduct = imageProduct;
-      //  this.waitingTime = waitingTime;
+        this.preparedTime = preparedTime;
     }
 
     public String getSuccess() {
@@ -122,7 +122,7 @@ public class CartModel {
         return imageProduct;
     }
 
-   /* public String getWaitingTime() {
-        return waitingTime;
-    }*/
+   public String getPreparedTime() {
+        return preparedTime;
+    }
 }

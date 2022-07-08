@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,7 +34,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.FileUtils;
 import android.provider.MediaStore;
+import android.telephony.SmsManager;
 import android.util.Base64;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -45,6 +48,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mangmacs.R;
+import com.example.mangmacs.SendCode;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
@@ -62,6 +66,7 @@ import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Random;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -76,12 +81,14 @@ import static android.graphics.Color.parseColor;
 public class MyAccountActivity extends AppCompatActivity {
     private EditText birthdate;
     private TextView emailAddress,initials;
-    private TextInputLayout firstname,lastname;
+    private TextInputLayout firstname,lastname,phoneNumber;
     private RadioGroup rdGender;
     private RadioButton radioButton;
     private Button btnSaveAccount;
     private SharedPreference sharedPreference;
     private Calendar calendar;
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =  100;
+    private String telNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +99,7 @@ public class MyAccountActivity extends AppCompatActivity {
         emailAddress = findViewById(R.id.acc_email);
         initials = findViewById(R.id.initials);
         birthdate = findViewById(R.id.acc_birthdate);
+        //phoneNumber = findViewById(R.id.phoneNumber);
         rdGender = findViewById(R.id.rdGender);
         btnSaveAccount = findViewById(R.id.btnSaveAccount);
         sharedPreference = new SharedPreference(this);
@@ -107,62 +115,104 @@ public class MyAccountActivity extends AppCompatActivity {
                 String fname = firstname.getEditText().getText().toString();
                 String lname = lastname.getEditText().getText().toString();
                 String bdate = birthdate.getText().toString();
+                //telNumber = phoneNumber.getEditText().getText().toString();
                 int selectedGender = rdGender.getCheckedRadioButtonId();
                 radioButton = findViewById(selectedGender);
                 String gender = radioButton.getText().toString();
+                String sPhoneNumber = SharedPreference.getSharedPreference(getApplicationContext()).setPrepTime();
                 if(fname.isEmpty()){
                     firstname.setError("Required");
-                    firstname.setBackgroundColor(Color.WHITE);
-                    firstname.setBoxStrokeErrorColor(ColorStateList.valueOf(Color.RED));
-                }
-                else if (lname.isEmpty()){
-                    lastname.setError("Required");
                 }
                 else if (bdate.isEmpty()){
                     birthdate.setError("Required");
                 }
-                else{
-                    String saveEmail = SharedPreference.getSharedPreference(getApplicationContext()).setEmail();
-                    ApiInterface apiInterface1 = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<UpdateAccountModel> updateAccountModelCall = apiInterface1.updateAccount(saveEmail,fname,lname,gender,bdate);
-                    updateAccountModelCall.enqueue(new Callback<UpdateAccountModel>() {
-                        @Override
-                        public void onResponse(Call<UpdateAccountModel> call, Response<UpdateAccountModel> response) {
-                            if(response.body() != null){
-                                String success = response.body().getSuccess();
-                                String message = response.body().getMessage();
-                                if(success.equals("1")){
-                                    Toast.makeText(MyAccountActivity.this,message,Toast.LENGTH_SHORT).show();
-                                    restartData();
-                                    startActivity(new Intent(MyAccountActivity.this,AccountActivity.class));
-                                }
-                                else{
-                                    Toast.makeText(MyAccountActivity.this,message,Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                        //this is to update the first name and last name  of the user in shared preferences
-                        private void restartData() {
-                            SharedPreferences sharedPreferences = getSharedPreferences(SharedPreference.PREF_NAME, Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(SharedPreference.FIRST_NAME,fname);
-                            editor.putString(SharedPreference.LNAME,lname);
-                            editor.apply();
-                            Intent intent = getIntent();
-                            finish();
-                            startActivity(intent);
-                        }
-
-                        @Override
-                        public void onFailure(Call<UpdateAccountModel> call, Throwable t) {
-
-                        }
-                    });
+                /*else if(telNumber.isEmpty()){
+                    phoneNumber.setError("Required");
                 }
+                else {
+                   if (!telNumber.equals(sPhoneNumber)){
+                       if (ContextCompat.checkSelfPermission(MyAccountActivity.this,Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+                           if (ActivityCompat.shouldShowRequestPermissionRationale(MyAccountActivity.this, Manifest.permission.SEND_SMS)) {
+                               sendVerificationCode();
+                           } else {
+                               ActivityCompat.requestPermissions(MyAccountActivity.this,
+                                       new String[]{Manifest.permission.SEND_SMS},
+                                       MY_PERMISSIONS_REQUEST_SEND_SMS);
+                           }
+                       }
+                    }
+                }*/
+                else{
+                    updateUserDetails(fname,lname,gender,bdate);
+                }
+
             }
         });
     }
 
+
+  /*  @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            sendVerificationCode();
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Permission Denied",Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void sendVerificationCode(){
+        String receiver = phoneNumber.getEditText().getText().toString();
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(receiver,null,"Hello",null,null);
+            Toast.makeText(getApplicationContext(),"Message Sent",Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
+    private void updateUserDetails(String fname, String lname, String gender, String bdate){
+        String saveEmail = SharedPreference.getSharedPreference(getApplicationContext()).setEmail();
+        ApiInterface apiInterface1 = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        Call<UpdateAccountModel> updateAccountModelCall = apiInterface1.updateAccount(saveEmail,fname,lname,gender,bdate);
+        updateAccountModelCall.enqueue(new Callback<UpdateAccountModel>() {
+            @Override
+            public void onResponse(Call<UpdateAccountModel> call, Response<UpdateAccountModel> response) {
+                if(response.body() != null){
+                    String success = response.body().getSuccess();
+                    String message = response.body().getMessage();
+                    if(success.equals("1")){
+                        Toast.makeText(MyAccountActivity.this,message,Toast.LENGTH_SHORT).show();
+                        restartData();
+                        startActivity(new Intent(MyAccountActivity.this,AccountActivity.class));
+                    }
+                    else{
+                        Toast.makeText(MyAccountActivity.this,message,Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            //this is to update the first name and last name  of the user in shared preferences
+            private void restartData() {
+                SharedPreferences sharedPreferences = getSharedPreferences(SharedPreference.PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(SharedPreference.FIRST_NAME,fname);
+                editor.putString(SharedPreference.LNAME,lname);
+                editor.apply();
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<UpdateAccountModel> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+
+    //fetch and show user details in input fields
     private void ShowUserDetails() {
         String email = SharedPreference.getSharedPreference(this).setEmail();
         String fname = SharedPreference.getSharedPreference(this).setFname();
@@ -230,5 +280,4 @@ public class MyAccountActivity extends AppCompatActivity {
             }
         });
     }
-
 }

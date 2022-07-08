@@ -56,6 +56,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ProductViewH
                 intent.putExtra("productVariation",pizzaListModel.getProductVariation());
                 intent.putExtra("groupCode",pizzaListModel.getCode());
                 intent.putExtra("preparationTime",pizzaListModel.getPreparationTime());
+                intent.putExtra("mainIngredients",pizzaListModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

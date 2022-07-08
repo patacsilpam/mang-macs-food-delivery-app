@@ -1,21 +1,13 @@
 package com.example.mangmacs.adapter;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,17 +19,14 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.mangmacs.R;
-import com.example.mangmacs.activities.BilaoListDetail;
 import com.example.mangmacs.activities.CartActivity;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
-import com.example.mangmacs.model.UpdateAccountModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,6 +36,7 @@ import retrofit2.Response;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
     private Context context;
     private List<CartModel> cartList;
+    private ArrayList<Integer> preparedList = new ArrayList<Integer>();
     public CartAdapter(Context context, List<CartModel> cartList){
         this.context = context;
         this.cartList = cartList;
@@ -62,6 +52,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.MyViewHolder holder, int position) {
         CartModel cartModel = cartList.get(position);
+        //display user cart lists detail
         Glide.with(context).load(cartModel.getImageProduct()).into(holder.imageView);
         holder.productID.setText(String.valueOf(cartModel.getProductId()));
         holder.productName.setText(cartModel.getProoductNameCart());
@@ -74,7 +65,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.totalPrice.setText(String.valueOf(cartModel.getTotalprice()));
         holder.btnDecrement.setEnabled(true);
         String quantityCart = holder.quantity.getText().toString();
-        //increment quantity
+        //increase  order product activity
         holder.btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,11 +95,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 });
             }
         });
-        //decrement quantity
+        //disable decrement button  if equals to 1 quantity
        if (quantityCart.equals("1")){
            holder.btnDecrement.setEnabled(false);
            holder.btnDecrement.setBackground(ContextCompat.getDrawable(context, R.drawable.minus_btn));
        }
+       //decrease  order product activity
        else{
            holder.btnDecrement.setOnClickListener(new View.OnClickListener() {
                @Override
@@ -185,9 +177,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 alert.show();
             }
         });
+       //send total price to cart activity using localbroadcast manager
+        preparedList.add(Integer.valueOf(cartModel.getPreparedTime()));
+        int maxTime = Collections.max(preparedList);
         String totalprice = holder.totalPrice.getText().toString();
         Intent intent = new Intent("TotalPrice");
         intent.putExtra("totalprice",totalprice);
+        intent.putExtra("maxTime",maxTime);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

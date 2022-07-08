@@ -113,15 +113,28 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/confirm_delivery_address_input" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:fontFamily="@font/roboto_light"
-                android:text="Street/Building Name"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textStreet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Street/Building Name"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/textStreet"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="(optional)"
+                    android:textStyle="italic"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/streetname"

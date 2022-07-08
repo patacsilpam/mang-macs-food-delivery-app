@@ -6,14 +6,78 @@
     android:layout_height="match_parent"
     android:background="#1DC2C2C6"
     tools:context=".activities.NotificationsActivity">
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notifications"
+                android:textSize="24sp"
+                android:textColor="#000"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"/>
+    </androidx.appcompat.widget.Toolbar>
+    <View
+        android:id="@+id/line"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#634E548F"/>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/home_bg_color"
-        app:itemIconTint="@drawable/icon_pressed"
-        app:itemTextColor="@drawable/icon_pressed"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav" />
+        android:layout_below="@+id/line"
+        android:fillViewport="true">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_marginBottom="150dp">
+          <LinearLayout
+              android:id="@+id/bookUpdateLayout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Table Reservation Updates"
+                  android:padding="10dp"
+                  android:textSize="16sp"
+                  android:textColor="#656565"/>
+              <androidx.recyclerview.widget.RecyclerView
+                  android:id="@+id/bookUpdateLists"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"/>
+          </LinearLayout>
+          <LinearLayout
+              android:id="@+id/orderUpdateLayout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+              <View
+                  android:id="@+id/line1"
+                  android:layout_marginTop="10dp"
+                  android:layout_below="@+id/toolbar"
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="#634E548F"/>
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Order Updates"
+                  android:padding="10dp"
+                  android:textSize="16sp"
+                  android:textColor="#656565"/>
+              <androidx.recyclerview.widget.RecyclerView
+                  android:id="@+id/orderUpdateLists"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical" />
+          </LinearLayout>
+      </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

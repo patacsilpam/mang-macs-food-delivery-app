@@ -7,7 +7,7 @@ public interface OrdersListener {
     void onProductCategoryChange(ArrayList<String> category);
     void onProductCodeChange(ArrayList<String> productCode);
     void onVariationChange(ArrayList<String> variations);
-    void onQuantityChange(ArrayList<String> quantity);
+    void onQuantityChange(ArrayList<Integer> quantity);
     void onAddOnsChange(ArrayList<String> addOns);
     void onSubTotalChange(ArrayList<String> subTotal);
     void onPriceChange(ArrayList<String> price);

@@ -19,8 +19,10 @@ public class PromoListModel {
     private String stocks;
     @SerializedName("preparationTime")
     private String preparationTime;
+    @SerializedName("mainIngredients")
+    private String mainIngredients;
 
-    public PromoListModel(String productPromoCode, String productNamePromo, String productCategoryPromo, String productVariationPromo, int pricePromo, String productImgPromo, String stocks, String preparationTime) {
+    public PromoListModel(String productPromoCode, String productNamePromo, String productCategoryPromo, String productVariationPromo, int pricePromo, String productImgPromo, String stocks, String preparationTime,String mainIngredients) {
         this.productPromoCode = productPromoCode;
         this.productNamePromo = productNamePromo;
         this.productCategoryPromo = productCategoryPromo;
@@ -29,38 +31,34 @@ public class PromoListModel {
         this.productImgPromo = productImgPromo;
         this.stocks = stocks;
         this.preparationTime = preparationTime;
+        this.mainIngredients = mainIngredients;
     }
 
     public String getProductPromoCode() {
         return productPromoCode;
     }
-
     public String getProductNamePromo() {
         return productNamePromo;
     }
-
     public String getProductCategoryPromo() {
         return productCategoryPromo;
     }
-
     public String getProductVariationPromo() {
         return productVariationPromo;
     }
-
-
     public int getPricePromo() {
         return pricePromo;
     }
-
     public String getProductImgPromo() {
         return productImgPromo;
     }
-
     public String getStocks() {
         return stocks;
     }
-
     public String getPreparationTime() {
         return preparationTime;
+    }
+    public String getMainIngredients() {
+        return mainIngredients;
     }
 }

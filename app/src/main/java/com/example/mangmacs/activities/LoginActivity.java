@@ -70,12 +70,14 @@ public class LoginActivity extends AppCompatActivity {
                                 String email = response.body().getEmail_address();
                                 String lname = response.body().getLname();
                                 String customer_id = response.body().getCustomerID();
+                                String token = response.body().getToken();
                                 if(success.equals("1")){
                                     progressDialog.dismiss();
-                                    SharedPreference.getSharedPreference(LoginActivity.this).storeFname(fname);
-                                    SharedPreference.getSharedPreference(LoginActivity.this).storeEmail(email);
-                                    SharedPreference.getSharedPreference(LoginActivity.this).storeLname(lname);
                                     SharedPreference.getSharedPreference(LoginActivity.this).storeID(customer_id);
+                                    SharedPreference.getSharedPreference(LoginActivity.this).storeToken(token);
+                                    SharedPreference.getSharedPreference(LoginActivity.this).storeFname(fname);
+                                    SharedPreference.getSharedPreference(LoginActivity.this).storeLname(lname);
+                                    SharedPreference.getSharedPreference(LoginActivity.this).storeEmail(email);
                                     Intent intent = new Intent(LoginActivity.this,home_activity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
@@ -113,7 +115,8 @@ public class LoginActivity extends AppCompatActivity {
         forgotPword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
+                Intent intent = new Intent(LoginActivity.this,ForgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }

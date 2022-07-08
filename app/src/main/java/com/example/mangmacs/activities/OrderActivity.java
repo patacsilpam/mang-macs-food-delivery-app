@@ -3,6 +3,7 @@ package com.example.mangmacs.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
@@ -15,10 +16,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.adapter.OrderNowLaterAdapter;
 import com.example.mangmacs.adapter.PickUpAdapter;
+import com.example.mangmacs.fragment.orderLater;
 import com.google.android.material.tabs.TabLayout;
 
 public class OrderActivity extends AppCompatActivity {

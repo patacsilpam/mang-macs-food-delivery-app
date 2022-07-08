@@ -1,6 +1,7 @@
 package com.example.mangmacs.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,19 +24,23 @@ import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PopularDetailActivity extends AppCompatActivity {
-    private ImageView imageView;
+    private LinearLayout ingredientsLayout;
+    private CardView baseCardview;
+    private ImageView imageView,showIngredients;
     private TextView txt_arrow_back;
-    private TextView productName,productPrice,status,customerId,fname,lname;
+    private TextView productName,productPrice,txtProductCategory,ingredients,status,customerId,fname,lname;
     private TextInputLayout drinksAddons;
     private EditText quantity;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
     private Intent intent;
-    private String image;
+    private String image,productCategory;
     int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,7 @@ public class PopularDetailActivity extends AppCompatActivity {
         productName = findViewById(R.id.mealsgoodproductName);
         productPrice = findViewById(R.id.mealsgoodproductPrice);
         drinksAddons = findViewById(R.id.mealsgoodadd_ons);
+        txtProductCategory = findViewById(R.id.txtproductCategory);
         status = findViewById(R.id.status);
         customerId = findViewById(R.id.customerId);
         fname = findViewById(R.id.fname);
@@ -51,12 +58,32 @@ public class PopularDetailActivity extends AppCompatActivity {
         btnAddtoCart = findViewById(R.id.btnMealsGood);
         txt_arrow_back = findViewById(R.id.txt_arrow_back);
         quantity = findViewById(R.id.quantity);
+        ingredients = findViewById(R.id.ingredients);
+        showIngredients = findViewById(R.id.showIngredients);
+        ingredientsLayout = findViewById(R.id.ingredientLayout);
+        baseCardview = findViewById(R.id.baseCardview);
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
         btnDecrement.setEnabled(false); //set button decrement not clickable
+        ShowIngredients();
         IncrementDecrement();
         DisplayProductDetails();
         Back();
+    }
+    private void ShowIngredients(){
+        showIngredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ingredientsLayout.getVisibility() == View.GONE){
+                    ingredientsLayout.setVisibility(View.VISIBLE);
+                    showIngredients.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+                }
+                else{
+                    ingredientsLayout.setVisibility(View.GONE);
+                    showIngredients.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+                }
+            }
+        });
     }
     private void IncrementDecrement() {
         //button increment
@@ -107,6 +134,8 @@ public class PopularDetailActivity extends AppCompatActivity {
         String productname = intent.getStringExtra("productName");
         int productprice = intent.getIntExtra("price",0);
         String productstatus = intent.getStringExtra("preparationTime");
+        String productCategory = intent.getStringExtra("productCategory");
+        String newIngredients =intent.getStringExtra("mainIngredients");
         String firstname = SharedPreference.getSharedPreference(PopularDetailActivity.this).setFname();
         String lastname = SharedPreference.getSharedPreference(PopularDetailActivity.this).setLname();
         String customerID = SharedPreference.getSharedPreference(PopularDetailActivity.this).setEmail();
@@ -114,10 +143,12 @@ public class PopularDetailActivity extends AppCompatActivity {
             Glide.with(PopularDetailActivity.this).load(image).into(imageView);
             productName.setText(productname);
             productPrice.setText(Integer.toString(productprice));
+            ingredients.setText(newIngredients.toLowerCase(Locale.ROOT));
             status.setText(productstatus.concat("min"));
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);
+            txtProductCategory.setText(productCategory);
         }
         AddToCart();
     }
@@ -135,8 +166,10 @@ public class PopularDetailActivity extends AppCompatActivity {
                 int price = Integer.parseInt(productPrice.getText().toString());
                 int number = Integer.parseInt(quantity.getText().toString());
                 String add_ons = drinksAddons.getEditText().getText().toString();
+                String preparedTime = status.getText().toString();
+                String productCategory = txtProductCategory.getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,"",variation,firstName,lastName,price,number,add_ons,image);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,productCategory,variation,firstName,lastName,price,number,add_ons,image,preparedTime);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

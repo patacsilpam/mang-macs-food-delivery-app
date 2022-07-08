@@ -27,11 +27,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PreviousOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
-    private TextView orderStatus,orderNumber,orderType,totalAmount,arrowBack;
-    private TextView dineInName,dineInEmail,pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,paymentMethod,deliveryFee;
+    private TextView orderNumber,orderType,totalAmount,arrowBack,changeableStatus;
+    private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,paymentMethod,deliveryFee;
     private TextView orderId,orderTime,completedTime;
     private RecyclerView prevOrderDetailList;
-    private CardView deliveryDetails,pickUpDetails,dineInDetails,paymentMethodDetails,deliveryFeeDetails;
+    private CardView deliveryDetails,pickUpDetails,paymentMethodDetails,deliveryFeeDetails;
     private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod,newDeliveryFee;
     private List<CurrentOrdersModel> prevOrderModel;
     private PreviousDetailAdapter previousDetailAdapter;
@@ -41,17 +41,14 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         setContentView(R.layout.activity_previous_order_details);
         arrowBack = findViewById(R.id.arrow_back);
         orderNumber = findViewById(R.id.orderNumber);
-        orderStatus = findViewById(R.id.orderStatus);
         orderType = findViewById(R.id.orderType);
         totalAmount = findViewById(R.id.totalAmount);
+        changeableStatus = findViewById(R.id.changeableStatus);
         deliveryDetails = findViewById(R.id.deliveryAddress);
         deliveryName = findViewById(R.id.deliveryName);
         deliveryPhoneNum = findViewById(R.id.deliveryPhoneNum);
         devAddress = findViewById(R.id.devAddress);
         devLabelAddress = findViewById(R.id.labelAddress);
-        dineInDetails = findViewById(R.id.dineInDetails);
-        dineInName = findViewById(R.id.dineInName);
-        dineInEmail = findViewById(R.id.dineInEmail);
         pickUpDetails = findViewById(R.id.pickUpDetails);
         pickUpName = findViewById(R.id.pickUpName);
         pickUpEmail = findViewById(R.id.pickUpEmail);
@@ -65,7 +62,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         deliveryFeeDetails.setVisibility(View.VISIBLE);
         deliveryDetails.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
-        dineInDetails.setVisibility(View.VISIBLE);
         paymentMethodDetails.setVisibility(View.GONE);
         prevOrderDetailList = findViewById(R.id.prevOrderDetailLists);
         prevOrderDetailList.setHasFixedSize(true);
@@ -93,7 +89,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderId.setText("#".concat(newOrderNumber));
         orderTime.setText(newOrderDate);
         completedTime.setText(newCompletedTime);
-        orderStatus.setText(newOrderStatus);
         orderType.setText(newOrderType);
         orderNumber.setText(newOrderNumber);
         paymentMethod.setText(newPaymentMethod);
@@ -103,10 +98,10 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             pickUpName.setText(newAccountName);
             pickUpEmail.setText(newEmail);
             deliveryDetails.setVisibility(View.GONE);
-            dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
             paymentMethodDetails.setVisibility(View.VISIBLE);
             deliveryFeeDetails.setVisibility(View.GONE);
+            changeableStatus.setText("Ready\nfor\nPick pp");
         }
         else if (OrderType.equals("Deliver")){
             deliveryName.setText(newRecipientName);
@@ -114,15 +109,11 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             devAddress.setText(newAddress);
             devLabelAddress.setText(newLabelAddress);
             deliveryDetails.setVisibility(View.VISIBLE);
-            dineInDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.GONE);
             paymentMethodDetails.setVisibility(View.VISIBLE);
             deliveryFeeDetails.setVisibility(View.VISIBLE);
         }
         else{
-            dineInName.setText(newAccountName);
-            dineInEmail.setText(newEmail);
-            dineInDetails.setVisibility(View.VISIBLE);
             pickUpDetails.setVisibility(View.GONE);
             deliveryDetails.setVisibility(View.GONE);
             deliveryFeeDetails.setVisibility(View.GONE);
@@ -178,7 +169,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
     }
 
     @Override
-    public void onQuantityChange(ArrayList<String> quantity) {
+    public void onQuantityChange(ArrayList<Integer> quantity) {
 
     }
 

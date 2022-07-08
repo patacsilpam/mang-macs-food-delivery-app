@@ -48,7 +48,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     private ArrayList<String> productCodeList = new ArrayList<>();
     private ArrayList<String> productCategoryList = new ArrayList<>();
     private ArrayList<String> variationList = new ArrayList<>();
-    private ArrayList<String> quantityList = new ArrayList<>();
+    private ArrayList<Integer> quantityList = new ArrayList<>();
     private ArrayList<String> addOnsList = new ArrayList<>();
     private ArrayList<String> subTotalList = new ArrayList<>();
     private ArrayList<String> priceList = new ArrayList<>();
@@ -130,7 +130,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
                 String orderStatus = "Pending";
                 String orderType = "Dine in";
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,accountName,"",address,labelAddress,email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus,strDate,requiredTime,0,"");
+                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,"",accountName,"",address,labelAddress,"",email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus,strDate,requiredTime,0,"");
                 insertOrder.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -170,7 +170,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     }
 
     @Override
-    public void onQuantityChange(ArrayList<String> quantity) {
+    public void onQuantityChange(ArrayList<Integer> quantity) {
             quantityList = quantity;
     }
 

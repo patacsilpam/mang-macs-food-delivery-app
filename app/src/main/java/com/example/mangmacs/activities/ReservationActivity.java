@@ -1,86 +1,129 @@
 package com.example.mangmacs.activities;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.model.ReservationModel;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.api.ApiInterface;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReservationActivity extends AppCompatActivity {
-    private EditText fname,lname,people,date,time,phoneNumber;
-    private int hour,min;
-    private Button btnBookNow;
+    private EditText people,date,time;
+    private TextView textRequired;
+    private Button btnBookNow,addPhoneNumber;
     private BottomNavigationView bottomNavigationView;
+    private LinearLayout reservationLayout;
+    private View emptyPhoneNumber;
+    private int hour,min;
+    private String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
-        fname = findViewById(R.id.firstname);
-        lname = findViewById(R.id.lastname);
         people = findViewById(R.id.people);
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
-        phoneNumber = findViewById(R.id.phoneNumber);
+        textRequired = findViewById(R.id.textRequired);
+        reservationLayout = findViewById(R.id.reservationLayout);
+        emptyPhoneNumber = findViewById(R.id.emptyPhoneNumber);
+        addPhoneNumber = emptyPhoneNumber.findViewById(R.id.addPhoneNumber);
         btnBookNow = findViewById(R.id.btnBookNow);
+        textRequired.setVisibility(View.GONE);
         //bottom navigation
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.reservation);
-        Intent intent = getIntent();
-        String newfname = intent.getStringExtra("firstname");
-        String newlname = intent.getStringExtra("lastname");
-        String newtime = intent.getStringExtra("time");
-        String newguests = intent.getStringExtra("guests");
-        fname.setText(newfname);
-        lname.setText(newlname);
-        time.setText(newtime);
-        people.setText(newguests);
         BottomNav();
+        //ShowReservation();
         SetCalendar();
         Booking();
+        setFirebaseToken();
     }
+    /*private void ShowReservation(){
+        String phoneNumber = SharedPreference.getSharedPreference(getApplicationContext()).setPhoneNumber();
+        if (phoneNumber == null){
+            reservationLayout.setVisibility(View.GONE);
+            emptyPhoneNumber.setVisibility(View.VISIBLE);
+            addPhoneNumber.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getApplicationContext(),MyAccountActivity.class));
+                }
+            });
 
+        }
+        else{
+            reservationLayout.setVisibility(View.VISIBLE);
+            emptyPhoneNumber.setVisibility(View.GONE);
+        }
+    }*/
+    private void setFirebaseToken(){
+        FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (task.isSuccessful()){
+                            token = task.getResult().getToken();
+                            Log.d(TAG,"On complete " + token);
+                        }
+                        else{
+                            Log.d(TAG,"Token not generated");
+                        }
+                    }
+                });
+    }
     private void Booking() {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String firstname = fname.getText().toString();
-                String lastname = lname.getText().toString();
                 String guests = people.getText().toString();
                 String sched_date = date.getText().toString();
                 String sched_time = time.getText().toString();
-                String phone_number = phoneNumber.getText().toString();
-                if(firstname.isEmpty()){
-                    fname.setError("Required");
-                }
-                if (lastname.isEmpty()){
-                    lname.setError("Required");
-                }
+                String firstname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
+                String lastname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
+                //String phoneNumber = SharedPreference.getSharedPreference(getApplicationContext()).setPhoneNumber();
                 if (guests.isEmpty()){
                     people.setError("Required");
                 }
@@ -90,17 +133,15 @@ public class ReservationActivity extends AppCompatActivity {
                 if (sched_time.isEmpty()){
                     time.setError("Required");
                 }
-                if (phone_number.isEmpty()){
-                    phoneNumber.setError("Required");
-                }
                 else{
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                     String email = SharedPreference.getSharedPreference(ReservationActivity.this).setEmail();
-                    Call<ReservationModel> reservationCall = apiInterface.reservation(firstname,lastname,guests,email,phone_number,sched_date,sched_time);
+                    Call<ReservationModel> reservationCall = apiInterface.reservation(token,firstname,lastname,guests,email,"",sched_date,sched_time);
                     reservationCall.enqueue(new Callback<ReservationModel>() {
                         @Override
                         public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
-                            startActivity(new Intent(ReservationActivity.this, ConfirmReservationActivity.class));
+                            Toast.makeText(getApplicationContext(),"Book Successfully",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ReservationActivity.this, ReservationActivity.class));
                         }
 
                         @Override
@@ -116,6 +157,7 @@ public class ReservationActivity extends AppCompatActivity {
     private void SetCalendar() {
         //date picker
         Calendar calendar = Calendar.getInstance();
+        long today = calendar.getTimeInMillis();
         DatePickerDialog.OnDateSetListener setDate = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -126,15 +168,24 @@ public class ReservationActivity extends AppCompatActivity {
             }
 
             private void updateCalendar() {
-                String Format = "yy/MM/dd";
+                String Format = "yyyy/MM/dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Format, Locale.TAIWAN);
                 date.setText(simpleDateFormat.format(calendar.getTime()));
+
             }
         };
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(ReservationActivity.this, setDate, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ReservationActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // adding the selected date in the edittext
+                        date.setText(year + "/" + (month+1) + "/" + dayOfMonth);
+                    }
+                },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(today);
+                datePickerDialog.show();
             }
         });
         //time picker
@@ -144,16 +195,33 @@ public class ReservationActivity extends AppCompatActivity {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(
                         ReservationActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 hour = hourOfDay;
                                 min = minute;
-                                //initialize calendar
                                 Calendar calendar1 = calendar.getInstance();
-                                //set hour and date
                                 calendar1.set(0,0,0,hour,min);
-                                //set selected time on edittext
                                 time.setText(DateFormat.format("hh:mm aa",calendar1));
+                                try {
+                                    Date newDate = new Date();
+                                    SimpleDateFormat df = new SimpleDateFormat("hh:mm aa");
+                                    df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
+                                    String getCurrentTime = String.valueOf(df.format(newDate));
+                                    String getSelectedTime = time.getText().toString();
+                                    Date currentTime = df.parse(getCurrentTime);
+                                    Date selectedTime = df.parse(getSelectedTime);
+                                    if (selectedTime.after(currentTime)){
+                                        btnBookNow.setEnabled(true);
+                                        textRequired.setVisibility(View.GONE);
+                                    }
+                                    else{
+                                        btnBookNow.setEnabled(false);
+                                        textRequired.setVisibility(View.VISIBLE);
+                                    }
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
 
                             }
                         },12,0,false
@@ -185,8 +253,8 @@ public class ReservationActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.notif:
-                        startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
+                    case R.id.promo:
+                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

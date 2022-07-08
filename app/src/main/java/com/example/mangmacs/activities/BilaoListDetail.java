@@ -1,6 +1,7 @@
 package com.example.mangmacs.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -27,14 +29,18 @@ import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BilaoListDetail extends AppCompatActivity {
+    private LinearLayout ingredientsLayout;
+    private CardView baseCardview;
     private RelativeLayout priceLayout;
-    private ImageView imageView;
-    private TextView productName,price,productCode,sidePrice;
+    private ImageView imageView,showIngredients;
+    private TextView productName,price,productCode,sidePrice,ingredients;
     private TextView txt_arrow_back,status,customerId,fname,lname;
     private TextInputLayout bilaoAddOns;
     private EditText quantity;
@@ -61,13 +67,32 @@ public class BilaoListDetail extends AppCompatActivity {
         btnAddtoCart = findViewById(R.id.btnBilao);
         txt_arrow_back = findViewById(R.id.txt_arrow_back);
         quantity = findViewById(R.id.quantity);
+        ingredients = findViewById(R.id.ingredients);
+        showIngredients = findViewById(R.id.showIngredients);
+        ingredientsLayout = findViewById(R.id.ingredientLayout);
+        baseCardview = findViewById(R.id.baseCardview);
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
         btnDecrement.setEnabled(false); //set button decrement not clickable
-        //button increment
+        ShowIngredients();
         IncrementDecrement();
         DisplayProductDetails();
         Back();
+    }
+    private void ShowIngredients(){
+        showIngredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ingredientsLayout.getVisibility() == View.GONE){
+                    ingredientsLayout.setVisibility(View.VISIBLE);
+                    showIngredients.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
+                }
+                else{
+                    ingredientsLayout.setVisibility(View.GONE);
+                    showIngredients.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
+                }
+            }
+        });
     }
     private void IncrementDecrement() {
         btnIncrement.setOnClickListener(new View.OnClickListener() {
@@ -120,14 +145,17 @@ public class BilaoListDetail extends AppCompatActivity {
         String productvariation = intent.getStringExtra("productVariationBilao");
         String newProductStatus = intent.getStringExtra("preparationTime");
         String groupCode = intent.getStringExtra("groupCode");
+        String newIngredients =intent.getStringExtra("mainIngredients");
         String customerID = SharedPreference.getSharedPreference(BilaoListDetail.this).setEmail();
         String firstname = SharedPreference.getSharedPreference(BilaoListDetail.this).setFname();
         String lastname = SharedPreference.getSharedPreference(BilaoListDetail.this).setLname();
         String[] splitVariation = productvariation.split(",");
         String[] splitPrice = productprice.split(",");
+        String[] splitCode = groupCode.split(",");
         if(intent != null){
             Glide.with(BilaoListDetail.this).load(image).into(imageView);
             productName.setText(productname);
+            ingredients.setText(newIngredients.toLowerCase(Locale.ROOT));
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);
@@ -149,12 +177,15 @@ public class BilaoListDetail extends AppCompatActivity {
                     String variation =  radioButton.getText().toString();
                     if(variation.contains("7 - 10 Person")){
                         price.setText(splitPrice[0]);
+                        productCode.setText(splitCode[0]);
                     }
                     else if(variation.contains("10 -15 Person")){
                         price.setText(splitPrice[1]);
+                        productCode.setText(splitCode[1]);
                     }
                     else{
                         price.setText(splitPrice[2]);
+                        productCode.setText(splitCode[2]);
                     }
                 }
             });
@@ -169,36 +200,6 @@ public class BilaoListDetail extends AppCompatActivity {
                 if(rdVariation.getVisibility() == View.VISIBLE && rdVariation.getCheckedRadioButtonId() == -1){
                     Toast.makeText(getApplicationContext(),"Please select one variation",Toast.LENGTH_SHORT).show();
                 }
-                else if(rdVariation.getVisibility() == View.GONE && rdVariation.getCheckedRadioButtonId() == -1){
-                    String id = customerId.getText().toString();
-                    String code = productCode.getText().toString();
-                    String product = productName.getText().toString();
-                    String add_ons = bilaoAddOns.getEditText().getText().toString();
-                    String getSingleVar = "";
-                    int prices = Integer.parseInt(price.getText().toString());
-                    int number = Integer.parseInt(quantity.getText().toString());
-                    String firstName = fname.getText().toString();
-                    String lastName = lname.getText().toString();
-                    ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,getSingleVar,firstName,lastName,prices,number,add_ons,image);
-                    cartModelCall.enqueue(new Callback<CartModel>() {
-                        @Override
-                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                            if(response.body() != null){
-                                String success =response.body().getSuccess();
-                                if(success.equals("1")){
-                                    Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(),home_activity.class));
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<CartModel> call, Throwable t) {
-
-                        }
-                    });
-                }
                 else{
                     String id = customerId.getText().toString();
                     String code = productCode.getText().toString();
@@ -211,8 +212,9 @@ public class BilaoListDetail extends AppCompatActivity {
                     int number = Integer.parseInt(quantity.getText().toString());
                     String firstName = fname.getText().toString();
                     String lastName = lname.getText().toString();
+                    String preparedTime = status.getText().toString();
                     ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,prices,number,add_ons,image);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,prices,number,add_ons,image,preparedTime);
                     cartModelCall.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {

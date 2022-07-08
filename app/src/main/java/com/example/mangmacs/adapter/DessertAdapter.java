@@ -56,6 +56,7 @@ public class DessertAdapter extends RecyclerView.Adapter<DessertAdapter.ProductV
                 intent.putExtra("code", dessertListModel.getCodeCombo());
                 intent.putExtra("status", dessertListModel.getStocks());
                 intent.putExtra("preparationTime",dessertListModel.getPreparationTime());
+                intent.putExtra("mainIngredients",dessertListModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });

@@ -44,6 +44,14 @@
                 android:focusable="false"
                 android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/textRequired"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="#FF6666"
+            android:textSize="14sp"
+            android:text="*Deliver order will not accept if selected time is earlier than the current time"/>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"

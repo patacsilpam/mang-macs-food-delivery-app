@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/black"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/orderStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/image"
+                android:fontFamily="@font/roboto"
+                android:text="Order Received"
+                android:textColor="#070707"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/orderMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/image"
+                android:layout_below="@+id/orderStatus"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="#6D6D6E"
+                android:fontFamily="@font/roboto"
+                android:text="Your order 20220621ujts has been confirmed."
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/notifDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/image"
+                android:layout_below="@+id/orderMessage"
+                android:textColor="#8E8E8E"
+                android:fontFamily="@font/roboto"
+                android:textSize="14sp"
+                android:text="06/21/2022 2:36"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

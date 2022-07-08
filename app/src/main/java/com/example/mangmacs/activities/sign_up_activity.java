@@ -1,11 +1,22 @@
  package com.example.mangmacs.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
+import android.nfc.Tag;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +33,13 @@ import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CustomerModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Properties;
 
@@ -45,6 +62,13 @@ import retrofit2.Response;
     private CheckBox checkTermsConditions;
     private Button btnSignUp;
     private ApiInterface apiInterface;
+    private String token;
+    private SendCode getCode;
+    private int code;
+    private String fname;
+    public static final String CHANNEL_ID = "mang_macs";
+    public static final String CHANNEL_NAME = "Mang Mac's";
+    public static  final String CHANNEL_DESC = "Mang Mac's";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +84,27 @@ import retrofit2.Response;
         errorMsg = findViewById(R.id.errorMsg);
         errorMsg.setVisibility(View.GONE);
         SignIn();
-        validateUserData();
+        setFireBaseToken();
         TermsConditions();
+        validateUserData();
+        createNotification();
     }
-
+    private void setFireBaseToken(){
+        FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (task.isSuccessful()){
+                            token = task.getResult().getToken();
+                            Log.d(TAG,"On complete " + token);
+                        }
+                        else{
+                            Log.d(TAG,"Token not generated");
+                        }
+                    }
+                });
+    }
      private void TermsConditions() {
         termsConditions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,60 +122,17 @@ import retrofit2.Response;
              }
          });
      }
-
      private void validateUserData(){
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String fname = firstname.getEditText().getText().toString();
+                getCode = new SendCode();
+                code = getCode.getRandomCode();
+                fname = firstname.getEditText().getText().toString();
                 String lname = lastname.getEditText().getText().toString();
                 String emailAddress = email.getEditText().getText().toString();
                 String pword = password.getEditText().getText().toString();
                 //get random code
-                SendCode getCode = new SendCode();
-                int code = getCode.getRandomCode();
-                //configure to send email
-                Properties props = new Properties();
-                props.put("mail.smtp.host", "smtp.gmail.com");
-                props.put("mail.smtp.socketFactory.port", "465");
-                props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-                props.put("mail.smtp.auth", "true");
-                props.put("mail.smtp.port", "465");
-                session = javax.mail.Session.getDefaultInstance(props,
-                        new javax.mail.Authenticator(){
-                            @Override
-                            protected PasswordAuthentication getPasswordAuthentication() {
-                                return new PasswordAuthentication(Config.EMAIL,Config.PASSWORD);
-                            }
-                        });
-                try {
-                    MimeMessage mimeMessage = new MimeMessage(session);
-                    mimeMessage.setFrom(new InternetAddress(Config.EMAIL));
-                    mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(emailAddress)));
-                    mimeMessage.setSubject("Verify Email");
-                    mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
-                            "                        <header style='display: flex; align-items: center;'>\n" +
-                            "                            <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
-                            "                            <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
-                            "                        </header>\n" +
-                            "                        <article>\n" +
-                            "                            <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>\n" +
-                            "                                Hi,<br>Welcome to Mang Mac's Foodshop. Please use the mentioned code below to verify your account.\n" +
-                            "                            </p>\n" +
-                            "                        </article>\n" +
-                            "                        <article style='display: flex; justify-content: center;'>\n" +
-                            "                            <strong style='width:100%; text-align:center; background: #E7E7E7; padding: 2rem; font-size: 2rem; letter-spacing: 3px;'>\n" +code+"</strong>"+
-                            "                        </article>\n" +
-                            "                        <footer style='text-align: center; margin-top: 30px;'>\n" +
-                            "                            <p style='margin: 10px 0 5px 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>from</p>\n" +
-                            "                            <strong style='font-family: Arial, Helvetica, sans-serif;'>MangMac's Foodshop</strong>\n" +
-                            "                            <p style='margin: 7px 0 0 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Zone 5, Brgy. Sta. Lucia Bypass Road,<br>Urdaneta Philippines</p>\n" +
-                            "                        </footer>\n" +
-                            "                        </main>", "text/html");
-                    new SendEmail().execute(mimeMessage);
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                }
                 //validate user data
                 if(fname.isEmpty()){
                     firstname.setError("Required");
@@ -160,7 +158,7 @@ import retrofit2.Response;
                 }
                 else{
                     apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CustomerModel> customerModelCall = apiInterface.registerUser(fname,lname,emailAddress,pword,code);
+                    Call<CustomerModel> customerModelCall = apiInterface.registerUser("token",fname,lname,emailAddress,pword,code);
                     customerModelCall.enqueue(new Callback<CustomerModel>() {
                         @Override
                         public void onResponse(Call<CustomerModel> call, Response<CustomerModel> response) {
@@ -168,10 +166,12 @@ import retrofit2.Response;
                                 String success = response.body().getSuccess();
                                 String message = response.body().getMessage();
                                 if(success.equals("1")){
+                                    SharedPreference.getSharedPreference(getApplicationContext()).storeFname(fname);
                                     Intent intent = new Intent(sign_up_activity.this,VerifyEmailActivity.class);
                                     intent.putExtra("email",emailAddress);
                                     intent.putExtra("code",String.valueOf(code));
                                     startActivity(intent);
+                                    verifyEmail(emailAddress);
                                 }
                                 else if(success.equals("2")){
                                     Toast.makeText(sign_up_activity.this,message,Toast.LENGTH_SHORT).show();
@@ -190,6 +190,60 @@ import retrofit2.Response;
                 }
             }
         });
+    }
+
+     private void verifyEmail(String emailAddress) {
+         //configure to send email
+         Properties props = new Properties();
+         props.put("mail.smtp.host", "smtp.gmail.com");
+         props.put("mail.smtp.socketFactory.port", "465");
+         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+         props.put("mail.smtp.auth", "true");
+         props.put("mail.smtp.port", "465");
+         session = javax.mail.Session.getDefaultInstance(props,
+                 new javax.mail.Authenticator(){
+                     @Override
+                     protected PasswordAuthentication getPasswordAuthentication() {
+                         return new PasswordAuthentication(Config.EMAIL,Config.PASSWORD);
+                     }
+                 });
+         try {
+             MimeMessage mimeMessage = new MimeMessage(session);
+             mimeMessage.setFrom(new InternetAddress(Config.EMAIL));
+             mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(emailAddress)));
+             mimeMessage.setSubject("Verify Email");
+             mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
+                     "<header style='display: flex; align-items: center;'>\n" +
+                     "  <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                     "  <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
+                     "</header>\n" +
+                     "<article>\n" +
+                     "  <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>\n Hi "+fname +
+                     ",<br>Welcome to Mang Mac's Foodshop. Please use the mentioned code below to verify your account.\n" +
+                     "  </p>\n" +
+                     "</article>\n" +
+                     "<article style='display: flex; justify-content: center;'>\n" +
+                     "  <strong style='width:100%; text-align:center; background: #E7E7E7; padding: 2rem; font-size: 2rem; letter-spacing: 3px;'>\n" +code+"</strong>"+
+                     "</article>\n" +
+                     "<footer style='text-align: center; margin-top: 30px;'>\n" +
+                     " <p style='margin: 10px 0 5px 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>from</p>\n" +
+                     " <strong style='font-family: Arial, Helvetica, sans-serif;'>MangMac's Foodshop</strong>\n" +
+                     " <p style='margin: 7px 0 0 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Zone 5, Brgy. Sta. Lucia Bypass Road,<br>Urdaneta Philippines</p>\n" +
+                     "</footer>\n" +
+                     "</main>", "text/html");
+             new SendEmail().execute(mimeMessage);
+         } catch (MessagingException e) {
+             e.printStackTrace();
+         }
+     }
+
+     private void createNotification(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
      private class SendEmail extends AsyncTask<Message,String,String> {
 
