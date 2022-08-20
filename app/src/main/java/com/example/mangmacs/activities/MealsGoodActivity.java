@@ -99,6 +99,7 @@ public class MealsGoodActivity extends AppCompatActivity {
     }
 
     private void ShowPorkLists() {
+        porkLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getMealsGood();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
@@ -123,6 +124,7 @@ public class MealsGoodActivity extends AppCompatActivity {
         });
     }
     private void ShowChickenLists(){
+        chickenLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getChicken();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
@@ -147,6 +149,7 @@ public class MealsGoodActivity extends AppCompatActivity {
         });
     }
     private void ShowBeefLists(){
+        beefLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getBeef();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
@@ -171,6 +174,7 @@ public class MealsGoodActivity extends AppCompatActivity {
         });
     }
     private void ShowPigarPigarLists(){
+        pigarPigarLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getPigarPigar();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
@@ -195,6 +199,7 @@ public class MealsGoodActivity extends AppCompatActivity {
         });
     }
     private void ShowSeafoodsLists(){
+        seafoodsLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getSeafoods();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
@@ -219,6 +224,7 @@ public class MealsGoodActivity extends AppCompatActivity {
         });
     }
     private void ShowVegetableLists(){
+        vegetableLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getVegetable();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
@@ -243,6 +249,7 @@ public class MealsGoodActivity extends AppCompatActivity {
         });
     }
     private void ShowRiceLists(){
+        riceLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getRice();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

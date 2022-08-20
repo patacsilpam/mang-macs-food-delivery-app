@@ -28,10 +28,10 @@ import retrofit2.Response;
 
 public class PreviousOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
     private TextView orderNumber,orderType,totalAmount,arrowBack,changeableStatus;
-    private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,paymentMethod,deliveryFee;
+    private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee;
     private TextView orderId,orderTime,completedTime;
     private RecyclerView prevOrderDetailList;
-    private CardView deliveryDetails,pickUpDetails,paymentMethodDetails,deliveryFeeDetails;
+    private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails;
     private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod,newDeliveryFee;
     private List<CurrentOrdersModel> prevOrderModel;
     private PreviousDetailAdapter previousDetailAdapter;
@@ -55,14 +55,11 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderId = findViewById(R.id.orderId);
         orderTime = findViewById(R.id.orderTime);
         completedTime = findViewById(R.id.completedTime);
-        paymentMethodDetails = findViewById(R.id.paymentMethodDetails);
-        paymentMethod = findViewById(R.id.paymentMethod);
         deliveryFee = findViewById(R.id.deliveryFee);
         deliveryFeeDetails = findViewById(R.id.deliveryFeeDetails);
         deliveryFeeDetails.setVisibility(View.VISIBLE);
         deliveryDetails.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
-        paymentMethodDetails.setVisibility(View.GONE);
         prevOrderDetailList = findViewById(R.id.prevOrderDetailLists);
         prevOrderDetailList.setHasFixedSize(true);
         prevOrderDetailList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -91,7 +88,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         completedTime.setText(newCompletedTime);
         orderType.setText(newOrderType);
         orderNumber.setText(newOrderNumber);
-        paymentMethod.setText(newPaymentMethod);
         deliveryFee.setText(newDeliveryFee);
         String OrderType = orderType.getText().toString();
         if (OrderType.equals("Pick Up")){
@@ -99,7 +95,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             pickUpEmail.setText(newEmail);
             deliveryDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
-            paymentMethodDetails.setVisibility(View.VISIBLE);
             deliveryFeeDetails.setVisibility(View.GONE);
             changeableStatus.setText("Ready\nfor\nPick pp");
         }
@@ -110,7 +105,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             devLabelAddress.setText(newLabelAddress);
             deliveryDetails.setVisibility(View.VISIBLE);
             pickUpDetails.setVisibility(View.GONE);
-            paymentMethodDetails.setVisibility(View.VISIBLE);
             deliveryFeeDetails.setVisibility(View.VISIBLE);
         }
         else{

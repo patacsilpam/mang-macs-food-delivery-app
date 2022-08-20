@@ -82,13 +82,15 @@ public class orderLater extends Fragment {
                                 try {
                                     //get current time
                                     Date newDate = new Date();
-                                    SimpleDateFormat df = new SimpleDateFormat("hh:mm aa");
+                                    SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss aa");
                                     df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
                                     String getCurrentTime = String.valueOf(df.format(newDate));
+                                    String getSelectedDate = date.getText().toString();
                                     String getSelectedTime = time.getText().toString();
+                                    String getDateTime = getSelectedDate +" "+ getSelectedTime;
                                     //parse selected time and date
                                     Date currentTime = df.parse(getCurrentTime);
-                                    Date selectedTime = df.parse(getSelectedTime);
+                                    Date selectedTime = df.parse(getDateTime);
                                     //add current time to prep time
                                     Calendar cal = Calendar.getInstance();
                                     cal.setTime(currentTime);
@@ -143,6 +145,27 @@ public class orderLater extends Fragment {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         // adding the selected date in the edittext
                         date.setText(year + "/" + (month+1) + "/" + dayOfMonth);
+                        try {
+                            Date newDate = new Date();
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy/M/dd hh:mm aa");
+                            df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
+                            String getCurrentTime = String.valueOf(df.format(newDate));
+                            String getSelectedDate = date.getText().toString();
+                            String getSelectedTime = time.getText().toString();
+                            String getDateTime = getSelectedDate +" "+ getSelectedTime;
+                            Date currentTime = df.parse(getCurrentTime);
+                            Date selectedTime = df.parse(getDateTime);
+                            if (selectedTime.after(currentTime)){
+                                orderLater.setEnabled(true);
+                                textRequired.setVisibility(View.GONE);
+                            }
+                            else{
+                                orderLater.setEnabled(false);
+                                textRequired.setVisibility(View.VISIBLE);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.getDatePicker().setMinDate(today);

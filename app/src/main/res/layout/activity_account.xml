@@ -40,146 +40,141 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#634E548F"/>
+
     <ScrollView
-        android:layout_below="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/line"
         android:fillViewport="true">
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical">
-           <androidx.cardview.widget.CardView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               app:cardElevation="0dp"
-               android:layout_marginBottom="30dp">
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:orientation="vertical">
-                   <TextView
-                       android:id="@+id/initials"
-                       android:layout_width="70dp"
-                       android:layout_height="70dp"
-                       android:background="@drawable/green_circle"
-                       android:layout_gravity="center"
-                       android:gravity="center"
-                       android:layout_marginTop="15dp"
-                       android:layout_marginBottom="10dp"
-                       android:textColor="@color/white"
-                       android:textSize="24sp"
-                       android:fontFamily="@font/roboto"/>
-                   <TextView
-                       android:id="@+id/customerName"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center"
-                       android:layout_marginBottom="10dp"
-                       android:text=""
-                       android:fontFamily="@font/roboto"
-                       android:textSize="18sp"/>
-                   <TextView
-                       android:id="@+id/email"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center"
-                       android:layout_marginBottom="10dp"
-                       android:text=""
-                       android:fontFamily="@font/roboto"
-                       android:textSize="16sp"
-                       android:textColor="#575454"/>
-               </LinearLayout>
-           </androidx.cardview.widget.CardView>
-           <TextView
-               android:id="@+id/myAccount"
-               android:clickable="true"
-               android:focusable="true"
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:gravity="center_vertical"
-               android:padding="15dp"
-               android:background="@color/white"
-               android:textColor="#232323"
-               android:textSize="14sp"
-               android:text="My Account"
-               android:fontFamily="@font/roboto_medium"/>
-           <View
-               android:layout_width="match_parent"
-               android:layout_height="1dp"
-               android:background="#634E548F"/>
 
-           <TextView
-               android:id="@+id/changePassword"
-               android:clickable="true"
-               android:focusable="true"
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:background="@color/white"
-               android:fontFamily="@font/roboto_medium"
-               android:gravity="center_vertical"
-               android:padding="15dp"
-               android:text="Change Password"
-               android:textColor="#232323"
-               android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-           <View
-               android:layout_width="match_parent"
-               android:layout_height="1dp"
-               android:background="#634E548F"/>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                app:cardElevation="0dp">
 
-           <TextView
-               android:id="@+id/savedAddress"
-               android:clickable="true"
-               android:focusable="true"
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:background="@color/white"
-               android:fontFamily="@font/roboto_medium"
-               android:gravity="center_vertical"
-               android:padding="15dp"
-               android:text="Saved Address"
-               android:textColor="#232323"
-               android:textSize="14sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-           <View
-               android:layout_width="match_parent"
-               android:layout_height="1dp"
-               android:background="#634E548F"/>
+                    <TextView
+                        android:id="@+id/initials"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/green_circle"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
 
-           <TextView
-               android:id="@+id/myOrders"
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:gravity="center_vertical"
-               android:layout_marginTop="30dp"
-               android:padding="15dp"
-               android:background="@color/white"
-               android:textColor="#232323"
-               android:textSize="14sp"
-               android:text="My Orders"
-               android:fontFamily="@font/roboto_medium"/>
-           <View
-               android:layout_width="match_parent"
-               android:layout_height="1dp"
-               android:background="#634E548F"/>
-           <TextView
-               android:id="@+id/myBook"
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:gravity="center_vertical"
-               android:padding="15dp"
-               android:background="@color/white"
-               android:textColor="#232323"
-               android:textSize="14sp"
-               android:text="My Table Reservation"
-               android:fontFamily="@font/roboto_medium"/>
-           <View
-               android:layout_width="match_parent"
-               android:layout_height="1dp"
-               android:background="#634E548F"
-               android:layout_marginBottom="100dp"/>
-       </LinearLayout>
+                    <TextView
+                        android:id="@+id/customerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text=""
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text=""
+                        android:textColor="#575454"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/myAccount"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="My Account"
+                android:textColor="#232323"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#634E548F" />
+
+            <TextView
+                android:id="@+id/changePassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="Change Password"
+                android:textColor="#232323"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#634E548F" />
+
+            <TextView
+                android:id="@+id/savedAddress"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="Saved Address"
+                android:textColor="#232323"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#634E548F" />
+
+            <TextView
+                android:id="@+id/myBook"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/white"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="My Table Reservation"
+                android:textColor="#232323"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="100dp"
+                android:background="#634E548F" />
+        </LinearLayout>
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"

@@ -88,7 +88,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     mimeMessage.setSubject("Reset your Mang Mac's password");
                     mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
                             "<header style='display: flex; align-items: center;'>\n" +
-                            "    <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                            "    <img src='https://i.ibb.co/CMq6CXs/logo.png' width='100' alt='mang-macs-logo'>\n" +
                             "    <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
                             "</header>\n" +
                             "<article>\n" +
@@ -111,6 +111,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 }
                 if(email.isEmpty()){
                     recover_email.setError("Required");
+                    recover_email.setErrorIconDrawable(null);
                 }
                 else{
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);

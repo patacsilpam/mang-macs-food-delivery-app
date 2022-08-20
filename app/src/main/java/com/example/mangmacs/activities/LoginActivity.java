@@ -52,9 +52,11 @@ public class LoginActivity extends AppCompatActivity {
                 String user_password = password.getEditText().getText().toString().trim();
                 if(emailAddress.isEmpty()){
                     email.setError("Required");
+                    email.setErrorIconDrawable(null);
                 }
                 if (user_password.isEmpty()){
                     password.setError("Required");
+                    password.setErrorIconDrawable(null);
                 }
                 else{
                     progressDialog.show();

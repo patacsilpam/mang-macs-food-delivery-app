@@ -22,6 +22,8 @@ import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.UpdateAccountModel;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Circle;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +31,9 @@ import retrofit2.Response;
 
 public class CreateAddressActivity extends AppCompatActivity {
     private TextView customerId;
-    private EditText rfullname,province,city,street,phoneNo;
+    private EditText province,city,street;
+    private TextInputLayout nameError,contactError;
+    private TextInputEditText rfullname,phoneNo;
     private Spinner spinnerUrdaneta;
     private RadioGroup rdAddress;
     private RadioButton radioButton;
@@ -44,6 +48,8 @@ public class CreateAddressActivity extends AppCompatActivity {
         rfullname = findViewById(R.id.rfullname);
         province = findViewById(R.id.province);
         city = findViewById(R.id.city);
+        nameError = findViewById(R.id.nameError);
+        contactError = findViewById(R.id.contactError);
         spinnerUrdaneta = findViewById(R.id.barangay);
         street = findViewById(R.id.streetname);
         rdAddress = findViewById(R.id.rdAddress);
@@ -71,10 +77,12 @@ public class CreateAddressActivity extends AppCompatActivity {
                 radioButton = findViewById(selectedAddress);
                 String labelAddress = radioButton.getText().toString();
                 if(fullname.isEmpty()) {
-                    rfullname.setError("Required");
+                   nameError.setError("Required");
+                   nameError.setErrorIconDrawable(null);
                 }
                 if(phoneNumber.isEmpty()){
-                    phoneNo.setError("Required");
+                    contactError.setError("Required");
+                    contactError.setErrorIconDrawable(null);
                 }
                 else{
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -86,7 +94,7 @@ public class CreateAddressActivity extends AppCompatActivity {
                                 String success = response.body().getSuccess();
                                 String message = response.body().getMessage();
                                 if(success.equals("1")){
-                                    startActivity(new Intent(CreateAddressActivity.this,AccountActivity.class));
+                                    startActivity(new Intent(CreateAddressActivity.this,MyAddressActivity.class));
                                 }
                                 else{
                                     Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();

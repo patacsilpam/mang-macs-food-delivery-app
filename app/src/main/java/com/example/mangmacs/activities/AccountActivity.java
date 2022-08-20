@@ -25,7 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class AccountActivity extends AppCompatActivity {
-    private TextView logout,myACccount,changePassword,savedAddress,myOrders,myBook,initial,customerName,email;
+    private TextView logout,myAccount,changePassword,savedAddress,myBook,initial,customerName,email;
     private int STORAGE_PERMISSION_CODE = 100;
     private AlertDialog.Builder alertDialog;
     private BottomNavigationView bottomNavigationView;
@@ -34,13 +34,12 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         logout = findViewById(R.id.logout);
-        myACccount = findViewById(R.id.myAccount);
+        myAccount = findViewById(R.id.myAccount);
         changePassword = findViewById(R.id.changePassword);
         savedAddress = findViewById(R.id.savedAddress);
         initial = findViewById(R.id.initials);
         customerName = findViewById(R.id.customerName);
         email = findViewById(R.id.email);
-        myOrders = findViewById(R.id.myOrders);
         myBook = findViewById(R.id.myBook);
         String fname = SharedPreference.getSharedPreference(this).setFname();
         String lname =  SharedPreference.getSharedPreference(this).setLname();
@@ -60,8 +59,7 @@ public class AccountActivity extends AppCompatActivity {
         MyAccount();
         ChangePassword();
         SavedAddress();
-        MyOrders();
-        MyBook();
+        MyBookings();
     }
 
     private void BottomNav() {
@@ -84,8 +82,8 @@ public class AccountActivity extends AppCompatActivity {
                         return true;
                     case R.id.account:
                         return true;
-                    case R.id.promo:
-                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
+                    case R.id.order:
+                        startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -94,23 +92,6 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-    private void MyBook() {
-        myBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AccountActivity.this, MyReservationActivity.class));
-            }
-        });
-    }
-
-    private void MyOrders() {
-        myOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AccountActivity.this, MyOrdersActivity.class));
-            }
-        });
-    }
 
     private void SavedAddress() {
         savedAddress.setOnClickListener(new View.OnClickListener() {
@@ -131,14 +112,21 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void MyAccount() {
-        myACccount.setOnClickListener(new View.OnClickListener() {
+        myAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AccountActivity.this, MyAccountActivity.class));
             }
         });
     }
-
+    private void MyBookings(){
+        myBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountActivity.this,MyReservationActivity.class));
+            }
+        });
+    }
     private void LogOut() {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

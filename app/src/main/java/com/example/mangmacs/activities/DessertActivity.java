@@ -54,6 +54,7 @@ public class DessertActivity extends AppCompatActivity {
         });
     }
     private void ShowSoupLists() {
+        emptyProduct.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getDessert();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

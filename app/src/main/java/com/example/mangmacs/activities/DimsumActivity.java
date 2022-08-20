@@ -56,6 +56,7 @@ public class DimsumActivity extends AppCompatActivity {
     }
 
     private void ShowDimsumLists() {
+        emptyProduct.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getDimsum();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

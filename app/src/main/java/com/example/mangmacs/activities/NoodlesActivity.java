@@ -54,6 +54,7 @@ public class NoodlesActivity extends AppCompatActivity {
         });
     }
     private void ShowNoodlesLists() {
+        emptyProduct.setVisibility(View.GONE);
         //call noodles list model
         Call<List<ProductListModel>> call= apiInterface.getNoodles();
         call.enqueue(new Callback<List<ProductListModel>>() {

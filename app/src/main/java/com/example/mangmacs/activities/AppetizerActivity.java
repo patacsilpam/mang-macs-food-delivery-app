@@ -57,6 +57,7 @@ public class AppetizerActivity extends AppCompatActivity {
     }
 
     private void ShowRiceMealLists() {
+        emptyProduct.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getAppetizer();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

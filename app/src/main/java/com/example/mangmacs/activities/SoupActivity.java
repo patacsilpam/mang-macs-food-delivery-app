@@ -56,7 +56,8 @@ public class SoupActivity extends AppCompatActivity {
     }
 
     private void ShowPancitLists() {
-        //call pizza list model
+        //call soup list model
+        emptyProduct.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getSoup();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

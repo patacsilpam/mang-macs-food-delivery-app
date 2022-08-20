@@ -14,6 +14,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -22,7 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MenuActivty extends AppCompatActivity {
-    private CardView pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
+    private CardView promo,pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
     private BottomNavigationView bottomNavigationView;
        @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,8 @@ public class MenuActivty extends AppCompatActivity {
         bottomNavigationView  =  findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.menu);
         BottomNav();
-        //initialize ids
+           //initialize ids
+        promo = findViewById(R.id.btnPromo);
         pizza = findViewById(R.id.btnPizza);
         appetizer = findViewById(R.id.appetizer);
         grilled = findViewById(R.id.grilled);
@@ -50,6 +52,12 @@ public class MenuActivty extends AppCompatActivity {
     }
 
     private void Activites() {
+           promo.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   startActivity(new Intent(MenuActivty.this,PromoActivity.class));
+               }
+           });
         pizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,8 +156,8 @@ public class MenuActivty extends AppCompatActivity {
                         return true;
                     case R.id.menu:
                         return true;
-                    case R.id.promo:
-                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
+                    case R.id.order:
+                        startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.reservation:

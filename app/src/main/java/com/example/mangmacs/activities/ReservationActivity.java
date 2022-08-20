@@ -33,6 +33,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -50,7 +52,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReservationActivity extends AppCompatActivity {
-    private EditText people,date,time;
+    private TextInputEditText people,date,time;
+    private TextInputLayout guestsError,dateError,timeError;
     private TextView textRequired;
     private Button btnBookNow,addPhoneNumber;
     private BottomNavigationView bottomNavigationView;
@@ -65,6 +68,9 @@ public class ReservationActivity extends AppCompatActivity {
         people = findViewById(R.id.people);
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
+        guestsError = findViewById(R.id.guestsError);
+        dateError = findViewById(R.id.dateError);
+        timeError = findViewById(R.id.timeError);
         textRequired = findViewById(R.id.textRequired);
         reservationLayout = findViewById(R.id.reservationLayout);
         emptyPhoneNumber = findViewById(R.id.emptyPhoneNumber);
@@ -75,29 +81,10 @@ public class ReservationActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.reservation);
         BottomNav();
-        //ShowReservation();
         SetCalendar();
         Booking();
         setFirebaseToken();
     }
-    /*private void ShowReservation(){
-        String phoneNumber = SharedPreference.getSharedPreference(getApplicationContext()).setPhoneNumber();
-        if (phoneNumber == null){
-            reservationLayout.setVisibility(View.GONE);
-            emptyPhoneNumber.setVisibility(View.VISIBLE);
-            addPhoneNumber.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getApplicationContext(),MyAccountActivity.class));
-                }
-            });
-
-        }
-        else{
-            reservationLayout.setVisibility(View.VISIBLE);
-            emptyPhoneNumber.setVisibility(View.GONE);
-        }
-    }*/
     private void setFirebaseToken(){
         FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -123,15 +110,17 @@ public class ReservationActivity extends AppCompatActivity {
                 String sched_time = time.getText().toString();
                 String firstname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
                 String lastname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
-                //String phoneNumber = SharedPreference.getSharedPreference(getApplicationContext()).setPhoneNumber();
-                if (guests.isEmpty()){
-                    people.setError("Required");
-                }
                 if (sched_date.isEmpty()){
-                    date.setError("Required");
+                    dateError.setError("Required");
+                    dateError.setErrorIconDrawable(null);
                 }
                 if (sched_time.isEmpty()){
-                    time.setError("Required");
+                    timeError.setError("Required");
+                    timeError.setErrorIconDrawable(null);
+                }
+                if (guests.isEmpty()){
+                    guestsError.setError("Required");
+                    guestsError.setErrorIconDrawable(null);
                 }
                 else{
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -140,8 +129,13 @@ public class ReservationActivity extends AppCompatActivity {
                     reservationCall.enqueue(new Callback<ReservationModel>() {
                         @Override
                         public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
-                            Toast.makeText(getApplicationContext(),"Book Successfully",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(ReservationActivity.this, ReservationActivity.class));
+                            if (response.body() != null){
+                                String success = response.body().getSuccess();
+                                if (success.equals("1")){
+                                    Toast.makeText(getApplicationContext(),"Book Successfully",Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(ReservationActivity.this, home_activity.class));
+                                }
+                            }
                         }
 
                         @Override
@@ -182,6 +176,27 @@ public class ReservationActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         // adding the selected date in the edittext
                         date.setText(year + "/" + (month+1) + "/" + dayOfMonth);
+                        try {
+                            Date newDate = new Date();
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy/M/dd hh:mm aa");
+                            df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
+                            String getCurrentTime = String.valueOf(df.format(newDate));
+                            String getSelectedDate = date.getText().toString();
+                            String getSelectedTime = time.getText().toString();
+                            String getDateTime = getSelectedDate +" "+ getSelectedTime;
+                            Date currentTime = df.parse(getCurrentTime);
+                            Date selectedTime = df.parse(getDateTime);
+                            if (selectedTime.after(currentTime)){
+                                btnBookNow.setEnabled(true);
+                                textRequired.setVisibility(View.GONE);
+                            }
+                            else{
+                                btnBookNow.setEnabled(false);
+                                textRequired.setVisibility(View.VISIBLE);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.getDatePicker().setMinDate(today);
@@ -205,12 +220,14 @@ public class ReservationActivity extends AppCompatActivity {
                                 time.setText(DateFormat.format("hh:mm aa",calendar1));
                                 try {
                                     Date newDate = new Date();
-                                    SimpleDateFormat df = new SimpleDateFormat("hh:mm aa");
+                                    SimpleDateFormat df = new SimpleDateFormat("yyyy/M/dd hh:mm aa");
                                     df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
                                     String getCurrentTime = String.valueOf(df.format(newDate));
+                                    String getSelectedDate = date.getText().toString();
                                     String getSelectedTime = time.getText().toString();
+                                    String getDateTime = getSelectedDate +" "+ getSelectedTime;
                                     Date currentTime = df.parse(getCurrentTime);
-                                    Date selectedTime = df.parse(getSelectedTime);
+                                    Date selectedTime = df.parse(getDateTime);
                                     if (selectedTime.after(currentTime)){
                                         btnBookNow.setEnabled(true);
                                         textRequired.setVisibility(View.GONE);
@@ -253,8 +270,8 @@ public class ReservationActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.promo:
-                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
+                    case R.id.order:
+                        startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

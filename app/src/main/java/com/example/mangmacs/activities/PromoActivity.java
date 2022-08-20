@@ -46,8 +46,6 @@ public class PromoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promo);
-        bottomNavigationView = findViewById(R.id.bottom_nav);
-        bottomNavigationView.setSelectedItemId(R.id.promo);
         progressBar = findViewById(R.id.spin_kit);
         arrowBack = findViewById(R.id.arrow_back);
         emptyPromo = findViewById(R.id.emptyPromo);
@@ -57,12 +55,12 @@ public class PromoActivity extends AppCompatActivity {
         emptyPromo.setVisibility(View.GONE);
         showPromoProducts();
         Back();
-        BottomNav();
     }
     private void showPromoProducts(){
         Sprite circle = new Circle();
         progressBar.setIndeterminateDrawable(circle);
         progressBar.setVisibility(View.VISIBLE);
+        emptyPromo.setVisibility(View.GONE);
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
         Call<List<PromoListModel>> callPromo = apiInterface.getPromos();
         callPromo.enqueue(new Callback<List<PromoListModel>>() {
@@ -83,35 +81,6 @@ public class PromoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<PromoListModel>> call, Throwable t) {
-            }
-        });
-    }
-    private void BottomNav() {
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), home_activity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.menu:
-                        startActivity(new Intent(getApplicationContext(), MenuActivty.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.reservation:
-                        startActivity(new Intent(getApplicationContext(), ReservationActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.account:
-                        startActivity(new Intent(getApplicationContext(), AccountActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.promo:
-                        return true;
-                }
-                return true;
             }
         });
     }

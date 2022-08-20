@@ -58,6 +58,7 @@ public class PastaActivity extends AppCompatActivity {
 
     private void ShowPastaLists() {
         //call pasta list model
+        emptyProduct.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getPasta();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

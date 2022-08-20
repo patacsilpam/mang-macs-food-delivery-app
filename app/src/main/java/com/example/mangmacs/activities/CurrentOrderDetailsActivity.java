@@ -1,10 +1,13 @@
 package com.example.mangmacs.activities;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,8 +37,9 @@ import retrofit2.Response;
 
 public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener{
     private TextView orderNumber,orderType,totalAmount,arrowBack,estTime,changeableStatus;
-    private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,paymentMethod,deliveryFee;
-    private CardView deliveryDetails,pickUpDetails,paymentMethodDetails,deliveryFeeDetails;
+    private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee;
+    private Button btnCancelOrder;
+    private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails;
     private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime;
     private RecyclerView newOrderDetailLists;
     private ImageView pendingIcon,receiveIcon,processingIcon,forDeliveryIcon;
@@ -48,6 +52,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         setContentView(R.layout.activity_current_order_details);
         arrowBack = findViewById(R.id.arrow_back);
         changeableStatus = findViewById(R.id.changeableStatus);
+        btnCancelOrder = findViewById(R.id.btnCancelOrder);
         estTime = findViewById(R.id.estTime);
         orderNumber = findViewById(R.id.orderNumber);
         orderType = findViewById(R.id.orderType);
@@ -68,14 +73,11 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         devAddress = findViewById(R.id.devAddress);
         devLabelAddress = findViewById(R.id.labelAddress);
         deliveryDetails = findViewById(R.id.deliveryDetails);
-        paymentMethodDetails = findViewById(R.id.paymentMethodDetails);
-        paymentMethod = findViewById(R.id.paymentMethod);
         deliveryFee = findViewById(R.id.deliveryFee);
         deliveryFeeDetails = findViewById(R.id.deliveryFeeDetails);
         deliveryFeeDetails.setVisibility(View.VISIBLE);
         deliveryDetails.setVisibility(View.VISIBLE);
         pickUpDetails.setVisibility(View.VISIBLE);
-        paymentMethodDetails.setVisibility(View.GONE);
         newOrderDetailLists = findViewById(R.id.newOrderDetailLists);
         newOrderDetailLists.setHasFixedSize(true);
         newOrderDetailLists.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -103,7 +105,6 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         newWaitingTime = intent.getStringExtra("waitingTime");
         orderType.setText(newOrderType);
         orderNumber.setText("#".concat(newOrderNumber));
-        paymentMethod.setText(newPaymentMethod);
         deliveryFee.setText(newDeliveryFee);
         String OrderType = orderType.getText().toString();
         //show order status
@@ -141,7 +142,6 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             pickUpEmail.setText(newEmail);
             deliveryDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
-            paymentMethodDetails.setVisibility(View.VISIBLE);
             deliveryFeeDetails.setVisibility(View.GONE);
             changeableStatus.setText("Ready\nfor\nPick up");
         }
@@ -152,7 +152,6 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             devLabelAddress.setText(newLabelAddress);
             deliveryDetails.setVisibility(View.VISIBLE);
             pickUpDetails.setVisibility(View.GONE);
-            paymentMethodDetails.setVisibility(View.VISIBLE);
             deliveryFeeDetails.setVisibility(View.VISIBLE);
         }
         else{
@@ -211,7 +210,52 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
 
     @Override
     public void onProductCodeChange(ArrayList<String> productCode) {
+        String code = productCode.get(0);
+        if (newOrderStatus.equals("Pending")){
+            btnCancelOrder.setVisibility(View.VISIBLE);
+            btnCancelOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CurrentOrderDetailsActivity.this);
+                    alertDialogBuilder.setCancelable(false)
+                            .setMessage("Are you sure you want to cancel this order?")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                                    Call<CurrentOrdersModel> callOrder = apiInterface.cancelOrder(code);
+                                    callOrder.enqueue(new Callback<CurrentOrdersModel>() {
+                                        @Override
+                                        public void onResponse(Call<CurrentOrdersModel> call, Response<CurrentOrdersModel> response) {
+                                                if(response.body() != null){
+                                                    String success = response.body().getSuccess();
+                                                    if (success.equals("1")){
+                                                        startActivity(new Intent(getApplicationContext(),MyOrdersActivity.class));
+                                                    }
+                                                }
+                                            }
 
+                                            @Override
+                                            public void onFailure(Call<CurrentOrdersModel> call, Throwable t) {
+
+                                            }
+                                        });
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                });
+                        AlertDialog  alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                }
+            });
+        }
+        else{
+            btnCancelOrder.setVisibility(View.GONE);
+        }
     }
 
     @Override

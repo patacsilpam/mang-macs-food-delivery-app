@@ -20,13 +20,17 @@ import com.example.mangmacs.R;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.UpdateAccountModel;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditAddressActivity extends AppCompatActivity{
-    private TextView id,fullname,streetName,phoneNumber,barangay;
+    private TextView id,streetName,barangay;
+    private TextInputEditText fullname,phoneNumber;
+    private TextInputLayout nameError,contactError;
     private Spinner spinnerBrgy;
     RadioGroup editRdAddress;
     RadioButton radioButton;
@@ -43,6 +47,8 @@ public class EditAddressActivity extends AppCompatActivity{
         spinnerBrgy = findViewById(R.id.editbarangay);
         editRdAddress = findViewById(R.id.editrdAddress);
         editAddress = findViewById(R.id.editAddress);
+        nameError = findViewById(R.id.nameError);
+        contactError = findViewById(R.id.contactError);
         btnDeleteAddress = findViewById(R.id.btnDeleteAddress);
         AddressAdapter();
         DeleteAddress();
@@ -64,11 +70,15 @@ public class EditAddressActivity extends AppCompatActivity{
                                 deleteAddressCall.enqueue(new Callback<UpdateAccountModel>() {
                                     @Override
                                     public void onResponse(Call<UpdateAccountModel> call, Response<UpdateAccountModel> response) {
+                                        String success = response.body().getSuccess();
+                                        String message = response.body().getMessage();
                                         if(response.body() != null){
-                                            String success = response.body().getSuccess();
                                             if(success.equals("1")){
-                                               startActivity(new Intent(getApplicationContext(),AccountActivity.class));
+                                               startActivity(new Intent(getApplicationContext(),MyAddressActivity.class));
                                             }
+                                        }
+                                        else{
+                                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
                                         }
                                     }
 
@@ -135,10 +145,12 @@ public class EditAddressActivity extends AppCompatActivity{
                 radioButton = findViewById(address);
                 String getAddress = radioButton.getText().toString();
                 if(sfullname.isEmpty()) {
-                    fullname.setError("Required");
+                    nameError.setError("Required");
+                    nameError.setErrorIconDrawable(null);
                 }
                 else if(phoneNo.isEmpty()){
-                    phoneNumber.setError("Required");
+                    contactError.setError("Required");
+                    contactError.setErrorIconDrawable(null);
                 }
                 else{
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -150,7 +162,6 @@ public class EditAddressActivity extends AppCompatActivity{
                                 String success = response.body().getSuccess();
                                 String message = response.body().getMessage();
                                 if(success.equals("1")){
-                                    Toast.makeText(EditAddressActivity.this,message,Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(EditAddressActivity.this, MyAddressActivity.class));
                                 }
                                 else{

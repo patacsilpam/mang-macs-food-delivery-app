@@ -44,16 +44,22 @@
                 android:text="Recepient's Name"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/rfullname"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameError"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/confirm_delivery_address_input"
-                android:hint="Recepient's Name"
-                android:inputType="text"
-                android:padding="10dp" />
+                android:layout_height="wrap_content"
+                app:errorTextColor="#FF3C3C"
+                app:errorEnabled="true"
+                app:hintEnabled="false">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/rfullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/confirm_delivery_address_input"
+                    android:hint="Recepient's Name"
+                    android:inputType="text"
+                    android:padding="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,13 +122,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/textStreet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Street/Building Name"
+                    android:text="Street"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
                 <TextView
@@ -130,9 +137,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/textStreet"
                     android:fontFamily="@font/roboto_light"
-                    android:text="(optional)"
+                    android:text=" (optional)"
                     android:textStyle="italic"
-                    android:textColor="@android:color/black"
+                    android:textColor="#393838"
                     android:textSize="16sp" />
             </RelativeLayout>
 
@@ -157,23 +164,31 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/phoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/confirm_delivery_address_input"
-                android:hint="Phone no."
-                android:inputType="number"
-                android:maxLength="11"
-                android:padding="5dp"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/darker_gray" />
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/contactError"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:errorTextColor="#FF3C3C"
+               app:errorEnabled="true"
+               app:hintEnabled="false">
+               <com.google.android.material.textfield.TextInputEditText
+                   android:id="@+id/phoneNumber"
+                   android:layout_width="match_parent"
+                   android:layout_height="50dp"
+                   android:background="@drawable/confirm_delivery_address_input"
+                   android:hint="Phone no."
+                   android:inputType="number"
+                   android:maxLength="11"
+                   android:padding="5dp"
+                   android:textColor="@android:color/black"
+                   android:textColorHint="@android:color/darker_gray" />
+           </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_light"
+                android:layout_marginTop="10dp"
                 android:text="Label Address"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />

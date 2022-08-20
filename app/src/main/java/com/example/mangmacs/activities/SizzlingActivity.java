@@ -56,6 +56,7 @@ public class SizzlingActivity extends AppCompatActivity {
     }
 
     private void ShowSeafoodsLists() {
+        emptyProduct.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getSizzling();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

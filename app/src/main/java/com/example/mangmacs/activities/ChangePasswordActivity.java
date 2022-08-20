@@ -39,7 +39,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private TextInputLayout currentPword,newPword,confirmPword;
     private Button updatePword;
     private Session session;
-    private String email,fname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +47,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
         newPword = findViewById(R.id.newPword);
         confirmPword = findViewById(R.id.confirmPword);
         updatePword = findViewById(R.id.updatePword);
-        //fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
-        //email = SharedPreference.getSharedPreference(getApplicationContext()).setEmail();
         UpdatePassword();
     }
 
@@ -62,16 +59,21 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 String confirmPassword = confirmPword.getEditText().getText().toString();
                 if(newPassword.isEmpty()){
                     newPword.setError("Required");
+                    newPword.setErrorIconDrawable(null);
                 }
                 if (confirmPassword.isEmpty()){
                     confirmPword.setError("Required");
+                    confirmPword.setErrorIconDrawable(null);
                 }
                 if(!newPassword.equals(confirmPassword)){
                     confirmPword.setError("Password do not match");
                     newPword.setError("Password do not match");
+                    newPword.setErrorIconDrawable(null);
+                    confirmPword.setErrorIconDrawable(null);
                 }
                 if (confirmPassword.length()<8){
                     confirmPword.setError("Password must be at least 8 characters minimum");
+                    confirmPword.setErrorIconDrawable(null);
                 }
                 else{
                     String saveEmail = SharedPreference.getSharedPreference(getApplicationContext()).setEmail();
@@ -97,7 +99,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         }
                         @Override
                         public void onFailure(Call<UpdateAccountModel> call, Throwable t) {
-                            Toast.makeText(ChangePasswordActivity.this,"False",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ChangePasswordActivity.this,"Error",Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

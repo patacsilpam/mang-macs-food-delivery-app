@@ -9,18 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mangmacs.R;
+import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.activities.AdressList;
 import com.example.mangmacs.activities.PaymentActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
 public class orderNow extends Fragment {
     private Button orderNow;
+    private TextView secondPar;
     public orderNow() {
         // Required empty public constructor
     }
@@ -34,13 +38,23 @@ public class orderNow extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_oder_now, container, false);
         orderNow = view.findViewById(R.id.orderNow);
+        secondPar = view.findViewById(R.id.secondPar);
+        String preparedTime = SharedPreference.getSharedPreference(getContext()).setPrepTime();
+        secondPar.setText(preparedTime.concat(" min"));
         orderNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Date date = new Date();  //get date
+                Calendar calendar = Calendar.getInstance();
+                //format date
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("yy/MM/dd");
                 String strDate = dateFormatter.format(date);
-                String strTime = "now";
+                //format time
+                SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm a");
+                timeFormatter.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
+                calendar.add(Calendar.MINUTE, Integer.parseInt(preparedTime));
+                String strTime = timeFormatter.format(calendar.getTime());
+
                 //intent time and date
                 Intent intent = new Intent(getContext(),AdressList.class);
                 intent.putExtra("date",strDate);

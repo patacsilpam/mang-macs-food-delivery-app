@@ -36,7 +36,7 @@ public class NotificationHelper {
         else if(title.equals("Order Completed")){
             intent = new Intent(context, MyOrdersActivity.class);
         }
-        else if (title.equals("Approve")){
+        else if (title.equals("Reserved")){
             intent = new Intent(context, MyReservationActivity.class);
         }
         else if (title.equals("Not Available")){
@@ -48,7 +48,7 @@ public class NotificationHelper {
 
        PendingIntent pendingIntent = PendingIntent.getActivity(context,100,intent,PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, sign_up_activity.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                .setSmallIcon(R.mipmap.logo)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setContentIntent(pendingIntent)
@@ -56,7 +56,6 @@ public class NotificationHelper {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
                 .setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        // notificationId is a unique int for each notification that you must define
         notificationManager.notify(1, builder.build());
     }
 }

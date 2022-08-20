@@ -62,17 +62,22 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 String confirmPassword = confirmPword.getEditText().getText().toString();
                 if (newPassword.isEmpty()){
                     newPword.setError("Required");
+                    newPword.setErrorIconDrawable(null);
                 }
                 else if (!newPassword.equals(confirmPassword)){
                     newPword.setError("Password do not match");
                     confirmPword.setError("Password do not match");
+                    newPword.setErrorIconDrawable(null);
+                    confirmPword.setErrorIconDrawable(null);
                 }
                 else if (confirmPassword.isEmpty()){
                     confirmPword.setError("Required");
+                    confirmPword.setErrorIconDrawable(null);
                 }
 
                 else if(confirmPassword.length()<8){
                     confirmPword.setError("Password must be at least 8 characters minimum");
+                    confirmPword.setErrorIconDrawable(null);
                 }
                 else{
                     Intent intent = getIntent();
@@ -134,11 +139,11 @@ public class ResetPasswordActivity extends AppCompatActivity {
             mimeMessage.setSubject("Your Mang Mac's Password has been change");
             mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
                     "<header style='display: flex; align-items: center;'>\n" +
-                    "  <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                    "  <img src='https://i.ibb.co/CMq6CXs/logo.png' width='100' alt='mang-macs-logo'>\n" +
                     "  <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
                     "</header>\n" +
                     "<article style=\"display: flex; justify-content:center; align-items:center; flex-direction:column;\">\n" +
-                    "   <img src='checkmark.png' width='70' alt='checked'>" +
+                    "   <img src='https://i.ibb.co/1z7gB1f/checkmark.png' width='70' alt='checked'>" +
                     "   <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>Hi "+ fname +",</p>" +
                     "   <p style='font-size: 1rem; line-height: 1.3rem; font-family: Arial, Helvetica, sans-serif; color: #747474;'>\nyour password has been changed on" +getCurrentTime+".</p>\n" +
                     "</article>"+

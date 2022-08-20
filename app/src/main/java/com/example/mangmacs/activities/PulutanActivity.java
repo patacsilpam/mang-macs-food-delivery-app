@@ -57,6 +57,7 @@ public class PulutanActivity extends AppCompatActivity {
 
     private void ShowRiceLists() {
         //call rice list
+        emptyProduct.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getPulutan();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

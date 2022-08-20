@@ -29,7 +29,7 @@ public class MyReservationActivity extends AppCompatActivity {
         reservationAdapter = new ReservationAdapter(fragmentManager,getLifecycle());
         viewPager.setAdapter(reservationAdapter);
         bookTablayout.addTab(bookTablayout.newTab().setText("Pending Table"));
-        bookTablayout.addTab(bookTablayout.newTab().setText("Reserved Table"));
+        bookTablayout.addTab(bookTablayout.newTab().setText("Previous Table"));
         bookTablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

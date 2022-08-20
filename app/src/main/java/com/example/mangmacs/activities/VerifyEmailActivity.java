@@ -86,7 +86,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
                     mimeMessage.setSubject("Verify Email");
                     mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
                             "<header style='display: flex; align-items: center;'>\n" +
-                            "  <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                            "  <img src='https://i.ibb.co/CMq6CXs/logo.png' width='100' alt='mang-macs-logo'>\n" +
                             "  <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
                             "</header>\n" +
                             "<article>\n" +
@@ -95,7 +95,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
                             "  </p>\n" +
                             "</article>\n" +
                             "<article style='display: flex; justify-content: center;'>\n" +
-                            "  <strong style='width:100%; text-align:center; background: #E7E7E7; padding: 2rem; font-size: 2rem; letter-spacing: 3px;'>\n" +code+"</strong>"+
+                            "   <strong style='width:100%; text-align:center; background: #E7E7E7; padding: 2rem; font-size: 2rem; letter-spacing: 3px;'>\n" +vercode+"</strong>"+
                             "</article>\n" +
                             "<footer style='text-align: center; margin-top: 30px;'>\n" +
                             " <p style='margin: 10px 0 5px 0; font-family: Arial, Helvetica, sans-serif; color: #747474;'>from</p>\n" +
@@ -118,6 +118,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
                 String verificationCode = code.getEditText().getText().toString().trim();
                 if(verificationCode.isEmpty()){
                     code.setError("Required");
+                    code.setErrorIconDrawable(null);
                 }
                 else{
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -170,7 +171,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
             mimeMessage.setSubject("Registration Successful");
             mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
                     "<header style='display: flex; align-items: center;'>\n" +
-                    "   <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                    "   <img src='https://i.ibb.co/CMq6CXs/logo.png' width='100' alt='mang-macs-logo'>\n" +
                     "   <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
                     "</header>\n" +
                     "<article style='text-align:center;'>\n" +

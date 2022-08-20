@@ -57,6 +57,7 @@ public class PizzaActivity extends AppCompatActivity {
 
     private void ShowPizzaLists() {
         //call pizza list model
+        emptyProduct.setVisibility(View.GONE);
         Call<List<PizzaListModel>> call= apiInterface.getPizza();
         call.enqueue(new Callback<List<PizzaListModel>>() {
             @Override

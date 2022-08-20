@@ -96,6 +96,7 @@ public class WineActivity extends AppCompatActivity {
         });
     }
     private void ShowBeveragesLists() {
+        beveragesLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call = apiInterface.getBeverages();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
@@ -120,6 +121,7 @@ public class WineActivity extends AppCompatActivity {
         });
     }
     private void ShowWineLists() {
+        wineLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call = apiInterface.getWine();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

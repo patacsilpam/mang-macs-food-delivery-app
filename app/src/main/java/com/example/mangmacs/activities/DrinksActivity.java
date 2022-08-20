@@ -56,6 +56,7 @@ public class DrinksActivity extends AppCompatActivity {
     }
 
     private void ShowDrinkLists() {
+        emptyProduct.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getDrinks();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

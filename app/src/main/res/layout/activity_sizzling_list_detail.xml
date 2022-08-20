@@ -214,13 +214,14 @@
                 android:layout_toEndOf="@id/quantity"
                 android:padding="3dp"
                 android:drawableLeft="@drawable/ic_baseline_add_24"/>
+
             <Button
                 android:id="@+id/btnSeafoods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add to Order"
-                android:textAllCaps="false"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+                android:text="Add to Cart"
+                android:textAllCaps="false" />
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 </RelativeLayout>

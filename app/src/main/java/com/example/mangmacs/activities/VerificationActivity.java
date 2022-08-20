@@ -82,7 +82,7 @@ public class VerificationActivity extends AppCompatActivity {
                     mimeMessage.setSubject("Reset Your Mang Mac's Password");
                     mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
                             "<header style='display: flex; align-items: center;'>\n" +
-                            "   <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                            "   <img src='https://i.ibb.co/CMq6CXs/logo.png' width='100' alt='mang-macs-logo'>\n" +
                             "<h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
                             "</header>\n" +
                             "<article>\n" +

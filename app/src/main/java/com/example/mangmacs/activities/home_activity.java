@@ -58,7 +58,7 @@ public class home_activity extends AppCompatActivity{
     private CartAdapter cartAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView textName, btnSeeAll,totalCart;
-    private CardView pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
+    private CardView promo,pizza,appetizer,grilled,mealsGood,sizzling,noodles,bilao,pasta,dimsum,soup,drinks,dessert,pulutan,wine;
     private FloatingActionButton floatingActionButton;
     private BottomNavigationView bottomNavigationView;
     private ProgressBar progressBar;
@@ -72,6 +72,7 @@ public class home_activity extends AppCompatActivity{
         totalCart = findViewById(R.id.totalCart);
         bottomNavigationView =  findViewById(R.id.bottom_nav);
         //initialize ids
+        promo = findViewById(R.id.promo);
         pizza = findViewById(R.id.pizza);
         appetizer = findViewById(R.id.appetizer);
         grilled = findViewById(R.id.grilled);
@@ -159,6 +160,12 @@ public class home_activity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(home_activity.this,MenuActivty.class));
+            }
+        });
+        promo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(home_activity.this,PromoActivity.class));
             }
         });
         pizza.setOnClickListener(new View.OnClickListener() {
@@ -274,8 +281,8 @@ public class home_activity extends AppCompatActivity{
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.promo:
-                        startActivity(new Intent(getApplicationContext(), PromoActivity.class));
+                    case R.id.order:
+                        startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

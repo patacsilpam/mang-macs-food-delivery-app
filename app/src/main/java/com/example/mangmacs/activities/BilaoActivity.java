@@ -48,6 +48,7 @@ public class BilaoActivity extends AppCompatActivity {
     }
 
     private void ShowBilaoLists() {
+        emptyProduct.setVisibility(View.GONE);
         Call<List<PancitBilaoListModel>> call= apiInterface.getPancitBilao();
         call.enqueue(new Callback<List<PancitBilaoListModel>>() {
             @Override

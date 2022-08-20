@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.orderNow">
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -10,14 +11,65 @@
         android:layout_height="match_parent"
         android:gravity="bottom"
         android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_gray_square"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/light"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp">
+                    <TextView
+                        android:id="@+id/firstPar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order will be available after "
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="#5B5656"/>
+                    <TextView
+                        android:id="@+id/secondPar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/firstPar"
+                        android:text=""
+                        android:textSize="12sp"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="#5B5656"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/secondPar"
+                        android:layout_marginLeft="35dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="due to food preparation."
+                        android:textColor="#5B5656"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
         <Button
             android:id="@+id/orderNow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:layout_gravity="center"
             android:background="@color/pressed"
-            android:textColor="@color/white"
             android:text="Next"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
     </LinearLayout>
 </FrameLayout>

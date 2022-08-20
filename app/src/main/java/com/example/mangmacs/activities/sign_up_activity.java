@@ -136,21 +136,27 @@ import retrofit2.Response;
                 //validate user data
                 if(fname.isEmpty()){
                     firstname.setError("Required");
+                    firstname.setErrorIconDrawable(null);
                 }
                 if (lname.isEmpty()){
                     lastname.setError("Required");
-                }
-                if (pword.isEmpty()){
-                    password.setError("Required");
+                    lastname.setErrorIconDrawable(null);
                 }
                 if (emailAddress.isEmpty()){
                     email.setError("Required");
+                    email.setErrorIconDrawable(null);
+                }
+                if (pword.isEmpty()){
+                    password.setError("Required");
+                    password.setErrorIconDrawable(null);
                 }
                 if (pword.length() < 8 ){
                     password.setError("Password must be at least 8 characters.");
+                    password.setErrorIconDrawable(null);
                 }
                 else if (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()){
                     email.setError("Invalid email");
+                    email.setErrorIconDrawable(null);
                 }
                 else if (!checkTermsConditions.isChecked()){
                     errorMsg.setVisibility(View.VISIBLE);
@@ -214,7 +220,7 @@ import retrofit2.Response;
              mimeMessage.setSubject("Verify Email");
              mimeMessage.setContent("<main style='background: #ffffff; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 1rem;'>\n" +
                      "<header style='display: flex; align-items: center;'>\n" +
-                     "  <img src='logo.png' width='100' alt='mang-macs-logo'>\n" +
+                     "  <img src='https://i.ibb.co/CMq6CXs/logo.png' width='100' alt='mang-macs-logo'>\n" +
                      "  <h1 style='font-size: .9rem;  font-family: Arial, Helvetica, sans-serif;'> Mang Mac's Foodshop</h1>\n" +
                      "</header>\n" +
                      "<article>\n" +

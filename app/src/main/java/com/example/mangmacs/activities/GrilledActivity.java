@@ -76,6 +76,7 @@ public class GrilledActivity extends AppCompatActivity {
         });
     }
     private void  ShowGrilledSiomaiLists() {
+        grilledSiomaiLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getGrilled();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
@@ -99,6 +100,7 @@ public class GrilledActivity extends AppCompatActivity {
         });
     }
     private void ShowBarbequeLists() {
+        barbequeLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call= apiInterface.getBarbeque();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override
@@ -121,6 +123,7 @@ public class GrilledActivity extends AppCompatActivity {
         });
     }
     private void ShowAddOnsLists() {
+        addOnsLayout.setVisibility(View.GONE);
         Call<List<ProductListModel>> call = apiInterface.getAddOns();
         call.enqueue(new Callback<List<ProductListModel>>() {
             @Override

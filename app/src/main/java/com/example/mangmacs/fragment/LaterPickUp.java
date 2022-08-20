@@ -78,13 +78,15 @@ public class LaterPickUp extends Fragment {
                                 try {
                                     //get current time
                                     Date newDate = new Date();
-                                    SimpleDateFormat df = new SimpleDateFormat("hh:mm aa");
+                                    SimpleDateFormat df = new SimpleDateFormat("yyyy/M/dd hh:mm aa");
                                     df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
                                     String getCurrentTime = String.valueOf(df.format(newDate));
+                                    String getSelectedDate = date.getText().toString();
                                     String getSelectedTime = time.getText().toString();
+                                    String getDateTime = getSelectedDate +" "+ getSelectedTime;
                                     //parse selected time and date
                                     Date currentTime = df.parse(getCurrentTime);
-                                    Date selectedTime = df.parse(getSelectedTime);
+                                    Date selectedTime = df.parse(getDateTime);
                                     Calendar cal = Calendar.getInstance();
                                     cal.setTime(currentTime);
                                     cal.add(Calendar.MINUTE,storedPrepTime);

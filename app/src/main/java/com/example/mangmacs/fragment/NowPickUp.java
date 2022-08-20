@@ -9,15 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.activities.PickUpPayment;
 import com.example.mangmacs.R;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class NowPickUp extends Fragment  {
     private Button pickUpNow;
+    private TextView secondPar;
     public NowPickUp() {
         // Required empty public constructor
     }
@@ -34,13 +40,20 @@ public class NowPickUp extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_now_pick_up,container,false);
         pickUpNow = view.findViewById(R.id.pickUpNow);
+        secondPar = view.findViewById(R.id.secondPar);
+        String preparedTime = SharedPreference.getSharedPreference(getContext()).setPrepTime();
+        secondPar.setText(preparedTime.concat(" min"));
         pickUpNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Date date = new Date();  //get date
+                Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
                 String strDate = dateFormatter.format(date);
-                String strTime = "now";
+                SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm aa");
+                timeFormatter.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
+                calendar.add(Calendar.MINUTE, Integer.parseInt(preparedTime));
+                String strTime = timeFormatter.format(calendar.getTime());
                 //intent time and date
                 Intent intent = new Intent(getContext(), PickUpPayment.class);
                 intent.putExtra("pickUpDate",strDate);
