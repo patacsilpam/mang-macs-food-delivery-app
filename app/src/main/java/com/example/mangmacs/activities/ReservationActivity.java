@@ -55,10 +55,8 @@ public class ReservationActivity extends AppCompatActivity {
     private TextInputEditText people,date,time;
     private TextInputLayout guestsError,dateError,timeError;
     private TextView textRequired;
-    private Button btnBookNow,addPhoneNumber;
-    private BottomNavigationView bottomNavigationView;
+    private Button btnBookNow;
     private LinearLayout reservationLayout;
-    private View emptyPhoneNumber;
     private int hour,min;
     private String token;
     @Override
@@ -73,14 +71,8 @@ public class ReservationActivity extends AppCompatActivity {
         timeError = findViewById(R.id.timeError);
         textRequired = findViewById(R.id.textRequired);
         reservationLayout = findViewById(R.id.reservationLayout);
-        emptyPhoneNumber = findViewById(R.id.emptyPhoneNumber);
-        addPhoneNumber = emptyPhoneNumber.findViewById(R.id.addPhoneNumber);
         btnBookNow = findViewById(R.id.btnBookNow);
         textRequired.setVisibility(View.GONE);
-        //bottom navigation
-        bottomNavigationView = findViewById(R.id.bottom_nav);
-        bottomNavigationView.setSelectedItemId(R.id.reservation);
-        BottomNav();
         SetCalendar();
         Booking();
         setFirebaseToken();
@@ -123,7 +115,12 @@ public class ReservationActivity extends AppCompatActivity {
                     guestsError.setErrorIconDrawable(null);
                 }
                 else{
-                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                   Intent intent = new Intent(ReservationActivity.this,DineInActivity.class);
+                   intent.putExtra("guests",guests);
+                   intent.putExtra("reserved_date",sched_date);
+                   intent.putExtra("reserved_time",sched_time);
+                   startActivity(intent);
+                   /* ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                     String email = SharedPreference.getSharedPreference(ReservationActivity.this).setEmail();
                     Call<ReservationModel> reservationCall = apiInterface.reservation(token,firstname,lastname,guests,email,"",sched_date,sched_time);
                     reservationCall.enqueue(new Callback<ReservationModel>() {
@@ -142,7 +139,7 @@ public class ReservationActivity extends AppCompatActivity {
                         public void onFailure(Call<ReservationModel> call, Throwable t) {
 
                         }
-                    });
+                    });*/
                 }
             }
         });
@@ -246,36 +243,6 @@ public class ReservationActivity extends AppCompatActivity {
                 //displayed previous selected time
                 timePickerDialog.updateTime(hour,min);
                 timePickerDialog.show();
-            }
-        });
-    }
-
-    private void BottomNav() {
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), home_activity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.menu:
-                        startActivity(new Intent(getApplicationContext(), MenuActivty.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.reservation:
-                        return true;
-                    case R.id.account:
-                        startActivity(new Intent(getApplicationContext(), AccountActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.order:
-                        startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return true;
             }
         });
     }

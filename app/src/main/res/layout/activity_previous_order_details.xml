@@ -77,41 +77,10 @@
                         android:layout_toEndOf="@id/pendingLayout"
                         android:background="@color/pressed" />
                     <LinearLayout
-                        android:id="@+id/receivedLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/line1"
-                        android:layout_marginLeft="-15dp"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:id="@+id/receivedIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_baseline_check_circle_24"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:textColor="#636363"
-                            android:fontFamily="@font/roboto"
-                            android:textSize="11sp"
-                            android:text="Order\nReceived"/>
-                    </LinearLayout>
-                    <View
-                        android:id="@+id/line2"
-                        android:layout_width="55dp"
-                        android:layout_height="2dp"
-                        android:layout_marginLeft="-15dp"
-                        android:layout_marginTop="11dp"
-                        android:layout_toEndOf="@id/receivedLayout"
-                        android:background="@color/pressed"  />
-                    <LinearLayout
                         android:id="@+id/processingLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/line2"
+                        android:layout_toEndOf="@+id/line1"
                         android:layout_marginLeft="-20dp"
                         android:orientation="vertical">
                         <ImageView

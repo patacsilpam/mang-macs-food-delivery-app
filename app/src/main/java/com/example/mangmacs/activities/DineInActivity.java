@@ -1,17 +1,34 @@
 package com.example.mangmacs.activities;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +41,14 @@ import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,16 +58,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.ContentValues.TAG;
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class DineInActivity extends AppCompatActivity implements OrdersListener {
-    private TextView arrowBack,total,fullName,emailAddress;
+    private TextView arrowBack,total,fullName,emailAddress,schedDate,guests;
     private RecyclerView recyclerViewOrder;
     private Button placeOrder;
+    private ImageView imgPayment;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String strDate;
+    private String strDate,strTime,strGuests,token;
     private int totalPrice;
+    private static final int STORAGE_PERMISSION_CODE = 100;
+    private Bitmap bitmap;
+    private Uri selectedImage;
     private ArrayList<String> orderLists = new ArrayList<>();
     private ArrayList<String> productCodeList = new ArrayList<>();
     private ArrayList<String> productCategoryList = new ArrayList<>();
@@ -62,19 +91,124 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
         fullName = findViewById(R.id.fullname);
         emailAddress = findViewById(R.id.email);
         placeOrder = findViewById(R.id.placeOrder);
+        imgPayment = findViewById(R.id.imgPayment);
+        schedDate = findViewById(R.id.schedDate);
+        guests = findViewById(R.id.guests);
+        placeOrder.setEnabled(false);
         recyclerViewOrder = findViewById(R.id.recyclerviewOrder);
         recyclerViewOrder.setHasFixedSize(true);
         recyclerViewOrder.setLayoutManager(new LinearLayoutManager(this));
-        Date date = new Date();  //get date
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
-        strDate = dateFormatter.format(date);
+        Intent intent  = getIntent();
+        strDate = intent.getStringExtra("reserved_date");
+        strTime = intent.getStringExtra("reserved_time");
+        strGuests = intent.getStringExtra("guests");
         showOrders();
-        Back();
+        CameraPermission();
+        setFirebaseToken();
         PlaceOrder();
+        Back();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("TotalOrderPrice"));
+        schedDate.setText(strDate.concat(" ").concat(strTime));
+        guests.setText(strGuests);
+    }
+    private void setFirebaseToken(){
+        FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (task.isSuccessful()){
+                            token = task.getResult().getToken();
+                            Log.d(TAG,"On complete " + token);
+                        }
+                        else{
+                            Log.d(TAG,"Token not generated");
+                        }
+                    }
+                });
+    }
+    private void CameraPermission(){
+        imgPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(DineInActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    activityResultLauncher.launch(intent);
+                }
+                else{
+                    requestStoragePermission();
+                }
+            }
+        });
+    }
+    private void requestStoragePermission(){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage("Album requires permission to access photos");
+            alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    ActivityCompat.requestPermissions(DineInActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
+                }
+            });
+            alertDialogBuilder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
+        else{
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
+        }
+    }
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result.getResultCode() == RESULT_OK && result.getData() != null){
+                Intent data = result.getData();
+                if (data != null){
+                    selectedImage = data.getData();
+                    if (selectedImage != null){
+                        try {
+                            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImage);
+                            imgPayment.setImageBitmap(bitmap);
+                            imgPayment.setVisibility(View.VISIBLE);
+                            placeOrder.setEnabled(true);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+    });
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                activityResultLauncher.launch(intent);
+            }
+        }else{
+            Toast.makeText(getApplicationContext(),"Permission Denied",Toast.LENGTH_SHORT).show();
+        }
     }
 
+    private String imageToString(){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,70,byteArrayOutputStream);
+        byte[] imgByte = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(imgByte,Base64.DEFAULT);
+    }
     private void showOrders() {
         String fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
         String lname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
@@ -105,7 +239,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DineInActivity.this,OrderModeActivity.class));
+                startActivity(new Intent(DineInActivity.this,ReservationActivity.class));
             }
         });
     }
@@ -120,17 +254,14 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String requiredTime = "now";
-                String accountName = fullName.getText().toString();
-                String address = "";
-                String labelAddress = "";
-                String email = emailAddress.getText().toString();
-                String phoneNumber = "";
-                String paymentPhoto = "not required";
+                String fname = SharedPreference.getSharedPreference(DineInActivity.this).setFname();
+                String lname =SharedPreference.getSharedPreference(DineInActivity.this).setLname();
+                String email = SharedPreference.getSharedPreference(DineInActivity.this).setEmail();
+                String paymentPhoto = imageToString();
                 String orderStatus = "Pending";
-                String orderType = "Dine in";
+                String orderType = "Dine In";
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,"",accountName,"",address,labelAddress,"",email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus,strDate,requiredTime,0,"");
+                Call<CartModel> insertOrder = apiInterface.dineInOrder(productCodeList,token,fname,lname,strGuests,email,strDate,strTime,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList,String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus);
                 insertOrder.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

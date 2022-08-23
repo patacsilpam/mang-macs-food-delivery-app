@@ -31,10 +31,21 @@ public class OrderModeActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setElevation(0);
+        dineIn = findViewById(R.id.dineIn);
         pickUp = findViewById(R.id.pickUp);
         delivery = findViewById(R.id.delivery);
+        DineIn();
         PickUp();
         Delivery();
+    }
+    private void DineIn(){
+        dineIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OrderModeActivity.this, ReservationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void PickUp(){
         pickUp.setOnClickListener(new View.OnClickListener() {

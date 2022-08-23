@@ -75,11 +75,6 @@ public class AccountActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), MenuActivty.class));
                         overridePendingTransition(0,0);
                         return true;
-
-                    case R.id.reservation:
-                        startActivity(new Intent(getApplicationContext(), ReservationActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
                     case R.id.account:
                         return true;
                     case R.id.order:

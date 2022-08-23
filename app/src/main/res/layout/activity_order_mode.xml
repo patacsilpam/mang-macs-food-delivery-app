@@ -24,6 +24,36 @@
             android:padding="20dp"
             android:orientation="vertical">
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dineIn"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/dineIn"
+                android:layout_marginTop="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#7A7777"
+                app:strokeWidth="1dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+                    <ImageView
+                        android:id="@+id/imgDineIn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/dinein"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/imgDineIn"
+                        android:fontFamily="@font/roboto"
+                        android:paddingLeft="15dp"
+                        android:text="Dine In"
+                        android:textColor="@color/black"
+                        android:textSize="30sp" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/pickUp"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -41,15 +71,16 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/pickup"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/imgPickUp"
-                        android:paddingLeft="15dp"
                         android:fontFamily="@font/roboto"
-                        android:textSize="30sp"
+                        android:paddingLeft="15dp"
+                        android:text="Pick Up"
                         android:textColor="@color/black"
-                        android:text="Pick Up"/>
+                        android:textSize="30sp" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView

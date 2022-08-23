@@ -42,8 +42,8 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
     private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails;
     private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime;
     private RecyclerView newOrderDetailLists;
-    private ImageView pendingIcon,receiveIcon,processingIcon,forDeliveryIcon;
-    private View line1,line2,line3,line4;
+    private ImageView pendingIcon,processingIcon,forDeliveryIcon;
+    private View line1,line3,line4;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
     @Override
@@ -58,11 +58,9 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         orderType = findViewById(R.id.orderType);
         totalAmount = findViewById(R.id.totalAmount);
         pendingIcon = findViewById(R.id.pendingIcon);
-        receiveIcon = findViewById(R.id.receivedIcon);
         processingIcon = findViewById(R.id.processingIcon);
         forDeliveryIcon = findViewById(R.id.forDeliveryIcon);
         line1 = findViewById(R.id.line1);
-        line2 = findViewById(R.id.line2);
         line3 = findViewById(R.id.line3);
         line4 = findViewById(R.id.line4);
         pickUpDetails = findViewById(R.id.pickUpDetails);
@@ -85,6 +83,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         showOrders();
         Back();
     }
+    //getting data from pass intent
     @SuppressLint("ResourceAsColor")
     private void dismissOrder() {
         Intent intent = getIntent();
@@ -112,27 +111,17 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             pendingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
             line1.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
         }
-        if(newOrderStatus.equals("Order Received")){
-            pendingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
-            receiveIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
-            line1.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
-            line2.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
-        }
         if(newOrderStatus.equals("Order Processing")){
             pendingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
-            receiveIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
             processingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
             line1.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
-            line2.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
             line3.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
         }
         if(newOrderStatus.equals("Out for Delivery") || newOrderStatus.equals("Ready for Pick Up")){
             pendingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
-            receiveIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
             processingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
             forDeliveryIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);
             line1.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
-            line2.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
             line3.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
             line4.setBackgroundColor(ContextCompat.getColor(this, R.color.pressed));
         }
@@ -193,7 +182,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MyOrdersActivity.class));
+                startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
             }
         });
     }

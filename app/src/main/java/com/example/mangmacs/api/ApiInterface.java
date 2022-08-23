@@ -14,6 +14,7 @@ import com.example.mangmacs.model.ReservationModel;
 import com.example.mangmacs.model.SettingsModel;
 import com.example.mangmacs.model.UpdateAccountModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -284,34 +285,31 @@ public interface ApiInterface {
             @Field("deliveryFee") int deliveryFee,
             @Field("waitingTime") String waitingTime
     );
-    @POST("customerOrders.php")
+    //insert dine in order method
+    @POST("reservation.php")
     @FormUrlEncoded
-    Call<CartModel> insertPickUp(
-            @Field("productCode") String productCode,
-            @Field("accountName") String accountName,
-            @Field("recipientName") String recipientName,
-            @Field("customer_address") String address,
-            @Field("labelAddress") String labelAddress,
+    Call<CartModel> dineInOrder(
+            @Field("productCode[]") ArrayList<String> productCodeList,
             @Field("token") String token,
+            @Field("fname") String fname,
+            @Field("lname") String lname,
+            @Field("guests") String guests,
             @Field("email") String email,
-            @Field("phoneNumber") String phoneNumber,
-            @Field("product") String product,
-            @Field("productCategory") String productCategory,
-            @Field("variation") String variation,
-            @Field("quantity") String quantity,
-            @Field("addOns") String addOns,
-            @Field("price") String price,
-            @Field("subTotal") String subTotal,
+            @Field("scheduled_date") String date,
+            @Field("scheduled_time") String time,
+            @Field("product[]") ArrayList<String> product,
+            @Field("productCategory[]") ArrayList<String> productCategory,
+            @Field("variation[]") ArrayList<String> variation,
+            @Field("quantity[]") ArrayList<Integer> quantity,
+            @Field("addOns[]") ArrayList<String> addOns,
+            @Field("price[]") ArrayList<String> price,
+            @Field("subTotal[]") ArrayList<String> subTotal,
             @Field("totalAmount") String totalAmount,
             @Field("paymentPhoto") String paymentPhoto,
             @Field("paymentType") String paymentType,
-            @Field("imgProduct") String imgProduct,
+            @Field("imgProduct[]") ArrayList<String> imgProduct,
             @Field("orderType") String orderType,
-            @Field("orderStatus") String orderStatus,
-            @Field("requiredDate") String requiredDate,
-            @Field("requiredTime") String requiredTime,
-            @Field("deliveryFee") int deliveryFee,
-            @Field("waitingTime") String waitingTime
+            @Field("orderStatus") String orderStatus
     );
     //get all the current orders
     @GET("selectNewOrders.php")

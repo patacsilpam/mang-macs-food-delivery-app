@@ -114,21 +114,4 @@
         </LinearLayout>
     </ScrollView>
 
-    <include
-        android:id="@+id/emptyPhoneNumber"
-        layout="@layout/empty_phone_number"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:background="@drawable/home_bg_color"
-        app:itemIconTint="@drawable/icon_pressed"
-        app:itemTextColor="@drawable/icon_pressed"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav" />
 </RelativeLayout>
