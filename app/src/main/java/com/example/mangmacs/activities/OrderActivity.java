@@ -40,7 +40,7 @@ public class OrderActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         orderNowLaterAdapter = new OrderNowLaterAdapter(fragmentManager,getLifecycle());
         viewPager.setAdapter(orderNowLaterAdapter);
-        bookTablayout.addTab(bookTablayout.newTab().setText("Now"));
+        bookTablayout.addTab(bookTablayout.newTab().setText("Today"));
         bookTablayout.addTab(bookTablayout.newTab().setText("Later"));
         bookTablayout.getTabAt(0).setIcon(R.drawable.order_now);
         bookTablayout.getTabAt(1).setIcon(R.drawable.order_later);

@@ -257,11 +257,12 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
                 String fname = SharedPreference.getSharedPreference(DineInActivity.this).setFname();
                 String lname =SharedPreference.getSharedPreference(DineInActivity.this).setLname();
                 String email = SharedPreference.getSharedPreference(DineInActivity.this).setEmail();
+                String customerId = SharedPreference.getSharedPreference(DineInActivity.this).setID();
                 String paymentPhoto = imageToString();
                 String orderStatus = "Pending";
                 String orderType = "Dine In";
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.dineInOrder(productCodeList,token,fname,lname,strGuests,email,strDate,strTime,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList,String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus);
+                Call<CartModel> insertOrder = apiInterface.dineInOrder(productCodeList,customerId,token,fname,lname,strGuests,email,strDate,strTime,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList,String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus);
                 insertOrder.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

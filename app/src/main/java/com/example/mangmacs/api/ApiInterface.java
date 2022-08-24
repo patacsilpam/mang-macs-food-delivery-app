@@ -290,6 +290,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<CartModel> dineInOrder(
             @Field("productCode[]") ArrayList<String> productCodeList,
+            @Field("customerId") String customerId,
             @Field("token") String token,
             @Field("fname") String fname,
             @Field("lname") String lname,
