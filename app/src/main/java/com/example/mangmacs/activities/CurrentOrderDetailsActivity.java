@@ -157,7 +157,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             estTime.setText(newRequiredDate.concat(" ").concat(newRequiredTme));
         }
     }
-    //show customer orders
+    //show customer orders in recyclerview
     private void showOrders(){
         String email = SharedPreference.getSharedPreference(this).setEmail();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -178,6 +178,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             }
         });
     }
+    //arrow back button
     private void Back() {
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +200,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
 
     @Override
     public void onProductCodeChange(ArrayList<String> productCode) {
+        //get product code index[0] to cancel orders
         String code = productCode.get(0);
         if (newOrderStatus.equals("Pending")){
             btnCancelOrder.setVisibility(View.VISIBLE);
@@ -284,6 +286,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
 
     @Override
     public void onTotalAmountChange(String amount) {
+        //display total amount
         int totalOrder = Integer.parseInt(amount);
         int totalPayment = totalOrder + Integer.parseInt(newDeliveryFee);
         totalAmount.setText("₱ ".concat(String.valueOf(totalPayment)).concat(".00"));

@@ -379,7 +379,7 @@
                 android:id="@+id/newOrderDetailLists"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginTop="10dp" />
             <androidx.cardview.widget.CardView
                 android:id="@+id/deliveryFeeDetails"
                 android:layout_width="match_parent"
@@ -393,7 +393,9 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#C6C6C6" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#E8E8E8" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -432,7 +434,9 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#C6C6C6" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#E8E8E8" />
 
                     <TextView
                         android:layout_width="wrap_content"

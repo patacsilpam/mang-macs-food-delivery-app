@@ -327,6 +327,11 @@ public interface ApiInterface {
     Call<List<ReservationModel>> getCurrentBookings(
             @Query("emailAddress") String emailAddress
     );
+    @GET("selectNewReservationDetails.php")
+    Call<List<ReservationModel>> getCurrentBookingsDetails(
+            @Query("emailAddress") String emailAddress,
+            @Query("orderNumber") String orderNumber
+    );
     //get all the completed reservation table
     @GET("selectProcessedReservation.php")
     Call<List<ReservationModel>> getPreviousBookings(

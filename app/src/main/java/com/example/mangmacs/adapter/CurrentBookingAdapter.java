@@ -44,6 +44,7 @@ public class CurrentBookingAdapter extends RecyclerView.Adapter<CurrentBookingAd
             public void onClick(View view) {
                 Intent intent = new Intent(context, CurrentReservationActivity.class);
                 intent.putExtra("id",reservationModel.getId());
+                intent.putExtra("refNumber",reservationModel.getRefNumber());
                 intent.putExtra("firstName",reservationModel.getFname());
                 intent.putExtra("lastName",reservationModel.getLname());
                 intent.putExtra("email",reservationModel.getEmail());
@@ -52,7 +53,7 @@ public class CurrentBookingAdapter extends RecyclerView.Adapter<CurrentBookingAd
                 intent.putExtra("guests",reservationModel.getGuests());
                 intent.putExtra("bookingStatus",reservationModel.getStatus());
                 intent.putExtra("createdAt",reservationModel.getCreatedAt());
-                intent.putExtra("phoneNumber",reservationModel.getPhoneNumber());
+                intent.putExtra("totalAmount",reservationModel.getTotalAmount());
                 context.startActivity(intent);
             }
         });

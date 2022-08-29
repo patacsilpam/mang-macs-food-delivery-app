@@ -19,18 +19,37 @@ public class ReservationModel {
     private String scheduled_date;
     @SerializedName("scheduled_time")
     private String scheduled_time;
-    @SerializedName("status")
-    private String status;
-    @SerializedName("phone_number")
-    private String phoneNumber;
     @SerializedName("refNumber")
     private String refNumber;
     @SerializedName("notif_date")
     private String notifDate;
+    @SerializedName("payment_photo")
+    private String paymentPhoto;
     @SerializedName("success")
     private String success;
+    //table order details list
+    @SerializedName("product_name")
+    private String products;
+    @SerializedName("productCategory")
+    private String category;
+    @SerializedName("price")
+    private String price;
+    @SerializedName("product_variation")
+    private String variations;
+    @SerializedName("quantity")
+    private String quantities;
+    @SerializedName("add_ons")
+    private String addOns;
+    @SerializedName("status")
+    private String status;
+    @SerializedName("product_image")
+    private String imgProduct;
+    @SerializedName("completed_time")
+    private String completedTime;
+    @SerializedName("totalAmount")
+    private String totalAmount;
 
-    public ReservationModel(String id,String email,String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String status,String phoneNumber,String refNumber,String notifDate,String success) {
+    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto, String success, String products, String category, String price, String variations, String quantities, String addOns, String status, String imgProduct, String completedTime,String totalAmount) {
         this.id = id;
         this.email = email;
         this.fname = fname;
@@ -39,11 +58,20 @@ public class ReservationModel {
         this.createdAt = createdAt;
         this.scheduled_date = scheduled_date;
         this.scheduled_time = scheduled_time;
-        this.status = status;
-        this.phoneNumber = phoneNumber;
         this.refNumber = refNumber;
         this.notifDate = notifDate;
+        this.paymentPhoto = paymentPhoto;
         this.success = success;
+        this.products = products;
+        this.price = price;
+        this.category = category;
+        this.variations = variations;
+        this.quantities = quantities;
+        this.addOns = addOns;
+        this.status = status;
+        this.imgProduct = imgProduct;
+        this.completedTime = completedTime;
+        this.totalAmount = totalAmount;
     }
 
     public String getId() {
@@ -78,14 +106,6 @@ public class ReservationModel {
         return scheduled_time;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
     public String getRefNumber() {
         return refNumber;
     }
@@ -94,7 +114,51 @@ public class ReservationModel {
         return notifDate;
     }
 
+    public String getPaymentPhoto() {
+        return paymentPhoto;
+    }
+
     public String getSuccess() {
         return success;
+    }
+
+    public String getProducts() {
+        return products;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getVariations() {
+        return variations;
+    }
+
+    public String getQuantities() {
+        return quantities;
+    }
+
+    public String getAddOns() {
+        return addOns;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getImgProduct() {
+        return imgProduct;
+    }
+
+    public String getCompletedTime() {
+        return completedTime;
+    }
+
+    public String getTotalAmount() {
+        return totalAmount;
     }
 }

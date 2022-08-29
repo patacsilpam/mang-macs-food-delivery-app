@@ -54,7 +54,7 @@ import retrofit2.Response;
 public class ReservationActivity extends AppCompatActivity {
     private TextInputEditText people,date,time;
     private TextInputLayout guestsError,dateError,timeError;
-    private TextView textRequired;
+    private TextView textRequired,arrowBack;
     private Button btnBookNow;
     private LinearLayout reservationLayout;
     private int hour,min;
@@ -70,12 +70,14 @@ public class ReservationActivity extends AppCompatActivity {
         dateError = findViewById(R.id.dateError);
         timeError = findViewById(R.id.timeError);
         textRequired = findViewById(R.id.textRequired);
+        arrowBack = findViewById(R.id.txt_arrow_back);
         reservationLayout = findViewById(R.id.reservationLayout);
         btnBookNow = findViewById(R.id.btnBookNow);
         textRequired.setVisibility(View.GONE);
         SetCalendar();
         Booking();
         setFirebaseToken();
+        Back();
     }
     private void setFirebaseToken(){
         FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
@@ -243,6 +245,14 @@ public class ReservationActivity extends AppCompatActivity {
                 //displayed previous selected time
                 timePickerDialog.updateTime(hour,min);
                 timePickerDialog.show();
+            }
+        });
+    }
+    private void Back(){
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ReservationActivity.this,OrderModeActivity.class));
             }
         });
     }
