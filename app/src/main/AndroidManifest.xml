@@ -20,9 +20,13 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true">
         <activity
-            android:name=".activities.Bottom_Order_Activity"
+            android:name=".activities.PreviousReservationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HomeTheme"/>
+        <activity
+            android:name=".activities.Bottom_Order_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HomeTheme" />
         <activity
             android:name=".activities.VerifyPhoneNumber"
             android:label="Verify Phone Number"

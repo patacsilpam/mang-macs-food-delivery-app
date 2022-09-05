@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
+import com.example.mangmacs.activities.MenuActivty;
 import com.example.mangmacs.activities.ReservationActivity;
 import com.example.mangmacs.adapter.CurrentBookingAdapter;
 import com.example.mangmacs.adapter.PreviousBookingAdapter;
@@ -85,7 +86,7 @@ public class PreviousReservation extends Fragment {
                     addBook.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(getActivity(), ReservationActivity.class));
+                            startActivity(new Intent(getActivity(), MenuActivty.class));
                         }
                     });
                 }

@@ -278,6 +278,7 @@ public interface ApiInterface {
             @Field("paymentPhoto") String paymentPhoto,
             @Field("paymentType") String paymentType,
             @Field("imgProduct[]") ArrayList<String> imgProduct,
+            @Field("preparationTime[]") ArrayList<String > preparationTime,
             @Field("orderType") String orderType,
             @Field("orderStatus") String orderStatus,
             @Field("requiredDate") String requiredDate,
@@ -309,6 +310,7 @@ public interface ApiInterface {
             @Field("paymentPhoto") String paymentPhoto,
             @Field("paymentType") String paymentType,
             @Field("imgProduct[]") ArrayList<String> imgProduct,
+            @Field("preparationTime[]") ArrayList<String > preparationTime,
             @Field("orderType") String orderType,
             @Field("orderStatus") String orderStatus
     );
@@ -336,6 +338,11 @@ public interface ApiInterface {
     @GET("selectProcessedReservation.php")
     Call<List<ReservationModel>> getPreviousBookings(
             @Query("emailAddress") String emailAddress
+    );
+    @GET("selectNewReservationDetails.php")
+    Call<List<ReservationModel>> getPreviousBookingsDetails(
+            @Query("emailAddress") String emailAddress,
+            @Query("orderNumber") String orderNumber
     );
     //get the current order details
     @GET("selectNewOrderDetails.php")
@@ -374,5 +381,16 @@ public interface ApiInterface {
     @GET("getReservation.php")
     Call <List<ReservationModel>> getBookNotif(
             @Query("emailAddress") String email
+    );
+    //validate and change order status to order received by users
+    @POST("orderReceived.php")
+    @FormUrlEncoded
+    Call<CartModel> changeOrderStatus(
+            @Field("orderNumber") String orderNumber
+    );
+    @POST("orderReceivedReservation.php")
+    @FormUrlEncoded
+    Call<CartModel> changeBookingStatus(
+            @Field("orderNumber") String orderNumber
     );
 }

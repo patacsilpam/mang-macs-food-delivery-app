@@ -38,6 +38,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
     ArrayList<String> subTotalList = new ArrayList<>();
     ArrayList<String> imgProductList = new ArrayList<>();
     ArrayList<String> productCategoryList = new ArrayList<>();
+    ArrayList<String> preparationTimeList = new ArrayList<>();
     public OrderListsAdapter(Context context, List<CartModel> orderList,OrdersListener ordersListener){
         this.context = context;
         this.orderList = orderList;
@@ -72,6 +73,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         String str_newImgProduct = orderModel.getImageProduct();
         String str_subTotal = String.valueOf(orderModel.getQuantityCart() * orderModel.getPriceCart());
         String str_productCategory = orderModel.getProductCategory();
+        String str_preparationTime = orderModel.getPreparedTime();
 
         productList.add(str_product);
         productCodeList.add(str_productCode);
@@ -82,6 +84,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         priceList.add(str_newPrice);
         imgProductList.add(str_newImgProduct);
         productCategoryList.add(str_productCategory);
+        preparationTimeList.add(str_preparationTime);
         Intent intent = new Intent("TotalOrderPrice");
         intent.putExtra("totalorderprice",orderModel.getTotalprice());
         intent.putExtra("deliveryChange",orderModel.getDeliveryChange());
@@ -96,6 +99,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         ordersListener.onSubTotalChange(subTotalList);
         ordersListener.onPriceChange(priceList);
         ordersListener.onImgProductChange(imgProductList);
+        ordersListener.onPreparationTimeChange(preparationTimeList);
     }
 
     @Override

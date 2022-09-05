@@ -383,7 +383,8 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/deliveryFeeDetails"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:cardElevation="0dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -424,7 +425,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardMaxElevation="0dp">
+                android:layout_marginBottom="100dp"
+                app:cardElevation="0dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -461,20 +463,26 @@
                         android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnCancelOrder"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/dark_square"
-                android:fontFamily="@font/roboto"
-                android:text="Cancel Order"
-                android:textAllCaps="false"
-                android:textColor="#222222"
-                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
+    <RelativeLayout
+        android:id="@+id/cancelOrderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:padding="20dp"
+        android:layout_alignParentBottom="true">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCancelOrder"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="#4B4B4B"
+            android:gravity="center"
+            android:text="Cancel Order"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
 </RelativeLayout>

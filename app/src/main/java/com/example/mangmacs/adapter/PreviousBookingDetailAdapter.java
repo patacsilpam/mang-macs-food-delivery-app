@@ -14,15 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mangmacs.activities.PreviousOrderDetailsActivity;
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.activities.CartActivity;
+import com.example.mangmacs.activities.PreviousOrderDetailsActivity;
+import com.example.mangmacs.activities.PreviousReservationActivity;
 import com.example.mangmacs.api.ApiInterface;
-import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
-import com.example.mangmacs.model.CurrentOrdersModel;
+import com.example.mangmacs.model.ReservationModel;
 
 import java.util.List;
 
@@ -30,53 +30,49 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAdapter.ViewHolder> {
+public class PreviousBookingDetailAdapter extends RecyclerView.Adapter<PreviousBookingDetailAdapter.ViewHolder> {
     private Context context;
-    private List<CurrentOrdersModel> prevOrdersModelList;
-    private OrdersListener ordersListener;
-    public PreviousDetailAdapter(Context context,List<CurrentOrdersModel> prevOrdersModelList,OrdersListener ordersListener){
-       this.context = context;
-       this.prevOrdersModelList = prevOrdersModelList;
-       this.ordersListener = ordersListener;
+    private List<ReservationModel> reservationList;
+
+    public PreviousBookingDetailAdapter(Context context,List<ReservationModel> reservationList){
+        this.context = context;
+        this.reservationList = reservationList;
     }
     @NonNull
     @Override
-    public PreviousDetailAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PreviousBookingDetailAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.delivered_order_details,parent,false);
-        return new PreviousDetailAdapter.ViewHolder(view);
+       return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PreviousDetailAdapter.ViewHolder holder, int position) {
-        CurrentOrdersModel previousOrderModel = prevOrdersModelList.get(position);
-        Glide.with(context).load(previousOrderModel.getImgProduct()).into(holder.imgProduct);
-        holder.textProduct.setText(previousOrderModel.getProducts());
-        holder.textVariation.setText(previousOrderModel.getVariations());
-        holder.items.setText(previousOrderModel.getQuantities());
-        holder.textPrice.setText(previousOrderModel.getPrice());
+    public void onBindViewHolder(@NonNull PreviousBookingDetailAdapter.ViewHolder holder, int position) {
+        ReservationModel reservationModel = reservationList.get(position);
+        Glide.with(context).load(reservationModel.getImgProduct()).into(holder.imgProduct);
+        holder.textProduct.setText(reservationModel.getProducts());
+        holder.textVariation.setText(reservationModel.getVariations());
+        holder.items.setText(reservationModel.getQuantities());
+        holder.textPrice.setText(reservationModel.getPrice());
         //set customer details to add to cart
         String fname = SharedPreference.getSharedPreference(context).setFname();
         String lname = SharedPreference.getSharedPreference(context).setLname();
         holder.fname.setText(fname);
         holder.lname.setText(lname);
-        String totalAmount = previousOrderModel.getTotalAmount();
-        ordersListener.onTotalAmountChange(totalAmount);
         holder.buyAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = previousOrderModel.getEmail();
-                String productCode = previousOrderModel.getProductCode();
-                String productName = previousOrderModel.getProducts();
+                String email = reservationModel.getEmail();
+                String productCode = reservationModel.getProductCode();
+                String productName = reservationModel.getProducts();
                 String productCategory = "category";
-                String productVariation = previousOrderModel.getVariations();
+                String productVariation = reservationModel.getVariations();
                 String fname = holder.fname.getText().toString();
                 String lname = holder.lname.getText().toString();
-                int price = Integer.parseInt(previousOrderModel.getPrice());
-                int quantity = Integer.parseInt(previousOrderModel.getQuantities());
-                String add_ons = previousOrderModel.getAddOns();
-                String productImage = previousOrderModel.getImgProduct();
-                String preparationTime = previousOrderModel.getPreparationTime();
-                Toast.makeText(context,preparationTime,Toast.LENGTH_SHORT).show();
+                int price = Integer.parseInt(reservationModel.getPrice());
+                int quantity = Integer.parseInt(reservationModel.getQuantities());
+                String add_ons = reservationModel.getAddOns();
+                String productImage = reservationModel.getImgProduct();
+                String preparationTime = reservationModel.getPreparationTime();
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 Call<CartModel> callCart = apiInterface.addcart(email,productCode,productName,productCategory,productVariation,fname,lname,price,quantity,add_ons,productImage,preparationTime);
                 callCart.enqueue(new Callback<CartModel>() {
@@ -85,9 +81,9 @@ public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAd
                         if (response.body() != null){
                             String success = response.body().getSuccess();
                             if (success.equals("1")){
-                                Intent intent = new Intent(context,CartActivity.class);
+                                Intent intent = new Intent(context, CartActivity.class);
                                 context.startActivity(intent);
-                                ((PreviousOrderDetailsActivity)context).finish();
+                                ((PreviousReservationActivity)context).finish();
                             }
                         }
                     }
@@ -104,14 +100,14 @@ public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAd
 
     @Override
     public int getItemCount() {
-        return prevOrdersModelList.size();
+        return reservationList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgProduct;
         private TextView textProduct,textVariation,items,textPrice,fname,lname;
         private Button buyAgain;
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             textProduct = itemView.findViewById(R.id.textProduct);

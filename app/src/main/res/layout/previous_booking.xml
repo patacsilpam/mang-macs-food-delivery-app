@@ -15,7 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#CDCACA"
-            android:layout_marginTop="120dp"/>
+            android:layout_marginTop="150dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CDCACA"
+            android:layout_marginTop="200dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,49 +36,95 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/roboto_light"
                 android:textSize="18sp"/>
+
             <TextView
                 android:id="@+id/reservedDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/reservedName"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_below="@id/reservedName"
                 android:drawableStart="@drawable/ic_baseline_calendar_today_24"
                 android:drawablePadding="5dp"
+                android:fontFamily="@font/roboto_light"
                 android:text="Wed, 28 Feb 2022 - 1:30 PM"
                 android:textColor="#676A69"
-                android:fontFamily="@font/roboto_light"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/guests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/reservedDateTime"
+                android:layout_marginBottom="10dp"
                 android:drawableStart="@drawable/custom_people_icon"
                 android:drawablePadding="5dp"
+                android:fontFamily="@font/roboto_light"
                 android:text="2 People"
                 android:textColor="#676A69"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/totalAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/guests"
+                android:layout_marginBottom="10dp"
+                android:drawableStart="@drawable/ic_baseline_payments_24"
+                android:drawablePadding="5dp"
                 android:fontFamily="@font/roboto_light"
-                android:textSize="14sp"/>
+                android:text="100.00"
+                android:textColor="#676A69"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/viewMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/totalAmount"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="15dp"
+                android:drawablePadding="5dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="View More"
+                android:textColor="#676A69"
+                android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/createdAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_below="@+id/guests"
+                android:layout_below="@+id/viewMore"
+                android:layout_marginTop="35dp"
                 android:layout_marginRight="18dp"
+                android:fontFamily="@font/roboto_light"
                 android:text="Created at: 11-17-2021 9:07:00"
                 android:textAllCaps="false"
                 android:textColor="#676A69"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/reservationStatus"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/viewMore"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="35dp"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/gray_button"
                 android:fontFamily="@font/roboto_light"
-                android:textSize="12sp"/>
+                android:text=""
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
             <TextView
                 android:id="@+id/orderType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="45dp"
                 android:text=""
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
             <TextView
                 android:id="@+id/productID"
                 android:layout_width="wrap_content"

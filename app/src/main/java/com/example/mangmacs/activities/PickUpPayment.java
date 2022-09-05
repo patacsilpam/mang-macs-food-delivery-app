@@ -86,6 +86,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     private ArrayList<String> subTotalList = new ArrayList<>();
     private ArrayList<String> priceList = new ArrayList<>();
     private ArrayList<String> imgProductList = new ArrayList<>();
+    private ArrayList<String> preparationTimeList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -349,6 +350,12 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     public void onTotalAmountChange(String amount) {
 
     }
+
+    @Override
+    public void onPreparationTimeChange(ArrayList<String> preparationTime) {
+        preparationTimeList = preparationTime;
+    }
+
     private void PickUpOrders() {
         pickUpOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -365,7 +372,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
                     String paymentPhoto = imageToString();
                     String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,"","","",token,email,"",orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus,date,time,0,estTime);
+                    Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,"","","",token,email,"",orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus,date,time,0,estTime);
                     insertOrder.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {

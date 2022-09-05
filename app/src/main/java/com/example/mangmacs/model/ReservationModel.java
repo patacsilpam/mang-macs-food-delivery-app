@@ -28,6 +28,8 @@ public class ReservationModel {
     @SerializedName("success")
     private String success;
     //table order details list
+    @SerializedName("product_code")
+    private String productCode;
     @SerializedName("product_name")
     private String products;
     @SerializedName("productCategory")
@@ -48,8 +50,10 @@ public class ReservationModel {
     private String completedTime;
     @SerializedName("totalAmount")
     private String totalAmount;
+    @SerializedName("preparation_time")
+    private String preparationTime;
 
-    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto, String success, String products, String category, String price, String variations, String quantities, String addOns, String status, String imgProduct, String completedTime,String totalAmount) {
+    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto, String success, String productCode, String products, String category, String price, String variations, String quantities, String addOns, String status, String imgProduct, String completedTime, String totalAmount, String preparationTime) {
         this.id = id;
         this.email = email;
         this.fname = fname;
@@ -62,9 +66,10 @@ public class ReservationModel {
         this.notifDate = notifDate;
         this.paymentPhoto = paymentPhoto;
         this.success = success;
+        this.productCode = productCode;
         this.products = products;
-        this.price = price;
         this.category = category;
+        this.price = price;
         this.variations = variations;
         this.quantities = quantities;
         this.addOns = addOns;
@@ -72,6 +77,7 @@ public class ReservationModel {
         this.imgProduct = imgProduct;
         this.completedTime = completedTime;
         this.totalAmount = totalAmount;
+        this.preparationTime = preparationTime;
     }
 
     public String getId() {
@@ -122,16 +128,20 @@ public class ReservationModel {
         return success;
     }
 
+    public String getProductCode() {
+        return productCode;
+    }
+
     public String getProducts() {
         return products;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
     public String getCategory() {
         return category;
+    }
+
+    public String getPrice() {
+        return price;
     }
 
     public String getVariations() {
@@ -160,5 +170,9 @@ public class ReservationModel {
 
     public String getTotalAmount() {
         return totalAmount;
+    }
+
+    public String getPreparationTime() {
+        return preparationTime;
     }
 }

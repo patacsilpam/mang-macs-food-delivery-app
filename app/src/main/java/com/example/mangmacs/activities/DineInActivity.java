@@ -82,6 +82,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     private ArrayList<String> subTotalList = new ArrayList<>();
     private ArrayList<String> priceList = new ArrayList<>();
     private ArrayList<String> imgProductList = new ArrayList<>();
+    private ArrayList<String> preparationTimeList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -262,7 +263,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
                 String orderStatus = "Pending";
                 String orderType = "Dine In";
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.dineInOrder(productCodeList,customerId,token,fname,lname,strGuests,email,strDate,strTime,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList,String.valueOf(totalPrice),paymentPhoto,"",imgProductList,orderType,orderStatus);
+                Call<CartModel> insertOrder = apiInterface.dineInOrder(productCodeList,customerId,token,fname,lname,strGuests,email,strDate,strTime,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList,String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus);
                 insertOrder.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -334,5 +335,10 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     @Override
     public void onTotalAmountChange(String amount) {
 
+    }
+
+    @Override
+    public void onPreparationTimeChange(ArrayList<String> preparationTime) {
+        preparationTimeList = preparationTime;
     }
 }

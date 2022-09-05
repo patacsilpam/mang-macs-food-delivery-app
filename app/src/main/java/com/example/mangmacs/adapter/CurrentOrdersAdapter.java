@@ -38,8 +38,8 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
         Glide.with(context).load(currentOrdersModel.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(currentOrdersModel.getProducts());
         holder.textVariation.setText(currentOrdersModel.getVariations());
+        holder.textPrice.setText(currentOrdersModel.getTotalAmount());
         holder.items.setText(currentOrdersModel.getQuantities());
-        holder.textPrice.setText(currentOrdersModel.getPrice());
         holder.orderStatus.setText(currentOrdersModel.getOrderStatus());
         holder.orderType.setText(currentOrdersModel.getOrderType());
         holder.viewMore.setOnClickListener(new View.OnClickListener() {

@@ -4,13 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -22,11 +21,9 @@ import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.adapter.NewOrdersDetailAdapter;
 import com.example.mangmacs.api.ApiInterface;
-import com.example.mangmacs.api.OrderStatusListener;
 import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CurrentOrdersModel;
-import com.example.mangmacs.model.SettingsModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,14 +35,15 @@ import retrofit2.Response;
 public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener{
     private TextView orderNumber,orderType,totalAmount,arrowBack,estTime,changeableStatus;
     private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee;
-    private Button btnCancelOrder;
     private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails;
-    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime;
-    private RecyclerView newOrderDetailLists;
+    private Button btnCancelOrder;
     private ImageView pendingIcon,processingIcon,forDeliveryIcon;
     private View line1,line3,line4;
+    private RecyclerView newOrderDetailLists;
+    private RelativeLayout cancelOrderLayout;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
+    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +61,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         line1 = findViewById(R.id.line1);
         line3 = findViewById(R.id.line3);
         line4 = findViewById(R.id.line4);
+        cancelOrderLayout = findViewById(R.id.cancelOrderLayout);
         pickUpDetails = findViewById(R.id.pickUpDetails);
         pickUpName = findViewById(R.id.pickUpName);
         pickUpEmail = findViewById(R.id.pickUpEmail);
@@ -203,7 +202,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         //get product code index[0] to cancel orders
         String code = productCode.get(0);
         if (newOrderStatus.equals("Pending")){
-            btnCancelOrder.setVisibility(View.VISIBLE);
+            cancelOrderLayout.setVisibility(View.VISIBLE);
             btnCancelOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -245,7 +244,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             });
         }
         else{
-            btnCancelOrder.setVisibility(View.GONE);
+            cancelOrderLayout.setVisibility(View.GONE);
         }
     }
 
@@ -290,6 +289,11 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         int totalOrder = Integer.parseInt(amount);
         int totalPayment = totalOrder + Integer.parseInt(newDeliveryFee);
         totalAmount.setText("₱ ".concat(String.valueOf(totalPayment)).concat(".00"));
+    }
+
+    @Override
+    public void onPreparationTimeChange(ArrayList<String> preparationTime) {
+
     }
 
 

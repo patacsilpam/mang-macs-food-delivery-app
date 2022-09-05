@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
@@ -17,6 +19,7 @@ import com.example.mangmacs.adapter.PreviousDetailAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
+import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.CurrentOrdersModel;
 
 import java.util.ArrayList;
@@ -27,11 +30,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PreviousOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
-    private TextView orderNumber,orderType,totalAmount,arrowBack,changeableStatus;
+    private TextView orderNumber,orderType,totalAmount,arrowBack,changeableStatus,txt_total_amount;
     private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee;
     private TextView orderId,orderTime,completedTime;
     private RecyclerView prevOrderDetailList;
-    private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails;
+    private Button orderReceived;
+    private RelativeLayout orderReceivedLayout;
+    private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails,orderStatusLayout,cancelOrderLayout;
     private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod,newDeliveryFee;
     private List<CurrentOrdersModel> prevOrderModel;
     private PreviousDetailAdapter previousDetailAdapter;
@@ -43,7 +48,12 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderNumber = findViewById(R.id.orderNumber);
         orderType = findViewById(R.id.orderType);
         totalAmount = findViewById(R.id.totalAmount);
+        txt_total_amount = findViewById(R.id.txt_total_amount);
         changeableStatus = findViewById(R.id.changeableStatus);
+        orderStatusLayout = findViewById(R.id.orderStatusLayout);
+        orderReceivedLayout = findViewById(R.id.orderReceivedLayout);
+        cancelOrderLayout = findViewById(R.id.cancelOrderLayout);
+        orderReceived = findViewById(R.id.orderReceived);
         deliveryDetails = findViewById(R.id.deliveryAddress);
         deliveryName = findViewById(R.id.deliveryName);
         deliveryPhoneNum = findViewById(R.id.deliveryPhoneNum);
@@ -65,6 +75,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         prevOrderDetailList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         checkOrderType();
         showOrders();
+        setOrderReceived();
         Back();
     }
     private void checkOrderType(){
@@ -89,8 +100,19 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderType.setText(newOrderType);
         orderNumber.setText(newOrderNumber);
         deliveryFee.setText(newDeliveryFee);
-        String OrderType = orderType.getText().toString();
-        if (OrderType.equals("Pick Up")){
+        //show order received button if order status is equal to order completed
+        if (newOrderStatus.equals("Order Completed") || newOrderStatus.equals("Order Received")){
+            cancelOrderLayout.setVisibility(View.GONE);
+        }
+        else if(newOrderStatus.equals("Order Received")){
+            orderReceivedLayout.setVisibility(View.GONE);
+        }
+        else{
+            orderStatusLayout.setVisibility(View.GONE);
+            orderReceivedLayout.setVisibility(View.GONE);
+        }
+        //show customer information according to order type
+        if (newOrderType.equals("Pick Up")){
             pickUpName.setText(newAccountName);
             pickUpEmail.setText(newEmail);
             deliveryDetails.setVisibility(View.GONE);
@@ -98,7 +120,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             deliveryFeeDetails.setVisibility(View.GONE);
             changeableStatus.setText("Ready\nfor\nPick pp");
         }
-        else if (OrderType.equals("Deliver")){
+        else if (newOrderType.equals("Deliver")){
             deliveryName.setText(newRecipientName);
             deliveryPhoneNum.setText(newPhoneNumber);
             devAddress.setText(newAddress);
@@ -132,7 +154,31 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             }
         });
     }
+    private void setOrderReceived(){
+       orderReceived.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+               Call<CartModel> call = apiInterface.changeOrderStatus(newOrderNumber);
+               call.enqueue(new Callback<CartModel>() {
+                   @Override
+                   public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                       if (response.body() != null){
+                           String success = response.body().getSuccess();
+                           if (success.equals("1")){
+                               startActivity(new Intent(PreviousOrderDetailsActivity.this,MyOrdersActivity.class));
+                           }
+                       }
+                   }
 
+                   @Override
+                   public void onFailure(Call<CartModel> call, Throwable t) {
+
+                   }
+               });
+           }
+       });
+    }
     private void Back() {
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,6 +240,14 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
 
     @Override
     public void onTotalAmountChange(String amount) {
-        totalAmount.setText("₱ ".concat(amount).concat(".00"));
+        int devFee = Integer.parseInt(deliveryFee.getText().toString());
+        int totalOrder = Integer.parseInt(amount) + devFee;
+        totalAmount.setText("₱ ".concat(String.valueOf(totalOrder)).concat(".00"));
+        txt_total_amount.setText("₱ ".concat(amount).concat(".00"));
+    }
+
+    @Override
+    public void onPreparationTimeChange(ArrayList<String> preparationTime) {
+
     }
 }

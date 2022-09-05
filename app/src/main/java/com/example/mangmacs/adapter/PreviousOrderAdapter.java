@@ -38,7 +38,7 @@ public class PreviousOrderAdapter extends RecyclerView.Adapter<PreviousOrderAdap
         Glide.with(context).load(previousOrderModel.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(previousOrderModel.getProducts());
         holder.textVariation.setText(previousOrderModel.getVariations());
-        holder.textPrice.setText(previousOrderModel.getPrice());
+        holder.textPrice.setText(previousOrderModel.getTotalAmount());
         holder.items.setText(previousOrderModel.getQuantities());
         holder.orderStatus.setText(previousOrderModel.getOrderStatus());
         holder.orderType.setText(previousOrderModel.getOrderType());

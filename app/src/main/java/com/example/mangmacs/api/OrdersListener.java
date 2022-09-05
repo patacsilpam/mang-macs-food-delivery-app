@@ -1,5 +1,6 @@
 package com.example.mangmacs.api;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public interface OrdersListener {
@@ -14,4 +15,5 @@ public interface OrdersListener {
     void onImgProductChange(ArrayList<String> imgProduct);
     void onCustomerIdChange(String customerId);
     void onTotalAmountChange(String amount);
+    void onPreparationTimeChange(ArrayList<String> preparationTime);
 }

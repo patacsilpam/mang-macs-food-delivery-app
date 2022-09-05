@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
     private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack,newTotalAmount,newOrderNumber;
     private RecyclerView newBookDetails;
     private Button bookingStatus,cancelBooking;
+    private RelativeLayout cancelBookingLayout;
     private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
         bookingStatus = findViewById(R.id.bookingStatus);
         newTotalAmount = findViewById(R.id.totalAmount);
         newOrderNumber = findViewById(R.id.bookOrderNumber);
+        cancelBookingLayout = findViewById(R.id.cancelBookingLayout);
         newBookDetails = findViewById(R.id.newBookDetails);
         newBookDetails.setHasFixedSize(true);
         newBookDetails.setLayoutManager(new LinearLayoutManager(this));
@@ -110,7 +113,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
     private void dismissBooking(){
         String status = bookingStatus.getText().toString();
         if (status.equals("Pending")){
-            cancelBooking.setEnabled(true);
+            cancelBookingLayout.setVisibility(View.VISIBLE);
             cancelBooking.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -151,7 +154,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
                 }
             });
         } else{
-            cancelBooking.setEnabled(false);
+            cancelBookingLayout.setVisibility(View.GONE);
             cancelBooking.setBackgroundColor(Color.LTGRAY);
         }
     }

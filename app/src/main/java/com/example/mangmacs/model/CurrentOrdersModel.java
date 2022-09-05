@@ -68,29 +68,9 @@ public class CurrentOrdersModel {
     private String waitingTime;
     @SerializedName("notif_date")
     private String notifDate;
-    //table reservation list
-   /* @SerializedName("refNumber")
-    private String refNumber;
-    @SerializedName("fname")
-    private String bookFname;
-    @SerializedName("lname")
-    private String bookLname;
-    @SerializedName("guests")
-    private String guests;
-    @SerializedName("created_at")
-    private String bookCreatedAt;
-    @SerializedName("scheduled_date")
-    private String scheduledDate;
-    @SerializedName("scheduled_time")
-    private String scheduledTime;
-    @SerializedName("status")
-    private String bookStatus;
-    @SerializedName("totalAmount")
-    private String bookTotalAmount;
-    @SerializedName("payment_photo")
-    private String bookPaymentPhoto;*/
-
-    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime, String notifDate, String refNumber, String bookFname, String bookLname, String guests, String bookCreatedAt, String scheduledDate, String scheduledTime, String bookStatus, String bookTotalAmount, String bookPaymentPhoto) {
+    @SerializedName("preparation_time")
+    private String preparationTime;
+    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime, String notifDate, String preparationTime) {
         this.success = success;
         this.id = id;
         this.productCode = productCode;
@@ -122,6 +102,7 @@ public class CurrentOrdersModel {
         this.completedTime = completedTime;
         this.waitingTime = waitingTime;
         this.notifDate = notifDate;
+        this.preparationTime = preparationTime;
     }
 
     public String getSuccess() {
@@ -248,5 +229,8 @@ public class CurrentOrdersModel {
         return notifDate;
     }
 
+    public String getPreparationTime() {
+        return preparationTime;
+    }
 
 }

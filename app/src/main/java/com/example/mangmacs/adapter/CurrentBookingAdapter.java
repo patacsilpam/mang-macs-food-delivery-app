@@ -37,9 +37,10 @@ public class CurrentBookingAdapter extends RecyclerView.Adapter<CurrentBookingAd
         holder.reservationName.setText(reservationModel.getFname().concat(" ").concat(reservationModel.getLname()));
         holder.reservedDateTime.setText(reservationModel.getScheduled_date().concat(" - ").concat(reservationModel.getScheduled_time()));
         holder.guests.setText(reservationModel.getGuests().concat(" people"));
+        holder.totalAmount.setText("₱ " + reservationModel.getTotalAmount().concat(".00"));
         holder.createdAt.setText(reservationModel.getCreatedAt());
         holder.reservationStatus.setText(reservationModel.getStatus());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.viewMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CurrentReservationActivity.class);
@@ -66,16 +67,16 @@ public class CurrentBookingAdapter extends RecyclerView.Adapter<CurrentBookingAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView reservationName,reservedDateTime,guests,createdAt,reservationStatus;
-        private CardView cardView;
+        private TextView reservationName,reservedDateTime,guests,totalAmount,createdAt,reservationStatus,viewMore;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             reservationName = itemView.findViewById(R.id.reservedName);
             reservedDateTime = itemView.findViewById(R.id.reservedDateTime);
             guests = itemView.findViewById(R.id.guests);
+            totalAmount = itemView.findViewById(R.id.totalAmount);
             createdAt = itemView.findViewById(R.id.createdAt);
             reservationStatus = itemView.findViewById(R.id.reservationStatus);
-            cardView = itemView.findViewById(R.id.cardView);
+            viewMore = itemView.findViewById(R.id.viewMore);
 
         }
     }

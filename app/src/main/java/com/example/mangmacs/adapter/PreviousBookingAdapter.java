@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mangmacs.R;
+import com.example.mangmacs.activities.PreviousReservationActivity;
 import com.example.mangmacs.activities.ReservationActivity;
 import com.example.mangmacs.model.ReservationModel;
 
@@ -36,7 +37,32 @@ public class PreviousBookingAdapter extends RecyclerView.Adapter<PreviousBooking
         holder.reservationName.setText(reservationModel.getFname().concat(" ").concat(reservationModel.getLname()));
         holder.reservedDateTime.setText(reservationModel.getScheduled_date().concat(" - ").concat(reservationModel.getScheduled_time()));
         holder.guests.setText(reservationModel.getGuests().concat(" people"));
+        holder.totalAmount.setText("₱ " + reservationModel.getTotalAmount().concat(".00"));
         holder.createdAt.setText(reservationModel.getCreatedAt());
+        holder.viewMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PreviousReservationActivity.class);
+                intent.putExtra("id",reservationModel.getId());
+                intent.putExtra("refNumber",reservationModel.getRefNumber());
+                intent.putExtra("firstName",reservationModel.getFname());
+                intent.putExtra("lastName",reservationModel.getLname());
+                intent.putExtra("email",reservationModel.getEmail());
+                intent.putExtra("schedDate",reservationModel.getScheduled_date());
+                intent.putExtra("schedTime",reservationModel.getScheduled_time());
+                intent.putExtra("guests",reservationModel.getGuests());
+                intent.putExtra("bookingStatus",reservationModel.getStatus());
+                intent.putExtra("createdAt",reservationModel.getCreatedAt());
+                intent.putExtra("totalAmount",reservationModel.getTotalAmount());
+                context.startActivity(intent);
+            }
+        });
+        if(reservationModel.getStatus().equals("Finished")){
+            holder.reservationStatus.setText("Completed");
+        }
+        else{
+            holder.reservationStatus.setText(reservationModel.getStatus());
+        }
     }
 
     @Override
@@ -45,13 +71,16 @@ public class PreviousBookingAdapter extends RecyclerView.Adapter<PreviousBooking
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView reservationName,reservedDateTime,guests,createdAt,reservationStatus;
+        private TextView reservationName,reservedDateTime,guests,totalAmount,createdAt,reservationStatus,viewMore;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             reservationName = itemView.findViewById(R.id.reservedName);
             reservedDateTime = itemView.findViewById(R.id.reservedDateTime);
             guests = itemView.findViewById(R.id.guests);
+            totalAmount = itemView.findViewById(R.id.totalAmount);
             createdAt = itemView.findViewById(R.id.createdAt);
+            reservationStatus = itemView.findViewById(R.id.reservationStatus);
+            viewMore = itemView.findViewById(R.id.viewMore);
         }
     }
 }
