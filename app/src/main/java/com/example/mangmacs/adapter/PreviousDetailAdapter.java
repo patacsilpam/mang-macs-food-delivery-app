@@ -51,9 +51,11 @@ public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAd
         CurrentOrdersModel previousOrderModel = prevOrdersModelList.get(position);
         Glide.with(context).load(previousOrderModel.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(previousOrderModel.getProducts());
+        holder.textAddOns.setText(previousOrderModel.getAddOns());
         holder.textVariation.setText(previousOrderModel.getVariations());
         holder.items.setText(previousOrderModel.getQuantities());
         holder.textPrice.setText(previousOrderModel.getPrice());
+        holder.textSpecialRequest.setText("\"" + previousOrderModel.getSpecialRequest() + "\"");
         //set customer details to add to cart
         String fname = SharedPreference.getSharedPreference(context).setFname();
         String lname = SharedPreference.getSharedPreference(context).setLname();
@@ -67,18 +69,19 @@ public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAd
                 String email = previousOrderModel.getEmail();
                 String productCode = previousOrderModel.getProductCode();
                 String productName = previousOrderModel.getProducts();
-                String productCategory = "category";
+                String productCategory = previousOrderModel.getCategory();
                 String productVariation = previousOrderModel.getVariations();
                 String fname = holder.fname.getText().toString();
                 String lname = holder.lname.getText().toString();
                 int price = Integer.parseInt(previousOrderModel.getPrice());
                 int quantity = Integer.parseInt(previousOrderModel.getQuantities());
                 String add_ons = previousOrderModel.getAddOns();
+                int addOnsTotFee = Integer.parseInt(previousOrderModel.getAddOnsFee());
+                String specialRequest = previousOrderModel.getSpecialRequest();
                 String productImage = previousOrderModel.getImgProduct();
                 String preparationTime = previousOrderModel.getPreparationTime();
-                Toast.makeText(context,preparationTime,Toast.LENGTH_SHORT).show();
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> callCart = apiInterface.addcart(email,productCode,productName,productCategory,productVariation,fname,lname,price,quantity,add_ons,productImage,preparationTime);
+                Call<CartModel> callCart = apiInterface.addcart(email,productCode,productName,productCategory,productVariation,fname,lname,price,quantity,add_ons,addOnsTotFee,specialRequest,productImage,preparationTime);
                 callCart.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -100,6 +103,16 @@ public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAd
                 });
             }
         });
+        //fix the design
+        if (previousOrderModel.getAddOns().equals("")){
+            holder.textAddOns.setVisibility(View.GONE);
+        }
+        if (previousOrderModel.getVariations().equals("")){
+            holder.textVariation.setVisibility(View.GONE);
+        }
+        if (previousOrderModel.getSpecialRequest().equals("")){
+            holder.textSpecialRequest.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -109,13 +122,15 @@ public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgProduct;
-        private TextView textProduct,textVariation,items,textPrice,fname,lname;
+        private TextView textProduct,textAddOns,textVariation,textSpecialRequest,items,textPrice,fname,lname;
         private Button buyAgain;
         public ViewHolder(View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             textProduct = itemView.findViewById(R.id.textProduct);
+            textAddOns = itemView.findViewById(R.id.textAddOns);
             textVariation = itemView.findViewById(R.id.textVariation);
+            textSpecialRequest = itemView.findViewById(R.id.textSpecialRequest);
             textPrice = itemView.findViewById(R.id.textPrice);
             items = itemView.findViewById(R.id.items);
             fname = itemView.findViewById(R.id.fname);

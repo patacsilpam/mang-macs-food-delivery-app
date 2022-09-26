@@ -56,6 +56,8 @@ public class SizzlingAdapter extends RecyclerView.Adapter<SizzlingAdapter.Produc
                 intent.putExtra("status", sizzlingListModel.getStocks());
                 intent.putExtra("preparationTime",sizzlingListModel.getPreparationTime());
                 intent.putExtra("mainIngredients",sizzlingListModel.getMainIngredients());
+                intent.putExtra("groupAddOns",sizzlingListModel.getAddOns());
+                intent.putExtra("groupAddOnsFee",sizzlingListModel.getAddOnsPrice());
                 context.startActivity(intent);
             }
         });

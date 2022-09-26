@@ -71,18 +71,20 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     private Button pickUpOrder;
     private ImageView imgPayment;
     private RecyclerView recyclerViewOrder;
-    private static final int STORAGE_PERMISSION_CODE = 100;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
     private String date,time,orderTime,estTime,token,recipientName,address,labelAddress,phoneNumber;
     private int totalPrice;
     private Bitmap bitmap;
+    private static final int STORAGE_PERMISSION_CODE = 100;
     private ArrayList<String> orderLists = new ArrayList<>();
     private ArrayList<String> productCodeList = new ArrayList<>();
     private ArrayList<String> productCategoryList = new ArrayList<>();
     private ArrayList<String> variationList = new ArrayList<>();
     private ArrayList<Integer> quantityList = new ArrayList<>();
     private ArrayList<String> addOnsList = new ArrayList<>();
+    private ArrayList<Integer> addOnsFeeList = new ArrayList<>();
+    private ArrayList<String> specialReqList = new ArrayList<>();
     private ArrayList<String> subTotalList = new ArrayList<>();
     private ArrayList<String> priceList = new ArrayList<>();
     private ArrayList<String> imgProductList = new ArrayList<>();
@@ -327,6 +329,16 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     }
 
     @Override
+    public void onAddOnsFeeChange(ArrayList<Integer> addaonsFee) {
+        addOnsFeeList = addaonsFee;
+    }
+
+    @Override
+    public void onSpecialRequest(ArrayList<String> specialRequest) {
+        specialReqList = specialRequest;
+    }
+
+    @Override
     public void onSubTotalChange(ArrayList<String> subTotal) {
         subTotalList = subTotal;
     }
@@ -372,7 +384,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
                     String paymentPhoto = imageToString();
                     String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,"","","",token,email,"",orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus,date,time,0,estTime);
+                    Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,"","","",token,email,"",orderLists,productCategoryList,variationList,quantityList,addOnsList,addOnsFeeList,specialReqList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus,date,time,0,estTime);
                     insertOrder.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {

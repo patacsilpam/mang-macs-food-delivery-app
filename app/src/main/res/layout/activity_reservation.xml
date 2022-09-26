@@ -48,6 +48,28 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <RelativeLayout
+                android:id="@+id/bgDiningArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_gray_square">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/diningArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/diningAreaError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-10dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:text="Required"
+                android:textColor="#AE1111"
+                android:textSize="12sp"
+                android:visibility="gone"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/guestsError"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -100,6 +122,23 @@
                     android:focusable="false"
                     android:hint="Time"
                     android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:counterMaxLength="255">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/commentsSuggestions"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:drawableStart="@drawable/custom_comments_icon"
+                    android:drawablePadding="5dp"
+                    android:hint="Special Requests (optional)"
+                    android:inputType="textLongMessage"
+                    android:maxLength="255"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

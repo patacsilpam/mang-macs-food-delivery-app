@@ -10,6 +10,8 @@ public interface OrdersListener {
     void onVariationChange(ArrayList<String> variations);
     void onQuantityChange(ArrayList<Integer> quantity);
     void onAddOnsChange(ArrayList<String> addOns);
+    void onAddOnsFeeChange(ArrayList<Integer> addaonsFee);
+    void onSpecialRequest(ArrayList<String> specialRequest);
     void onSubTotalChange(ArrayList<String> subTotal);
     void onPriceChange(ArrayList<String> price);
     void onImgProductChange(ArrayList<String> imgProduct);

@@ -35,9 +35,21 @@ public class CurrentReservationAdapter extends RecyclerView.Adapter<CurrentReser
         ReservationModel reservationModel = reservationList.get(position);
         Glide.with(context).load(reservationModel.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(reservationModel.getProducts());
+        holder.textAddOns.setText(reservationModel.getAddOns());
         holder.textVariation.setText(reservationModel.getVariations());
         holder.items.setText(reservationModel.getQuantities());
         holder.textPrice.setText(reservationModel.getPrice());
+        holder.textSpecialRequest.setText("\"" + reservationModel.getSpecialRequest() + "\"");
+        //fix the design
+        if (reservationModel.getAddOns().equals("")){
+            holder.textAddOns.setVisibility(View.GONE);
+        }
+        if (reservationModel.getVariations().equals("")){
+            holder.textVariation.setVisibility(View.GONE);
+        }
+        if (reservationModel.getSpecialRequest().equals("")){
+            holder.textSpecialRequest.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -47,12 +59,14 @@ public class CurrentReservationAdapter extends RecyclerView.Adapter<CurrentReser
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgProduct;
-        private TextView textProduct,textVariation,items,textPrice;
+        private TextView textProduct,textAddOns,textVariation,textSpecialRequest,items,textPrice;
          public ViewHolder(@NonNull View itemView) {
             super(itemView);
              imgProduct = itemView.findViewById(R.id.imgProduct);
              textProduct = itemView.findViewById(R.id.textProduct);
+             textAddOns = itemView.findViewById(R.id.textAddOns);
              textVariation = itemView.findViewById(R.id.textVariation);
+             textSpecialRequest = itemView.findViewById(R.id.textSpecialRequest);
              textPrice = itemView.findViewById(R.id.textPrice);
              items = itemView.findViewById(R.id.items);
         }

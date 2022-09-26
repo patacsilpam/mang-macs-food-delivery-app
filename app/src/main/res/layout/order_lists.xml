@@ -7,14 +7,13 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/productContainer"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
         app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="15dp">
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,28 +21,45 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerVertical="true" />
+
             <TextView
                 android:id="@+id/product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/image"
+                android:fontFamily="@font/roboto"
+                android:text="Cheesy Pepperoni"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/addOns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/product"
                 android:layout_toEndOf="@+id/image"
                 android:layout_marginLeft="10dp"
-                android:text="Cheesy Pepperoni"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto"
-                android:textColor="@color/black"/>
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Extra Cheese"
+                android:textColor="#393636"
+                android:textFontWeight="400"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
             <TextView
                 android:id="@+id/variation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/image"
-                android:layout_marginTop="5dp"
+                android:layout_below="@id/addOns"
                 android:layout_marginLeft="10dp"
-                android:layout_below="@id/product"
-                android:text="Medium"
-                android:textSize="16sp"
+                android:layout_toEndOf="@+id/image"
                 android:fontFamily="@font/roboto"
-                android:textColor="#5E5757"/>
+                android:text="Medium"
+                android:textColor="#5E5757"
+                android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/times"
                 android:layout_width="wrap_content"
@@ -64,45 +80,61 @@
                 android:textSize="14sp"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"/>
+
             <TextView
-                android:id="@+id/pesoSign"
+                android:id="@+id/specialRequest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="80dp"
-                android:text="₱"
+                android:layout_below="@id/items"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/image"
                 android:fontFamily="@font/roboto"
-                android:textSize="16sp"
-                android:textColor="@color/pressed"/>
-            <TextView
-                android:id="@+id/total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="50dp"
-                android:text="230"
-                android:fontFamily="@font/roboto"
-                android:textSize="16sp"
-                android:textColor="@color/pressed"/>
-            <TextView
-                android:id="@+id/decimal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="25dp"
-                android:text=".00"
-                android:fontFamily="@font/roboto"
-                android:textSize="16sp"
-                android:textColor="@color/pressed"/>
+                android:text=""
+                android:textColor="#5E5757"
+                android:textSize="14sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/specialRequest">
+
+                    <TextView
+                        android:id="@+id/pesoSign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="80dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="₱"
+                        android:textColor="@color/pressed"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="50dp"
+                        android:text="230"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="16sp"
+                        android:textColor="@color/pressed"/>
+                    <TextView
+                        android:id="@+id/decimal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="25dp"
+                        android:text=".00"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="16sp"
+                        android:textColor="@color/pressed"/>
+                </RelativeLayout>
             <TextView
                 android:id="@+id/orders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/total"
-                android:text=".00"
+                android:text=""
                 android:visibility="invisible"
                 android:fontFamily="@font/roboto_light"
                 android:textSize="14sp"
@@ -113,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/orders"
                 android:visibility="invisible"
-                android:text=".00"
+                android:text=""
                 android:fontFamily="@font/roboto_light"
                 android:textSize="14sp"
                 android:textColor="@color/pressed"/>
@@ -123,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/productCode"
                 android:visibility="gone"
-                android:text=".00"
+                android:text=""
                 android:fontFamily="@font/roboto_light"
                 android:textSize="14sp"
                 android:textColor="@color/pressed"/>
@@ -133,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/reqDate"
                 android:visibility="invisible"
-                android:text=".00"
+                android:text=""
                 android:fontFamily="@font/roboto_light"
                 android:textSize="14sp"
                 android:textColor="@color/pressed"/>
@@ -143,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/reqTime"
                 android:visibility="invisible"
-                android:text=".00"
+                android:text=""
                 android:fontFamily="@font/roboto_light"
                 android:textSize="14sp"
                 android:textColor="@color/pressed"/>

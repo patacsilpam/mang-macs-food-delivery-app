@@ -8,8 +8,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +27,9 @@ import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -31,7 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SizzlingListDetail extends AppCompatActivity {
-    private LinearLayout ingredientsLayout;
+    private LinearLayout ingredientsLayout,lnrLayoutToppings,lnrCboxToppings;
     private CardView baseCardview;
     private ImageView imageView,showIngredients;
     private TextView txt_arrow_back;
@@ -41,7 +47,11 @@ public class SizzlingListDetail extends AppCompatActivity {
     private Button btnAddtoCart,btnIncrement,btnDecrement;
     private Intent intent;
     private String image,category;
+    private CheckBox[] cboxToppings;
+    private TextView[] addOnsFee;
     private int count = 1;
+    private ArrayList<Integer> addOnsFeeList = new ArrayList<Integer>();
+    private ArrayList<String> addOnsList = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +70,8 @@ public class SizzlingListDetail extends AppCompatActivity {
         ingredients = findViewById(R.id.ingredients);
         showIngredients = findViewById(R.id.showIngredients);
         ingredientsLayout = findViewById(R.id.ingredientLayout);
+        lnrLayoutToppings = findViewById(R.id.lnrLayoutToppings);
+        lnrCboxToppings = findViewById(R.id.lnrCboxToppings);
         baseCardview = findViewById(R.id.baseCardview);
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
@@ -135,9 +147,12 @@ public class SizzlingListDetail extends AppCompatActivity {
         int productprice = intent.getIntExtra("price",0);
         String productstatus = intent.getStringExtra("preparationTime");
         String newIngredients =intent.getStringExtra("mainIngredients");
+        String newGroupAddOns = intent.getStringExtra("groupAddOns");
+        String newGroupAddOnsFee = intent.getStringExtra("groupAddOnsFee");
         String firstname = SharedPreference.getSharedPreference(SizzlingListDetail.this).setFname();
         String lastname = SharedPreference.getSharedPreference(SizzlingListDetail.this).setLname();
         String customerID = SharedPreference.getSharedPreference(SizzlingListDetail.this).setEmail();
+
         if(intent != null){
             Glide.with(SizzlingListDetail.this).load(image).into(imageView);
             productName.setText(productname);
@@ -147,6 +162,60 @@ public class SizzlingListDetail extends AppCompatActivity {
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);
+        }
+        //show additional toppings and fee
+        if (newGroupAddOns == null){
+            lnrLayoutToppings.setVisibility(View.GONE);
+        }
+        else{
+            String[] splitAddOns = newGroupAddOns.split(",");
+            String[] splitAddOnsPrice = newGroupAddOnsFee.split(",");
+            cboxToppings = new CheckBox[splitAddOns.length];
+            addOnsFee = new TextView[splitAddOns.length];
+            for (int c = 0; c<splitAddOns.length; c++){
+                //create checkbox for toppings and textview for addonsfee
+                cboxToppings[c] = new CheckBox(this);
+                addOnsFee[c] = new TextView(this);
+                int finalC = c;
+                //set visibility to gone on every empty array index value of addOns
+                if (splitAddOns[c].equals("")){
+                    cboxToppings[c].setVisibility(View.GONE);
+                    addOnsFee[c].setVisibility(View.GONE);
+                }
+                else{
+                    cboxToppings[c].setText(splitAddOns[c]);
+                    addOnsFee[c].setText("+ ₱" + splitAddOnsPrice[c] + ".00");
+                    addOnsFee[c].setGravity(Gravity.RIGHT);
+                    addOnsFee[c].setTextColor(Color.parseColor("#28292b"));
+                    addOnsFee[c].setTextSize(14);
+                }
+                //set layout width,height and margin textview for addOnsFee
+                LinearLayout.LayoutParams prmAddOnsFee = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                prmAddOnsFee.setMargins(0,-70,0,0);
+                addOnsFee[c].setLayoutParams(prmAddOnsFee);
+                //display to linear layout for additional toppings container
+                lnrLayoutToppings.addView(cboxToppings[c]);
+                lnrLayoutToppings.addView(addOnsFee[c]);
+
+                //add or remove toppings and fee to arraylist of addOnsList  and addOnsFeeList variable
+                cboxToppings[c].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if (cboxToppings[finalC].isChecked()){
+                            addOnsList.add(splitAddOns[finalC]);
+                            addOnsFeeList.add(Integer.valueOf(splitAddOnsPrice[finalC]));
+
+                        }
+                        else{
+                            addOnsList.remove(splitAddOns[finalC]);
+                            addOnsFeeList.remove(Integer.valueOf(splitAddOnsPrice[finalC]));
+                        }
+                    }
+                });
+            }
         }
         AddToCart();
     }
@@ -162,11 +231,17 @@ public class SizzlingListDetail extends AppCompatActivity {
                 String firstName = fname.getText().toString();
                 String lastName = lname.getText().toString();
                 int price = Integer.parseInt(productPrice.getText().toString());
-                int number = Integer.parseInt(quantity.getText().toString());
-                String add_ons = drinksAddons.getEditText().getText().toString();
+                int items = Integer.parseInt(quantity.getText().toString());
+                String specialReq = drinksAddons.getEditText().getText().toString();
                 String preparedTime = status.getText().toString();
+                String addOns = String.valueOf(addOnsList).replace("[","").replace("]","");
+                int addOnsTotFee=0;
+                for (Integer tpgFeeList : addOnsFeeList){
+                    addOnsTotFee += tpgFeeList;
+                }
+                addOnsTotFee *= items;
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,number,add_ons,image,preparedTime);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,items,addOns,addOnsTotFee,specialReq,image,preparedTime);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

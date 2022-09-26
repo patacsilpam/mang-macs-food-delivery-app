@@ -264,6 +264,16 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
     }
 
     @Override
+    public void onAddOnsFeeChange(ArrayList<Integer> addaonsFee) {
+
+    }
+
+    @Override
+    public void onSpecialRequest(ArrayList<String> specialRequest) {
+
+    }
+
+    @Override
     public void onSubTotalChange(ArrayList<String> subTotal) {
 
     }

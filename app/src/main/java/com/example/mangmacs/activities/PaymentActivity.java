@@ -79,6 +79,8 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     private ArrayList<String> variationList = new ArrayList<>();
     private ArrayList<Integer> quantityList = new ArrayList<>();
     private ArrayList<String> addOnsList = new ArrayList<>();
+    private ArrayList<Integer> addOnsFeeList = new ArrayList<>();
+    private ArrayList<String> specialReqList = new ArrayList<>();
     private ArrayList<String> subTotalList = new ArrayList<>();
     private ArrayList<String> priceList = new ArrayList<>();
     private ArrayList<String> imgProductList = new ArrayList<>();
@@ -265,7 +267,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
                    String orderType = "Deliver";
                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                    String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
-                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,recipientName,address,labelAddress,token,email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus,date,time,devChange,estTime);
+                   Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,recipientName,address,labelAddress,token,email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,addOnsFeeList,specialReqList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus,date,time,devChange,estTime);
                    insertOrder.enqueue(new Callback<CartModel>() {
                        @Override
                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -349,6 +351,16 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     @Override
     public void onAddOnsChange(ArrayList<String> addOns) {
             addOnsList = addOns;
+    }
+
+    @Override
+    public void onAddOnsFeeChange(ArrayList<Integer> addaonsFee) {
+        addOnsFeeList = addaonsFee;
+    }
+
+    @Override
+    public void onSpecialRequest(ArrayList<String> specialRequest) {
+        specialReqList = specialRequest;
     }
 
     @Override

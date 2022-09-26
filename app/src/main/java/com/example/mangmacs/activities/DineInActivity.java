@@ -68,7 +68,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     private ImageView imgPayment;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
-    private String strDate,strTime,strGuests,token;
+    private String strDate,strTime,strGuests,token,strDineArea,strComments;
     private int totalPrice;
     private static final int STORAGE_PERMISSION_CODE = 100;
     private Bitmap bitmap;
@@ -79,6 +79,8 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     private ArrayList<String> variationList = new ArrayList<>();
     private ArrayList<Integer> quantityList = new ArrayList<>();
     private ArrayList<String> addOnsList = new ArrayList<>();
+    private ArrayList<Integer> addOnsFeeList = new ArrayList<>();
+    private ArrayList<String> specialReqList = new ArrayList<>();
     private ArrayList<String> subTotalList = new ArrayList<>();
     private ArrayList<String> priceList = new ArrayList<>();
     private ArrayList<String> imgProductList = new ArrayList<>();
@@ -103,6 +105,8 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
         strDate = intent.getStringExtra("reserved_date");
         strTime = intent.getStringExtra("reserved_time");
         strGuests = intent.getStringExtra("guests");
+        strDineArea = intent.getStringExtra("dining_area");
+        strComments = intent.getStringExtra("comments");
         showOrders();
         CameraPermission();
         setFirebaseToken();
@@ -263,7 +267,7 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
                 String orderStatus = "Pending";
                 String orderType = "Dine In";
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.dineInOrder(productCodeList,customerId,token,fname,lname,strGuests,email,strDate,strTime,orderLists,productCategoryList,variationList,quantityList,addOnsList,priceList,subTotalList,String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus);
+                Call<CartModel> insertOrder = apiInterface.dineInOrder(productCodeList,customerId,token,fname,lname,strGuests,email,strDate,strTime,strDineArea,strComments,orderLists,productCategoryList,variationList,quantityList,addOnsList,addOnsFeeList,specialReqList,priceList,subTotalList,String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus);
                 insertOrder.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -310,6 +314,16 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
     @Override
     public void onAddOnsChange(ArrayList<String> addOns) {
         addOnsList = addOns;
+    }
+
+    @Override
+    public void onAddOnsFeeChange(ArrayList<Integer> addaonsFee) {
+        addOnsFeeList = addaonsFee;
+    }
+
+    @Override
+    public void onSpecialRequest(ArrayList<String> specialRequest) {
+        specialReqList = specialRequest;
     }
 
     @Override

@@ -18,8 +18,12 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,6 +42,7 @@ import com.example.mangmacs.model.CartModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -45,7 +50,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PizzaListDetaill extends AppCompatActivity {
-    private LinearLayout ingredientsLayout;
+    private LinearLayout ingredientsLayout,lnrLayoutToppings,lnrCboxToppings;
     private CardView baseCardview;
     private ImageView imageView,showIngredients;
     private RelativeLayout priceLayout;
@@ -56,9 +61,12 @@ public class PizzaListDetaill extends AppCompatActivity {
     private RadioGroup variation,rdCode;
     private RadioButton radioButton;
     private Button btnPizza,btnIncrement,btnDecrement;
+    private CheckBox[] cboxToppings;
+    private TextView[] addOnsFee;
     private int count = 1;
     private String image,category;
-
+    private ArrayList<Integer> addOnsFeeList = new ArrayList<Integer>();
+    private ArrayList<String> addOnsList = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +89,8 @@ public class PizzaListDetaill extends AppCompatActivity {
         ingredients = findViewById(R.id.ingredients);
         showIngredients = findViewById(R.id.showIngredients);
         ingredientsLayout = findViewById(R.id.ingredientLayout);
+        lnrLayoutToppings = findViewById(R.id.lnrLayoutToppings);
+        lnrCboxToppings = findViewById(R.id.lnrCboxToppings);
         baseCardview = findViewById(R.id.baseCardview);
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
@@ -155,14 +165,16 @@ public class PizzaListDetaill extends AppCompatActivity {
         String newGroupVariation = intent.getStringExtra("productVariation");
         String newProductStatus = intent.getStringExtra("preparationTime");
         String newGroupCode = intent.getStringExtra("groupCode");
-        String newIngredients =intent.getStringExtra("mainIngredients");
+        String newIngredients = intent.getStringExtra("mainIngredients");
+        String newGroupAddOns = intent.getStringExtra("groupAddOns");
+        String newGroupAddOnsPrice = intent.getStringExtra("groupAddOnsPrice");
         String newFirstName = SharedPreference.getSharedPreference(PizzaListDetaill.this).setFname();
         String newLastName = SharedPreference.getSharedPreference(PizzaListDetaill.this).setLname();
         String newEmailAddress = SharedPreference.getSharedPreference(PizzaListDetaill.this).setEmail();
-        String[] splitPrice = newGroupPrice.split(",");
-        String[] splitVariation = newGroupVariation.split(",");
-        String[] splitCode = newGroupCode.split(",");
         if(intent != null){
+            String[] splitPrice = newGroupPrice.split(",");
+            String[] splitVariation = newGroupVariation.split(",");
+            String[] splitCode = newGroupCode.split(",");
             Glide.with(PizzaListDetaill.this).load(image).into(imageView);
             productName.setText(newProductname);
             ingredients.setText(newIngredients.toLowerCase(Locale.ROOT));
@@ -194,7 +206,59 @@ public class PizzaListDetaill extends AppCompatActivity {
                    }
                 }
             });
+            //show additional toppings and fee
+            if (newGroupAddOns == null){
+                lnrLayoutToppings.setVisibility(View.GONE);
+            }
+            else{
+                String[] splitAddOns = newGroupAddOns.split(",");
+                String[] splitAddOnsPrice = newGroupAddOnsPrice.split(",");
+                cboxToppings = new CheckBox[splitAddOns.length];
+                addOnsFee = new TextView[splitAddOns.length];
+                for(int c = 0; c<splitAddOns.length; c++){
+                    cboxToppings[c] = new CheckBox(this);
+                    addOnsFee[c] = new TextView(this);
+                    int finalC = c;
+                    //set visibility to gone on every empty array index value of addOns
+                    if(splitAddOns[c].equals("")){
+                        cboxToppings[c].setVisibility(View.GONE);
+                        addOnsFee[c].setVisibility(View.GONE);
+                    }
+                    else{
+                        cboxToppings[c].setText(splitAddOns[c]);
+                        addOnsFee[c].setText("+ ₱" + splitAddOnsPrice[c] + ".00");
+                        addOnsFee[c].setGravity(Gravity.RIGHT);
+                        addOnsFee[c].setTextColor(Color.parseColor("#28292b"));
+                        addOnsFee[c].setTextSize(14);
+                    }
+                    //set layout width,height and margin textview for addOnsFee
+                    LinearLayout.LayoutParams prmAddOnsFee = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    prmAddOnsFee.setMargins(0, -70, 0, 0);
+                    addOnsFee[c].setLayoutParams(prmAddOnsFee);
+                    //display to linear layout for additional toppings container
+                    lnrCboxToppings.addView(cboxToppings[c]);
+                    lnrCboxToppings.addView(addOnsFee[c]);
 
+                    //add or remove toppings and fee to arraylist of addOnsList  and addOnsFeeList variable
+                    cboxToppings[c].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                            if (cboxToppings[finalC].isChecked()){
+                                addOnsList.add(splitAddOns[finalC]);
+                                addOnsFeeList.add(Integer.valueOf(splitAddOnsPrice[finalC]));
+
+                            }
+                            else{
+                                addOnsList.remove(splitAddOns[finalC]);
+                                addOnsFeeList.remove(Integer.valueOf(splitAddOnsPrice[finalC]));
+                            }
+                        }
+                    });
+                }
+            }
         }
         AddToCart();
     }
@@ -211,17 +275,23 @@ public class PizzaListDetaill extends AppCompatActivity {
                     String email_address = email.getText().toString();
                     String code = productCode.getText().toString();
                     String product = productName.getText().toString();
-                    String add_ons = pizza_addons.getEditText().getText().toString();
+                    String specialReq = pizza_addons.getEditText().getText().toString();
                     int prices = Integer.parseInt(price.getText().toString());
                     int items = Integer.parseInt(quantity.getText().toString());
+                    String addOns = String.valueOf(addOnsList).replace("[","").replace("]","");
                     String firstName = fname.getText().toString();
                     String lastName = lname.getText().toString();
                     int selectedSize = variation.getCheckedRadioButtonId();
                     radioButton = findViewById(selectedSize);
                     String getVariation = radioButton.getText().toString();
                     String preparedTime = status.getText().toString();
+                    int addOnsTotFee=0;
+                    for (Integer tpgFeeList : addOnsFeeList){
+                        addOnsTotFee += tpgFeeList;
+                    }
+                    addOnsTotFee *= items;
                     ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,code,product,category,getVariation,firstName,lastName,prices,items,add_ons,image,preparedTime);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,code,product,category,getVariation,firstName,lastName,prices,items,addOns,addOnsTotFee,specialReq,image,preparedTime);
                     cartModelCall.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {

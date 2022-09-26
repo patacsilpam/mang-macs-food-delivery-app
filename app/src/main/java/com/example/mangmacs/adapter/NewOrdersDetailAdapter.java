@@ -53,19 +53,26 @@ public class NewOrdersDetailAdapter extends RecyclerView.Adapter<NewOrdersDetail
         CurrentOrdersModel currentOrdersModels = currentOrdersModelList.get(position);
         Glide.with(context).load(currentOrdersModels.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(currentOrdersModels.getProducts());
+        holder.textAddOns.setText(currentOrdersModels.getAddOns());
         holder.textVariation.setText(currentOrdersModels.getVariations());
         holder.items.setText(currentOrdersModels.getQuantities());
         holder.textPrice.setText(currentOrdersModels.getPrice());
-        String status = currentOrdersModels.getOrderStatus();
-        String orderId = currentOrdersModels.getId();
+        holder.textSpecialRequest.setText("\"" + currentOrdersModels.getSpecialRequest() + "\"");
         String totalAmount = currentOrdersModels.getTotalAmount();
         String orderNumber = currentOrdersModels.getOrderNumber();
         productCodeList.add(orderNumber);
         ordersListener.onTotalAmountChange(totalAmount);
         ordersListener.onProductCodeChange(productCodeList);
-
-
-
+        //fix the design
+        if (currentOrdersModels.getAddOns().equals("")){
+            holder.textAddOns.setVisibility(View.GONE);
+        }
+        if (currentOrdersModels.getVariations().equals("")){
+            holder.textVariation.setVisibility(View.GONE);
+        }
+        if (currentOrdersModels.getSpecialRequest().equals("")){
+            holder.textSpecialRequest.setVisibility(View.GONE);
+        }
     }
     public int getItemCount() {
         return currentOrdersModelList.size();
@@ -73,11 +80,13 @@ public class NewOrdersDetailAdapter extends RecyclerView.Adapter<NewOrdersDetail
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgProduct;
-        private TextView textProduct,textVariation,items,textPrice;
+        private TextView textProduct,textAddOns,textSpecialRequest,textVariation,items,textPrice;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             textProduct = itemView.findViewById(R.id.textProduct);
+            textAddOns = itemView.findViewById(R.id.textAddOns);
+            textSpecialRequest = itemView.findViewById(R.id.textSpecialRequest);
             textVariation = itemView.findViewById(R.id.textVariation);
             textPrice = itemView.findViewById(R.id.textPrice);
             items = itemView.findViewById(R.id.items);

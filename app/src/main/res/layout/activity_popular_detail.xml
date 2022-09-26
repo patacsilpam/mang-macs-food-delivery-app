@@ -9,7 +9,8 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:src="@color/pressed"/>
+        android:src="@color/pressed" />
+
     <TextView
         android:id="@+id/txt_arrow_back"
         android:layout_width="wrap_content"
@@ -30,15 +31,21 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/mealsgoodproductName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:text=""
-                android:textSize="20sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/pizzaproductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text=""
+                    android:textSize="20sp" />
+            </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/priceLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|right"
@@ -53,10 +60,10 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/mealsgoodproductPrice"
+                    android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/pesoSign"
+                    android:layout_toEndOf="@id/pesoSign"
                     android:text="0"
                     android:textColor="@color/pressed"
                     android:textSize="20sp" />
@@ -65,8 +72,8 @@
                     android:id="@+id/decimal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/mealsgoodproductPrice"
-                    android:text=".00"
+                    android:layout_toEndOf="@id/price"
+                    android:text=".00 "
                     android:textColor="@color/pressed"
                     android:textSize="20sp" />
             </RelativeLayout>
@@ -87,12 +94,78 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/txtproductCategory"
+                android:id="@+id/productCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/pesoSign"
                 android:text=""
+                android:textSize="14sp"
                 android:visibility="gone" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/textVariation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Variation"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/gray_square"
+                    android:padding="3dp"
+                    android:text="1 Required"
+                    android:textColor="#616161"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textVariation"
+                    android:padding="3dp"
+                    android:text="Select one"
+                    android:textColor="#919191"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RadioGroup
+                android:id="@+id/pizzavariation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"></RadioGroup>
+            <!---Additional Topppings Layout!-->
+            <LinearLayout
+                android:id="@+id/lnrLayoutToppings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_topping"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Additional Topping (Optional)"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/lnrCboxToppings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+            </LinearLayout>
+            <!--Special Request Layout!-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -109,15 +182,18 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Add instructions for your order" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/baseCardview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="0dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -130,6 +206,7 @@
                             android:layout_marginRight="5dp"
                             android:fontFamily="@font/roboto"
                             android:text="View main ingredients" />
+
                         <ImageView
                             android:id="@+id/showIngredients"
                             android:layout_width="wrap_content"
@@ -137,12 +214,14 @@
                             android:layout_toEndOf="@+id/textViewIngredients"
                             android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
                     </RelativeLayout>
+
                     <LinearLayout
                         android:id="@+id/ingredientLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="gone">
+
                         <TextView
                             android:id="@+id/ingredients"
                             android:layout_width="wrap_content"
@@ -154,14 +233,15 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/mealsgoodadd_ons"
+                android:id="@+id/pizzaadd_ons"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
                 app:counterEnabled="true"
-                app:counterMaxLength="500"
+                app:counterMaxLength="255"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -192,6 +272,27 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:visibility="invisible" />
+
+            <RadioGroup
+                android:id="@+id/rdCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible">
+
+                <RadioButton
+                    android:id="@+id/code1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="code"
+                    android:visibility="invisible" />
+
+                <RadioButton
+                    android:id="@+id/code2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="code"
+                    android:visibility="invisible" />
+            </RadioGroup>
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.appbar.AppBarLayout
@@ -237,7 +338,7 @@
                 android:drawableLeft="@drawable/ic_baseline_add_24"/>
 
             <Button
-                android:id="@+id/btnMealsGood"
+                android:id="@+id/btnAddtoCartPizza"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

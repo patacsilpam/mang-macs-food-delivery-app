@@ -23,8 +23,12 @@ public class PopularListModel {
     private String preparationTime;
     @SerializedName("mainIngredients")
     private String mainIngredients;
+    @SerializedName("add_ons")
+    private String addOns;
+    @SerializedName("add_ons_price")
+    private String addOnsPrice;
 
-    public PopularListModel(String productCodePopular, String productCategoryPopular, String productNamePopular, String productVariationPopular, String statusPopular, String imagePopular, int pricePopular, String stocks, String preparationTime,String mainIngredients) {
+    public PopularListModel(String productCodePopular, String productCategoryPopular, String productNamePopular, String productVariationPopular, String statusPopular, String imagePopular, int pricePopular, String stocks, String preparationTime,String mainIngredients,String addOns,String addOnsPrice) {
         this.productCodePopular = productCodePopular;
         this.productCategoryPopular = productCategoryPopular;
         this.productNamePopular = productNamePopular;
@@ -35,6 +39,8 @@ public class PopularListModel {
         this.stocks = stocks;
         this.preparationTime = preparationTime;
         this.mainIngredients = mainIngredients;
+        this.addOns = addOns;
+        this.addOnsPrice = addOnsPrice;
     }
 
     public String getProductCodePopular() {
@@ -67,4 +73,12 @@ public class PopularListModel {
     public String getMainIngredients() {
         return mainIngredients;
     }
+    public String getAddOns() {
+        return addOns;
+    }
+
+    public String getAddOnsPrice() {
+        return addOnsPrice;
+    }
+
 }

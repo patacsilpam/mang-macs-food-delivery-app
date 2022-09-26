@@ -30,77 +30,111 @@
                 android:fontFamily="@font/roboto_medium"
                 android:textSize="18sp"/>
             <TextView
+                android:id="@+id/textAddOns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textProduct"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_toEndOf="@+id/imgProduct"
+                android:fontFamily="@font/roboto_light"
+                android:text=""
+                android:textColor="#393636"
+                android:textFontWeight="400"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <TextView
                 android:id="@+id/textVariation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/imgProduct"
-                android:layout_below="@+id/textProduct"
+                android:layout_below="@+id/textAddOns"
                 android:text=""
                 android:fontFamily="@font/roboto"
                 android:textSize="16sp"
                 android:textColor="#5E5757"/>
+
+            <TextView
+                android:id="@+id/textSpecialRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textVariation"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/imgProduct"
+                android:fontFamily="@font/roboto"
+                android:text=""
+                android:textColor="#5E5757"
+                android:textSize="14sp" />
             <RelativeLayout
                 android:id="@+id/itemLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/imgProduct"
-                android:layout_below="@+id/textVariation"
+                android:layout_below="@+id/textSpecialRequest"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/imgProduct">
+
                 <TextView
                     android:id="@+id/x"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="7dp"
                     android:layout_marginTop="5dp"
-                    android:text="x"
+                    android:layout_marginRight="7dp"
                     android:fontFamily="@font/roboto"
-                    android:textSize="16sp"
-                    android:textColor="#676A69"/>
+                    android:text="x"
+                    android:textColor="#676A69"
+                    android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/items"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="3"
                     android:fontFamily="@font/roboto"
-                    android:textSize="16sp"
-                    android:textColor="#676A69"/>
+                    android:text="3"
+                    android:textColor="#676A69"
+                    android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/textPesoSign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="70dp"
                     android:layout_marginTop="5dp"
-                    android:text="₱ "
+                    android:layout_marginRight="70dp"
                     android:fontFamily="@font/roboto"
-                    android:textSize="16sp"
-                    android:textColor="@color/pressed"/>
+                    android:text="₱ "
+                    android:textColor="@color/pressed"
+                    android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/textPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="40dp"
                     android:layout_marginTop="5dp"
-                    android:text="0"
+                    android:layout_marginRight="40dp"
                     android:fontFamily="@font/roboto"
-                    android:textSize="16sp"
-                    android:textColor="@color/pressed"/>
+                    android:text="0"
+                    android:textColor="@color/pressed"
+                    android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/decimal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
-                    android:text=".00"
+                    android:layout_marginRight="20dp"
                     android:fontFamily="@font/roboto"
-                    android:textSize="16sp"
-                    android:textColor="@color/pressed"/>
+                    android:text=".00"
+                    android:textColor="@color/pressed"
+                    android:textSize="16sp" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"

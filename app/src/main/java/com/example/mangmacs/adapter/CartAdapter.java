@@ -57,14 +57,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.productID.setText(String.valueOf(cartModel.getProductId()));
         holder.productName.setText(cartModel.getProoductNameCart());
         holder.quantity.setText(String.valueOf(cartModel.getQuantityCart()));
+        holder.productAddOns.setText(cartModel.getAddOns());
+        holder.productSpecialRequest.setText("\"" +cartModel.getSpecialRequest() + "\"");
         String variation = String.valueOf(cartModel.getVariationCart());
-        String[] splitVariation = variation.split(",");
-        holder.productVariation.setText(splitVariation[0]);
+        holder.productVariation.setText(cartModel.getVariationCart());
         holder.productPrice.setText(String.valueOf(cartModel.getPriceCart()));
         final int[] count = {Integer.parseInt(String.valueOf((cartModel.getQuantityCart())))};
         holder.totalPrice.setText(String.valueOf(cartModel.getTotalprice()));
         holder.btnDecrement.setEnabled(true);
         String quantityCart = holder.quantity.getText().toString();
+
         //increase  order product activity
         holder.btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +97,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 });
             }
         });
+
         //disable decrement button  if equals to 1 quantity
        if (quantityCart.equals("1")){
            holder.btnDecrement.setEnabled(false);
@@ -132,6 +135,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                }
            });
        }
+
         //delete cart item
         holder.deleteCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +181,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 alert.show();
             }
         });
+
+       //fix the design
+        if (cartModel.getAddOns().equals("")){
+            holder.productAddOns.setVisibility(View.GONE);
+        }
+        if (cartModel.getVariationCart().equals("")){
+            holder.productVariation.setVisibility(View.GONE);
+        }
+        if (cartModel.getSpecialRequest().equals("")){
+            holder.productSpecialRequest.setVisibility(View.GONE);
+        }
        //send total price to cart activity using localbroadcast manager
         preparedList.add(Integer.valueOf(cartModel.getPreparedTime()));
         int maxTime = Collections.max(preparedList);
@@ -194,7 +209,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView productName,productVariation,productPrice,productID,totalPrice;
+        TextView productName,productVariation,productAddOns,productPrice,productSpecialRequest,productID,totalPrice;
         EditText quantity;
         Button btnIncrement,btnDecrement,deleteCart;
         public MyViewHolder(@NonNull View itemView) {
@@ -202,7 +217,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             imageView = itemView.findViewById(R.id.imgProduct);
             productName = itemView.findViewById(R.id.textProduct);
             productVariation = itemView.findViewById(R.id.textVariation);
+            productAddOns = itemView.findViewById(R.id.textAddOns);
             productPrice = itemView.findViewById(R.id.textPrice);
+            productSpecialRequest = itemView.findViewById(R.id.specialRequest);
             quantity = itemView.findViewById(R.id.textQuantity);
             btnIncrement = itemView.findViewById(R.id.btnIncrement);
             btnDecrement = itemView.findViewById(R.id.btnDecrement);

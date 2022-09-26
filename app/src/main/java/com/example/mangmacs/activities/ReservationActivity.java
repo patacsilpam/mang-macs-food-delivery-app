@@ -12,18 +12,25 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.mangmacs.InputMinMax;
 import com.example.mangmacs.R;
 import com.example.mangmacs.model.ReservationModel;
 import com.example.mangmacs.api.RetrofitInstance;
@@ -51,29 +58,36 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReservationActivity extends AppCompatActivity {
-    private TextInputEditText people,date,time;
+public class ReservationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private Spinner spinnerDiningArea;
+    private TextInputEditText people,date,time,commentSuggestion;
     private TextInputLayout guestsError,dateError,timeError;
-    private TextView textRequired,arrowBack;
+    private TextView diningAreaError,textRequired,arrowBack;
     private Button btnBookNow;
-    private LinearLayout reservationLayout;
+    private RelativeLayout bgDiningArea;
     private int hour,min;
-    private String token;
+    private String token,strDiningArea;
+    private String[] diningAreaList = {"Please select dining area","Resto","Venue"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
+        spinnerDiningArea = findViewById(R.id.diningArea);
         people = findViewById(R.id.people);
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
+        diningAreaError = findViewById(R.id.diningAreaError);
+        commentSuggestion = findViewById(R.id.commentsSuggestions);
         guestsError = findViewById(R.id.guestsError);
         dateError = findViewById(R.id.dateError);
         timeError = findViewById(R.id.timeError);
         textRequired = findViewById(R.id.textRequired);
         arrowBack = findViewById(R.id.txt_arrow_back);
-        reservationLayout = findViewById(R.id.reservationLayout);
+        bgDiningArea = findViewById(R.id.bgDiningArea);
         btnBookNow = findViewById(R.id.btnBookNow);
         textRequired.setVisibility(View.GONE);
+        spinnerDiningArea.setOnItemSelectedListener(this);
+        setDiningArea();
         SetCalendar();
         Booking();
         setFirebaseToken();
@@ -102,8 +116,12 @@ public class ReservationActivity extends AppCompatActivity {
                 String guests = people.getText().toString();
                 String sched_date = date.getText().toString();
                 String sched_time = time.getText().toString();
-                String firstname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
-                String lastname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
+                String selDineArea = spinnerDiningArea.getSelectedItem().toString();
+                String comments = commentSuggestion.getText().toString();
+                if (selDineArea.equals("Please select dining area")){
+                    diningAreaError.setVisibility(View.VISIBLE);
+                    bgDiningArea.setBackground(getResources().getDrawable(R.drawable.stroke_red_square));
+                }
                 if (sched_date.isEmpty()){
                     dateError.setError("Required");
                     dateError.setErrorIconDrawable(null);
@@ -117,36 +135,23 @@ public class ReservationActivity extends AppCompatActivity {
                     guestsError.setErrorIconDrawable(null);
                 }
                 else{
-                   Intent intent = new Intent(ReservationActivity.this,DineInActivity.class);
-                   intent.putExtra("guests",guests);
-                   intent.putExtra("reserved_date",sched_date);
-                   intent.putExtra("reserved_time",sched_time);
-                   startActivity(intent);
-                   /* ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    String email = SharedPreference.getSharedPreference(ReservationActivity.this).setEmail();
-                    Call<ReservationModel> reservationCall = apiInterface.reservation(token,firstname,lastname,guests,email,"",sched_date,sched_time);
-                    reservationCall.enqueue(new Callback<ReservationModel>() {
-                        @Override
-                        public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
-                            if (response.body() != null){
-                                String success = response.body().getSuccess();
-                                if (success.equals("1")){
-                                    Toast.makeText(getApplicationContext(),"Book Successfully",Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(ReservationActivity.this, home_activity.class));
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ReservationModel> call, Throwable t) {
-
-                        }
-                    });*/
+                    Intent intent = new Intent(ReservationActivity.this,DineInActivity.class);
+                    intent.putExtra("guests",guests);
+                    intent.putExtra("reserved_date",sched_date);
+                    intent.putExtra("reserved_time",sched_time);
+                    intent.putExtra("dining_area",selDineArea);
+                    intent.putExtra("comments",comments);
+                    startActivity(intent);
                 }
             }
         });
     }
+    private void setDiningArea(){
+        ArrayAdapter adptrDiningArea = new ArrayAdapter(this, android.R.layout.simple_spinner_item,diningAreaList);
+        adptrDiningArea.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDiningArea.setAdapter(adptrDiningArea);
 
+    }
     private void SetCalendar() {
         //date picker
         Calendar calendar = Calendar.getInstance();
@@ -256,4 +261,24 @@ public class ReservationActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+        strDiningArea = diningAreaList[position].toString();
+
+        if(strDiningArea.equals("Venue")){
+            people.setFilters(new InputFilter[]{ new InputMinMax(1,155)});
+        }
+        else {
+            people.setFilters(new InputFilter[]{ new InputMinMax(1,99)});
+        }
+
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
 }

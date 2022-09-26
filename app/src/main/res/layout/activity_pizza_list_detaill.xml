@@ -19,90 +19,103 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         app:drawableLeftCompat="@drawable/ic_baseline_arrow_back" />
+
     <ScrollView
-        android:layout_below="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical">
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-               <TextView
-                   android:id="@+id/pizzaproductName"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text=""
-                   android:textSize="20sp"
-                   android:fontFamily="@font/roboto_medium"/>
-           </RelativeLayout>
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/pizzaproductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text=""
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/priceLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|right"
                 android:layout_marginTop="-25dp">
+
                 <TextView
                     android:id="@+id/pesoSign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:text="₱ "
                     android:textColor="@color/pressed"
-                    android:text="₱ "/>
+                    android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/pesoSign"
-                    android:textSize="20sp"
+                    android:text="0"
                     android:textColor="@color/pressed"
-                    android:text="0"/>
+                    android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/decimal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/price"
-                    android:textSize="20sp"
+                    android:text=".00 "
                     android:textColor="@color/pressed"
-                    android:text=".00 "/>
+                    android:textSize="20sp" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/status"
                 android:layout_width="85dp"
                 android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/preparationTime"
+                android:background="@drawable/gray_square"
+                android:drawableStart="@drawable/ic_baseline_access_clock"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
                 android:padding="3dp"
                 android:text=""
-                android:gravity="center"
-                android:textSize="16sp"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_marginTop="10dp"
                 android:textColor="#616161"
-                android:background="@drawable/gray_square"
-                android:drawableStart="@drawable/ic_baseline_access_clock" />
+                android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/productCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/pesoSign"
-                android:visibility="gone"
+                android:text=""
                 android:textSize="14sp"
-                android:text=""/>
+                android:visibility="gone" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
+
                 <TextView
                     android:id="@+id/textVariation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Variation"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -110,47 +123,79 @@
                     android:background="@drawable/gray_square"
                     android:padding="3dp"
                     android:text="1 Required"
-                    android:textSize="12sp"
-                    android:textColor="#616161"/>
+                    android:textColor="#616161"
+                    android:textSize="12sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textVariation"
                     android:padding="3dp"
                     android:text="Select one"
-                    android:textSize="14sp"
-                    android:textColor="#919191"/>
+                    android:textColor="#919191"
+                    android:textSize="14sp" />
             </RelativeLayout>
+
             <RadioGroup
                 android:id="@+id/pizzavariation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-            </RadioGroup>
+                android:layout_marginTop="10dp"></RadioGroup>
+            <!---Additional Topppings Layout!-->
+            <LinearLayout
+                android:id="@+id/lnrLayoutToppings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_topping"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Additional Topping (Optional)"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/lnrCboxToppings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+            </LinearLayout>
+            <!--Special Request Layout!-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
+                android:fontFamily="@font/roboto"
                 android:text="Special Request"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:fontFamily="@font/roboto_light"
                 android:text="Add instructions for your order" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/baseCardview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="0dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -163,6 +208,7 @@
                             android:layout_marginRight="5dp"
                             android:fontFamily="@font/roboto"
                             android:text="View main ingredients" />
+
                         <ImageView
                             android:id="@+id/showIngredients"
                             android:layout_width="wrap_content"
@@ -170,12 +216,14 @@
                             android:layout_toEndOf="@+id/textViewIngredients"
                             android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
                     </RelativeLayout>
+
                     <LinearLayout
                         android:id="@+id/ingredientLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="gone">
+
                         <TextView
                             android:id="@+id/ingredients"
                             android:layout_width="wrap_content"
@@ -187,57 +235,65 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/pizzaadd_ons"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:counterEnabled="true"
                 app:counterMaxLength="255"
                 app:errorEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:padding="5dp"
+                    android:hint="e.g no mayo"
                     android:inputType="text"
-                    android:hint="e.g no mayo"/>
+                    android:padding="5dp" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 android:id="@+id/customerId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:text="customerId"/>
+                android:text="customerId"
+                android:visibility="invisible" />
+
             <TextView
                 android:id="@+id/lname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:text=""/>
+                android:text=""
+                android:visibility="invisible" />
+
             <TextView
                 android:id="@+id/fname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:text=""/>
+                android:text=""
+                android:visibility="invisible" />
+
             <RadioGroup
                 android:id="@+id/rdCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="invisible">
+
                 <RadioButton
                     android:id="@+id/code1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="code"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
+
                 <RadioButton
                     android:id="@+id/code2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="code"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
             </RadioGroup>
         </LinearLayout>
     </ScrollView>

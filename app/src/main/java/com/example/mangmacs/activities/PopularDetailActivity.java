@@ -8,11 +8,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +30,7 @@ import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -31,36 +38,47 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PopularDetailActivity extends AppCompatActivity {
-    private LinearLayout ingredientsLayout;
+    private LinearLayout ingredientsLayout,lnrLayoutToppings,lnrCboxToppings;
     private CardView baseCardview;
     private ImageView imageView,showIngredients;
-    private TextView txt_arrow_back;
-    private TextView productName,productPrice,txtProductCategory,ingredients,status,customerId,fname,lname;
-    private TextInputLayout drinksAddons;
+    private RelativeLayout priceLayout;
+    private TextView txt_arrow_back,singleVariation,price,productCode;
+    private TextView productName,status,ingredients,email,fname,lname;
+    private TextInputLayout pizza_addons;
     private EditText quantity;
-    private Button btnAddtoCart,btnIncrement,btnDecrement;
-    private Intent intent;
-    private String image,productCategory;
-    int count = 1;
+    private RadioGroup variation,rdCode;
+    private RadioButton radioButton;
+    private Button btnPizza,btnIncrement,btnDecrement;
+    private CheckBox[] cboxToppings;
+    private TextView[] addOnsFee;
+    private int count = 1;
+    private String image,category;
+    private ArrayList<Integer> addOnsFeeList = new ArrayList<Integer>();
+    private ArrayList<String> addOnsList = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popular_detail);
+        priceLayout = findViewById(R.id.priceLayout);
         imageView = findViewById(R.id.image);
-        productName = findViewById(R.id.mealsgoodproductName);
-        productPrice = findViewById(R.id.mealsgoodproductPrice);
-        drinksAddons = findViewById(R.id.mealsgoodadd_ons);
-        txtProductCategory = findViewById(R.id.txtproductCategory);
+        productName = findViewById(R.id.pizzaproductName);
         status = findViewById(R.id.status);
-        customerId = findViewById(R.id.customerId);
+        pizza_addons = findViewById(R.id.pizzaadd_ons);
+        variation = findViewById(R.id.pizzavariation);
+        rdCode = findViewById(R.id.rdCode);
+        price = findViewById(R.id.price);
+        productCode = findViewById(R.id.productCode);
+        email = findViewById(R.id.customerId);
         fname = findViewById(R.id.fname);
         lname = findViewById(R.id.lname);
-        btnAddtoCart = findViewById(R.id.btnMealsGood);
         txt_arrow_back = findViewById(R.id.txt_arrow_back);
+        btnPizza = findViewById(R.id.btnAddtoCartPizza);
         quantity = findViewById(R.id.quantity);
         ingredients = findViewById(R.id.ingredients);
         showIngredients = findViewById(R.id.showIngredients);
         ingredientsLayout = findViewById(R.id.ingredientLayout);
+        lnrLayoutToppings = findViewById(R.id.lnrLayoutToppings);
+        lnrCboxToppings = findViewById(R.id.lnrCboxToppings);
         baseCardview = findViewById(R.id.baseCardview);
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
@@ -86,7 +104,6 @@ public class PopularDetailActivity extends AppCompatActivity {
         });
     }
     private void IncrementDecrement() {
-        //button increment
         btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +111,6 @@ public class PopularDetailActivity extends AppCompatActivity {
                 quantity.setText(String.valueOf(count));
             }
         });
-        //button decrement
         btnDecrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,64 +145,158 @@ public class PopularDetailActivity extends AppCompatActivity {
     }
     private void DisplayProductDetails() {
         //get the value from its adapter
-        intent = getIntent();
+        Intent intent = getIntent();
         image = intent.getStringExtra("image");
-        String productname = intent.getStringExtra("productName");
-        int productprice = intent.getIntExtra("price",0);
-        String productstatus = intent.getStringExtra("preparationTime");
-        String productCategory = intent.getStringExtra("productCategory");
-        String newIngredients =intent.getStringExtra("mainIngredients");
-        String firstname = SharedPreference.getSharedPreference(PopularDetailActivity.this).setFname();
-        String lastname = SharedPreference.getSharedPreference(PopularDetailActivity.this).setLname();
-        String customerID = SharedPreference.getSharedPreference(PopularDetailActivity.this).setEmail();
+        String newProductname = intent.getStringExtra("productName");
+        category = intent.getStringExtra("productCategory");
+        String newGroupPrice = intent.getStringExtra("groupPrice");
+        String newGroupVariation = intent.getStringExtra("productVariation");
+        String newProductStatus = intent.getStringExtra("preparationTime");
+        String newGroupCode = intent.getStringExtra("groupCode");
+        String newIngredients = intent.getStringExtra("mainIngredients");
+        String newGroupAddOns = intent.getStringExtra("groupAddOns");
+        String newGroupAddOnsPrice = intent.getStringExtra("groupAddOnsPrice");
+        String newFirstName = SharedPreference.getSharedPreference(PopularDetailActivity.this).setFname();
+        String newLastName = SharedPreference.getSharedPreference(PopularDetailActivity.this).setLname();
+        String newEmailAddress = SharedPreference.getSharedPreference(PopularDetailActivity.this).setEmail();
         if(intent != null){
+            String[] splitPrice = newGroupPrice.split(",");
+            String[] splitVariation = newGroupVariation.split(",");
+            String[] splitCode = newGroupCode.split(",");
             Glide.with(PopularDetailActivity.this).load(image).into(imageView);
-            productName.setText(productname);
-            productPrice.setText(Integer.toString(productprice));
+            productName.setText(newProductname);
             ingredients.setText(newIngredients.toLowerCase(Locale.ROOT));
-            status.setText(productstatus.concat("min"));
-            customerId.setText(customerID);
-            fname.setText(firstname);
-            lname.setText(lastname);
-            txtProductCategory.setText(productCategory);
+            fname.setText(newFirstName);
+            lname.setText(newLastName);
+            email.setText(newEmailAddress);
+            status.setText(newProductStatus.concat("min"));
+            price.setText(splitPrice[0]);
+            for(int i = 0; i<splitVariation.length; i++){
+                radioButton = new RadioButton(this);
+                radioButton.setText(splitVariation[i]);
+                radioButton.setTextAppearance(this, android.R.style.TextAppearance);
+                variation.addView(radioButton);
+            }
+            //check variation array length
+            variation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                    int selectedVariation = variation.getCheckedRadioButtonId();
+                    radioButton = findViewById(selectedVariation);
+                    String variation = radioButton.getText().toString();
+                    if(variation.contains("Medium")){
+                        price.setText(splitPrice[0]);
+                        productCode.setText(splitCode[0]);
+                    }
+                    else{
+                        price.setText(splitPrice[1]);
+                        productCode.setText(splitCode[1]);
+                    }
+                }
+            });
+            //show additional toppings and fee
+            if (newGroupAddOns == null){
+                lnrLayoutToppings.setVisibility(View.GONE);
+            }
+            else{
+                String[] splitAddOns = newGroupAddOns.split(",");
+                String[] splitAddOnsPrice = newGroupAddOnsPrice.split(",");
+                cboxToppings = new CheckBox[splitAddOns.length];
+                addOnsFee = new TextView[splitAddOns.length];
+                for(int c = 0; c<splitAddOns.length; c++){
+                    cboxToppings[c] = new CheckBox(this);
+                    addOnsFee[c] = new TextView(this);
+                    int finalC = c;
+                    //set visibility to gone on every empty array index value of addOns
+                    if(splitAddOns[c].equals("")){
+                        cboxToppings[c].setVisibility(View.GONE);
+                        addOnsFee[c].setVisibility(View.GONE);
+                    }
+                    else{
+                        cboxToppings[c].setText(splitAddOns[c]);
+                        addOnsFee[c].setText("+ ₱" + splitAddOnsPrice[c] + ".00");
+                        addOnsFee[c].setGravity(Gravity.RIGHT);
+                        addOnsFee[c].setTextColor(Color.parseColor("#28292b"));
+                        addOnsFee[c].setTextSize(14);
+                    }
+                    //set layout width,height and margin textview for addOnsFee
+                    LinearLayout.LayoutParams prmAddOnsFee = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    prmAddOnsFee.setMargins(0, -70, 0, 0);
+                    addOnsFee[c].setLayoutParams(prmAddOnsFee);
+                    //display to linear layout for additional toppings container
+                    lnrCboxToppings.addView(cboxToppings[c]);
+                    lnrCboxToppings.addView(addOnsFee[c]);
+
+                    //add or remove toppings and fee to arraylist of addOnsList  and addOnsFeeList variable
+                    cboxToppings[c].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                            if (cboxToppings[finalC].isChecked()){
+                                addOnsList.add(splitAddOns[finalC]);
+                                addOnsFeeList.add(Integer.valueOf(splitAddOnsPrice[finalC]));
+
+                            }
+                            else{
+                                addOnsList.remove(splitAddOns[finalC]);
+                                addOnsFeeList.remove(Integer.valueOf(splitAddOnsPrice[finalC]));
+                            }
+                        }
+                    });
+                }
+            }
         }
         AddToCart();
     }
 
     private void AddToCart() {
-        btnAddtoCart.setOnClickListener(new View.OnClickListener() {
+        btnPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = customerId.getText().toString();
-                String code = intent.getStringExtra("code");
-                String product = productName.getText().toString();
-                String variation = "";
-                String firstName = fname.getText().toString();
-                String lastName = lname.getText().toString();
-                int price = Integer.parseInt(productPrice.getText().toString());
-                int number = Integer.parseInt(quantity.getText().toString());
-                String add_ons = drinksAddons.getEditText().getText().toString();
-                String preparedTime = status.getText().toString();
-                String productCategory = txtProductCategory.getText().toString();
-                ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,productCategory,variation,firstName,lastName,price,number,add_ons,image,preparedTime);
-                cartModelCall.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if(response.body() != null){
-                            String success =response.body().getSuccess();
-                            if(success.equals("1")){
-                                Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),home_activity.class));
+                if(variation.getCheckedRadioButtonId() == -1){
+                    Toast.makeText(getApplicationContext(),"Please select one variation",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    String email_address = email.getText().toString();
+                    String code = productCode.getText().toString();
+                    String product = productName.getText().toString();
+                    String specialReq = pizza_addons.getEditText().getText().toString();
+                    int prices = Integer.parseInt(price.getText().toString());
+                    int items = Integer.parseInt(quantity.getText().toString());
+                    String addOns = String.valueOf(addOnsList).replace("[","").replace("]","");
+                    String firstName = fname.getText().toString();
+                    String lastName = lname.getText().toString();
+                    int selectedSize = variation.getCheckedRadioButtonId();
+                    radioButton = findViewById(selectedSize);
+                    String getVariation = radioButton.getText().toString();
+                    String preparedTime = status.getText().toString();
+                    int addOnsTotFee=0;
+                    for (Integer tpgFeeList : addOnsFeeList){
+                        addOnsTotFee += tpgFeeList;
+                    }
+                    addOnsTotFee *= items;
+                    ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,code,product,category,getVariation,firstName,lastName,prices,items,addOns,addOnsTotFee,specialReq,image,preparedTime);
+                    cartModelCall.enqueue(new Callback<CartModel>() {
+                        @Override
+                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                            if(response.body() != null){
+                                String success =response.body().getSuccess();
+                                if(success.equals("1")){
+                                    Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(),home_activity.class));
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<CartModel> call, Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         });
     }

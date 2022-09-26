@@ -34,6 +34,8 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
     ArrayList<String> variationList = new ArrayList<>();
     ArrayList<Integer> quantityList = new ArrayList<>();
     ArrayList<String> addOnsList = new ArrayList<>();
+    ArrayList<Integer> addOnsFeeList = new ArrayList<>();
+    ArrayList<String> specialReqList = new ArrayList<>();
     ArrayList<String> priceList = new ArrayList<>();
     ArrayList<String> subTotalList = new ArrayList<>();
     ArrayList<String> imgProductList = new ArrayList<>();
@@ -60,15 +62,19 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         String variation = orderModel.getVariationCart();
         String[] splitVariation =  variation.split(",");
         holder.product.setText(orderModel.getProoductNameCart());
+        holder.addOns.setText(orderModel.getAddOns());
         holder.variation.setText(splitVariation[0]);
         holder.items.setText(String.valueOf(orderModel.getQuantityCart()));
         holder.price.setText(String.valueOf(orderModel.getPriceCart()));
+        holder.specialRequest.setText("\"" + orderModel.getSpecialRequest() + "\"");
         //
         String str_product = orderModel.getProoductNameCart();
         String str_productCode = orderModel.getProductCodeCart();
         String str_newVariation = orderModel.getVariationCart();
         int str_newQuantity = orderModel.getQuantityCart();
-        String str_newAddons = orderModel.getAdd_onsCart();
+        String str_newAddons = orderModel.getAddOns();
+        int addOnsFee = orderModel.getAddOnsFee();
+        String str_newSpecialReq = orderModel.getSpecialRequest();
         String str_newPrice = String.valueOf(orderModel.getPriceCart());
         String str_newImgProduct = orderModel.getImageProduct();
         String str_subTotal = String.valueOf(orderModel.getQuantityCart() * orderModel.getPriceCart());
@@ -80,6 +86,8 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         variationList.add(str_newVariation);
         quantityList.add(str_newQuantity);
         addOnsList.add(str_newAddons);
+        addOnsFeeList.add(addOnsFee);
+        specialReqList.add(str_newSpecialReq);
         subTotalList.add(str_subTotal);
         priceList.add(str_newPrice);
         imgProductList.add(str_newImgProduct);
@@ -96,10 +104,23 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         ordersListener.onVariationChange(variationList);
         ordersListener.onQuantityChange(quantityList);
         ordersListener.onAddOnsChange(addOnsList);
+        ordersListener.onAddOnsFeeChange(addOnsFeeList);
+        ordersListener.onSpecialRequest(specialReqList);
         ordersListener.onSubTotalChange(subTotalList);
         ordersListener.onPriceChange(priceList);
         ordersListener.onImgProductChange(imgProductList);
         ordersListener.onPreparationTimeChange(preparationTimeList);
+
+        //fix the design
+        if (orderModel.getAddOns().equals("")){
+            holder.addOns.setVisibility(View.GONE);
+        }
+        if (orderModel.getVariationCart().equals("")){
+            holder.variation.setVisibility(View.GONE);
+        }
+        if (orderModel.getSpecialRequest().equals("")){
+            holder.specialRequest.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -108,18 +129,17 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
-        private TextView product,variation,items,price,orders,productCode,newVariation;
+        private TextView product,addOns,variation,items,price,specialRequest;
         private ImageView imgProduct;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             product = itemView.findViewById(R.id.product);
+            addOns = itemView.findViewById(R.id.addOns);
             variation = itemView.findViewById(R.id.variation);
             items = itemView.findViewById(R.id.items);
             price = itemView.findViewById(R.id.total);
             imgProduct = itemView.findViewById(R.id.image);
-            orders = itemView.findViewById(R.id.orders);
-            productCode = itemView.findViewById(R.id.productCode);
-            newVariation = itemView.findViewById(R.id.newVariation);
+            specialRequest = itemView.findViewById(R.id.specialRequest);
         }
     }
 }

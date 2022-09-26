@@ -100,7 +100,7 @@ public interface ApiInterface {
     Call<List<ProductListModel>> getBeverages();
     //get best sellers mang  macs product
     @GET("getPopularProduct.php")
-    Call<List<PopularListModel>> getPopular();
+    Call<List<PizzaListModel>> getPopular();
     //get mang macs promo product
     @GET("getPromoProduct.php")
     Call<List<PromoListModel>> getPromos();
@@ -233,7 +233,9 @@ public interface ApiInterface {
             @Field("lname") String lastname,
             @Field("price") int amount,
             @Field("quantity") int quantity,
-            @Field("add_ons") String addOns,
+            @Field("addOns") String addOns,
+            @Field("addOnsFee") int addOnsFee,
+            @Field("specialRequest") String specialRequest,
             @Field("imageProduct") String image,
             @Field("preparedTime") String preparedTime
     );
@@ -272,6 +274,8 @@ public interface ApiInterface {
             @Field("variation[]") ArrayList<String> variation,
             @Field("quantity[]") ArrayList<Integer> quantity,
             @Field("addOns[]") ArrayList<String> addOns,
+            @Field("addOnsFee[]") ArrayList<Integer> addOnsFee,
+            @Field("specialRequest[]") ArrayList<String> specialRequest,
             @Field("price[]") ArrayList<String> price,
             @Field("subTotal[]") ArrayList<String> subTotal,
             @Field("totalAmount") String totalAmount,
@@ -299,11 +303,15 @@ public interface ApiInterface {
             @Field("email") String email,
             @Field("scheduled_date") String date,
             @Field("scheduled_time") String time,
+            @Field("diningArea") String diningArea,
+            @Field("comments") String comments,
             @Field("product[]") ArrayList<String> product,
             @Field("productCategory[]") ArrayList<String> productCategory,
             @Field("variation[]") ArrayList<String> variation,
             @Field("quantity[]") ArrayList<Integer> quantity,
             @Field("addOns[]") ArrayList<String> addOns,
+            @Field("addOnsFee[]") ArrayList<Integer> addOnsFee,
+            @Field("specialRequest[]") ArrayList<String> specialRequest,
             @Field("price[]") ArrayList<String> price,
             @Field("subTotal[]") ArrayList<String> subTotal,
             @Field("totalAmount") String totalAmount,

@@ -126,22 +126,7 @@ public class MyAccountActivity extends AppCompatActivity {
                 else if (bdate.isEmpty()){
                     birthdate.setError("Required");
                 }
-                /*else if(telNumber.isEmpty()){
-                    phoneNumber.setError("Required");
-                }
-                else {
-                   if (!telNumber.equals(sPhoneNumber)){
-                       if (ContextCompat.checkSelfPermission(MyAccountActivity.this,Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
-                           if (ActivityCompat.shouldShowRequestPermissionRationale(MyAccountActivity.this, Manifest.permission.SEND_SMS)) {
-                               sendVerificationCode();
-                           } else {
-                               ActivityCompat.requestPermissions(MyAccountActivity.this,
-                                       new String[]{Manifest.permission.SEND_SMS},
-                                       MY_PERMISSIONS_REQUEST_SEND_SMS);
-                           }
-                       }
-                    }
-                }*/
+
                 else{
                     updateUserDetails(fname,lname,gender,bdate);
                 }
@@ -150,27 +135,6 @@ public class MyAccountActivity extends AppCompatActivity {
         });
     }
 
-
-  /*  @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            sendVerificationCode();
-        }
-        else{
-            Toast.makeText(getApplicationContext(),"Permission Denied",Toast.LENGTH_SHORT).show();
-        }
-    }
-    private void sendVerificationCode(){
-        String receiver = phoneNumber.getEditText().getText().toString();
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(receiver,null,"Hello",null,null);
-            Toast.makeText(getApplicationContext(),"Message Sent",Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
     private void updateUserDetails(String fname, String lname, String gender, String bdate){
         String saveEmail = SharedPreference.getSharedPreference(getApplicationContext()).setEmail();
         ApiInterface apiInterface1 = RetrofitInstance.getRetrofit().create(ApiInterface.class);

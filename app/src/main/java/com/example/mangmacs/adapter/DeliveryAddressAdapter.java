@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -25,11 +26,11 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
     private List<AddressListModel> addressLists;
     private String strFullName,strPhoneNumber,strAddress,strLabelAddress;
     private int isCheckButton = 0;
+    public int selectedPosition = -1;
     public DeliveryAddressAdapter(Context context, List<AddressListModel> addressLists){
         this.context = context;
         this.addressLists = addressLists;
     }
-    public int selectedPosition = -1;
     @NonNull
     @Override
     public DeliveryAddressAdapter.AddressViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,8 +53,25 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
       holder.number.setText(phoneNumber);
       holder.categoryaddress.setText(categoryAddress);
       holder.radioButton.setChecked(position == selectedPosition);
-      holder.radioButton.setTag(position);
-        holder.radioButton.setOnClickListener(new View.OnClickListener() {
+      holder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+          @Override
+          public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+              if (isChecked){
+
+                  selectedPosition = holder.getBindingAdapterPosition();
+                  strFullName = holder.name.getText().toString();
+                  strAddress = holder.address.getText().toString();
+                  strPhoneNumber = holder.number.getText().toString();
+                  strLabelAddress = holder.categoryaddress.getText().toString();
+                  isCheckButton = 1;
+                  notifyDataSetChanged();
+
+              }
+
+          }
+      });
+      //holder.radioButton.setTag(position);
+      /* holder.radioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 itemCheckChanged(v);
@@ -62,13 +80,8 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
                 strPhoneNumber = holder.number.getText().toString();
                 strLabelAddress = holder.categoryaddress.getText().toString();
             }
-        });
-        if (holder.radioGroup.getCheckedRadioButtonId() == -1){
-            isCheckButton = 0;
-        }
-        else{
-            isCheckButton = 1;
-        }
+        });*/
+
         Intent intent = new Intent("MyUserDetails");
         intent.putExtra("fullName", strFullName);
         intent.putExtra("phoneNumber",strPhoneNumber);
@@ -81,10 +94,22 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
 
     }
 
-    private void itemCheckChanged(View v) {
+    /*private void itemCheckChanged(View v) {
         selectedPosition = (Integer) v.getTag();
         notifyDataSetChanged();
+    }*/
+    @Override public long getItemId(int position)
+    {
+        // pass position
+        return position;
     }
+    @Override public int getItemViewType(int position)
+    {
+
+        // pass position
+        return position;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -97,8 +122,8 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
         private TextView name,address,number,categoryaddress;
         public AddressViewHolder(@NonNull View itemView) {
             super(itemView);
-            radioButton = itemView.findViewById(R.id.radiobtn);
-            radioGroup = itemView.findViewById(R.id.radioGrp);
+            radioButton = itemView.findViewById(R.id.radioGrp);
+            //radioGroup = itemView.findViewById(R.id.radioGrp);
             name = itemView.findViewById(R.id.name);
             address = itemView.findViewById(R.id.address);
             number = itemView.findViewById(R.id.number);

@@ -169,7 +169,7 @@ public class MealsGoodListDetail extends AppCompatActivity {
                 String preparedTime = status.getText().toString();
                 String productCategory = txtProductCategory.getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,productCategory,variation,firstName,lastName,price,number,add_ons,image,preparedTime);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,productCategory,variation,firstName,lastName,price,number,add_ons,0,"",image,preparedTime);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

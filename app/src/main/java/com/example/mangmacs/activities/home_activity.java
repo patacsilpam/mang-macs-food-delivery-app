@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.mangmacs.adapter.CartAdapter;
 import com.example.mangmacs.adapter.PopularAdapter;
 import com.example.mangmacs.model.CartModel;
+import com.example.mangmacs.model.PizzaListModel;
 import com.example.mangmacs.model.PopularListModel;
 import com.example.mangmacs.R;
 import com.example.mangmacs.api.RetrofitInstance;
@@ -39,7 +40,7 @@ import retrofit2.Response;
 
 public class home_activity extends AppCompatActivity{
     private RecyclerView recyclerView,recyclerViewCart;
-    private List<PopularListModel> popularList;
+    private List<PizzaListModel> popularList;
     private List<CartModel> cartList;
     private ApiInterface apiInterface;
     private PopularAdapter popularAdapter;
@@ -124,10 +125,10 @@ public class home_activity extends AppCompatActivity{
         Sprite circle = new Circle();
         progressBar.setIndeterminateDrawable(circle);
         progressBar.setVisibility(View.VISIBLE);
-       Call<List<PopularListModel>> call= apiInterface.getPopular();
-        call.enqueue(new Callback<List<PopularListModel>>() {
+       Call<List<PizzaListModel>> call= apiInterface.getPopular();
+        call.enqueue(new Callback<List<PizzaListModel>>() {
             @Override
-            public void onResponse(Call<List<PopularListModel>> call, Response<List<PopularListModel>> response) {
+            public void onResponse(Call<List<PizzaListModel>> call, Response<List<PizzaListModel>> response) {
                 progressBar.setVisibility(View.GONE);
                 popularList = response.body();
                 popularAdapter = new PopularAdapter(home_activity.this,popularList);
@@ -136,7 +137,7 @@ public class home_activity extends AppCompatActivity{
             }
 
             @Override
-            public void onFailure(Call<List<PopularListModel>> call, Throwable t) {
+            public void onFailure(Call<List<PizzaListModel>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
             }
         });
@@ -279,10 +280,10 @@ public class home_activity extends AppCompatActivity{
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Call<List<PopularListModel>> call= apiInterface.getPopular();
-                call.enqueue(new Callback<List<PopularListModel>>() {
+                Call<List<PizzaListModel>> call= apiInterface.getPopular();
+                call.enqueue(new Callback<List<PizzaListModel>>() {
                     @Override
-                    public void onResponse(Call<List<PopularListModel>> call, Response<List<PopularListModel>> response) {
+                    public void onResponse(Call<List<PizzaListModel>> call, Response<List<PizzaListModel>> response) {
                         popularList = response.body();
                         popularAdapter = new PopularAdapter(home_activity.this,popularList);
                         recyclerView.setAdapter(popularAdapter);
@@ -290,7 +291,7 @@ public class home_activity extends AppCompatActivity{
                     }
 
                     @Override
-                    public void onFailure(Call<List<PopularListModel>> call, Throwable t) {
+                    public void onFailure(Call<List<PizzaListModel>> call, Throwable t) {
 
                     }
                 });

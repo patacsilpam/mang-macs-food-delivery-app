@@ -20,14 +20,15 @@ import com.example.mangmacs.activities.PopularDetailActivity;
 import com.example.mangmacs.activities.SizzlingListDetail;
 import com.example.mangmacs.activities.SoupListDetail;
 import com.example.mangmacs.activities.PastaListDetail;
+import com.example.mangmacs.model.PizzaListModel;
 import com.example.mangmacs.model.PopularListModel;
 
 import java.util.List;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProductViewHolder> {
     private Context context;
-    private List<PopularListModel> popularList;
-    public PopularAdapter(Context context,List<PopularListModel> popularList){
+    private List<PizzaListModel> popularList;
+    public PopularAdapter(Context context,List<PizzaListModel> popularList){
         this.context = context;
         this.popularList = popularList;
     }
@@ -41,26 +42,28 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull PopularAdapter.ProductViewHolder holder, int position) {
-        PopularListModel popularListModel = popularList.get(position);
+        PizzaListModel popularListModel = popularList.get(position);
         Glide.with(context)
-                .load(popularListModel.getImagePopular())
+                .load(popularListModel.getImage())
                 .into(holder.image);
-        holder.textProductName.setText(popularListModel.getProductNamePopular());
-        holder.textProductPrice.setText("₱ "+String.valueOf(popularListModel.getPricePopular()).concat(".00"));
+        holder.textProductName.setText(popularListModel.getProductName());
+        holder.textProductPrice.setText("₱ "+String.valueOf(popularListModel.getPrice()).concat(".00"));
         holder.textDevTime.setText(popularListModel.getPreparationTime().concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PopularDetailActivity.class);
-                intent.putExtra("image",popularListModel.getImagePopular());
-                intent.putExtra("productName",popularListModel.getProductNamePopular());
-                intent.putExtra("productCategory",popularListModel.getProductCategoryPopular());
-                intent.putExtra("price",popularListModel.getPricePopular());
-                intent.putExtra("productVariation",popularListModel.getProductVariationPopular());
-                intent.putExtra("code",popularListModel.getProductCodePopular());
-                intent.putExtra("status", popularListModel.getStocks());
+                intent.putExtra("image",popularListModel.getImage());
+                intent.putExtra("productName",popularListModel.getProductName());
+                intent.putExtra("productCategory",popularListModel.getProductCategory());
+                intent.putExtra("stocks",popularListModel.getStocks());
+                intent.putExtra("groupPrice",popularListModel.getGroupPrice());
+                intent.putExtra("productVariation",popularListModel.getProductVariation());
+                intent.putExtra("groupCode",popularListModel.getCode());
                 intent.putExtra("preparationTime",popularListModel.getPreparationTime());
                 intent.putExtra("mainIngredients",popularListModel.getMainIngredients());
+                intent.putExtra("groupAddOns",popularListModel.getGroupAddOns());
+                intent.putExtra("groupAddOnsPrice",popularListModel.getGroupAddOnsPrice());
                 context.startActivity(intent);
             }
         });

@@ -35,7 +35,7 @@ public class CurrentOrdersModel {
     private String orderId;
     @SerializedName("product_name")
     private String products;
-    @SerializedName("productCategory")
+    @SerializedName("product_category")
     private String category;
     @SerializedName("product_variation")
     private String variations;
@@ -43,6 +43,10 @@ public class CurrentOrdersModel {
     private String quantities;
     @SerializedName("add_ons")
     private String addOns;
+    @SerializedName("add_ons_fee")
+    private String addOnsFee;
+    @SerializedName("special_request")
+    private String specialRequest;
     @SerializedName("subtotal")
     private String subTotal;
     @SerializedName("price")
@@ -70,7 +74,7 @@ public class CurrentOrdersModel {
     private String notifDate;
     @SerializedName("preparation_time")
     private String preparationTime;
-    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime, String notifDate, String preparationTime) {
+    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime, String notifDate, String preparationTime) {
         this.success = success;
         this.id = id;
         this.productCode = productCode;
@@ -90,6 +94,8 @@ public class CurrentOrdersModel {
         this.variations = variations;
         this.quantities = quantities;
         this.addOns = addOns;
+        this.addOnsFee = addOnsFee;
+        this.specialRequest = specialRequest;
         this.subTotal = subTotal;
         this.price = price;
         this.totalAmount = totalAmount;
@@ -179,6 +185,13 @@ public class CurrentOrdersModel {
 
     public String getAddOns() {
         return addOns;
+    }
+    public String getAddOnsFee(){
+        return addOnsFee;
+    }
+
+    public String getSpecialRequest() {
+        return specialRequest;
     }
 
     public String getSubTotal() {

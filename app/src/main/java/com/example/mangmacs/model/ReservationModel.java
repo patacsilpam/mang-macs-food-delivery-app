@@ -32,7 +32,7 @@ public class ReservationModel {
     private String productCode;
     @SerializedName("product_name")
     private String products;
-    @SerializedName("productCategory")
+    @SerializedName("product_category")
     private String category;
     @SerializedName("price")
     private String price;
@@ -42,6 +42,10 @@ public class ReservationModel {
     private String quantities;
     @SerializedName("add_ons")
     private String addOns;
+    @SerializedName("add_ons_fee")
+    private String addOnsFee;
+    @SerializedName("special_request")
+    private String specialRequest;
     @SerializedName("status")
     private String status;
     @SerializedName("product_image")
@@ -53,7 +57,7 @@ public class ReservationModel {
     @SerializedName("preparation_time")
     private String preparationTime;
 
-    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto, String success, String productCode, String products, String category, String price, String variations, String quantities, String addOns, String status, String imgProduct, String completedTime, String totalAmount, String preparationTime) {
+    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto, String success, String productCode, String products, String category, String price, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String status, String imgProduct, String completedTime, String totalAmount, String preparationTime) {
         this.id = id;
         this.email = email;
         this.fname = fname;
@@ -73,6 +77,8 @@ public class ReservationModel {
         this.variations = variations;
         this.quantities = quantities;
         this.addOns = addOns;
+        this.addOnsFee = addOnsFee;
+        this.specialRequest = specialRequest;
         this.status = status;
         this.imgProduct = imgProduct;
         this.completedTime = completedTime;
@@ -154,6 +160,14 @@ public class ReservationModel {
 
     public String getAddOns() {
         return addOns;
+    }
+
+    public String getAddOnsFee() {
+        return addOnsFee;
+    }
+
+    public String getSpecialRequest() {
+        return specialRequest;
     }
 
     public String getStatus() {

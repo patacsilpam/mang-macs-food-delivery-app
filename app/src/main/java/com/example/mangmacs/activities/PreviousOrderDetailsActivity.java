@@ -219,6 +219,16 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
     }
 
     @Override
+    public void onAddOnsFeeChange(ArrayList<Integer> addaonsFee) {
+
+    }
+
+    @Override
+    public void onSpecialRequest(ArrayList<String> specialRequest) {
+
+    }
+
+    @Override
     public void onSubTotalChange(ArrayList<String> subTotal) {
 
     }
