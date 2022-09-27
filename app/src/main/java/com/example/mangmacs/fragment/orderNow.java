@@ -24,7 +24,7 @@ import java.util.TimeZone;
 
 public class orderNow extends Fragment {
     private Button orderNow;
-    private TextView secondPar;
+    private TextView prepTime;
     public orderNow() {
         // Required empty public constructor
     }
@@ -33,14 +33,21 @@ public class orderNow extends Fragment {
         super.onCreate(savedInstanceState);
     }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_oder_now, container, false);
         orderNow = view.findViewById(R.id.orderNow);
-        secondPar = view.findViewById(R.id.secondPar);
+        prepTime = view.findViewById(R.id.prepTime);
         String preparedTime = SharedPreference.getSharedPreference(getContext()).setPrepTime();
-        secondPar.setText(preparedTime.concat(" min"));
+        //convert min to hour if preparation time is greater than or equal to 60 minutes
+        if(Integer.parseInt(preparedTime) < 60){
+            prepTime.setText(preparedTime.concat(" min"));
+        }
+        else{
+
+            int convertMinHr = Integer.parseInt(preparedTime)/60;
+            prepTime.setText(String.valueOf(convertMinHr).concat(" hr"));
+        }
         orderNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

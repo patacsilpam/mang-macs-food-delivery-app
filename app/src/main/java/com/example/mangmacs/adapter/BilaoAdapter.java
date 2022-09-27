@@ -42,7 +42,6 @@ public class BilaoAdapter extends RecyclerView.Adapter<BilaoAdapter.ProductViewH
                 .into(holder.image);
         holder.textProductName.setText(pancitBilaoListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(pancitBilaoListModel.getPrice()+".00"));
-        holder.textDevTime.setText(pancitBilaoListModel.getPreparationTime().concat("min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,11 +54,20 @@ public class BilaoAdapter extends RecyclerView.Adapter<BilaoAdapter.ProductViewH
                 intent.putExtra("groupPriceBilao",pancitBilaoListModel.getGroupPriceBilao());
                 intent.putExtra("groupCode",pancitBilaoListModel.getGroupCode());
                 intent.putExtra("stocks",pancitBilaoListModel.getStocks());
-                intent.putExtra("preparationTime",pancitBilaoListModel.getPreparationTime());
+                intent.putExtra("preparationTime",Integer.parseInt(pancitBilaoListModel.getPreparationTime()));
                 intent.putExtra("mainIngredients",pancitBilaoListModel.getMainIngredients());
                 context.startActivity(intent);
             }
         });
+        //convert min to hour if preparation time is greater than or equal to 60 minutes
+        int intPrepTime = Integer.parseInt(pancitBilaoListModel.getPreparationTime());
+        if (intPrepTime < 60 ){
+            holder.textDevTime.setText(String.valueOf(intPrepTime).concat("min"));
+        }
+        else{
+            int convertMinHour = intPrepTime/60;
+            holder.textDevTime.setText(String.valueOf(convertMinHour).concat("hr"));
+        }
     }
 
     @Override

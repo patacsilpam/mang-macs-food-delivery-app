@@ -23,7 +23,7 @@ import java.util.TimeZone;
 
 public class NowPickUp extends Fragment  {
     private Button pickUpNow;
-    private TextView secondPar;
+    private TextView prepTime;
     public NowPickUp() {
         // Required empty public constructor
     }
@@ -40,9 +40,15 @@ public class NowPickUp extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_now_pick_up,container,false);
         pickUpNow = view.findViewById(R.id.pickUpNow);
-        secondPar = view.findViewById(R.id.secondPar);
+        prepTime = view.findViewById(R.id.prepTime);
         String preparedTime = SharedPreference.getSharedPreference(getContext()).setPrepTime();
-        secondPar.setText(preparedTime.concat(" min"));
+        if (Integer.parseInt(preparedTime) < 60){
+            prepTime.setText(preparedTime.concat(" min"));
+        }
+        else{
+            int convertMinHr = Integer.parseInt(preparedTime)/60;
+            prepTime.setText(String.valueOf(convertMinHr).concat(" hr"));
+        }
         pickUpNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

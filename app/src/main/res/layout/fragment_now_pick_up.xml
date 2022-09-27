@@ -40,7 +40,7 @@
                         android:fontFamily="@font/roboto"
                         android:textColor="#5B5656"/>
                     <TextView
-                        android:id="@+id/secondPar"
+                        android:id="@+id/prepTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/firstPar"
@@ -52,7 +52,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/secondPar"
+                        android:layout_below="@+id/prepTime"
                         android:layout_marginLeft="35dp"
                         android:fontFamily="@font/roboto"
                         android:text="due to food preparation."

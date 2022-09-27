@@ -37,10 +37,8 @@ import retrofit2.Response;
 
 public class BilaoListDetail extends AppCompatActivity {
     private LinearLayout ingredientsLayout;
-    private CardView baseCardview;
-    private RelativeLayout priceLayout;
     private ImageView imageView,showIngredients;
-    private TextView productName,price,productCode,sidePrice,ingredients;
+    private TextView productName,price,productCode,ingredients;
     private TextView txt_arrow_back,status,customerId,fname,lname;
     private TextInputLayout bilaoAddOns;
     private EditText quantity;
@@ -48,12 +46,12 @@ public class BilaoListDetail extends AppCompatActivity {
     private RadioButton radioButton;
     private RadioGroup rdVariation;
     private int count = 1;
+    private int newPrepTime = 0;
     private String image,category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bilao_list_detail);
-        priceLayout = findViewById(R.id.priceLayout);
         imageView = findViewById(R.id.image);
         productName = findViewById(R.id.bilaoproductName);
         bilaoAddOns = findViewById(R.id.bilaoadd_ons);
@@ -70,7 +68,6 @@ public class BilaoListDetail extends AppCompatActivity {
         ingredients = findViewById(R.id.ingredients);
         showIngredients = findViewById(R.id.showIngredients);
         ingredientsLayout = findViewById(R.id.ingredientLayout);
-        baseCardview = findViewById(R.id.baseCardview);
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
         btnDecrement.setEnabled(false); //set button decrement not clickable
@@ -139,56 +136,64 @@ public class BilaoListDetail extends AppCompatActivity {
         //get the value from its adapter
         Intent intent = getIntent();
         image = intent.getStringExtra("image");
-        String productname = intent.getStringExtra("productName");
         category = intent.getStringExtra("productCategory");
+        newPrepTime = intent.getIntExtra("preparationTime",0);
+        String productname = intent.getStringExtra("productName");
         String productprice = intent.getStringExtra("groupPriceBilao");
         String productvariation = intent.getStringExtra("productVariationBilao");
-        String newProductStatus = intent.getStringExtra("preparationTime");
         String groupCode = intent.getStringExtra("groupCode");
         String newIngredients =intent.getStringExtra("mainIngredients");
         String customerID = SharedPreference.getSharedPreference(BilaoListDetail.this).setEmail();
         String firstname = SharedPreference.getSharedPreference(BilaoListDetail.this).setFname();
         String lastname = SharedPreference.getSharedPreference(BilaoListDetail.this).setLname();
-        String[] splitVariation = productvariation.split(",");
-        String[] splitPrice = productprice.split(",");
-        String[] splitCode = groupCode.split(",");
         if(intent != null){
+            String[] splitVariation = productvariation.split(",");
+            String[] splitPrice = productprice.split(",");
+            String[] splitCode = groupCode.split(",");
             Glide.with(BilaoListDetail.this).load(image).into(imageView);
             productName.setText(productname);
             ingredients.setText(newIngredients.toLowerCase(Locale.ROOT));
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);
-            status.setText(newProductStatus.concat("min"));
             price.setText(splitPrice[0]);
+            //convert min to hour if preparation time is greater than or equal to 60 minutes
+            if (newPrepTime < 60){
+                status.setText(String.valueOf(newPrepTime).concat("min"));
+            }
+            else{
+                int convertMinHr = newPrepTime/60;
+                status.setText(String.valueOf(convertMinHr).concat("hr"));
+            }
+            //show product variation through looping
             for (int i = 0; i<splitVariation.length; i++){
                 radioButton = new RadioButton(this);
                 radioButton.setText(splitVariation[i]);
                 radioButton.setTextAppearance(this, android.R.style.TextAppearance);
                 rdVariation.addView(radioButton);
-
+                //get radio button text
+                rdVariation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        int selectSize = rdVariation.getCheckedRadioButtonId();
+                        radioButton = findViewById(selectSize);
+                        String variation =  radioButton.getText().toString();
+                        if(variation.contains("7 - 10 Person")){
+                            price.setText(splitPrice[0]);
+                            productCode.setText(splitCode[0]);
+                        }
+                        else if(variation.contains("10 -15 Person")){
+                            price.setText(splitPrice[1]);
+                            productCode.setText(splitCode[1]);
+                        }
+                        else{
+                            price.setText(splitPrice[2]);
+                            productCode.setText(splitCode[2]);
+                        }
+                    }
+                });
             }
-            //get radio button text
-            rdVariation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    int selectSize = rdVariation.getCheckedRadioButtonId();
-                    radioButton = findViewById(selectSize);
-                    String variation =  radioButton.getText().toString();
-                    if(variation.contains("7 - 10 Person")){
-                        price.setText(splitPrice[0]);
-                        productCode.setText(splitCode[0]);
-                    }
-                    else if(variation.contains("10 -15 Person")){
-                        price.setText(splitPrice[1]);
-                        productCode.setText(splitCode[1]);
-                    }
-                    else{
-                        price.setText(splitPrice[2]);
-                        productCode.setText(splitCode[2]);
-                    }
-                }
-            });
+
         }
         AddToCart();
     }
@@ -204,7 +209,7 @@ public class BilaoListDetail extends AppCompatActivity {
                     String id = customerId.getText().toString();
                     String code = productCode.getText().toString();
                     String product = productName.getText().toString();
-                    String add_ons = bilaoAddOns.getEditText().getText().toString();
+                    String specialReq = bilaoAddOns.getEditText().getText().toString();
                     int selectedSize = rdVariation.getCheckedRadioButtonId();
                     RadioButton size = findViewById(selectedSize);
                     String variation = size.getText().toString();
@@ -212,9 +217,9 @@ public class BilaoListDetail extends AppCompatActivity {
                     int number = Integer.parseInt(quantity.getText().toString());
                     String firstName = fname.getText().toString();
                     String lastName = lname.getText().toString();
-                    String preparedTime = status.getText().toString();
+                    String preparedTime = String.valueOf(newPrepTime);
                     ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,prices,number,add_ons,0,"",image,preparedTime);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,prices,number,"",0,specialReq,image,preparedTime);
                     cartModelCall.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {
