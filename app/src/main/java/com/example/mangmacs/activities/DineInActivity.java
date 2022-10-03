@@ -29,6 +29,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,8 @@ import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Circle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -62,6 +65,7 @@ import static android.content.ContentValues.TAG;
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class DineInActivity extends AppCompatActivity implements OrdersListener {
+    private ProgressBar progressBar;
     private TextView arrowBack,total,fullName,emailAddress,schedDate,guests;
     private RecyclerView recyclerViewOrder;
     private Button placeOrder;
@@ -98,6 +102,8 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
         schedDate = findViewById(R.id.schedDate);
         guests = findViewById(R.id.guests);
         placeOrder.setEnabled(false);
+        progressBar = findViewById(R.id.spin_kit);
+        progressBar.setVisibility(View.GONE);
         recyclerViewOrder = findViewById(R.id.recyclerviewOrder);
         recyclerViewOrder.setHasFixedSize(true);
         recyclerViewOrder.setLayoutManager(new LinearLayoutManager(this));
@@ -259,6 +265,9 @@ public class DineInActivity extends AppCompatActivity implements OrdersListener 
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Sprite circle = new Circle();
+                progressBar.setIndeterminateDrawable(circle);
+                progressBar.setVisibility(View.VISIBLE);
                 String fname = SharedPreference.getSharedPreference(DineInActivity.this).setFname();
                 String lname =SharedPreference.getSharedPreference(DineInActivity.this).setLname();
                 String email = SharedPreference.getSharedPreference(DineInActivity.this).setEmail();

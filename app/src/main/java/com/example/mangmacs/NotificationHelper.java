@@ -40,7 +40,7 @@ public class NotificationHelper {
             intent = new Intent(context, MyReservationActivity.class);
         }
         else if (title.equals("Not Available")){
-            intent = new Intent(context,MyOrdersActivity.class);
+            intent = new Intent(context,MyReservationActivity.class);
         }
         else{
             intent = new Intent(context, MyOrdersActivity.class);

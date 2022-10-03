@@ -9,13 +9,17 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mangmacs.adapter.CartAdapter;
 import com.example.mangmacs.adapter.PopularAdapter;
@@ -122,25 +126,31 @@ public class home_activity extends AppCompatActivity{
         });
     }
     private void ShowPopularLists() {
-        Sprite circle = new Circle();
-        progressBar.setIndeterminateDrawable(circle);
-        progressBar.setVisibility(View.VISIBLE);
-       Call<List<PizzaListModel>> call= apiInterface.getPopular();
-        call.enqueue(new Callback<List<PizzaListModel>>() {
-            @Override
-            public void onResponse(Call<List<PizzaListModel>> call, Response<List<PizzaListModel>> response) {
-                progressBar.setVisibility(View.GONE);
-                popularList = response.body();
-                popularAdapter = new PopularAdapter(home_activity.this,popularList);
-                recyclerView.setAdapter(popularAdapter);
-                refresh();
-            }
+        if (!isNetworkAvailable()){
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(home_activity.this,"No Connection",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Sprite circle = new Circle();
+            progressBar.setIndeterminateDrawable(circle);
+            progressBar.setVisibility(View.VISIBLE);
+            Call<List<PizzaListModel>> call= apiInterface.getPopular();
+            call.enqueue(new Callback<List<PizzaListModel>>() {
+                @Override
+                public void onResponse(Call<List<PizzaListModel>> call, Response<List<PizzaListModel>> response) {
+                    progressBar.setVisibility(View.GONE);
+                    popularList = response.body();
+                    popularAdapter = new PopularAdapter(home_activity.this,popularList);
+                    recyclerView.setAdapter(popularAdapter);
+                    refresh();
+                }
 
-            @Override
-            public void onFailure(Call<List<PizzaListModel>> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+                @Override
+                public void onFailure(Call<List<PizzaListModel>> call, Throwable t) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     private void Activites() {
@@ -315,6 +325,19 @@ public class home_activity extends AppCompatActivity{
             startActivity(intent);
         }
     }
-
+    //check internet connection
+    public boolean isNetworkAvailable(){
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = null;
+            if (connectivityManager != null){
+                networkInfo = connectivityManager.getActiveNetworkInfo();
+                return networkInfo != null && networkInfo.isConnected();
+            }
+        }catch (NullPointerException e){
+            return false;
+        }
+        return false;
+    }
 
 }

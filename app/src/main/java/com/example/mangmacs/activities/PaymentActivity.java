@@ -32,6 +32,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -45,6 +46,8 @@ import com.example.mangmacs.api.OrdersListener;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.SettingsModel;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Circle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -64,8 +67,8 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     private TextView arrowBack,total,customerID,emailAddress,deliveryFee,waitingTime;
     private Button payDelivery;
     private RecyclerView recyclerViewOrder;
-    private CardView cardViewImg;
     private ImageView imgPayment;
+    private ProgressBar progressBar;
     private List<CartModel> orderModelLists;
     private OrderListsAdapter orderListsAdapter;
     private String date,time,recipientName,phoneNumber,address,labelAddress,orderTime,token;
@@ -97,6 +100,8 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         emailAddress = findViewById(R.id.email);
         payDelivery = findViewById(R.id.payDelivery);
         imgPayment = findViewById(R.id.imgPayment);
+        progressBar = findViewById(R.id.spin_kit);
+        progressBar.setVisibility(View.GONE);
         recyclerViewOrder = findViewById(R.id.recyclerViewOrder);
         recyclerViewOrder.setHasFixedSize(true);
         recyclerViewOrder.setLayoutManager(new LinearLayoutManager(this));
@@ -257,6 +262,9 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
         payDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                   Sprite circle = new Circle();
+                   progressBar.setIndeterminateDrawable(circle);
+                   progressBar.setVisibility(View.VISIBLE);
                    String email = emailAddress.getText().toString();
                    String estTime = waitingTime.getText().toString();
                    String fname = SharedPreference.getSharedPreference(PaymentActivity.this).setFname();
