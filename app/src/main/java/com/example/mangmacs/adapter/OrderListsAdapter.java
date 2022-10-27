@@ -65,7 +65,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         holder.addOns.setText(orderModel.getAddOns());
         holder.variation.setText(splitVariation[0]);
         holder.items.setText(String.valueOf(orderModel.getQuantityCart()));
-        holder.price.setText(String.valueOf(orderModel.getPriceCart()));
+        holder.price.setText(String.valueOf(orderModel.getPriceCart()  + orderModel.getAddOnsFee()));
         holder.specialRequest.setText("\"" + orderModel.getSpecialRequest() + "\"");
         //
         String str_product = orderModel.getProoductNameCart();

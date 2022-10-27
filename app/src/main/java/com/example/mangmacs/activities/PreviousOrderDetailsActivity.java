@@ -101,16 +101,29 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderNumber.setText(newOrderNumber);
         deliveryFee.setText(newDeliveryFee);
         //show order received button if order status is equal to order completed
-        if (newOrderStatus.equals("Order Completed") || newOrderStatus.equals("Order Received")){
+        /*if (newOrderStatus.equals("Order Completed") || newOrderStatus.equals("Order Received")){
             cancelOrderLayout.setVisibility(View.GONE);
         }
-        else if(newOrderStatus.equals("Order Received")){
+        /*else if(newOrderStatus.equals("Order Received")){
             orderReceivedLayout.setVisibility(View.GONE);
-        }
-        else{
+        }*/
+        /*else{
             orderStatusLayout.setVisibility(View.GONE);
             orderReceivedLayout.setVisibility(View.GONE);
+        }*/
+        switch (newOrderStatus){
+            case "Order Completed":
+                cancelOrderLayout.setVisibility(View.GONE);
+                break;
+            case "Order Received":
+                orderReceivedLayout.setVisibility(View.GONE);
+                cancelOrderLayout.setVisibility(View.GONE);
+                break;
+            case "Cancelled":
+                orderReceivedLayout.setVisibility(View.GONE);
+                break;
         }
+
         //show customer information according to order type
         if (newOrderType.equals("Pick Up")){
             pickUpName.setText(newAccountName);

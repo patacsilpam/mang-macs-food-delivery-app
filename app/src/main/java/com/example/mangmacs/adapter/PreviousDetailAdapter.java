@@ -49,12 +49,14 @@ public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAd
     @Override
     public void onBindViewHolder(@NonNull PreviousDetailAdapter.ViewHolder holder, int position) {
         CurrentOrdersModel previousOrderModel = prevOrdersModelList.get(position);
+        int productPrice = Integer.parseInt(previousOrderModel.getPrice());
+        int addOnsPrice = Integer.parseInt(previousOrderModel.getAddOnsFee());
         Glide.with(context).load(previousOrderModel.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(previousOrderModel.getProducts());
         holder.textAddOns.setText(previousOrderModel.getAddOns());
         holder.textVariation.setText(previousOrderModel.getVariations());
         holder.items.setText(previousOrderModel.getQuantities());
-        holder.textPrice.setText(previousOrderModel.getPrice());
+        holder.textPrice.setText(String.valueOf(productPrice + addOnsPrice));
         holder.textSpecialRequest.setText("\"" + previousOrderModel.getSpecialRequest() + "\"");
         //set customer details to add to cart
         String fname = SharedPreference.getSharedPreference(context).setFname();

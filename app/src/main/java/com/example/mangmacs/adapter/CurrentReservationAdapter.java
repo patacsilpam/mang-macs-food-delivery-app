@@ -33,12 +33,14 @@ public class CurrentReservationAdapter extends RecyclerView.Adapter<CurrentReser
     @Override
     public void onBindViewHolder(@NonNull CurrentReservationAdapter.ViewHolder holder, int position) {
         ReservationModel reservationModel = reservationList.get(position);
+        int productPrice = Integer.parseInt(reservationModel.getPrice());
+        int addOnsPrice = Integer.parseInt(reservationModel.getAddOnsFee());
         Glide.with(context).load(reservationModel.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(reservationModel.getProducts());
         holder.textAddOns.setText(reservationModel.getAddOns());
         holder.textVariation.setText(reservationModel.getVariations());
         holder.items.setText(reservationModel.getQuantities());
-        holder.textPrice.setText(reservationModel.getPrice());
+        holder.textPrice.setText(String.valueOf(productPrice + addOnsPrice));
         holder.textSpecialRequest.setText("\"" + reservationModel.getSpecialRequest() + "\"");
         //fix the design
         if (reservationModel.getAddOns().equals("")){

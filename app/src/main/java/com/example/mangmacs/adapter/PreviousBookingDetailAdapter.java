@@ -48,12 +48,14 @@ public class PreviousBookingDetailAdapter extends RecyclerView.Adapter<PreviousB
     @Override
     public void onBindViewHolder(@NonNull PreviousBookingDetailAdapter.ViewHolder holder, int position) {
         ReservationModel reservationModel = reservationList.get(position);
+        int productPrice = Integer.parseInt(reservationModel.getPrice());
+        int addOnsPrice = Integer.parseInt(reservationModel.getAddOnsFee());
         Glide.with(context).load(reservationModel.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(reservationModel.getProducts());
         holder.textAddOns.setText(reservationModel.getAddOns());
         holder.textVariation.setText(reservationModel.getVariations());
         holder.items.setText(reservationModel.getQuantities());
-        holder.textPrice.setText(reservationModel.getPrice());
+        holder.textPrice.setText(String.valueOf(productPrice + addOnsPrice));
         holder.textSpecialRequest.setText(reservationModel.getSpecialRequest());
         //set customer details to add to cart
         String fname = SharedPreference.getSharedPreference(context).setFname();

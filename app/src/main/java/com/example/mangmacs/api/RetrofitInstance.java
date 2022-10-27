@@ -4,6 +4,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
+    //http://192.168.1.70/mang-macs-app-back-end-script/
+   //https://mangmacsmarinero.000webhostapp.com/mang-macs-app-back-end-script/
         public static Retrofit retrofit = null;
         public static final String URL = "http://192.168.1.70/mang-macs-app-back-end-script/";
         public static Retrofit getRetrofit() {

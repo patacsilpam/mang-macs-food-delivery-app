@@ -59,14 +59,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.quantity.setText(String.valueOf(cartModel.getQuantityCart()));
         holder.productAddOns.setText(cartModel.getAddOns());
         holder.productSpecialRequest.setText("\"" +cartModel.getSpecialRequest() + "\"");
-        String variation = String.valueOf(cartModel.getVariationCart());
         holder.productVariation.setText(cartModel.getVariationCart());
-        holder.productPrice.setText(String.valueOf(cartModel.getPriceCart()));
-        final int[] count = {Integer.parseInt(String.valueOf((cartModel.getQuantityCart())))};
+        holder.productPrice.setText(String.valueOf(cartModel.getPriceCart() + cartModel.getAddOnsFee()));
         holder.totalPrice.setText(String.valueOf(cartModel.getTotalprice()));
         holder.btnDecrement.setEnabled(true);
-        String quantityCart = holder.quantity.getText().toString();
 
+        final int[] count = {Integer.parseInt(String.valueOf((cartModel.getQuantityCart())))};
+        String quantityCart = holder.quantity.getText().toString();
         //increase  order product activity
         holder.btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +74,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 holder.quantity.setText(String.valueOf(count[0]));
                 int id = Integer.parseInt(holder.productID.getText().toString());
                 int orderQuantity = Integer.parseInt(holder.quantity.getText().toString());
+
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 Call<CartModel> updateOrderQuantity = apiInterface.updateQuantity(id,orderQuantity);
                 updateOrderQuantity.enqueue(new Callback<CartModel>() {
@@ -98,7 +98,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             }
         });
 
-        //disable decrement button  if equals to 1 quantity
+        //disable minus button  if equals to 1 quantity
        if (quantityCart.equals("1")){
            holder.btnDecrement.setEnabled(false);
            holder.btnDecrement.setBackground(ContextCompat.getDrawable(context, R.drawable.minus_btn));
@@ -136,7 +136,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
            });
        }
 
-        //delete cart item
+        //delete cart item button functionality
         holder.deleteCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

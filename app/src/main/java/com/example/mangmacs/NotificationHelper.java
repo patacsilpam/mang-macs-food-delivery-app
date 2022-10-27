@@ -1,5 +1,4 @@
 package com.example.mangmacs;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -23,8 +22,23 @@ import com.example.mangmacs.fragment.PreviousOrders;
 
 public class NotificationHelper {
    public static void displayNotification(Context context, String title, String body){
+       //open list of orders or reservation by notification title
        Intent intent = new Intent(context, AccountActivity.class);
-        if (title.equals("Order Received") || title.equals("Order Processing")){
+       switch (title){
+           case "Order Received":
+           case "Order Processing":
+           case "Out for Delivery":
+           case "Ready for Pick Up":
+           case "Order Completed":
+               intent = new Intent(context,MyOrdersActivity.class);
+               break;
+           case "Reserved":
+           case "Not Available":
+           case "Finished":
+               intent = new Intent(context,MyReservationActivity.class);
+               break;
+       }
+        /*if (title.equals("Order Received") || title.equals("Order Processing")){
             intent = new Intent(context, MyOrdersActivity.class);
         }
         else if (title.equals("Out for Delivery")){
@@ -44,7 +58,7 @@ public class NotificationHelper {
         }
         else{
             intent = new Intent(context, MyOrdersActivity.class);
-        }
+        }*/
 
        PendingIntent pendingIntent = PendingIntent.getActivity(context,100,intent,PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, sign_up_activity.CHANNEL_ID)

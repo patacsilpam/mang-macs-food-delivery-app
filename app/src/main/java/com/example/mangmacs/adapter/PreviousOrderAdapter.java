@@ -35,10 +35,12 @@ public class PreviousOrderAdapter extends RecyclerView.Adapter<PreviousOrderAdap
     @Override
     public void onBindViewHolder(@NonNull PreviousOrderAdapter.ViewHolder holder, int position) {
         CurrentOrdersModel previousOrderModel = previousOrderList.get(position);
+        int productPrice = Integer.parseInt(previousOrderModel.getPrice());
+        int addOnsPrice = Integer.parseInt(previousOrderModel.getAddOnsFee());
         Glide.with(context).load(previousOrderModel.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(previousOrderModel.getProducts());
         holder.textVariation.setText(previousOrderModel.getVariations());
-        holder.textPrice.setText(previousOrderModel.getTotalAmount());
+        holder.textPrice.setText(String.valueOf(productPrice + addOnsPrice));
         holder.items.setText(previousOrderModel.getQuantities());
         holder.orderStatus.setText(previousOrderModel.getOrderStatus());
         holder.orderType.setText(previousOrderModel.getOrderType());

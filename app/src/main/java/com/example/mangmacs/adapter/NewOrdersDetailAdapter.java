@@ -51,12 +51,14 @@ public class NewOrdersDetailAdapter extends RecyclerView.Adapter<NewOrdersDetail
     @Override
     public void onBindViewHolder(@NonNull NewOrdersDetailAdapter.ViewHolder holder, int position) {
         CurrentOrdersModel currentOrdersModels = currentOrdersModelList.get(position);
+        int productPrice = Integer.parseInt(currentOrdersModels.getPrice());
+        int addOnsPrice = Integer.parseInt(currentOrdersModels.getAddOnsFee());
         Glide.with(context).load(currentOrdersModels.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(currentOrdersModels.getProducts());
         holder.textAddOns.setText(currentOrdersModels.getAddOns());
         holder.textVariation.setText(currentOrdersModels.getVariations());
         holder.items.setText(currentOrdersModels.getQuantities());
-        holder.textPrice.setText(currentOrdersModels.getPrice());
+        holder.textPrice.setText(String.valueOf(productPrice + addOnsPrice));
         holder.textSpecialRequest.setText("\"" + currentOrdersModels.getSpecialRequest() + "\"");
         String totalAmount = currentOrdersModels.getTotalAmount();
         String orderNumber = currentOrdersModels.getOrderNumber();

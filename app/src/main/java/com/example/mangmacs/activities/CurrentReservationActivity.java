@@ -60,7 +60,6 @@ public class CurrentReservationActivity extends AppCompatActivity {
         newBookDetails = findViewById(R.id.newBookDetails);
         newBookDetails.setHasFixedSize(true);
         newBookDetails.setLayoutManager(new LinearLayoutManager(this));
-        cancelBooking.setEnabled(false);
         showBookingDetails();
         Back();
     }
@@ -112,6 +111,8 @@ public class CurrentReservationActivity extends AppCompatActivity {
 
     private void dismissBooking(){
         String status = bookingStatus.getText().toString();
+        String orderNumber = newOrderNumber.getText().toString();
+        Toast.makeText(getApplicationContext(),orderNumber,Toast.LENGTH_SHORT).show();
         if (status.equals("Pending")){
             cancelBookingLayout.setVisibility(View.VISIBLE);
             cancelBooking.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +124,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                                    Call<CartModel> callReservation = apiInterface.cancelBookings(id);
+                                    Call<CartModel> callReservation = apiInterface.cancelBookings(orderNumber);
                                     callReservation.enqueue(new Callback<CartModel>() {
                                         @Override
                                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {
@@ -157,6 +158,8 @@ public class CurrentReservationActivity extends AppCompatActivity {
             cancelBookingLayout.setVisibility(View.GONE);
             cancelBooking.setBackgroundColor(Color.LTGRAY);
         }
+
+
     }
     private void Back(){
         arrowBack.setOnClickListener(new View.OnClickListener() {
