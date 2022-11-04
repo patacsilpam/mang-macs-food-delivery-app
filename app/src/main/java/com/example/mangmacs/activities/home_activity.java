@@ -276,8 +276,8 @@ public class home_activity extends AppCompatActivity{
                         startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.order:
-                        startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
+                    case R.id.book:
+                        startActivity(new Intent(getApplicationContext(), ReservationActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

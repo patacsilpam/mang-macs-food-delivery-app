@@ -37,7 +37,7 @@ public class CurrentBookingAdapter extends RecyclerView.Adapter<CurrentBookingAd
         holder.reservationName.setText(reservationModel.getFname().concat(" ").concat(reservationModel.getLname()));
         holder.reservedDateTime.setText(reservationModel.getScheduled_date().concat(" - ").concat(reservationModel.getScheduled_time()));
         holder.guests.setText(reservationModel.getGuests().concat(" people"));
-        holder.totalAmount.setText("₱ " + reservationModel.getTotalAmount().concat(".00"));
+        //holder.totalAmount.setText("₱ " + reservationModel.getTotalAmount().concat(".00"));
         holder.createdAt.setText(reservationModel.getCreatedAt());
         holder.reservationStatus.setText(reservationModel.getStatus());
         holder.viewMore.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +73,7 @@ public class CurrentBookingAdapter extends RecyclerView.Adapter<CurrentBookingAd
             reservationName = itemView.findViewById(R.id.reservedName);
             reservedDateTime = itemView.findViewById(R.id.reservedDateTime);
             guests = itemView.findViewById(R.id.guests);
-            totalAmount = itemView.findViewById(R.id.totalAmount);
+            //totalAmount = itemView.findViewById(R.id.totalAmount);
             createdAt = itemView.findViewById(R.id.createdAt);
             reservationStatus = itemView.findViewById(R.id.reservationStatus);
             viewMore = itemView.findViewById(R.id.viewMore);

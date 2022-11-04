@@ -86,7 +86,7 @@ public class PreviousReservation extends Fragment {
                     addBook.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(getActivity(), MenuActivty.class));
+                            startActivity(new Intent(getActivity(), ReservationActivity.class));
                         }
                     });
                 }

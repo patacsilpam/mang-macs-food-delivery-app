@@ -155,9 +155,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#634E548F" />
-
             <TextView
-                android:id="@+id/myBook"
+                android:id="@+id/myOrders"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
@@ -165,10 +164,25 @@
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
                 android:padding="15dp"
+                android:text="My Orders"
+                android:textColor="#232323"
+                android:textSize="14sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="#634E548F" />
+            <TextView
+                android:id="@+id/myBook"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:padding="15dp"
                 android:text="My Table Reservation"
                 android:textColor="#232323"
                 android:textSize="14sp" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

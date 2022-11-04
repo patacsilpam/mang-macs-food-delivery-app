@@ -62,9 +62,10 @@ public class ReservationActivity extends AppCompatActivity implements AdapterVie
     private Spinner spinnerDiningArea;
     private TextInputEditText people,date,time,commentSuggestion;
     private TextInputLayout guestsError,dateError,timeError;
-    private TextView diningAreaError,textRequired,arrowBack;
+    private TextView diningAreaError,textRequired;
     private Button btnBookNow;
     private RelativeLayout bgDiningArea;
+    private BottomNavigationView bottomNavigationView;
     private int hour,min;
     private String token,strDiningArea;
     private String[] diningAreaList = {"Please select dining area","Resto","Venue"};
@@ -82,16 +83,17 @@ public class ReservationActivity extends AppCompatActivity implements AdapterVie
         dateError = findViewById(R.id.dateError);
         timeError = findViewById(R.id.timeError);
         textRequired = findViewById(R.id.textRequired);
-        arrowBack = findViewById(R.id.txt_arrow_back);
         bgDiningArea = findViewById(R.id.bgDiningArea);
         btnBookNow = findViewById(R.id.btnBookNow);
+        bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.book);
         textRequired.setVisibility(View.GONE);
         spinnerDiningArea.setOnItemSelectedListener(this);
         setDiningArea();
         SetCalendar();
         Booking();
         setFirebaseToken();
-        Back();
+        BottomNav();
     }
     private void setFirebaseToken(){
         FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
@@ -253,14 +255,6 @@ public class ReservationActivity extends AppCompatActivity implements AdapterVie
             }
         });
     }
-    private void Back(){
-        arrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ReservationActivity.this,OrderModeActivity.class));
-            }
-        });
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -280,5 +274,28 @@ public class ReservationActivity extends AppCompatActivity implements AdapterVie
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+    private void BottomNav() {
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), home_activity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.menu:
+                        startActivity(new Intent(getApplicationContext(),MenuActivty.class));
+                        overridePendingTransition(0,0);
+                    case R.id.book:
+                        return true;
+                    case R.id.account:
+                        startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
 
+                }
+                return true;
+            }
+        });
+    }
 }

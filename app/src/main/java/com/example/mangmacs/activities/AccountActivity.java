@@ -25,8 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class AccountActivity extends AppCompatActivity {
-    private TextView logout,myAccount,changePassword,savedAddress,myBook,initial,customerName,email;
-    private int STORAGE_PERMISSION_CODE = 100;
+    private TextView logout,myAccount,changePassword,savedAddress,myOrders,myBook,initial,customerName,email;
     private AlertDialog.Builder alertDialog;
     private BottomNavigationView bottomNavigationView;
     @Override
@@ -40,6 +39,7 @@ public class AccountActivity extends AppCompatActivity {
         initial = findViewById(R.id.initials);
         customerName = findViewById(R.id.customerName);
         email = findViewById(R.id.email);
+        myOrders = findViewById(R.id.myOrders);
         myBook = findViewById(R.id.myBook);
         String fname = SharedPreference.getSharedPreference(this).setFname();
         String lname =  SharedPreference.getSharedPreference(this).setLname();
@@ -59,6 +59,7 @@ public class AccountActivity extends AppCompatActivity {
         MyAccount();
         ChangePassword();
         SavedAddress();
+        MyOrders();
         MyBookings();
     }
 
@@ -77,8 +78,8 @@ public class AccountActivity extends AppCompatActivity {
                         return true;
                     case R.id.account:
                         return true;
-                    case R.id.order:
-                        startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
+                    case R.id.book:
+                        startActivity(new Intent(getApplicationContext(), ReservationActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -119,6 +120,15 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AccountActivity.this,MyReservationActivity.class));
+            }
+        });
+    }
+
+    private void MyOrders(){
+        myOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountActivity.this,MyOrdersActivity.class));
             }
         });
     }

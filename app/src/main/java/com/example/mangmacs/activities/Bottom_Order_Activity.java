@@ -24,8 +24,8 @@ public class Bottom_Order_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_order);
-        bottomNavigationView =  findViewById(R.id.bottom_nav);
-        bottomNavigationView.setSelectedItemId(R.id.order);
+        //bottomNavigationView =  findViewById(R.id.bottom_nav);
+       // bottomNavigationView.setSelectedItemId(R.id.order);
         ordersTablayout = findViewById(R.id.ordersTabLayout);
         viewPager = findViewById(R.id.viewPager);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -55,9 +55,9 @@ public class Bottom_Order_Activity extends AppCompatActivity {
                 ordersTablayout.selectTab(ordersTablayout.getTabAt(position));
             }
         });
-        BottomNav();
+        //BottomNav();
     }
-    private void BottomNav() {
+    /*private void BottomNav() {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -81,5 +81,5 @@ public class Bottom_Order_Activity extends AppCompatActivity {
                 return true;
             }
         });
-    }
+    }*/
 }

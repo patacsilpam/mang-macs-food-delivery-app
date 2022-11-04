@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
 import com.example.mangmacs.activities.MenuActivty;
+import com.example.mangmacs.activities.ReservationActivity;
 import com.example.mangmacs.adapter.PreviousOrderAdapter;
 import com.example.mangmacs.api.ApiInterface;
 import com.example.mangmacs.api.RetrofitInstance;
@@ -83,7 +84,7 @@ public class PreviousOrders extends Fragment {
                     addOrder.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(getActivity(), MenuActivty.class));
+                            startActivity(new Intent(getActivity(), ReservationActivity.class));
                         }
                     });
 

@@ -156,8 +156,8 @@ public class MenuActivty extends AppCompatActivity {
                         return true;
                     case R.id.menu:
                         return true;
-                    case R.id.order:
-                        startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
+                    case R.id.book:
+                        startActivity(new Intent(getApplicationContext(), ReservationActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.account:

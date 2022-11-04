@@ -196,7 +196,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
+                startActivity(new Intent(getApplicationContext(), MyOrdersActivity.class));
             }
         });
     }

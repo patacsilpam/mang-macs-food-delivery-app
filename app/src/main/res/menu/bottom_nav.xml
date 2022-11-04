@@ -6,9 +6,9 @@
     <item android:id="@+id/menu"
         android:icon="@drawable/ic_baseline_local_pizza"
         android:title="Menu"/>
-    <item android:id="@+id/order"
-        android:icon="@drawable/shopping_bag"
-        android:title="Orders"/>
+    <item android:id="@+id/book"
+        android:icon="@drawable/custom_time_icon"
+        android:title="Book"/>
     <item android:id="@+id/account"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="Account"/>

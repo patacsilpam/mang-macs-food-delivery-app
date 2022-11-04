@@ -35,11 +35,11 @@ public class PreviousReservationActivity extends AppCompatActivity {
     private PreviousBookingDetailAdapter reservationAdapter;
     private List<ReservationModel> reservationModelList;
     private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,newTotalAmount,newOrderNumber,txt_total_amount,arrowBack;
-    private RecyclerView previousBookDetails;
     private Button bookingStatus,orderReceived;
     private CardView cancelOrderLayout;
     private RelativeLayout orderReceivedLayout;
     private String id,orderNumber;
+    //private RecyclerView previousBookDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +53,12 @@ public class PreviousReservationActivity extends AppCompatActivity {
         newTotalAmount = findViewById(R.id.totalAmount);
         newOrderNumber = findViewById(R.id.bookOrderNumber);
         txt_total_amount = findViewById(R.id.total_amount);
-        orderReceived = findViewById(R.id.orderReceived);
-        orderReceivedLayout = findViewById(R.id.orderReceivedLayout);
         cancelOrderLayout = findViewById(R.id.cancelOrderLayout);
-        previousBookDetails = findViewById(R.id.previousBookDetails);
+        /*orderReceived = findViewById(R.id.orderReceived);
+        orderReceivedLayout = findViewById(R.id.orderReceivedLayout);*/
+        /*previousBookDetails = findViewById(R.id.previousBookDetails);
         previousBookDetails.setHasFixedSize(true);
-        previousBookDetails.setLayoutManager(new LinearLayoutManager(this));
+        previousBookDetails.setLayoutManager(new LinearLayoutManager(this));*/
         showBookingDetails();
         Back();
     }
@@ -80,15 +80,15 @@ public class PreviousReservationActivity extends AppCompatActivity {
         newReservedName.setText(firstLastName);
         newEmailAddress.setText(emailAddress);
         newScheduledTime.setText(time);
-        newTotalAmount.setText("₱ ".concat(totalAmount).concat(".00"));
+        //newTotalAmount.setText("₱ ".concat(totalAmount).concat(".00"));
         newGuests.setText(guests.concat(" people"));
         bookingStatus.setText(status);
         newOrderNumber.setText(orderNumber);
-        showBookingOrders();
-        setOrderReceived();
+        //showBookingOrders();
+       // setOrderReceived();
         //show order received button if order status is equal to resereved
         if ((status.equals("Reserved") || status.equals("Order Received")) || (status.equals("Pending") || status.equals("Finished"))){
-            orderReceivedLayout.setVisibility(View.GONE);
+            //orderReceivedLayout.setVisibility(View.GONE);
             cancelOrderLayout.setVisibility(View.GONE);
             if(status.equals("Finished")){
                 bookingStatus.setText("Completed");
@@ -96,12 +96,12 @@ public class PreviousReservationActivity extends AppCompatActivity {
         }
 
         else{
-            txt_total_amount.setText("₱ ".concat(totalAmount).concat(" .00"));
-            orderReceivedLayout.setVisibility(View.GONE);
+            //txt_total_amount.setText("₱ ".concat(totalAmount).concat(" .00"));
+            //orderReceivedLayout.setVisibility(View.GONE);
             bookingStatus.setVisibility(View.GONE);
         }
     }
-    private void showBookingOrders() {
+    /*private void showBookingOrders() {
         String emailAddress = SharedPreference.getSharedPreference(PreviousReservationActivity.this).setEmail();
         String orderNumber = newOrderNumber.getText().toString();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -119,8 +119,9 @@ public class PreviousReservationActivity extends AppCompatActivity {
 
             }
         });
-    }
-    private void setOrderReceived(){
+    }*/
+    /*private void setOrderReceived(){
+
         orderReceived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,7 +145,7 @@ public class PreviousReservationActivity extends AppCompatActivity {
                 });
             }
         });
-    }
+    }*/
     private void Back(){
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override

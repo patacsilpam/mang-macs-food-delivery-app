@@ -39,7 +39,6 @@ public class CurrentReservationActivity extends AppCompatActivity {
     private CurrentReservationAdapter reservationAdapter;
     private List<ReservationModel> reservationModelList;
     private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack,newTotalAmount,newOrderNumber;
-    private RecyclerView newBookDetails;
     private Button bookingStatus,cancelBooking;
     private RelativeLayout cancelBookingLayout;
     private String id;
@@ -57,9 +56,9 @@ public class CurrentReservationActivity extends AppCompatActivity {
         newTotalAmount = findViewById(R.id.totalAmount);
         newOrderNumber = findViewById(R.id.bookOrderNumber);
         cancelBookingLayout = findViewById(R.id.cancelBookingLayout);
-        newBookDetails = findViewById(R.id.newBookDetails);
+        /*newBookDetails = findViewById(R.id.newBookDetails);
         newBookDetails.setHasFixedSize(true);
-        newBookDetails.setLayoutManager(new LinearLayoutManager(this));
+        newBookDetails.setLayoutManager(new LinearLayoutManager(this));*/
         showBookingDetails();
         Back();
     }
@@ -81,15 +80,15 @@ public class CurrentReservationActivity extends AppCompatActivity {
         newReservedName.setText(firstLastName);
         newEmailAddress.setText(emailAddress);
         newScheduledTime.setText(time);
-        newTotalAmount.setText("₱ ".concat(totalAmount).concat(" .00"));
+       // newTotalAmount.setText("₱ ".concat(totalAmount).concat(" .00"));
         newGuests.setText(guests.concat(" people"));
         bookingStatus.setText(status);
         newOrderNumber.setText(orderNumber);
-        showBookingOrders();
+        //showBookingOrders();
         dismissBooking();
     }
 
-    private void showBookingOrders() {
+   /* private void showBookingOrders() {
         String emailAddress = SharedPreference.getSharedPreference(CurrentReservationActivity.this).setEmail();
         String orderNumber = newOrderNumber.getText().toString();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -108,7 +107,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
             }
         });
     }
-
+*/
     private void dismissBooking(){
         String status = bookingStatus.getText().toString();
         String orderNumber = newOrderNumber.getText().toString();

@@ -15,15 +15,8 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
            <TextView
-               android:id="@+id/txt_arrow_back"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
-               android:drawableStart="@drawable/ic_baseline_arrow_back"/>
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_toEndOf="@+id/txt_arrow_back"
                android:text="Table Reservation"
                android:textSize="24sp"
                android:textColor="#000"
@@ -163,5 +156,15 @@
                 android:textSize="24sp" />
         </LinearLayout>
     </ScrollView>
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/home_bg_color"
+        app:itemIconTint="@drawable/icon_pressed"
+        app:itemTextColor="@drawable/icon_pressed"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav" />
 </RelativeLayout>

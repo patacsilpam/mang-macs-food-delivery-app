@@ -182,7 +182,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Bottom_Order_Activity.class));
+                startActivity(new Intent(getApplicationContext(), MyOrdersActivity.class));
             }
         });
     }
