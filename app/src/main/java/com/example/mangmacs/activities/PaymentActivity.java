@@ -9,7 +9,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -17,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,8 +33,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +62,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PaymentActivity extends AppCompatActivity implements OrdersListener {
+    private Context context = this;
     private TextView arrowBack,total,customerID,emailAddress,deliveryFee,waitingTime;
     private Button payDelivery;
     private RecyclerView recyclerViewOrder;
@@ -88,6 +87,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
     private ArrayList<String> priceList = new ArrayList<>();
     private ArrayList<String> imgProductList = new ArrayList<>();
     private ArrayList<String> preparationTimeList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -267,6 +267,7 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
                    progressBar.setVisibility(View.VISIBLE);
                    String email = emailAddress.getText().toString();
                    String estTime = waitingTime.getText().toString();
+                   String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
                    String fname = SharedPreference.getSharedPreference(PaymentActivity.this).setFname();
                    String lname = SharedPreference.getSharedPreference(PaymentActivity.this).setLname();
                    String accountName = fname.concat(" ").concat(lname);
@@ -274,7 +275,6 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
                    String orderStatus = "Pending";
                    String orderType = "Deliver";
                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
                    Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,recipientName,address,labelAddress,token,email,phoneNumber,orderLists,productCategoryList,variationList,quantityList,addOnsList,addOnsFeeList,specialReqList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus,date,time,devChange,estTime);
                    insertOrder.enqueue(new Callback<CartModel>() {
                        @Override
@@ -282,8 +282,18 @@ public class PaymentActivity extends AppCompatActivity implements OrdersListener
                            if (response.body() != null){
                                String success = response.body().getSuccess();
                                if (success.equals("1")){
-                                   startActivity(new Intent(getApplicationContext(),home_activity.class));
-                                   Toast.makeText(getApplicationContext(),"Ordered Successfully",Toast.LENGTH_SHORT).show();
+                                   final Dialog dialog = new Dialog(context);
+                                   dialog.setContentView(R.layout.order_success_dialog);
+                                   Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
+                                   // if button is clicked, close the custom dialog
+                                   dialogButton.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           dialog.dismiss();
+                                           startActivity(new Intent(getApplicationContext(),home_activity.class));
+                                       }
+                                   });
+                                    dialog.show();
                                }
                            }
                        }

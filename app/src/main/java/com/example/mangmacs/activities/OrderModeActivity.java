@@ -31,14 +31,14 @@ public class OrderModeActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setElevation(0);
-        dineIn = findViewById(R.id.dineIn);
+        //dineIn = findViewById(R.id.dineIn);
         pickUp = findViewById(R.id.pickUp);
         delivery = findViewById(R.id.delivery);
-        DineIn();
+        //DineIn();
         PickUp();
         Delivery();
     }
-    private void DineIn(){
+    /*private void DineIn(){
         dineIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +46,7 @@ public class OrderModeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+    }*/
     private void PickUp(){
         pickUp.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -57,7 +57,6 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
           @Override
           public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
               if (isChecked){
-
                   selectedPosition = holder.getBindingAdapterPosition();
                   strFullName = holder.name.getText().toString();
                   strAddress = holder.address.getText().toString();
@@ -65,7 +64,6 @@ public class DeliveryAddressAdapter extends RecyclerView.Adapter<DeliveryAddress
                   strLabelAddress = holder.categoryaddress.getText().toString();
                   isCheckButton = 1;
                   notifyDataSetChanged();
-
               }
 
           }

@@ -34,7 +34,7 @@ import retrofit2.Response;
 public class PreviousReservationActivity extends AppCompatActivity {
     private PreviousBookingDetailAdapter reservationAdapter;
     private List<ReservationModel> reservationModelList;
-    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,newTotalAmount,newOrderNumber,txt_total_amount,arrowBack;
+    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,newTotalAmount,newOrderNumber,newSpecialRequest,txt_total_amount,arrowBack;
     private Button bookingStatus,orderReceived;
     private CardView cancelOrderLayout;
     private RelativeLayout orderReceivedLayout;
@@ -44,15 +44,16 @@ public class PreviousReservationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_reservation);
-        newReservedName = findViewById(R.id.bookName);
-        newEmailAddress = findViewById(R.id.bookEmail);
+        newReservedName = findViewById(R.id.reservedName);
+        newEmailAddress = findViewById(R.id.reservedEmail);
         newScheduledTime = findViewById(R.id.bookSchedDateTime);
         newGuests = findViewById(R.id.bookGuests);
         arrowBack = findViewById(R.id.arrow_back);
         bookingStatus = findViewById(R.id.bookingStatus);
         newTotalAmount = findViewById(R.id.totalAmount);
-        newOrderNumber = findViewById(R.id.bookOrderNumber);
+        newOrderNumber = findViewById(R.id.reservedNumber);
         txt_total_amount = findViewById(R.id.total_amount);
+        newSpecialRequest = findViewById(R.id.specialRequest);
         cancelOrderLayout = findViewById(R.id.cancelOrderLayout);
         /*orderReceived = findViewById(R.id.orderReceived);
         orderReceivedLayout = findViewById(R.id.orderReceivedLayout);*/
@@ -74,18 +75,22 @@ public class PreviousReservationActivity extends AppCompatActivity {
         String guests = intent.getStringExtra("guests");
         String status = intent.getStringExtra("bookingStatus");
         String totalAmount = intent.getStringExtra("totalAmount");
+        String specialReq = intent.getStringExtra("specialRequest");
         String firstLastName = firstname.concat(" ").concat(lastname);
         String time = schedDate.concat(" ").concat(schedTime);
         //display booking details
+        newGuests.setText(guests.concat(" people"));
         newReservedName.setText(firstLastName);
         newEmailAddress.setText(emailAddress);
         newScheduledTime.setText(time);
-        //newTotalAmount.setText("₱ ".concat(totalAmount).concat(".00"));
-        newGuests.setText(guests.concat(" people"));
-        bookingStatus.setText(status);
         newOrderNumber.setText(orderNumber);
-        //showBookingOrders();
-       // setOrderReceived();
+        bookingStatus.setText(status);
+        newSpecialRequest.setText(specialReq);
+        /*newTotalAmount.setText("₱ ".concat(totalAmount).concat(".00"));
+        newGuests.setText(guests.concat(" people"));
+        newOrderNumber.setText(orderNumber);
+        showBookingOrders();
+        setOrderReceived();*/
         //show order received button if order status is equal to resereved
         if ((status.equals("Reserved") || status.equals("Order Received")) || (status.equals("Pending") || status.equals("Finished"))){
             //orderReceivedLayout.setVisibility(View.GONE);
@@ -101,7 +106,16 @@ public class PreviousReservationActivity extends AppCompatActivity {
             bookingStatus.setVisibility(View.GONE);
         }
     }
-    /*private void showBookingOrders() {
+
+    private void Back(){
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MyReservationActivity.class));
+            }
+        });
+    }
+     /*private void showBookingOrders() {
         String emailAddress = SharedPreference.getSharedPreference(PreviousReservationActivity.this).setEmail();
         String orderNumber = newOrderNumber.getText().toString();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -146,12 +160,4 @@ public class PreviousReservationActivity extends AppCompatActivity {
             }
         });
     }*/
-    private void Back(){
-        arrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MyReservationActivity.class));
-            }
-        });
-    }
 }

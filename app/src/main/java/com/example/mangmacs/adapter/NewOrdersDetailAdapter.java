@@ -54,7 +54,10 @@ public class NewOrdersDetailAdapter extends RecyclerView.Adapter<NewOrdersDetail
         int productPrice = Integer.parseInt(currentOrdersModels.getPrice());
         int addOnsPrice = Integer.parseInt(currentOrdersModels.getAddOnsFee());
         Glide.with(context).load(currentOrdersModels.getImgProduct()).into(holder.imgProduct);
+        holder.textAddOns.setText(currentOrdersModels.getAddOns());
         holder.textProduct.setText(currentOrdersModels.getProducts());
+        //holder.textProductPrice.setText(String.valueOf("( " + currentOrdersModels.getPrice() + ".00 )"));
+        //holder.textAddOnsPrice.setText(String.valueOf("( " + currentOrdersModels.getAddOnsFee() +".00 )"));
         holder.textAddOns.setText(currentOrdersModels.getAddOns());
         holder.textVariation.setText(currentOrdersModels.getVariations());
         holder.items.setText(currentOrdersModels.getQuantities());
@@ -68,6 +71,7 @@ public class NewOrdersDetailAdapter extends RecyclerView.Adapter<NewOrdersDetail
         //fix the design
         if (currentOrdersModels.getAddOns().equals("")){
             holder.textAddOns.setVisibility(View.GONE);
+            holder.textAddOnsPrice.setVisibility(View.GONE);
         }
         if (currentOrdersModels.getVariations().equals("")){
             holder.textVariation.setVisibility(View.GONE);
@@ -82,12 +86,14 @@ public class NewOrdersDetailAdapter extends RecyclerView.Adapter<NewOrdersDetail
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgProduct;
-        private TextView textProduct,textAddOns,textSpecialRequest,textVariation,items,textPrice;
+        private TextView textProduct,textProductPrice,textAddOns,textAddOnsPrice,textSpecialRequest,textVariation,items,textPrice;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             textProduct = itemView.findViewById(R.id.textProduct);
+            textProductPrice = itemView.findViewById(R.id.textProductPrice);
             textAddOns = itemView.findViewById(R.id.textAddOns);
+            textAddOnsPrice = itemView.findViewById(R.id.textAddOnsPrice);
             textSpecialRequest = itemView.findViewById(R.id.textSpecialRequest);
             textVariation = itemView.findViewById(R.id.textVariation);
             textPrice = itemView.findViewById(R.id.textPrice);

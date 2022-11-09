@@ -178,6 +178,7 @@ public class PopularDetailActivity extends AppCompatActivity {
                 variation.addView(radioButton);
             }
             //check variation array length
+            variation.check(variation.getChildAt(0).getId());
             variation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {

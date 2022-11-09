@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,8 +33,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +69,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PickUpPayment extends AppCompatActivity implements OrdersListener {
+    private Context context = this;
     private ProgressBar progressBar;
     private TextView arrowBack,total,waitingTime;
     private Button pickUpOrder;
@@ -239,6 +239,12 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
             totalPrice = intent.getIntExtra("totalorderprice",0);
             total.setText(String.valueOf(totalPrice));
            estTime = intent.getStringExtra("waitingTime");
+            if(orderTime.equals("now")){
+                waitingTime.setText(estTime + " min");
+            }
+            else{
+                waitingTime.setText(date + " " + time);
+            }
         }
     };
     private void Back() {
@@ -262,7 +268,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
 
     @Override
     public void onProductCodeChange(ArrayList<String> productCodes) {
-        productCodeList = productCodes;
+        /*productCodeList = productCodes;
         ArrayList<String> stockList = new ArrayList<>();
         String emailAddress = SharedPreference.getSharedPreference(this).setEmail();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -286,7 +292,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
                     waitingTime.setText(date + " " + time);
 
                 }
-               else if(stockList.contains("False")){
+               else {
                    try {
                        Date newDate = new Date();
                        SimpleDateFormat df = new SimpleDateFormat("hh:mm aa");
@@ -300,11 +306,14 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
                        waitingTime.setText(newTime);
                    } catch (ParseException e) {
                        e.printStackTrace();
+                   }*/
+                   /*if(orderTime.equals("now")){
+                       waitingTime.setText(estTime + " min");
+                   }
+                   else{
+                       waitingTime.setText(date + " " + time);
                    }
                }
-                else{
-                    waitingTime.setText("Pick Up anytime");
-                }
 
             }
 
@@ -313,47 +322,9 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
 
             }
 
-        });
+        });*/
     }
-    private void PickUpOrders() {
-        pickUpOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Sprite circle = new Circle();
-                progressBar.setIndeterminateDrawable(circle);
-                progressBar.setVisibility(View.VISIBLE);
-                String fname = SharedPreference.getSharedPreference(PickUpPayment.this).setFname();
-                String lname = SharedPreference.getSharedPreference(PickUpPayment.this).setLname();
-                String email = SharedPreference.getSharedPreference(PickUpPayment.this).setEmail();
-                String accountName = fname.concat(" ").concat(lname);
-                String estTime = waitingTime.getText().toString();
-                String orderType = "Pick Up";
-                String orderStatus = "Pending";
-                String paymentPhoto = imageToString();
-                String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
-                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,"","","",token,email,"",orderLists,productCategoryList,variationList,quantityList,addOnsList,addOnsFeeList,specialReqList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus,date,time,0,estTime);
-                insertOrder.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if (response.body() != null) {
-                            String success = response.body().getSuccess();
-                            if (success.equals("1")) {
-                                startActivity(new Intent(getApplicationContext(), home_activity.class));
-                                Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
-                        startActivity(new Intent(getApplicationContext(), home_activity.class));
-                        Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-    }
     @Override
     public void onVariationChange(ArrayList<String> variations) {
         variationList = variations;
@@ -407,5 +378,54 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     @Override
     public void onPreparationTimeChange(ArrayList<String> preparationTime) {
         preparationTimeList = preparationTime;
+    }
+    private void PickUpOrders() {
+        pickUpOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Sprite circle = new Circle();
+                progressBar.setIndeterminateDrawable(circle);
+                progressBar.setVisibility(View.VISIBLE);
+                String fname = SharedPreference.getSharedPreference(PickUpPayment.this).setFname();
+                String lname = SharedPreference.getSharedPreference(PickUpPayment.this).setLname();
+                String email = SharedPreference.getSharedPreference(PickUpPayment.this).setEmail();
+                String accountName = fname.concat(" ").concat(lname);
+                String estTime = waitingTime.getText().toString();
+                String orderType = "Pick Up";
+                String orderStatus = "Pending";
+                String paymentPhoto = imageToString();
+                String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
+                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,"","","",token,email,"",orderLists,productCategoryList,variationList,quantityList,addOnsList,addOnsFeeList,specialReqList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus,date,time,0,estTime);
+                insertOrder.enqueue(new Callback<CartModel>() {
+                    @Override
+                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                        if (response.body() != null) {
+                            String success = response.body().getSuccess();
+                            if (success.equals("1")) {
+                                final Dialog dialog = new Dialog(context);
+                                dialog.setContentView(R.layout.order_success_dialog);
+                                Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
+                                // if button is clicked, close the custom dialog
+                                dialogButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                        startActivity(new Intent(getApplicationContext(),home_activity.class));
+                                    }
+                                });
+                                dialog.show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CartModel> call, Throwable t) {
+                        startActivity(new Intent(getApplicationContext(), home_activity.class));
+                        Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 }

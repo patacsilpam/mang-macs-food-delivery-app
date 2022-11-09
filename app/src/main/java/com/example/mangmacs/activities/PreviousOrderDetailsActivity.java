@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,13 +32,14 @@ import retrofit2.Response;
 
 public class PreviousOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
     private TextView orderNumber,orderType,totalAmount,arrowBack,changeableStatus,txt_total_amount;
-    private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee;
+    private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee,courierName;
     private TextView orderId,orderTime,completedTime;
     private RecyclerView prevOrderDetailList;
     private Button orderReceived;
     private RelativeLayout orderReceivedLayout;
+    private LinearLayout courierLayout;
     private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails,orderStatusLayout,cancelOrderLayout;
-    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod,newDeliveryFee;
+    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod,newDeliveryFee,newCourierName;
     private List<CurrentOrdersModel> prevOrderModel;
     private PreviousDetailAdapter previousDetailAdapter;
     @Override
@@ -52,7 +54,9 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         changeableStatus = findViewById(R.id.changeableStatus);
         orderStatusLayout = findViewById(R.id.orderStatusLayout);
         orderReceivedLayout = findViewById(R.id.orderReceivedLayout);
+        courierLayout = findViewById(R.id.courierLayout);
         cancelOrderLayout = findViewById(R.id.cancelOrderLayout);
+
         orderReceived = findViewById(R.id.orderReceived);
         deliveryDetails = findViewById(R.id.deliveryAddress);
         deliveryName = findViewById(R.id.deliveryName);
@@ -94,6 +98,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         newCompletedTime = intent.getStringExtra("completedTime");
         newPaymentMethod = intent.getStringExtra("paymentMethod");
         newDeliveryFee = intent.getStringExtra("deliveryFee");
+        newCourierName = intent.getStringExtra("courierName");
         orderId.setText("#".concat(newOrderNumber));
         orderTime.setText(newOrderDate);
         completedTime.setText(newCompletedTime);
@@ -101,16 +106,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderNumber.setText(newOrderNumber);
         deliveryFee.setText(newDeliveryFee);
         //show order received button if order status is equal to order completed
-        /*if (newOrderStatus.equals("Order Completed") || newOrderStatus.equals("Order Received")){
-            cancelOrderLayout.setVisibility(View.GONE);
-        }
-        /*else if(newOrderStatus.equals("Order Received")){
-            orderReceivedLayout.setVisibility(View.GONE);
-        }*/
-        /*else{
-            orderStatusLayout.setVisibility(View.GONE);
-            orderReceivedLayout.setVisibility(View.GONE);
-        }*/
         switch (newOrderStatus){
             case "Order Completed":
                 cancelOrderLayout.setVisibility(View.GONE);
@@ -131,13 +126,15 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
             deliveryDetails.setVisibility(View.GONE);
             pickUpDetails.setVisibility(View.VISIBLE);
             deliveryFeeDetails.setVisibility(View.GONE);
-            changeableStatus.setText("Ready\nfor\nPick pp");
+            changeableStatus.setText("Ready\nfor\nPick pick up");
+            courierLayout.setVisibility(View.GONE);
         }
         else if (newOrderType.equals("Deliver")){
             deliveryName.setText(newRecipientName);
             deliveryPhoneNum.setText(newPhoneNumber);
             devAddress.setText(newAddress);
             devLabelAddress.setText(newLabelAddress);
+            courierName.setText(newCourierName);
             deliveryDetails.setVisibility(View.VISIBLE);
             pickUpDetails.setVisibility(View.GONE);
             deliveryFeeDetails.setVisibility(View.VISIBLE);

@@ -103,7 +103,7 @@
                android:layout_marginLeft="10dp"
                android:fontFamily="@font/roboto_light"
                android:textColor="#76787A"
-               android:text="Please upload a screenshot of your gcash e-wallet payment." />
+               android:text="Please upload a screenshot of your gcash e-wallet payment. You can pay a partial payment." />
                <ImageView
                    android:id="@+id/imgPayment"
                    android:layout_width="80dp"

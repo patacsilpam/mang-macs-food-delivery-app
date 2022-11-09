@@ -65,7 +65,7 @@ public class orderNow extends Fragment {
                 //intent time and date
                 Intent intent = new Intent(getContext(),AdressList.class);
                 intent.putExtra("date",strDate);
-                intent.putExtra("time",strTime);
+                intent.putExtra("time","-- --");
                 intent.putExtra("orderTime",strTime);
                 intent.putExtra("recipientName","none");
                 intent.putExtra("labelAddress","none");

@@ -1,10 +1,16 @@
 package com.example.mangmacs;
 
+import android.content.Context;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.mangmacs.activities.ReservationActivity;
 
 public class InputMinMax implements InputFilter {
     private int mIntMin,mIntMax;
+
     public InputMinMax(int minVal, int maxValue){
         this.mIntMin = minVal;
         this.mIntMax = maxValue;
@@ -20,8 +26,13 @@ public class InputMinMax implements InputFilter {
             if(isInRange(mIntMin,mIntMax,input)){
                 return null;
             }
+            else{
+                Log.e("","Error");
+            }
+            //Toast.makeText(ReservationActivity.class, "", Toast.LENGTH_SHORT).show();
         } catch (NumberFormatException e) {
             e.printStackTrace();
+
         }
         return "";
     }

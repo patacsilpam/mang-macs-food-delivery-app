@@ -74,7 +74,9 @@ public class CurrentOrdersModel {
     private String notifDate;
     @SerializedName("preparation_time")
     private String preparationTime;
-    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime, String notifDate, String preparationTime) {
+    @SerializedName("courier")
+    private String courierName;
+    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime, String notifDate, String preparationTime,String courierName) {
         this.success = success;
         this.id = id;
         this.productCode = productCode;
@@ -109,6 +111,7 @@ public class CurrentOrdersModel {
         this.waitingTime = waitingTime;
         this.notifDate = notifDate;
         this.preparationTime = preparationTime;
+        this.courierName = courierName;
     }
 
     public String getSuccess() {
@@ -245,5 +248,7 @@ public class CurrentOrdersModel {
     public String getPreparationTime() {
         return preparationTime;
     }
-
+    public String getCourierName() {
+        return courierName;
+    }
 }

@@ -3,6 +3,8 @@ package com.example.mangmacs.model;
 import com.google.gson.annotations.SerializedName;
 
 public class ReservationModel {
+    @SerializedName("success")
+    private String success;
     @SerializedName("id")
     private String id;
     @SerializedName("email")
@@ -25,8 +27,6 @@ public class ReservationModel {
     private String notifDate;
     @SerializedName("payment_photo")
     private String paymentPhoto;
-    @SerializedName("success")
-    private String success;
     //table order details list
     @SerializedName("product_code")
     private String productCode;

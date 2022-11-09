@@ -183,19 +183,23 @@ public class PizzaListDetaill extends AppCompatActivity {
             email.setText(newEmailAddress);
             status.setText(newProductStatus.concat("min"));
             price.setText(splitPrice[0]);
+
             for(int i = 0; i<splitVariation.length; i++){
+                // radioButton.setId(i);
                 radioButton = new RadioButton(this);
                 radioButton.setText(splitVariation[i]);
                 radioButton.setTextAppearance(this, android.R.style.TextAppearance);
                 variation.addView(radioButton);
             }
             //check variation array length
+            variation.check(variation.getChildAt(0).getId());
             variation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                    int selectedVariation = variation.getCheckedRadioButtonId();
                    radioButton = findViewById(selectedVariation);
                    String variation = radioButton.getText().toString();
+
                    if(variation.contains("Medium")){
                        price.setText(splitPrice[0]);
                        productCode.setText(splitCode[0]);

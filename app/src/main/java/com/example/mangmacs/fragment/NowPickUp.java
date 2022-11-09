@@ -63,7 +63,7 @@ public class NowPickUp extends Fragment  {
                 //intent time and date
                 Intent intent = new Intent(getContext(), PickUpPayment.class);
                 intent.putExtra("pickUpDate",strDate);
-                intent.putExtra("pickUpTime",strTime);
+                intent.putExtra("pickUpTime","-- --");
                 intent.putExtra("pickUpOrderTime",strTime);
                 startActivity(intent);
             }

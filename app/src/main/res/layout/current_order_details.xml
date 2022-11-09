@@ -31,33 +31,59 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/roboto_medium"
                 android:textSize="18sp"/>
-
             <TextView
-                android:id="@+id/textAddOns"
-                android:layout_width="match_parent"
+                android:id="@+id/textProductPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/textProduct"
+                android:text=""
+                android:textColor="#3C3C3C"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="16sp"/>
+
+            <RelativeLayout
+                android:id="@+id/addOnsLayout"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textProduct"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_toEndOf="@+id/imgProduct"
-                android:fontFamily="@font/roboto_light"
-                android:text=""
-                android:textColor="#393636"
-                android:textFontWeight="400"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/textAddOns"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text=""
+                    android:textColor="#393636"
+                    android:textFontWeight="400"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
+                <TextView
+                    android:id="@+id/textAddOnsPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toEndOf="@+id/textAddOns"
+                    android:text=""
+                    android:textColor="#3C3C3C"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="16sp"/>
+            </RelativeLayout>
             <TextView
                 android:id="@+id/textVariation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/imgProduct"
-                android:layout_below="@+id/textAddOns"
+                android:layout_below="@+id/addOnsLayout"
                 android:text=""
                 android:fontFamily="@font/roboto"
                 android:textSize="16sp"
                 android:textColor="#5E5757"/>
+
             <TextView
                 android:id="@+id/textSpecialRequest"
                 android:layout_width="wrap_content"
@@ -67,7 +93,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@+id/imgProduct"
                 android:fontFamily="@font/roboto"
-                android:text="Wala lang"
+                android:text=""
                 android:textColor="#5E5757"
                 android:textSize="14sp" />
             <RelativeLayout

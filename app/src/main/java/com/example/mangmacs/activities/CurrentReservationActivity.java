@@ -38,7 +38,7 @@ import retrofit2.Response;
 public class CurrentReservationActivity extends AppCompatActivity {
     private CurrentReservationAdapter reservationAdapter;
     private List<ReservationModel> reservationModelList;
-    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack,newTotalAmount,newOrderNumber;
+    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack,newTotalAmount,newOrderNumber,newSpecialReq;
     private Button bookingStatus,cancelBooking;
     private RelativeLayout cancelBookingLayout;
     private String id;
@@ -46,17 +46,18 @@ public class CurrentReservationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_reservation);
-        newReservedName = findViewById(R.id.bookName);
-        newEmailAddress = findViewById(R.id.bookEmail);
+        newReservedName = findViewById(R.id.reservedName);
+        newEmailAddress = findViewById(R.id.reservedEmail);
         newScheduledTime = findViewById(R.id.bookSchedDateTime);
         newGuests = findViewById(R.id.bookGuests);
         cancelBooking = findViewById(R.id.cancelBooking);
         arrowBack = findViewById(R.id.arrow_back);
         bookingStatus = findViewById(R.id.bookingStatus);
-        newTotalAmount = findViewById(R.id.totalAmount);
-        newOrderNumber = findViewById(R.id.bookOrderNumber);
+        newSpecialReq = findViewById(R.id.specialRequest);
+        newOrderNumber = findViewById(R.id.reservedNumber);
         cancelBookingLayout = findViewById(R.id.cancelBookingLayout);
-        /*newBookDetails = findViewById(R.id.newBookDetails);
+        /*newTotalAmount = findViewById(R.id.totalAmount);
+        newBookDetails = findViewById(R.id.newBookDetails);
         newBookDetails.setHasFixedSize(true);
         newBookDetails.setLayoutManager(new LinearLayoutManager(this));*/
         showBookingDetails();
@@ -74,44 +75,26 @@ public class CurrentReservationActivity extends AppCompatActivity {
         String guests = intent.getStringExtra("guests");
         String status = intent.getStringExtra("bookingStatus");
         String totalAmount = intent.getStringExtra("totalAmount");
+        String specialRequest = intent.getStringExtra("specialRequest");
         String firstLastName = firstname.concat(" ").concat(lastname);
         String time = schedDate.concat(" ").concat(schedTime);
         //display booking details
+        newOrderNumber.setText(orderNumber);
         newReservedName.setText(firstLastName);
         newEmailAddress.setText(emailAddress);
         newScheduledTime.setText(time);
-       // newTotalAmount.setText("₱ ".concat(totalAmount).concat(" .00"));
         newGuests.setText(guests.concat(" people"));
         bookingStatus.setText(status);
-        newOrderNumber.setText(orderNumber);
+        newSpecialReq.setText(specialRequest);
+        //newTotalAmount.setText("₱ ".concat(totalAmount).concat(" .00"));
         //showBookingOrders();
         dismissBooking();
     }
 
-   /* private void showBookingOrders() {
-        String emailAddress = SharedPreference.getSharedPreference(CurrentReservationActivity.this).setEmail();
-        String orderNumber = newOrderNumber.getText().toString();
-        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-        Call<List<ReservationModel>> call = apiInterface.getCurrentBookingsDetails(emailAddress,orderNumber);
-        call.enqueue(new Callback<List<ReservationModel>>() {
-            @Override
-            public void onResponse(Call<List<ReservationModel>> call, Response<List<ReservationModel>> response) {
-                reservationModelList = response.body();
-                reservationAdapter = new CurrentReservationAdapter(CurrentReservationActivity.this,reservationModelList);
-                newBookDetails.setAdapter(reservationAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<ReservationModel>> call, Throwable t) {
-
-            }
-        });
-    }
-*/
     private void dismissBooking(){
         String status = bookingStatus.getText().toString();
         String orderNumber = newOrderNumber.getText().toString();
-        Toast.makeText(getApplicationContext(),orderNumber,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),orderNumber,Toast.LENGTH_SHORT).show();
         if (status.equals("Pending")){
             cancelBookingLayout.setVisibility(View.VISIBLE);
             cancelBooking.setOnClickListener(new View.OnClickListener() {
@@ -168,4 +151,19 @@ public class CurrentReservationActivity extends AppCompatActivity {
             }
         });
     }
+     /* private void showBookingOrders() {
+        String emailAddress = SharedPreference.getSharedPreference(CurrentReservationActivity.this).setEmail();
+        String orderNumber = newOrderNumber.getText().toString();
+        ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+        Call<List<ReservationModel>> call = apiInterface.getCurrentBookingsDetails(emailAddress,orderNumber);
+        call.enqueue(new Callback<List<ReservationModel>>() {
+            @Override
+            public void onResponse(Call<List<ReservationModel>> call, Response<List<ReservationModel>> response) {
+                reservationModelList = response.body();
+                reservationAdapter = new CurrentReservationAdapter(CurrentReservationActivity.this,reservationModelList);
+                newBookDetails.setAdapter(reservationAdapter);
+            }
+            @Override
+            public void onFailure(Call<List<ReservationModel>> call, Throwable t) {}
+        });}*/
 }

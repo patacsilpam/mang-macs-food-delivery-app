@@ -172,6 +172,7 @@ public class BilaoListDetail extends AppCompatActivity {
                 radioButton.setTextAppearance(this, android.R.style.TextAppearance);
                 rdVariation.addView(radioButton);
                 //get radio button text
+                rdVariation.check(rdVariation.getChildAt(0).getId());
                 rdVariation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup radioGroup, int i) {

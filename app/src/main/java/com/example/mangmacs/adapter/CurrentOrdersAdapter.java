@@ -39,6 +39,9 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
         int addOnsPrice = Integer.parseInt(currentOrdersModel.getAddOnsFee());
         Glide.with(context).load(currentOrdersModel.getImgProduct()).into(holder.imgProduct);
         holder.textProduct.setText(currentOrdersModel.getProducts());
+        //holder.textProductPrice.setText(currentOrdersModel.getPrice());
+        //holder.textAddOns.setText(currentOrdersModel.getAddOns());
+        //holder.textAddOnsPrice.setText(currentOrdersModel.getAddOnsFee());
         holder.textVariation.setText(currentOrdersModel.getVariations());
         holder.textPrice.setText(String.valueOf(productPrice + addOnsPrice));
         holder.items.setText(currentOrdersModel.getQuantities());
@@ -64,6 +67,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                 intent.putExtra("requiredTime",currentOrdersModel.getRequiredTime());
                 intent.putExtra("requiredDate",currentOrdersModel.getRequiredDate());
                 intent.putExtra("waitingTime",currentOrdersModel.getWaitingTime());
+                intent.putExtra("courierName",currentOrdersModel.getCourierName());
                 context.startActivity(intent);
             }
         });
@@ -76,11 +80,14 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgProduct;
-        private TextView textProduct,textVariation,items,textPrice,orderStatus,orderType,viewMore;
+        private TextView textProduct,textProductPrice,textAddOns,textAddOnsPrice,textVariation,items,textPrice,orderStatus,orderType,viewMore;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             textProduct = itemView.findViewById(R.id.textProduct);
+            //textProductPrice = itemView.findViewById(R.id.textProductPrice);
+            //textAddOns = itemView.findViewById(R.id.textAddOns);
+            //textAddOnsPrice = itemView.findViewById(R.id.textAddOnsPrice);
             textVariation = itemView.findViewById(R.id.textVariation);
             textPrice = itemView.findViewById(R.id.textPrice);
             items = itemView.findViewById(R.id.items);

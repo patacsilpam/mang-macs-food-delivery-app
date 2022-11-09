@@ -24,7 +24,14 @@
                app:drawableEndCompat="@drawable/ic_baseline_restaurant_24" />
        </RelativeLayout>
    </com.google.android.material.appbar.AppBarLayout>
-
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/spin_kit"
+        style="@style/SpinKitView.Large.Circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:SpinKit_Color="@color/pressed" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,38 +44,14 @@
             android:layout_height="match_parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:gravity="center"
             android:orientation="vertical"
             android:padding="20dp">
 
-            <RelativeLayout
-                android:id="@+id/bgDiningArea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/stroke_gray_square">
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/diningArea"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp" />
-            </RelativeLayout>
-            <TextView
-                android:id="@+id/diningAreaError"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="-10dp"
-                android:layout_gravity="left"
-                android:layout_marginLeft="10dp"
-                android:text="Required"
-                android:textColor="#AE1111"
-                android:textSize="12sp"
-                android:visibility="gone"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/guestsError"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/people"
@@ -80,12 +63,23 @@
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/minGuestError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="*Please enter a valid number of guest(s) between 1-100"
+                android:textColor="#FF6666"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dateError"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/date"
                     android:layout_width="match_parent"
@@ -116,6 +110,7 @@
                     android:hint="Time"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -130,8 +125,7 @@
                     android:drawableStart="@drawable/custom_comments_icon"
                     android:drawablePadding="5dp"
                     android:hint="Special Requests (optional)"
-                    android:inputType="textLongMessage"
-                    android:maxLength="255"/>
+                    android:inputType="textLongMessage" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -139,16 +133,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="*Table reservation will not accept if selected time is earlier than the current time"
+                android:text="*Table reservation must be at least 2 hours from reserving time."
                 android:textColor="#FF6666"
                 android:textSize="14sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto"
+                android:padding="10dp"
+                android:text="Upload screenshot gcash payment"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Please upload a screenshot of your gcash e-wallet payment. You can pay a partial payment."
+                android:textColor="#76787A" />
+
+            <ImageView
+                android:id="@+id/imgPayment"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:src="@drawable/camera" />
+
             <Button
                 android:id="@+id/btnBookNow"
-                android:layout_width="200dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="70dp"
                 android:background="@drawable/confirmation_button"
                 android:text="Book Now"
                 android:textAllCaps="false"
@@ -156,6 +176,7 @@
                 android:textSize="24sp" />
         </LinearLayout>
     </ScrollView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"

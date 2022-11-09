@@ -15,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp">
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -34,25 +34,54 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/addOns"
+                android:id="@+id/productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/product"
+                android:fontFamily="@font/roboto_light"
+                android:text=""
+                android:textColor="#3C3C3C"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:id="@+id/addOnsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/product"
-                android:layout_toEndOf="@+id/image"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="5dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Extra Cheese"
-                android:textColor="#393636"
-                android:textFontWeight="400"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:layout_below="@+id/productPrice"
+                android:layout_toEndOf="@id/image"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/addOns"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Extra Cheese"
+                    android:textColor="#393636"
+                    android:textFontWeight="400"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/addOnsPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toEndOf="@+id/addOns"
+                    android:fontFamily="@font/roboto_light"
+                    android:text=""
+                    android:textColor="#3C3C3C"
+                    android:textSize="16sp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/variation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/addOns"
+                android:layout_below="@id/addOnsLayout"
                 android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@+id/image"
                 android:fontFamily="@font/roboto"
@@ -133,7 +162,6 @@
                 android:id="@+id/orders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/total"
                 android:text=""
                 android:visibility="invisible"
                 android:fontFamily="@font/roboto_light"

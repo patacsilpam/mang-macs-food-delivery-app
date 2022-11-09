@@ -211,14 +211,16 @@ public interface ApiInterface {
     @POST("reservation.php")
     @FormUrlEncoded
     Call<ReservationModel> reservation(
+            @Field("customerId") String customerId,
             @Field("token") String token,
             @Field("fname") String fname,
             @Field("lname") String lname,
             @Field("guests") String guests,
             @Field("email") String email,
-            @Field("phoneNumber") String phoneNumber,
             @Field("scheduled_date") String date,
-            @Field("scheduled_time") String time
+            @Field("scheduled_time") String time,
+            @Field("payment_photo") String paymentPhoto,
+            @Field("comments") String comments
     );
     //inserting user's cart
     @POST("customerCartProduct.php")

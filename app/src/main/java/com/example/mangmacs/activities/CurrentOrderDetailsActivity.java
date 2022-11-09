@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,16 +35,17 @@ import retrofit2.Response;
 
 public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener{
     private TextView orderNumber,orderType,totalAmount,arrowBack,estTime,changeableStatus;
-    private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee;
+    private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee,courierName;
     private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails;
     private Button btnCancelOrder;
     private ImageView pendingIcon,processingIcon,forDeliveryIcon;
     private View line1,line3,line4;
     private RecyclerView newOrderDetailLists;
     private RelativeLayout cancelOrderLayout;
+    private LinearLayout courierLayout;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
-    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime;
+    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime,newCourierName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,8 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         line1 = findViewById(R.id.line1);
         line3 = findViewById(R.id.line3);
         line4 = findViewById(R.id.line4);
+        courierLayout = findViewById(R.id.courierLayout);
+        courierName = findViewById(R.id.courierName);
         cancelOrderLayout = findViewById(R.id.cancelOrderLayout);
         pickUpDetails = findViewById(R.id.pickUpDetails);
         pickUpName = findViewById(R.id.pickUpName);
@@ -101,6 +105,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         newRequiredTme = intent.getStringExtra("requiredTime");
         newRequiredDate = intent.getStringExtra("requiredDate");
         newWaitingTime = intent.getStringExtra("waitingTime");
+        newCourierName = intent.getStringExtra("courierName");
         orderType.setText(newOrderType);
         orderNumber.setText("#".concat(newOrderNumber));
         deliveryFee.setText(newDeliveryFee);
@@ -132,12 +137,14 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             pickUpDetails.setVisibility(View.VISIBLE);
             deliveryFeeDetails.setVisibility(View.GONE);
             changeableStatus.setText("Ready\nfor\nPick up");
+            courierLayout.setVisibility(View.GONE);
         }
         else if (OrderType.equals("Deliver")){
             deliveryName.setText(newRecipientName);
             deliveryPhoneNum.setText(newPhoneNumber);
             devAddress.setText(newAddress);
             devLabelAddress.setText(newLabelAddress);
+            courierName.setText(newCourierName);
             deliveryDetails.setVisibility(View.VISIBLE);
             pickUpDetails.setVisibility(View.GONE);
             deliveryFeeDetails.setVisibility(View.VISIBLE);
