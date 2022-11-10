@@ -86,19 +86,20 @@ public class ReservationActivity extends AppCompatActivity {
     private Context context = this;
     private ProgressBar progressBar;
     private Spinner spinnerDiningArea;
-    private TextInputEditText people,date,time,commentSuggestion;
-    private TextInputLayout guestsError,dateError,timeError;
-    private TextView diningAreaError,textRequired,minGuestError;
+    private TextInputEditText  people,date, time, commentSuggestion;
+    private TextInputLayout guestsError, dateError, timeError;
+    private TextView diningAreaError, textRequired, minGuestError;
     private Button btnBookNow;
     private ImageView imgPayment;
     private RelativeLayout bgDiningArea;
     private BottomNavigationView bottomNavigationView;
-    private int hour,min;
-    private static  final int STORAGE_PERMISSION_CODE = 100;
+    private int hour, min;
+    private static final int STORAGE_PERMISSION_CODE = 100;
     private Bitmap bitmap;
     private Uri selectedImage;
-    private String token,strDiningArea;
-    private String[] diningAreaList = {"Please select dining area","Resto","Venue"};
+    private String token, strDiningArea;
+    private String[] diningAreaList = {"Please select dining area", "Resto", "Venue"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +121,9 @@ public class ReservationActivity extends AppCompatActivity {
         textRequired.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         btnBookNow.setEnabled(false);
+        people.addTextChangedListener(bookNowTextWatcher);
+        date.addTextChangedListener(bookNowTextWatcher);
+        time.addTextChangedListener(bookNowTextWatcher);
         //diningAreaError = findViewById(R.id.diningAreaError);
         //bgDiningArea = findViewById(R.id.bgDiningArea);
         //spinnerDiningArea = findViewById(R.id.diningArea);
@@ -127,11 +131,48 @@ public class ReservationActivity extends AppCompatActivity {
         //setDiningArea();
         setFirebaseToken();
         SetCalendar();
-        validateGuests();
         cameraPermission();
         Booking();
         BottomNav();
     }
+
+    private TextWatcher bookNowTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String strGuests = people.getText().toString();
+            String strDate = date.getText().toString();
+            String strTime = time.getText().toString();
+            try{
+                if(((Integer.parseInt(strGuests) <= 100)) && (Integer.parseInt(strGuests) != 0)){
+                    btnBookNow.setEnabled(true);
+                }
+                if ((strDate.isEmpty()) || strTime.isEmpty()){
+                    btnBookNow.setEnabled(false);
+                }
+                else{
+                    btnBookNow.setEnabled(false);
+                    minGuestError.setVisibility(View.VISIBLE);
+                }
+            }catch (Throwable e){
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            String strGuests = people.getText().toString();
+            if(strGuests.matches("")) {
+                btnBookNow.setEnabled(false);
+                minGuestError.setVisibility(View.VISIBLE);
+            }
+        }
+    };
+
     private void setFirebaseToken(){
         FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -148,7 +189,7 @@ public class ReservationActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void validateGuests(){
+    /*private void validateGuests(){
         people.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -183,7 +224,32 @@ public class ReservationActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
+
+    /*private void validateDateTime(){
+        date.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String strDate = date.getText().toString();
+                if (strDate.isEmpty()){
+                    btnBookNow.setEnabled(false);
+                }
+                else{
+                    btnBookNow.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }*/
 
     private void SetCalendar() {
         //date picker

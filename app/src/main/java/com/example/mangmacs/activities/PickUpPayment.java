@@ -268,7 +268,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
 
     @Override
     public void onProductCodeChange(ArrayList<String> productCodes) {
-        /*productCodeList = productCodes;
+        productCodeList = productCodes;
         ArrayList<String> stockList = new ArrayList<>();
         String emailAddress = SharedPreference.getSharedPreference(this).setEmail();
         ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
@@ -306,8 +306,8 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
                        waitingTime.setText(newTime);
                    } catch (ParseException e) {
                        e.printStackTrace();
-                   }*/
-                   /*if(orderTime.equals("now")){
+                   }
+                   if(orderTime.equals("now")){
                        waitingTime.setText(estTime + " min");
                    }
                    else{
@@ -322,7 +322,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
 
             }
 
-        });*/
+        });
     }
 
     @Override
