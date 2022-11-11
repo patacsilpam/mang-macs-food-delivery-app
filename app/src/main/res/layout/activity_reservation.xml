@@ -153,7 +153,14 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="Please upload a screenshot of your gcash e-wallet payment. You can pay a partial payment."
                 android:textColor="#76787A" />
-
+            <TextView
+                android:id="@+id/paymentRequired"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="*Please provide a payment proof."
+                android:textColor="#FF6666"
+                android:textSize="14sp" />
             <ImageView
                 android:id="@+id/imgPayment"
                 android:layout_width="80dp"
@@ -161,7 +168,6 @@
                 android:layout_margin="10dp"
                 android:background="@color/white"
                 android:src="@drawable/camera" />
-
             <Button
                 android:id="@+id/btnBookNow"
                 android:layout_width="300dp"

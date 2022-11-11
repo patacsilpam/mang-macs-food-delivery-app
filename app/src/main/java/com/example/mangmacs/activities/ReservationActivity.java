@@ -33,6 +33,7 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
@@ -88,7 +89,7 @@ public class ReservationActivity extends AppCompatActivity {
     private Spinner spinnerDiningArea;
     private TextInputEditText  people,date, time, commentSuggestion;
     private TextInputLayout guestsError, dateError, timeError;
-    private TextView diningAreaError, textRequired, minGuestError;
+    private TextView diningAreaError, textRequired, minGuestError,paymentError;
     private Button btnBookNow;
     private ImageView imgPayment;
     private RelativeLayout bgDiningArea;
@@ -113,65 +114,67 @@ public class ReservationActivity extends AppCompatActivity {
         minGuestError = findViewById(R.id.minGuestError);
         dateError = findViewById(R.id.dateError);
         timeError = findViewById(R.id.timeError);
+        paymentError = findViewById(R.id.paymentRequired);
         textRequired = findViewById(R.id.textRequired);
         imgPayment = findViewById(R.id.imgPayment);
         btnBookNow = findViewById(R.id.btnBookNow);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.book);
         textRequired.setVisibility(View.GONE);
+        paymentError.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         btnBookNow.setEnabled(false);
-        people.addTextChangedListener(bookNowTextWatcher);
-        date.addTextChangedListener(bookNowTextWatcher);
-        time.addTextChangedListener(bookNowTextWatcher);
         //diningAreaError = findViewById(R.id.diningAreaError);
         //bgDiningArea = findViewById(R.id.bgDiningArea);
         //spinnerDiningArea = findViewById(R.id.diningArea);
         //spinnerDiningArea.setOnItemSelectedListener(this);
         //setDiningArea();
         setFirebaseToken();
+        validateGuests();
         SetCalendar();
         cameraPermission();
         Booking();
         BottomNav();
+        String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
+        Toast.makeText(context, customerId, Toast.LENGTH_SHORT).show();
     }
 
-    private TextWatcher bookNowTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    private void validateGuests(){
+        people.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        }
+            }
 
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            String strGuests = people.getText().toString();
-            String strDate = date.getText().toString();
-            String strTime = time.getText().toString();
-            try{
-                if(((Integer.parseInt(strGuests) <= 100)) && (Integer.parseInt(strGuests) != 0)){
-                    btnBookNow.setEnabled(true);
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String strGuests = people.getText().toString();
+                try{
+                    if(((Integer.parseInt(strGuests) <= 100)) && (Integer.parseInt(strGuests) != 0)){
+                        btnBookNow.setEnabled(true);
+                        minGuestError.setVisibility(View.GONE);
+                    }
+                    else{
+                        btnBookNow.setEnabled(false);
+                        minGuestError.setVisibility(View.VISIBLE);
+                    }
+
+
+                }catch (Throwable e){
+                    e.printStackTrace();
                 }
-                if ((strDate.isEmpty()) || strTime.isEmpty()){
-                    btnBookNow.setEnabled(false);
-                }
-                else{
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String strGuests = people.getText().toString();
+                if(strGuests.matches("")) {
                     btnBookNow.setEnabled(false);
                     minGuestError.setVisibility(View.VISIBLE);
                 }
-            }catch (Throwable e){
-                e.printStackTrace();
             }
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            String strGuests = people.getText().toString();
-            if(strGuests.matches("")) {
-                btnBookNow.setEnabled(false);
-                minGuestError.setVisibility(View.VISIBLE);
-            }
-        }
-    };
+        });
+    }
 
     private void setFirebaseToken(){
         FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
@@ -189,67 +192,6 @@ public class ReservationActivity extends AppCompatActivity {
                     }
                 });
     }
-    /*private void validateGuests(){
-        people.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try {
-                    String guests = people.getText().toString();
-                    //100 >= 100 == true
-                    if ((Integer.parseInt(guests)  <= 100 && Integer.parseInt(guests) != 0)){
-                        //guestsError.setError("Required");
-                        if(imgPayment.getDrawable() != null){
-                            btnBookNow.setEnabled(true);
-                            minGuestError.setVisibility(View.GONE);
-                        }
-                    }
-                    else{
-                        btnBookNow.setEnabled(false);
-                        minGuestError.setVisibility(View.VISIBLE);
-                    }
-                } catch (Throwable e){
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String guests = people.getText().toString();
-                if(guests.matches("")){
-                    btnBookNow.setEnabled(false);
-                    minGuestError.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-    }*/
-
-    /*private void validateDateTime(){
-        date.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String strDate = date.getText().toString();
-                if (strDate.isEmpty()){
-                    btnBookNow.setEnabled(false);
-                }
-                else{
-                    btnBookNow.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-    }*/
 
     private void SetCalendar() {
         //date picker
@@ -455,50 +397,68 @@ public class ReservationActivity extends AppCompatActivity {
                 String fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
                 String lname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
                 String email = SharedPreference.getSharedPreference(getApplicationContext()).setEmail();
-                String guests = people.getText().toString();
-                String sched_date = date.getText().toString();
-                String sched_time = time.getText().toString();
+                String strGuest = people.getText().toString();
+                String strDate = date.getText().toString();
+                String strTime = time.getText().toString();
                 String imgPayment = imageToString();
                 String comments = commentSuggestion.getText().toString();
-                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<ReservationModel> callReservation = apiInterface.reservation(customerId,token,fname,lname,guests,email,sched_date,sched_time,imgPayment,comments);
-                callReservation.enqueue(new Callback<ReservationModel>() {
-                    @Override
-                    public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
-                        //startActivity(new Intent(getApplicationContext(),home_activity.class));
-                       if (response.body() != null){
-                          String success = response.body().getSuccess();
-                          if (success.equals("1")){
-                              final Dialog dialog = new Dialog(context);
-                              dialog.setContentView(R.layout.book_success_dialog);
-                              Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
-                              dialogButton.setOnClickListener(new View.OnClickListener() {
-                                  @Override
-                                  public void onClick(View view) {
-                                      dialog.dismiss();
-                                      startActivity(new Intent(getApplicationContext(),home_activity.class));
-                                  }
-                              });
-                              dialog.show();
-                          }
-                       }
-                    }
+               if (strGuest.isEmpty()){
+                   guestsError.setError("Required");
+               }
+               if (strDate.isEmpty()){
+                   dateError.setError("Required");
+               }
+               if (strTime.isEmpty()){
+                   timeError.setError("Required");
+               }
+               if (bitmap == null){
+                   Toast.makeText(context, "Please provide a payment proof.", Toast.LENGTH_LONG).show();
+                   paymentError.setVisibility(View.VISIBLE);
+               }
+               else{
 
-                    @Override
-                    public void onFailure(Call<ReservationModel> call, Throwable t) {
-                        final Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.book_success_dialog);
-                        Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
-                        dialogButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                dialog.dismiss();
-                                startActivity(new Intent(getApplicationContext(),home_activity.class));
-                            }
-                        });
-                        dialog.show();
-                    }
-                });
+                   ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                   Call<ReservationModel> callReservation = apiInterface.reservation(customerId,token,fname,lname,strGuest,email,strDate,strTime,imgPayment,comments);
+                   callReservation.enqueue(new Callback<ReservationModel>() {
+                       @Override
+                       public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
+                           //startActivity(new Intent(getApplicationContext(),home_activity.class));
+                           if (response.body() != null){
+                               String success = response.body().getSuccess();
+                               if (success.equals("1")){
+                                   final Dialog dialog = new Dialog(context);
+                                   dialog.setContentView(R.layout.book_success_dialog);
+                                   Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
+                                   dialogButton.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View view) {
+                                           dialog.dismiss();
+                                           startActivity(new Intent(getApplicationContext(),home_activity.class));
+                                       }
+                                   });
+                                   dialog.show();
+
+                               }
+
+                           }
+                       }
+
+                       @Override
+                       public void onFailure(Call<ReservationModel> call, Throwable t) {
+                           final Dialog dialog = new Dialog(context);
+                           dialog.setContentView(R.layout.book_success_dialog);
+                           Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
+                           dialogButton.setOnClickListener(new View.OnClickListener() {
+                               @Override
+                               public void onClick(View view) {
+                                   dialog.dismiss();
+                                   startActivity(new Intent(getApplicationContext(),home_activity.class));
+                               }
+                           });
+                           dialog.show();
+                       }
+                   });
+               }
             }
         });
     }
