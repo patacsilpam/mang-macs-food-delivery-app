@@ -136,7 +136,6 @@ public class ReservationActivity extends AppCompatActivity {
         Booking();
         BottomNav();
         String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
-        Toast.makeText(context, customerId, Toast.LENGTH_SHORT).show();
     }
 
     private void validateGuests(){

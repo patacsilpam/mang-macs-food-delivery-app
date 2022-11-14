@@ -49,6 +49,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         arrowBack = findViewById(R.id.arrow_back);
         orderNumber = findViewById(R.id.orderNumber);
         orderType = findViewById(R.id.orderType);
+        courierName = findViewById(R.id.courierName);
         totalAmount = findViewById(R.id.totalAmount);
         txt_total_amount = findViewById(R.id.txt_total_amount);
         changeableStatus = findViewById(R.id.changeableStatus);
@@ -56,7 +57,6 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         orderReceivedLayout = findViewById(R.id.orderReceivedLayout);
         courierLayout = findViewById(R.id.courierLayout);
         cancelOrderLayout = findViewById(R.id.cancelOrderLayout);
-
         orderReceived = findViewById(R.id.orderReceived);
         deliveryDetails = findViewById(R.id.deliveryAddress);
         deliveryName = findViewById(R.id.deliveryName);
@@ -116,7 +116,10 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
                 break;
             case "Cancelled":
                 orderReceivedLayout.setVisibility(View.GONE);
+                orderStatusLayout.setVisibility(View.GONE);
                 break;
+            default:
+                return;
         }
 
         //show customer information according to order type

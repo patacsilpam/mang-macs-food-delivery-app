@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="Please upload a screenshot of your gcash e-wallet payment. You can pay a partial payment."
+                android:text="Upload a screenshot of your gcash e-wallet payment. Please make full payment.."
                 android:textColor="#76787A" />
             <TextView
                 android:id="@+id/paymentRequired"

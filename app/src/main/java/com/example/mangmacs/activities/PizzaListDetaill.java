@@ -183,6 +183,7 @@ public class PizzaListDetaill extends AppCompatActivity {
             email.setText(newEmailAddress);
             status.setText(newProductStatus.concat("min"));
             price.setText(splitPrice[0]);
+            productCode.setText(splitCode[0]);
 
             for(int i = 0; i<splitVariation.length; i++){
                 // radioButton.setId(i);
