@@ -135,7 +135,6 @@ public class ReservationActivity extends AppCompatActivity {
         cameraPermission();
         Booking();
         BottomNav();
-        String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
     }
 
     private void validateGuests(){
@@ -357,9 +356,15 @@ public class ReservationActivity extends AppCompatActivity {
 
     private String imageToString(){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,70,byteArrayOutputStream);
+        if (bitmap != null) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG,70,byteArrayOutputStream);
+        }
+        else{
+            paymentError.setVisibility(View.VISIBLE);
+        }
         byte[] imgByte = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(imgByte,Base64.DEFAULT);
+
     }
 
     private void requestStoragePermission(){
@@ -389,9 +394,7 @@ public class ReservationActivity extends AppCompatActivity {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Sprite circle = new Circle();
-                progressBar.setIndeterminateDrawable(circle);
-                progressBar.setVisibility(View.VISIBLE);
+
                 String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
                 String fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
                 String lname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
@@ -401,63 +404,62 @@ public class ReservationActivity extends AppCompatActivity {
                 String strTime = time.getText().toString();
                 String imgPayment = imageToString();
                 String comments = commentSuggestion.getText().toString();
-               if (strGuest.isEmpty()){
-                   guestsError.setError("Required");
-               }
-               if (strDate.isEmpty()){
-                   dateError.setError("Required");
-               }
-               if (strTime.isEmpty()){
-                   timeError.setError("Required");
-               }
-               if (bitmap == null){
-                   Toast.makeText(context, "Please provide a payment proof.", Toast.LENGTH_LONG).show();
-                   paymentError.setVisibility(View.VISIBLE);
-               }
-               else{
+                Toast.makeText(context, imgPayment, Toast.LENGTH_SHORT).show();
+                  if (strGuest.isEmpty()){
+                      guestsError.setError("Required");
+                  }
+                  if (strDate.isEmpty()){
+                      dateError.setError("Required");
+                  }
+                  if (strTime.isEmpty()) {
+                      timeError.setError("Required");
+                  }
+                  else{
+                      Sprite circle = new Circle();
+                      progressBar.setIndeterminateDrawable(circle);
+                      progressBar.setVisibility(View.VISIBLE);
+                      ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                      Call<ReservationModel> callReservation = apiInterface.reservation(customerId,token,fname,lname,strGuest,email,strDate,strTime,"imgPayment",comments);
+                      callReservation.enqueue(new Callback<ReservationModel>() {
+                          @Override
+                          public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
+                              //startActivity(new Intent(getApplicationContext(),home_activity.class));
+                              if (response.body() != null){
+                                  String success = response.body().getSuccess();
+                                  if (success.equals("1")){
+                                      final Dialog dialog = new Dialog(context);
+                                      dialog.setContentView(R.layout.book_success_dialog);
+                                      Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
+                                      dialogButton.setOnClickListener(new View.OnClickListener() {
+                                          @Override
+                                          public void onClick(View view) {
+                                              dialog.dismiss();
+                                              startActivity(new Intent(getApplicationContext(),home_activity.class));
+                                          }
+                                      });
+                                      dialog.show();
 
-                   ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                   Call<ReservationModel> callReservation = apiInterface.reservation(customerId,token,fname,lname,strGuest,email,strDate,strTime,imgPayment,comments);
-                   callReservation.enqueue(new Callback<ReservationModel>() {
-                       @Override
-                       public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
-                           //startActivity(new Intent(getApplicationContext(),home_activity.class));
-                           if (response.body() != null){
-                               String success = response.body().getSuccess();
-                               if (success.equals("1")){
-                                   final Dialog dialog = new Dialog(context);
-                                   dialog.setContentView(R.layout.book_success_dialog);
-                                   Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
-                                   dialogButton.setOnClickListener(new View.OnClickListener() {
-                                       @Override
-                                       public void onClick(View view) {
-                                           dialog.dismiss();
-                                           startActivity(new Intent(getApplicationContext(),home_activity.class));
-                                       }
-                                   });
-                                   dialog.show();
+                                  }
 
-                               }
+                              }
+                          }
 
-                           }
-                       }
-
-                       @Override
-                       public void onFailure(Call<ReservationModel> call, Throwable t) {
-                           final Dialog dialog = new Dialog(context);
-                           dialog.setContentView(R.layout.book_success_dialog);
-                           Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
-                           dialogButton.setOnClickListener(new View.OnClickListener() {
-                               @Override
-                               public void onClick(View view) {
-                                   dialog.dismiss();
-                                   startActivity(new Intent(getApplicationContext(),home_activity.class));
-                               }
-                           });
-                           dialog.show();
-                       }
-                   });
-               }
+                          @Override
+                          public void onFailure(Call<ReservationModel> call, Throwable t) {
+                              final Dialog dialog = new Dialog(context);
+                              dialog.setContentView(R.layout.book_success_dialog);
+                              Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
+                              dialogButton.setOnClickListener(new View.OnClickListener() {
+                                  @Override
+                                  public void onClick(View view) {
+                                      dialog.dismiss();
+                                      startActivity(new Intent(getApplicationContext(),home_activity.class));
+                                  }
+                              });
+                              dialog.show();
+                          }
+                      });
+                  }
             }
         });
     }

@@ -421,8 +421,18 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
 
                     @Override
                     public void onFailure(Call<CartModel> call, Throwable t) {
-                        startActivity(new Intent(getApplicationContext(), home_activity.class));
-                        Toast.makeText(getApplicationContext(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
+                        final Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.order_success_dialog);
+                        Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
+                        // if button is clicked, close the custom dialog
+                        dialogButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                startActivity(new Intent(getApplicationContext(),home_activity.class));
+                            }
+                        });
+                        dialog.show();
                     }
                 });
             }

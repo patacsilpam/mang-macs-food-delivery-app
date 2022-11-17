@@ -77,13 +77,13 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/preparationTime"
-                android:background="@drawable/gray_square"
+                android:background="@drawable/bg_preptime"
                 android:drawableStart="@drawable/ic_baseline_access_clock"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:padding="3dp"
                 android:text=""
-                android:textColor="#616161"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp" />
 
             <TextView
@@ -108,10 +108,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="0dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -124,6 +126,7 @@
                             android:layout_marginRight="5dp"
                             android:fontFamily="@font/roboto"
                             android:text="View main ingredients" />
+
                         <ImageView
                             android:id="@+id/showIngredients"
                             android:layout_width="wrap_content"
@@ -131,12 +134,14 @@
                             android:layout_toEndOf="@+id/textViewIngredients"
                             android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
                     </RelativeLayout>
+
                     <LinearLayout
                         android:id="@+id/ingredientLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="gone">
+
                         <TextView
                             android:id="@+id/ingredients"
                             android:layout_width="wrap_content"

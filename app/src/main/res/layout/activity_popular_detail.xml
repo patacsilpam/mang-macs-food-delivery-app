@@ -84,13 +84,13 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/preparationTime"
-                android:background="@drawable/gray_square"
+                android:background="@drawable/bg_preptime"
                 android:drawableStart="@drawable/ic_baseline_access_clock"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:padding="3dp"
                 android:text=""
-                android:textColor="#616161"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp" />
 
             <TextView
@@ -144,8 +144,9 @@
                 android:id="@+id/lnrLayoutToppings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -158,12 +159,12 @@
                         android:textColor="@color/black"
                         android:textSize="16sp" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:id="@+id/lnrCboxToppings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                </LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
             </LinearLayout>
             <!--Special Request Layout!-->
             <TextView

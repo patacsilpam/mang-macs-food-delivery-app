@@ -24,14 +24,7 @@
                 android:textColor="#000"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"/>
-            <TextView
-                android:id="@+id/logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/baseline_logout_24"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"/>
+
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
     <View
@@ -186,8 +179,20 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="50dp"
                 android:background="#634E548F" />
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Logout"
+                android:textColor="#232323"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto"
+                android:background="@drawable/stroke_gray_square"/>
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView

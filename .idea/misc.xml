@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/bg_color.xml" value="0.1965" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/bg_preptime.xml" value="0.163" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/confirm_delivery_address_input.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/confirmation_button.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/custom_comments_icon.xml" value="0.1935" />
@@ -18,6 +19,8 @@
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/customer_mobile_no_icon.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/customize_input_book.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/dark_square.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/gray_square.xml" value="0.2385" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/home_bg_color.xml" value="0.2385" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_access_clock.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_access_time_1.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_access_time_filled_24.xml" value="0.176" />
@@ -32,11 +35,13 @@
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_delete_outline_24.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_details_24.xml" value="0.1775" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_edit.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_email.xml" value="0.2385" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_horizontal_rule_24.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_local_pizza.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_lock.xml" value="0.2385" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_menu_book_24.xml" value="0.1905" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_minimize.xml" value="0.176" />
@@ -58,7 +63,11 @@
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/stroke_gray_square.xml" value="0.1935" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/stroke_red_square.xml" value="0.1935" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/stroke_wihite_square.xml" value="0.1905" />
-        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_account.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/white_arrow_back.xml" value="0.2385" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/white_background.xml" value="0.1925" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/white_circle.xml" value="0.2385" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/white_square.xml" value="0.2385" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_account.xml" value="0.264" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_adress_list.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_appetizer_list_detail.xml" value="0.264" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_bilao_list_detail.xml" value="0.23229166666666667" />
@@ -69,6 +78,7 @@
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_create_address.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_current_order_details.xml" value="0.264" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_current_reservation.xml" value="0.264" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_dessert.xml" value="0.1546875" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_dessert_list_detail.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_dimsum_list_detail.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_dine_in.xml" value="0.20052083333333334" />
@@ -78,8 +88,8 @@
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_forgot_password.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_grilled.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_grilled_list_detail.xml" value="0.23229166666666667" />
-        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_home.xml" value="0.264" />
-        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_login.xml" value="0.4" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_home.xml" value="0.4334305150631681" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_meals_good_list_detail.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_menu_activty.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_my_account.xml" value="0.21666666666666667" />
@@ -103,7 +113,7 @@
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_pulutan_list_detail.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_reservation.xml" value="0.264" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_reset_password.xml" value="0.19583333333333333" />
-        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_sign_up.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_sizzling_list_detail.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_soup_list_detail.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/activity_verify_email.xml" value="0.21666666666666667" />
@@ -138,7 +148,7 @@
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/order_success_dialog.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/order_update_lists.xml" value="0.215625" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/previous_booking.xml" value="0.4" />
-        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/product_lists.xml" value="0.215625" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/product_lists.xml" value="0.264" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/layout/success_dialog.xml" value="0.264" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/menu/bottom_nav.xml" value="0.1671875" />
       </map>

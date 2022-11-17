@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1DC2C2C6"
+    android:background="#1DD4D4D6"
     android:layout_centerHorizontal="true"
     tools:context=".activities.home_activity">
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -50,51 +50,60 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:padding="10dp">
+
                <TextView
                    android:id="@+id/textHi"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:textColor="@color/pressed"
-                   android:textSize="18sp"
-                   android:text="Hi," />
+                   android:fontFamily="@font/roboto"
+                   android:text="Hi, "
+                   android:textColor="#3A3B3C"
+                   android:textSize="18sp" />
+
                <TextView
                    android:id="@+id/textName"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_toRightOf="@+id/textHi"
-                   android:textColor="@color/pressed"
-                   android:textSize="18sp"
-                   android:text=" Meljean"/>
+                   android:fontFamily="@font/roboto"
+                   android:text=" Meljean"
+                   android:textColor="#3A3B3C"
+                   android:textSize="18sp" />
+
                <TextView
                    android:id="@+id/textSelectOrders"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:textColor="@color/pressed"
-                   android:textSize="18sp"
                    android:layout_below="@+id/textHi"
-                   android:text="Select your orders."/>
+                   android:fontFamily="@font/roboto"
+                   android:text="Select your orders."
+                   android:textColor="#3A3B3C"
+                   android:textSize="18sp" />
 
                <TextView
                    android:id="@+id/textMenu"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:fontFamily="@font/roboto_medium"
                    android:layout_below="@+id/textSelectOrders"
                    android:layout_marginTop="25dp"
+                   android:fontFamily="@font/roboto_medium"
                    android:text="Menu"
-                   android:textSize="18sp" />
+                   android:textSize="18sp"
+                   android:textColor="#171717"/>
+
                <TextView
                    android:id="@+id/btnSeeAll"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
+                   android:layout_below="@+id/textSelectOrders"
+                   android:layout_alignParentEnd="true"
+                   android:layout_marginTop="25dp"
+                   android:padding="10dp"
                    android:scrollbars="none"
                    android:text="See All >>"
                    android:textAllCaps="false"
-                   android:textSize="12sp"
-                   android:layout_marginTop="25dp"
-                   android:padding="10dp"
-                   android:layout_below="@+id/textSelectOrders"
-                   android:layout_alignParentEnd="true"/>
+                   android:textColor="#171717"
+                   android:textSize="12sp" />
                <HorizontalScrollView
                    android:id="@+id/horizontalscrollview"
                    android:layout_below="@+id/textMenu"
@@ -555,16 +564,18 @@
                        </androidx.cardview.widget.CardView>
                    </RelativeLayout>
                </HorizontalScrollView>
+
                <TextView
                    android:id="@+id/textPopular"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_below="@+id/horizontalscrollview"
+                   android:layout_marginTop="20dp"
+                   android:layout_marginBottom="10dp"
+                   android:fontFamily="@font/roboto_medium"
                    android:text="Featured Products"
                    android:textSize="18sp"
-                   android:fontFamily="@font/roboto_medium"
-                   android:layout_marginTop="20dp"
-                   android:layout_marginBottom="10dp"/>
+                   android:textColor="#171717"/>
 
                <androidx.recyclerview.widget.RecyclerView
                    android:id="@+id/recyclerView"

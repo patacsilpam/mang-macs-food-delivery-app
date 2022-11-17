@@ -77,13 +77,13 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/preparationTime"
-                android:background="@drawable/gray_square"
+                android:background="@drawable/bg_preptime"
                 android:drawableStart="@drawable/ic_baseline_access_clock"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:padding="3dp"
                 android:text=""
-                android:textColor="#616161"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp" />
 
             <TextView

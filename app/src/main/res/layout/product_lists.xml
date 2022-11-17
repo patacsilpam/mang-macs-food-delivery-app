@@ -39,22 +39,23 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#202020"
                     android:textSize="18sp" />
-                <TextView
-                    android:id="@+id/devTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/productName"
-                    android:layout_toEndOf="@+id/image"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text=""
-                    android:textSize="14sp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:layout_marginTop="15dp"
-                    android:textColor="#616161"
-                    android:background="@drawable/gray_square"
-                    android:drawableStart="@drawable/ic_baseline_access_clock"
-                    android:drawablePadding="2dp" />
+
+            <TextView
+                android:id="@+id/devTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/productName"
+                android:layout_marginTop="15dp"
+                android:layout_toEndOf="@+id/image"
+                android:background="@drawable/bg_preptime"
+                android:drawableStart="@drawable/ic_baseline_access_clock"
+                android:drawablePadding="2dp"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="30 min"
+                android:textColor="#FFF"
+                android:textSize="14sp" />
                 <TextView
                     android:id="@+id/productPrice"
                     android:layout_width="wrap_content"

@@ -74,8 +74,8 @@
                 android:textSize="16sp"
                 android:fontFamily="@font/roboto_medium"
                 android:layout_marginTop="10dp"
-                android:textColor="#616161"
-                android:background="@drawable/gray_square"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_preptime"
                 android:drawableStart="@drawable/ic_baseline_access_clock"/>
             <!---Additional Topppings Layout!-->
             <LinearLayout

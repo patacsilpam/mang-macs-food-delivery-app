@@ -17,18 +17,22 @@
     </style>
 
     <style name="MainTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimary">#1CDA89</item>
         <item name="colorPrimaryVariant">#16C57B</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">#171717</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#FFFFFF</item>
-        <item name="colorSecondaryVariant">#FFFFFF</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">#16C57B</item>
+        <item name="colorSecondaryVariant">#16C57B</item>
+        <item name="colorOnSecondary">#171717</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#1DD4D4D6</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@drawable/bg_color</item>
+        <item name="android:windowBackground">@drawable/home_bg_color</item>
+        <!--Customize search icon and query hint text color.-->
+        <item name="android:textColor">#000</item>
+        <item name="android:textColorHint">#1E1D1D</item>
+        <item name="android:editTextColor">#1E1D1D</item>
     </style>
 
     <style name="HomeTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -41,7 +45,8 @@
         <item name="colorSecondaryVariant">#16C57B</item>
         <item name="colorOnSecondary">#323435</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">#201A237E</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#1DD4D4D6</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@drawable/home_bg_color</item>
         <!--Customize search icon and query hint text color.-->
@@ -60,7 +65,8 @@
         <item name="colorSecondaryVariant">#16C57B</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">#201A237E</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#1DD4D4D6</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@drawable/home_bg_color</item>
     </style>

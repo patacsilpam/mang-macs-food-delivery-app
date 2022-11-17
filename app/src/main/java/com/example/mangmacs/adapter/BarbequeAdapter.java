@@ -42,7 +42,7 @@ public class BarbequeAdapter extends RecyclerView.Adapter<BarbequeAdapter.ViewHo
                 .into(holder.image);
         holder.textProductName.setText(grilledModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(grilledModel.getPrice()+".00"));
-        holder.textDevTime.setText(grilledModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(grilledModel.getPreparationTime().concat(" min"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
