@@ -246,6 +246,7 @@
                     android:drawableLeft="@drawable/ic_baseline_add_24"
                     android:padding="3dp" />
             </RelativeLayout>
+
             <Button
                 android:id="@+id/btnRiceMeal"
                 style="?android:attr/borderlessButtonStyle"
@@ -259,7 +260,7 @@
                 android:text="Add to Cart"
                 android:textAllCaps="false"
                 android:textSize="16sp"
-                android:textStyle="bold"  />
+                android:textStyle="bold" />
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 </RelativeLayout>

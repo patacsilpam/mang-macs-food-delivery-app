@@ -60,6 +60,41 @@ public class LaterPickUp extends Fragment {
         return view;
     }
     //set selected time in edittext
+    private void SetDate() {
+        //date picker
+        calendar = Calendar.getInstance();
+        long today = calendar.getTimeInMillis();
+        DatePickerDialog.OnDateSetListener setDate = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateCalendar();
+            }
+
+            private void updateCalendar() {
+                String Format = "yyyy/MM/dd";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Format, Locale.TAIWAN);
+                date.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        };
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // adding the selected date in the edittext
+                        date.setText(year + "/" + (month+1) + "/" + dayOfMonth);
+                    }
+                },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(today);
+                datePickerDialog.show();
+            }
+        });
+    }
+
     private void SetTime() {
         int storedPrepTime = Integer.parseInt(SharedPreference.getSharedPreference(getContext()).setPrepTime());
         time.setOnClickListener(new View.OnClickListener() {
@@ -110,41 +145,6 @@ public class LaterPickUp extends Fragment {
                 //displayed previous selected time
                 timePickerDialog.updateTime(hour,min);
                 timePickerDialog.show();
-            }
-        });
-    }
-
-    private void SetDate() {
-        //date picker
-        calendar = Calendar.getInstance();
-        long today = calendar.getTimeInMillis();
-        DatePickerDialog.OnDateSetListener setDate = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateCalendar();
-            }
-
-            private void updateCalendar() {
-                String Format = "yyyy/MM/dd";
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Format, Locale.TAIWAN);
-                date.setText(simpleDateFormat.format(calendar.getTime()));
-            }
-        };
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        // adding the selected date in the edittext
-                        date.setText(year + "/" + (month+1) + "/" + dayOfMonth);
-                    }
-                },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(today);
-                datePickerDialog.show();
             }
         });
     }

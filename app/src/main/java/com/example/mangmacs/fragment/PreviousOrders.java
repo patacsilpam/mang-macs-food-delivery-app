@@ -84,7 +84,7 @@ public class PreviousOrders extends Fragment {
                     addOrder.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(getActivity(), ReservationActivity.class));
+                            startActivity(new Intent(getActivity(), MenuActivty.class));
                         }
                     });
 

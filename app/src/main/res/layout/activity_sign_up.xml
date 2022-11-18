@@ -91,6 +91,7 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:errorEnabled="true"
+            app:passwordToggleEnabled="true"
             app:boxStrokeColor="#32DE95"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText

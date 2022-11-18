@@ -394,7 +394,6 @@ public class ReservationActivity extends AppCompatActivity {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
                 String fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
                 String lname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
@@ -404,7 +403,6 @@ public class ReservationActivity extends AppCompatActivity {
                 String strTime = time.getText().toString();
                 String imgPayment = imageToString();
                 String comments = commentSuggestion.getText().toString();
-                Toast.makeText(context, imgPayment, Toast.LENGTH_SHORT).show();
                   if (strGuest.isEmpty()){
                       guestsError.setError("Required");
                   }
@@ -414,12 +412,15 @@ public class ReservationActivity extends AppCompatActivity {
                   if (strTime.isEmpty()) {
                       timeError.setError("Required");
                   }
+                  if (bitmap == null){
+                      paymentError.setVisibility(View.VISIBLE);
+                  }
                   else{
                       Sprite circle = new Circle();
                       progressBar.setIndeterminateDrawable(circle);
                       progressBar.setVisibility(View.VISIBLE);
                       ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                      Call<ReservationModel> callReservation = apiInterface.reservation(customerId,token,fname,lname,strGuest,email,strDate,strTime,"imgPayment",comments);
+                      Call<ReservationModel> callReservation = apiInterface.reservation(customerId,token,fname,lname,strGuest,email,strDate,strTime,imgPayment,comments);
                       callReservation.enqueue(new Callback<ReservationModel>() {
                           @Override
                           public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {

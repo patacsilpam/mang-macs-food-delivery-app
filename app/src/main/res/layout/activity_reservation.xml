@@ -170,11 +170,13 @@
                 android:src="@drawable/camera" />
             <Button
                 android:id="@+id/btnBookNow"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="100dp"
                 android:background="@drawable/confirmation_button"
                 android:text="Book Now"
                 android:textAllCaps="false"

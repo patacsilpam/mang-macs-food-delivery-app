@@ -58,12 +58,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/roboto_light"
+                    android:fontFamily="@font/roboto"
                     android:text="Extra Cheese"
-                    android:textColor="#393636"
+                    android:textColor="#676767"
                     android:textFontWeight="400"
                     android:textSize="16sp"
-                    android:textStyle="italic" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/addOnsPrice"
@@ -86,7 +86,7 @@
                 android:layout_toEndOf="@+id/image"
                 android:fontFamily="@font/roboto"
                 android:text="Medium"
-                android:textColor="#5E5757"
+                android:textColor="#676767"
                 android:textSize="16sp" />
 
             <TextView
@@ -98,17 +98,18 @@
                 android:layout_marginLeft="10dp"
                 android:layout_below="@id/variation"
                 android:text="x "/>
+
             <TextView
                 android:id="@+id/items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/times"
                 android:layout_below="@id/variation"
                 android:layout_marginTop="5dp"
-                android:text="3"
-                android:textSize="14sp"
+                android:layout_toEndOf="@+id/times"
                 android:fontFamily="@font/roboto"
-                android:textColor="@color/black"/>
+                android:text="3"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/specialRequest"

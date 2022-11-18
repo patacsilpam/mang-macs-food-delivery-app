@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Please wait for your table reservation. We will notify you if there is available table."
+                android:text="Please wait for the confirmation of your table reservation. We will notify you if there is  available table."
                 android:textColor="#656565"/>
             <Button
                 android:id="@+id/okButton"

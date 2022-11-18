@@ -144,7 +144,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@drawable/img_minus_btn"
-                    android:padding="3dp" />
+                    android:padding="3dp"  />
 
                 <EditText
                     android:id="@+id/textQuantity"

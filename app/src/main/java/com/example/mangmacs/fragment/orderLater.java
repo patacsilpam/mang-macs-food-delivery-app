@@ -63,61 +63,6 @@ public class orderLater extends Fragment {
         SetTime();
         return view;
     }
-    private void SetTime() {
-        int storedPrepTime = Integer.parseInt(SharedPreference.getSharedPreference(getContext()).setPrepTime());
-        time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(
-                        getContext(),
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @RequiresApi(api = Build.VERSION_CODES.O)
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                hour = hourOfDay;
-                                min = minute;
-                                Calendar calendar1 = calendar.getInstance();
-                                calendar1.set(0,0,0,hour,min);
-                                time.setText(DateFormat.format("hh:mm aa",calendar1));
-                                try {
-                                    //get current time
-                                    Date newDate = new Date();
-                                    SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss aa");
-                                    df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
-                                    String getCurrentTime = String.valueOf(df.format(newDate));
-                                    String getSelectedDate = date.getText().toString();
-                                    String getSelectedTime = time.getText().toString();
-                                    String getDateTime = getSelectedDate +" "+ getSelectedTime;
-                                    //parse selected time and date
-                                    Date currentTime = df.parse(getCurrentTime);
-                                    Date selectedTime = df.parse(getDateTime);
-                                    //add current time to prep time
-                                    Calendar cal = Calendar.getInstance();
-                                    cal.setTime(currentTime);
-                                    cal.add(Calendar.MINUTE,storedPrepTime);
-                                    String getEstTime = df.format(cal.getTime());
-                                    Date estTime = df.parse(getEstTime);
-                                    //disable pick up button if selected is less than preptime
-                                    if (selectedTime.after(estTime)){
-                                        orderLater.setEnabled(true);
-                                        textRequired.setVisibility(View.GONE);
-                                    }
-                                    else{
-                                        orderLater.setEnabled(false);
-                                        textRequired.setVisibility(View.VISIBLE);
-                                    }
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        },12,0,false
-                );
-                //displayed previous selected time
-                timePickerDialog.updateTime(hour,min);
-                timePickerDialog.show();
-            }
-        });
-    }
 
     private void SetDate() {
         calendar = Calendar.getInstance();
@@ -170,6 +115,60 @@ public class orderLater extends Fragment {
                 },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.getDatePicker().setMinDate(today);
                 datePickerDialog.show();
+            }
+        });
+    }
+
+    private void SetTime() {
+        int storedPrepTime = Integer.parseInt(SharedPreference.getSharedPreference(getContext()).setPrepTime());
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                hour = hourOfDay;
+                                min = minute;
+                                Calendar calendar1 = calendar.getInstance();
+                                calendar1.set(0,0,0,hour,min);
+                                time.setText(DateFormat.format("hh:mm aa",calendar1));
+                                try {
+                                    //get current time
+                                    Date newDate = new Date();
+                                    SimpleDateFormat df = new SimpleDateFormat("yyyy/M/dd hh:mm aa");
+                                    df.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
+                                    String getCurrentTime = String.valueOf(df.format(newDate));
+                                    String getSelectedDate = date.getText().toString();
+                                    String getSelectedTime = time.getText().toString();
+                                    String getDateTime = getSelectedDate +" "+ getSelectedTime;
+                                    //parse selected time and date
+                                    Date currentTime = df.parse(getCurrentTime);
+                                    Date selectedTime = df.parse(getDateTime);
+                                    Calendar cal = Calendar.getInstance();
+                                    cal.setTime(currentTime);
+                                    cal.add(Calendar.MINUTE,storedPrepTime);
+                                    String getEstTime = df.format(cal.getTime());
+                                    Date estTime = df.parse(getEstTime);
+                                    //disable pick up button if selected is less than preptime
+                                    if (selectedTime.after(estTime)){
+                                        orderLater.setEnabled(true);
+                                        textRequired.setVisibility(View.GONE);
+                                    }
+                                    else{
+                                        orderLater.setEnabled(false);
+                                        textRequired.setVisibility(View.VISIBLE);
+                                    }
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },12,0,false
+                );
+                //displayed previous selected time
+                timePickerDialog.updateTime(hour,min);
+                timePickerDialog.show();
             }
         });
     }
