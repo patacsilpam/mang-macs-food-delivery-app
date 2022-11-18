@@ -58,7 +58,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.productName.setText(cartModel.getProoductNameCart());
         holder.quantity.setText(String.valueOf(cartModel.getQuantityCart()));
         holder.productAddOns.setText(cartModel.getAddOns());
-        holder.productSpecialRequest.setText("\"" +cartModel.getSpecialRequest() + "\"");
+        holder.productSpecialRequest.setText("\"" +cartModel.getSpecialRequest().toLowerCase() + "\"");
         holder.productVariation.setText(cartModel.getVariationCart());
         holder.productPrice.setText(String.valueOf(cartModel.getPriceCart() + cartModel.getAddOnsFee()));
         holder.totalPrice.setText(String.valueOf(cartModel.getTotalprice()));

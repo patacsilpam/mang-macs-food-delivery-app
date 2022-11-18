@@ -14,8 +14,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You have no orders"
+        android:text="Your order list is empty"
         android:textSize="24sp"
+        android:textColor="#171717"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:padding="10dp"/>
@@ -24,16 +25,16 @@
         android:layout_height="wrap_content"
         android:text="Order now"
         android:textSize="18sp"
-        android:textColor="#6E6A6A"
+        android:textColor="#676767"
         android:fontFamily="@font/roboto"
-        android:gravity="center"
-        android:padding="10dp"/>
+        android:gravity="center"/>
     <Button
         android:id="@+id/addOrder"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:background="@drawable/confirmation_button"
         style="?android:attr/borderlessButtonStyle"
+        android:layout_marginTop="15dp"
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:textAllCaps="false"

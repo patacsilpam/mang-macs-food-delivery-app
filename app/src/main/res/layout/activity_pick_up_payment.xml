@@ -76,7 +76,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:fontFamily="@font/roboto_light"
-                   android:text="EST. Time"
+                   android:text="EST. Pick Up Time"
                    android:textColor="#373737"
                    android:textSize="18sp"/>
 

@@ -10,6 +10,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -165,17 +167,17 @@ public class AppetizerListDetail extends AppCompatActivity {
                 String lastName = lname.getText().toString();
                 int price = Integer.parseInt(productPrice.getText().toString());
                 int number = Integer.parseInt(quantity.getText().toString());
-                String add_ons = drinksAddons.getEditText().getText().toString();
+                String specialReq = drinksAddons.getEditText().getText().toString();
                 String preparedTime = status.getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,number,add_ons,0,"",image,preparedTime);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,number,"",0,specialReq,image,preparedTime);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {
                         if(response.body() != null){
                             String success =response.body().getSuccess();
                             if(success.equals("1")){
-                                Toast.makeText(getApplicationContext(),"New Order Added Successfully",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Added to Cart",Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(),home_activity.class));
                             }
                         }

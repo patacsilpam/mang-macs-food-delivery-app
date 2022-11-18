@@ -184,15 +184,14 @@
             <TextView
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
                 android:gravity="center"
-                android:padding="10dp"
                 android:text="Logout"
                 android:textColor="#232323"
                 android:textSize="18sp"
                 android:fontFamily="@font/roboto"
-                android:background="@drawable/stroke_gray_square"/>
+                android:background="@drawable/bg_logout" />
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView

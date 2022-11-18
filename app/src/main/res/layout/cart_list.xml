@@ -54,12 +54,12 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_toEndOf="@+id/imgProduct"
-                android:fontFamily="@font/roboto_light"
+                android:fontFamily="@font/roboto"
                 android:text="Extra Veggies"
-                android:textColor="#393636"
+                android:textColor="#676767"
                 android:textFontWeight="400"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textVariation"
@@ -70,8 +70,8 @@
                 android:layout_toEndOf="@+id/imgProduct"
                 android:fontFamily="@font/roboto"
                 android:text="Large"
-                android:textColor="#5E5757"
-                android:textSize="16sp" />
+                android:textColor="#676767"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/specialRequest"
@@ -81,28 +81,70 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@+id/imgProduct"
-                android:fontFamily="@font/roboto"
+                android:fontFamily="@font/roboto_light"
                 android:text=""
-                android:textColor="#5E5757"
+                android:textColor="#676767"
                 android:textSize="14sp" />
 
             <RelativeLayout
-                android:id="@+id/incrementDecrememnt"
+                android:id="@+id/priceLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textVariation"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_below="@+id/specialRequest"
                 android:layout_toEndOf="@+id/imgProduct"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto">
+                <TextView
+                    android:id="@+id/textPesoSign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="₱ "
+                    android:textColor="@color/pressed"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="150"
+                    android:textColor="@color/pressed"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/decimal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="45dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text=".00"
+                    android:textColor="@color/pressed"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/specialRequest"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/stroke_gray_square"
+                android:padding="10dp">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnDecrement"
+                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/decrement_btn"
-                    android:drawableLeft="@drawable/ic_outline_horizontal_rule"
-                    android:padding="5dp" />
+                    android:background="@drawable/img_minus_btn"
+                    android:padding="3dp" />
 
                 <EditText
                     android:id="@+id/textQuantity"
@@ -113,8 +155,9 @@
                     android:focusable="false"
                     android:gravity="center"
                     android:inputType="number"
-                    android:text="1"
-                    android:textSize="14sp" />
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnIncrement"
@@ -125,43 +168,6 @@
                     android:background="@drawable/increment_btn"
                     android:drawableLeft="@drawable/ic_baseline_add_24"
                     android:padding="3dp" />
-
-                <TextView
-                    android:id="@+id/textPesoSign"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="70dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="₱ "
-                    android:textColor="@color/pressed"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="45dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="0"
-                    android:textColor="@color/pressed"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/decimal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="@font/roboto"
-                    android:text=".00"
-                    android:textColor="@color/pressed"
-                    android:textSize="16sp" />
-
             </RelativeLayout>
 
             <TextView

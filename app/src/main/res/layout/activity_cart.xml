@@ -6,38 +6,43 @@
     android:layout_height="match_parent"
     android:background="#1DC2C2C6"
     tools:context=".activities.CartActivity">
+
    <androidx.appcompat.widget.Toolbar
        android:id="@+id/toolbar"
        android:layout_width="match_parent"
        android:layout_height="?actionBarSize"
-      android:background="@color/white">
+       android:background="@color/white">
+
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
+
          <TextView
              android:id="@+id/arrow_back"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_centerVertical="true"
-             android:drawableStart="@drawable/ic_baseline_arrow_back"/>
+             android:drawableStart="@drawable/ic_baseline_arrow_back" />
+
          <TextView
              android:id="@+id/textCart"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_centerVertical="true"
              android:layout_toEndOf="@+id/arrow_back"
-             android:textSize="18sp"
              android:fontFamily="@font/roboto_medium"
-             android:text="New Order"/>
+             android:text="Cart"
+             android:textSize="18sp" />
+
          <TextView
              android:id="@+id/totalCart"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_centerVertical="true"
              android:layout_toEndOf="@id/textCart"
-             android:textSize="18sp"
              android:fontFamily="@font/roboto_medium"
-             android:text=" (0)"/>
+             android:text=" (0)"
+             android:textSize="18sp" />
       </RelativeLayout>
    </androidx.appcompat.widget.Toolbar>
    <com.github.ybq.android.spinkit.SpinKitView
@@ -115,11 +120,12 @@
                android:text=".00"/>
            <Button
                android:id="@+id/checkOut"
-               android:layout_width="wrap_content"
+               style="?android:attr/borderlessButtonStyle"
+               android:layout_width="150dp"
                android:layout_height="wrap_content"
                android:background="@drawable/confirmation_button"
                android:text="Check Out"
-               android:textSize="13sp"
+               android:textSize="18sp"
                android:textAllCaps="false"
                android:layout_alignParentEnd="true" />
         </RelativeLayout>

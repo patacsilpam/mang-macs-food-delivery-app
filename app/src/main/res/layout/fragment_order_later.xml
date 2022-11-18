@@ -58,12 +58,13 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/orderLater"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/pressed"
-            android:textColor="@color/white"
             android:text="Next"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
     </RelativeLayout>
 </FrameLayout>

@@ -93,8 +93,8 @@
                 android:layout_marginTop="50dp"
                 android:fontFamily="@font/roboto"
                 android:text="Special Request"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -102,7 +102,9 @@
                 android:fontFamily="@font/roboto_light"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Add instructions for your order" />
+                android:text="Add instructions for your order"
+                android:textSize="16sp"
+                android:textColor="#676767"/>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/baseCardview"
@@ -197,53 +199,68 @@
     </ScrollView>
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:background="#FFFFFF">
         <RelativeLayout
             android:id="@+id/incrementDecrememnt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="10dp"
             android:layout_toEndOf="@+id/imgProduct"
             android:layout_below="@+id/textPesoSign">
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/decrement"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/green_circle"
-                android:layout_marginTop="5dp"
-                android:padding="3dp"
-                android:drawableLeft="@drawable/ic_outline_horizontal_rule"/>
-            <EditText
-                android:id="@+id/quantity"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_toEndOf="@+id/decrement"
-                android:background="@null"
-                android:inputType="number"
-                android:focusable="false"
+            <RelativeLayout
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/stroke_gray_square"
                 android:gravity="center"
-                android:text="1"
-                android:textSize="14sp" />
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/increment"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/green_circle"
-                android:layout_marginTop="5dp"
-                android:layout_toEndOf="@id/quantity"
-                android:padding="3dp"
-                android:drawableLeft="@drawable/ic_baseline_add_24"/>
+                android:padding="10dp">
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/decrement"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/img_minus_btn"
+                    android:padding="3dp" />
+
+                <EditText
+                    android:id="@+id/quantity"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_toEndOf="@+id/decrement"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:text="1"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/increment"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_toEndOf="@id/quantity"
+                    android:background="@drawable/green_circle"
+                    android:drawableLeft="@drawable/ic_baseline_add_24"
+                    android:padding="3dp" />
+            </RelativeLayout>
             <Button
                 android:id="@+id/btnAddtoCartDimsum"
-                android:layout_width="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_addcart"
+                android:drawableLeft="@drawable/ic_outline_shopping_bag_24"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Add to Cart"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 </RelativeLayout>
