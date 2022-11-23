@@ -26,7 +26,7 @@
                 android:id="@+id/product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_toEndOf="@+id/image"
                 android:fontFamily="@font/roboto"
                 android:text="Cheesy Pepperoni"
@@ -49,21 +49,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/productPrice"
-                android:layout_toEndOf="@id/image"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@id/image">
 
                 <TextView
                     android:id="@+id/addOns"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="5dp"
                     android:fontFamily="@font/roboto"
                     android:text="Extra Cheese"
                     android:textColor="#676767"
                     android:textFontWeight="400"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/addOnsPrice"
@@ -82,7 +80,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/addOnsLayout"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="4dp"
                 android:layout_toEndOf="@+id/image"
                 android:fontFamily="@font/roboto"
                 android:text="Medium"
@@ -90,43 +89,44 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/specialRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/variation"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/image"
+                android:fontFamily="@font/roboto"
+                android:text="no mayo"
+                android:textColor="#5E5757"
+                android:textSize="14sp" />
+            <TextView
                 android:id="@+id/times"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/image"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="10dp"
-                android:layout_below="@id/variation"
+                android:layout_below="@id/specialRequest"
                 android:text="x "/>
 
             <TextView
                 android:id="@+id/items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/variation"
-                android:layout_marginTop="5dp"
+                android:layout_below="@+id/specialRequest"
+                android:layout_marginTop="8dp"
                 android:layout_toEndOf="@+id/times"
                 android:fontFamily="@font/roboto"
                 android:text="3"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/specialRequest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/items"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_toEndOf="@+id/image"
-                android:fontFamily="@font/roboto"
-                android:text=""
-                android:textColor="#5E5757"
-                android:textSize="14sp" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/specialRequest">
+                    android:layout_below="@id/items">
 
                     <TextView
                         android:id="@+id/pesoSign"

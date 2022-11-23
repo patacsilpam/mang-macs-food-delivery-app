@@ -42,7 +42,7 @@ public class SizzlingAdapter extends RecyclerView.Adapter<SizzlingAdapter.Produc
                 .into(holder.image);
         holder.textProductName.setText(sizzlingListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(sizzlingListModel.getPrice()+".00"));
-        holder.textDevTime.setText(sizzlingListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(sizzlingListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

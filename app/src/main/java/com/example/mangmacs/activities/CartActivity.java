@@ -19,8 +19,10 @@ import android.widget.Toast;
 
 import com.example.mangmacs.R;
 import com.example.mangmacs.SharedPreference;
+import com.example.mangmacs.TotalPrice;
 import com.example.mangmacs.adapter.CartAdapter;
 import com.example.mangmacs.api.ApiInterface;
+import com.example.mangmacs.api.CartInterface;
 import com.example.mangmacs.api.RetrofitInstance;
 import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.SettingsModel;
@@ -34,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements CartInterface {
     private List<CartModel> cartModelList;
     private CartAdapter cartAdapter;
     private RecyclerView recyclerView;
@@ -70,7 +72,7 @@ public class CartActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             String totalPrice = intent.getStringExtra("totalprice");
             maxTime = intent.getIntExtra("maxTime",0);
-            textProductPrice.setText(totalPrice);
+            //textProductPrice.setText(totalPrice);
         }
     };
     private void showCart() {
@@ -85,10 +87,12 @@ public class CartActivity extends AppCompatActivity {
                 public void onResponse(Call<List<CartModel>> call, Response<List<CartModel>> response) {
                     progressBar.setVisibility(View.GONE);
                     cartModelList = response.body();
-                    cartAdapter = new CartAdapter(CartActivity.this,cartModelList);
+                    cartAdapter = new CartAdapter(CartActivity.this,cartModelList,CartActivity.this );
                     recyclerView.setAdapter(cartAdapter);
+                    cartAdapter.notifyDataSetChanged();
                     countCart = recyclerView.getAdapter().getItemCount();
                     cart.setText("("+String.valueOf(countCart)+")");
+
                     if(countCart == 0){
                         checkOut.setEnabled(false);
                         emptyCart.setVisibility(View.VISIBLE);
@@ -136,4 +140,15 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onTotalPriceChange(String totalPrice) {
+        int totalAmount = 0;
+        String strTotalPrice = totalPrice.replace("[","").replace("]","").trim();
+        String[] splitPrice = strTotalPrice.split(", ");
+
+        for (int i = 0; i<splitPrice.length; i++){
+            totalAmount += Integer.parseInt(splitPrice[i]);
+        }
+        textProductPrice.setText(String.valueOf(totalAmount));
+    }
 }

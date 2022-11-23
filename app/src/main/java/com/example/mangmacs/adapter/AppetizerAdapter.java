@@ -43,7 +43,7 @@ public class AppetizerAdapter extends RecyclerView.Adapter<AppetizerAdapter.Prod
                 .into(holder.image);
         holder.textProductName.setText(appetizerModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(appetizerModel.getPrice()+".00"));
-        holder.textDevTime.setText(appetizerModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(appetizerModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -62,11 +62,11 @@ public class BilaoAdapter extends RecyclerView.Adapter<BilaoAdapter.ProductViewH
         //convert min to hour if preparation time is greater than or equal to 60 minutes
         int intPrepTime = Integer.parseInt(pancitBilaoListModel.getPreparationTime());
         if (intPrepTime < 60 ){
-            holder.textDevTime.setText(String.valueOf(intPrepTime).concat("min"));
+            holder.textDevTime.setText(String.valueOf(intPrepTime).concat(" mins"));
         }
         else{
             int convertMinHour = intPrepTime/60;
-            holder.textDevTime.setText(String.valueOf(convertMinHour).concat("hr"));
+            holder.textDevTime.setText(String.valueOf(convertMinHour).concat(" hr"));
         }
     }
 

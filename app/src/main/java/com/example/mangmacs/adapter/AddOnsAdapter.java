@@ -42,7 +42,7 @@ public class AddOnsAdapter extends RecyclerView.Adapter<AddOnsAdapter.ProductVie
                 .into(holder.image);
         holder.textProductName.setText(addOnsModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(addOnsModel.getPrice()+".00"));
-        holder.textDevTime.setText(addOnsModel.getPreparationTime().concat(" min"));
+        holder.textDevTime.setText(addOnsModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

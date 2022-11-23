@@ -146,7 +146,7 @@ public class AppetizerListDetail extends AppCompatActivity {
             Glide.with(AppetizerListDetail.this).load(image).into(imageView);
             productName.setText(productname);
             productPrice.setText(Integer.toString(productprice));
-            status.setText(productstatus.concat(" min"));
+            status.setText(productstatus.concat(" mins"));
             ingredients.setText(newIngredients.toLowerCase(Locale.ROOT));
             customerId.setText(customerID);
             fname.setText(firstname);

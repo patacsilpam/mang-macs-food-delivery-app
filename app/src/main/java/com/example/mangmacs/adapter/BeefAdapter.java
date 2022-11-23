@@ -43,7 +43,7 @@ public class BeefAdapter extends RecyclerView.Adapter<BeefAdapter.ProductViewHol
                 .into(holder.image);
         holder.textProductName.setText(beefModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(beefModel.getPrice()+".00"));
-        holder.textDevTime.setText(beefModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(beefModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -181,7 +181,7 @@ public class PizzaListDetaill extends AppCompatActivity {
             fname.setText(newFirstName);
             lname.setText(newLastName);
             email.setText(newEmailAddress);
-            status.setText(newProductStatus.concat("min"));
+            status.setText(newProductStatus.concat(" mins"));
             price.setText(splitPrice[0]);
             productCode.setText(splitCode[0]);
 

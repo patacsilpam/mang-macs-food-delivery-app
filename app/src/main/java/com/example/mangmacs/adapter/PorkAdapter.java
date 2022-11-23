@@ -42,7 +42,7 @@ public class PorkAdapter extends RecyclerView.Adapter<PorkAdapter.ProductViewHol
                 .into(holder.image);
         holder.textProductName.setText(porkModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(porkModel.getPrice()+".00"));
-        holder.textDevTime.setText(porkModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(porkModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -43,7 +43,7 @@ public class PigarPigarAdapter extends RecyclerView.Adapter<PigarPigarAdapter.Pr
                 .into(holder.image);
         holder.textProductName.setText(pigarPigarModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(pigarPigarModel.getPrice()+".00"));
-        holder.textDevTime.setText(pigarPigarModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(pigarPigarModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

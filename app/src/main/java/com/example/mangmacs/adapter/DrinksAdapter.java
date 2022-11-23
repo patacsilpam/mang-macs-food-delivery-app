@@ -42,7 +42,7 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ProductVie
                 .into(holder.image);
         holder.textProductName.setText(drinksListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(drinksListModel.getPrice()+".00"));
-        holder.textDevTime.setText(drinksListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(drinksListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

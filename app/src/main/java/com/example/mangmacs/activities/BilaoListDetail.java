@@ -160,11 +160,11 @@ public class BilaoListDetail extends AppCompatActivity {
             productCode.setText(splitCode[0]);
             //convert min to hour if preparation time is greater than or equal to 60 minutes
             if (newPrepTime < 60){
-                status.setText(String.valueOf(newPrepTime).concat("min"));
+                status.setText(String.valueOf(newPrepTime).concat(" mins"));
             }
             else{
                 int convertMinHr = newPrepTime/60;
-                status.setText(String.valueOf(convertMinHr).concat("hr"));
+                status.setText(String.valueOf(convertMinHr).concat(" hr"));
             }
             //show product variation through looping
             for (int i = 0; i<splitVariation.length; i++){

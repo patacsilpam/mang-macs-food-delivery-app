@@ -42,7 +42,7 @@ public class PastaAdapter extends RecyclerView.Adapter<PastaAdapter.ProductViewH
                 .into(holder.image);
         holder.textProductName.setText(pastaListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(pastaListModel.getPrice()+".00"));
-        holder.textDevTime.setText(pastaListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(pastaListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

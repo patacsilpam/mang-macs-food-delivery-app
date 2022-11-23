@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,7 +114,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
 
         //fix the design
         if (orderModel.getAddOns().equals("")){
-            holder.addOns.setVisibility(View.GONE);
+            holder.addOnsLayout.setVisibility(View.GONE);
         }
         if (orderModel.getVariationCart().equals("")){
             holder.variation.setVisibility(View.GONE);
@@ -121,6 +122,7 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
         if (orderModel.getSpecialRequest().equals("")){
             holder.specialRequest.setVisibility(View.GONE);
         }
+
     }
 
     @Override
@@ -129,10 +131,12 @@ public class OrderListsAdapter extends RecyclerView.Adapter<OrderListsAdapter.Pr
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
+        private RelativeLayout addOnsLayout;
         private TextView product,addOns,variation,items,price,specialRequest;
         private ImageView imgProduct;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
+            addOnsLayout = itemView.findViewById(R.id.addOnsLayout);
             product = itemView.findViewById(R.id.product);
             addOns = itemView.findViewById(R.id.addOns);
             variation = itemView.findViewById(R.id.variation);

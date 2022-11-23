@@ -42,7 +42,7 @@ public class DimsumAdapter extends RecyclerView.Adapter<DimsumAdapter.ProductVie
                 .into(holder.image);
         holder.textProductName.setText(dimsumListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(dimsumListModel.getPrice()+".00"));
-        holder.textDevTime.setText(dimsumListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(dimsumListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

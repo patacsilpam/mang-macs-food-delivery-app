@@ -44,7 +44,7 @@ public class NoodlesAdapter extends RecyclerView.Adapter<NoodlesAdapter.ProductV
                 .into(holder.image);
         holder.textProductName.setText(noodlesListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(noodlesListModel.getPrice()+".00"));
-        holder.textDevTime.setText(noodlesListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(noodlesListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -42,7 +42,7 @@ public class GrilledAdapter extends RecyclerView.Adapter<GrilledAdapter.ProductV
                 .into(holder.image);
         holder.textProductName.setText(productListModel.getProductName());
         holder.textProductPrice.setText(String.valueOf("₱ "+ productListModel.getPrice()+".00"));
-        holder.textDevTime.setText(productListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(productListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

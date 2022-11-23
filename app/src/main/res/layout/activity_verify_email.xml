@@ -29,7 +29,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto"
                 android:padding="20dp"
-                android:text="Verify Email"
+                android:text="Enter Code"
                 android:textColor="#32DE95"
                 android:textSize="36sp"
                 android:textStyle="bold"/>
@@ -75,12 +75,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/white_background"
-                android:text="Verify Code"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:text="Sign In"
                 android:textSize="20sp"
-                android:fontFamily="@font/roboto"/>
+                android:textColor="#fff"
+                android:textAllCaps="false"
+                android:fontFamily="@font/roboto_medium"
+                android:background="@drawable/white_background"
+                style="?android:attr/borderlessButtonStyle" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

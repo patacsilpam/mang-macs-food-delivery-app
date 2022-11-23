@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.mangmacs.adapter.CartAdapter;
 import com.example.mangmacs.adapter.PopularAdapter;
+import com.example.mangmacs.api.CartInterface;
 import com.example.mangmacs.model.CartModel;
 import com.example.mangmacs.model.PizzaListModel;
 import com.example.mangmacs.model.PopularListModel;
@@ -42,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class home_activity extends AppCompatActivity{
+public class home_activity extends AppCompatActivity implements CartInterface {
     private RecyclerView recyclerView,recyclerViewCart;
     private List<PizzaListModel> popularList;
     private List<CartModel> cartList;
@@ -106,7 +107,7 @@ public class home_activity extends AppCompatActivity{
             @Override
             public void onResponse(Call<List<CartModel>> call, Response<List<CartModel>> response) {
                 cartList = response.body();
-                cartAdapter = new CartAdapter(home_activity.this,cartList);
+                cartAdapter = new CartAdapter(home_activity.this,cartList,home_activity.this);
                 recyclerViewCart.setAdapter(cartAdapter);
                 int countCart = recyclerViewCart.getAdapter().getItemCount();
                 totalCart.setText(String.valueOf(countCart));
@@ -340,4 +341,8 @@ public class home_activity extends AppCompatActivity{
         return false;
     }
 
+    @Override
+    public void onTotalPriceChange(String totalPrice) {
+
+    }
 }

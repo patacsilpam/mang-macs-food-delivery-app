@@ -42,7 +42,7 @@ public class PulutanAdapter extends RecyclerView.Adapter<PulutanAdapter.ProductV
                 .into(holder.image);
         holder.textProductName.setText(pulutanListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(pulutanListModel.getPrice()+".00"));
-        holder.textDevTime.setText(pulutanListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(pulutanListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

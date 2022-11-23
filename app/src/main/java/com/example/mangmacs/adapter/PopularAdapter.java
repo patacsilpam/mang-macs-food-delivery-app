@@ -48,7 +48,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProductV
                 .into(holder.image);
         holder.textProductName.setText(popularListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(popularListModel.getPrice()).concat(".00"));
-        holder.textDevTime.setText(popularListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(popularListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

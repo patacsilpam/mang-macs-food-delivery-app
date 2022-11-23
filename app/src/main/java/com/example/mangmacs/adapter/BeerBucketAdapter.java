@@ -44,7 +44,7 @@ public class BeerBucketAdapter extends RecyclerView.Adapter<BeerBucketAdapter.Pr
                 .into(holder.image);
         holder.textProductName.setText(beerBucketModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(beerBucketModel.getPrice()+".00"));
-        holder.textDevTime.setText(beerBucketModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(beerBucketModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

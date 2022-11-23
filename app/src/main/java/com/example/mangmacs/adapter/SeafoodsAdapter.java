@@ -43,7 +43,7 @@ public class SeafoodsAdapter extends RecyclerView.Adapter<SeafoodsAdapter.Produc
                 .into(holder.image);
         holder.textProductName.setText(seafoodsModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(seafoodsModel.getPrice()+".00"));
-        holder.textDevTime.setText(seafoodsModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(seafoodsModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

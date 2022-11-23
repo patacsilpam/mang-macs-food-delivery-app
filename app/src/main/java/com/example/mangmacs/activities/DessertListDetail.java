@@ -143,7 +143,7 @@ public class DessertListDetail extends AppCompatActivity {
             productName.setText(productname);
             productPrice.setText(Integer.toString(productprice));
             ingredients.setText(newIngredients.toLowerCase(Locale.ROOT));
-            status.setText(productstatus.concat(" min"));
+            status.setText(productstatus.concat(" mins"));
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);

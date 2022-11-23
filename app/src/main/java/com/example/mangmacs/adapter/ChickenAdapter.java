@@ -43,7 +43,7 @@ public class ChickenAdapter extends RecyclerView.Adapter<ChickenAdapter.ProductV
                 .into(holder.image);
         holder.textProductName.setText(chickenModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(chickenModel.getPrice()+".00"));
-        holder.textDevTime.setText(chickenModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(chickenModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

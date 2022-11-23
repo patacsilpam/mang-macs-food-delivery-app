@@ -45,7 +45,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ViewHolder> 
                 .into(holder.image);
          holder.textProductName.setText(promoListModel.getProductNamePromo());
          holder.textProductPrice.setText("₱ "+String.valueOf(promoListModel.getPricePromo()+".00"));
-         holder.textDevTime.setText(String.valueOf(promoListModel.getPreparationTime()).concat("min"));
+         holder.textDevTime.setText(String.valueOf(promoListModel.getPreparationTime()).concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

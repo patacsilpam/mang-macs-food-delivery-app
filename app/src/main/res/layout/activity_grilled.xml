@@ -51,7 +51,7 @@
                       android:textSize="22sp"
                       android:textColor="#434547"
                       android:fontFamily="@font/roboto"
-                      android:padding="5dp" />
+                      android:padding="10dp" />
                   <androidx.recyclerview.widget.RecyclerView
                       android:id="@+id/recyclerView"
                       android:clipToPadding="false"
@@ -71,7 +71,7 @@
                     android:textSize="22sp"
                     android:textColor="#434547"
                     android:fontFamily="@font/roboto"
-                    android:padding="5dp" />
+                    android:padding="10dp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewBbq"
                     android:clipToPadding="false"
@@ -91,7 +91,7 @@
                       android:textSize="22sp"
                       android:textColor="#434547"
                       android:fontFamily="@font/roboto"
-                      android:padding="5dp" />
+                      android:padding="10dp" />
                   <androidx.recyclerview.widget.RecyclerView
                       android:id="@+id/recyclerViewAddOns"
                       android:clipToPadding="false"

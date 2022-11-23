@@ -15,30 +15,41 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/img_success_order"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/green_circle">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="5dp"
+                    android:src="@drawable/img_success_order"/>
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:textSize="24sp"
-                android:text="Success"
-                android:textColor="#131313"/>
+                android:text="Success!"
+                android:textColor="@color/pressed"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_medium"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Please wait for confirmation"
-                android:textColor="#656565"/>
+                android:text="Please wait for the confirmation of your order."
+                android:textColor="#676767"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto"/>
             <Button
                 android:id="@+id/okButton"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/white"
-                android:background="@drawable/confirmation_button"
+                android:background="@drawable/bg_addcart"
                 android:text="Ok"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

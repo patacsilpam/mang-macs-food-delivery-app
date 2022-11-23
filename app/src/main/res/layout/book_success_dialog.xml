@@ -15,17 +15,25 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/img_book_success"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/green_circle">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="15dp"
+                    android:src="@drawable/img_book_success"/>
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:textSize="24sp"
-                android:text="Success"
-                android:textColor="#131313"/>
+                android:text="Success!"
+                android:textColor="@color/pressed"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_medium"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,11 +42,12 @@
                 android:textColor="#656565"/>
             <Button
                 android:id="@+id/okButton"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/white"
-                android:background="@drawable/confirmation_button"
+                android:background="@drawable/bg_addcart"
                 android:text="Ok"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

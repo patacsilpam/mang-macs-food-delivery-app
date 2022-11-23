@@ -43,7 +43,7 @@ public class WineAdapter extends RecyclerView.Adapter<WineAdapter.ProductViewHol
                 .into(holder.image);
         holder.textProductName.setText(wineListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(wineListModel.getPrice()+".00"));
-        holder.textDevTime.setText(wineListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(wineListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

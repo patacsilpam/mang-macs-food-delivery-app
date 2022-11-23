@@ -42,7 +42,7 @@ public class SoupAdapter extends RecyclerView.Adapter<SoupAdapter.ProductViewHol
                 .into(holder.image);
         holder.textProductName.setText(soupListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(soupListModel.getPrice()+".00"));
-        holder.textDevTime.setText(soupListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(soupListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

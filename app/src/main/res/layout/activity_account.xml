@@ -48,7 +48,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
                 app:cardElevation="0dp">
 
                 <LinearLayout
@@ -96,6 +95,7 @@
                 android:id="@+id/myAccount"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="30dp"
                 android:background="@color/white"
                 android:clickable="true"
                 android:focusable="true"
@@ -105,11 +105,6 @@
                 android:text="My Account"
                 android:textColor="#232323"
                 android:textSize="14sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#634E548F" />
 
             <TextView
                 android:id="@+id/changePassword"
@@ -125,11 +120,6 @@
                 android:textColor="#232323"
                 android:textSize="14sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#634E548F" />
-
             <TextView
                 android:id="@+id/savedAddress"
                 android:layout_width="match_parent"
@@ -140,14 +130,10 @@
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
                 android:padding="15dp"
-                android:text="Saved Address"
+                android:text="Address"
                 android:textColor="#232323"
                 android:textSize="14sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#634E548F" />
             <TextView
                 android:id="@+id/myOrders"
                 android:layout_width="match_parent"
@@ -160,11 +146,7 @@
                 android:text="My Orders"
                 android:textColor="#232323"
                 android:textSize="14sp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="1dp"
-                android:background="#634E548F" />
+
             <TextView
                 android:id="@+id/myBook"
                 android:layout_width="match_parent"
@@ -176,24 +158,20 @@
                 android:text="My Table Reservation"
                 android:textColor="#232323"
                 android:textSize="14sp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="30dp"
-                android:background="#634E548F" />
+
             <TextView
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="100dp"
+                android:fontFamily="@font/roboto"
                 android:gravity="center"
                 android:text="Logout"
-                android:textColor="#232323"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto"
-                android:background="@drawable/bg_logout" />
+                android:textColor="#F41818"
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView

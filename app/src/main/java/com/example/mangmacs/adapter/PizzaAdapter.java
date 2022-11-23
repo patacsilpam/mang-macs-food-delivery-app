@@ -43,7 +43,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ProductViewH
                 .into(holder.image);
         holder.textProductPrice.setText("₱ "+String.valueOf(pizzaListModel.getPrice()+".00"));
         holder.textProductName.setText(pizzaListModel.getProductName());
-        holder.textDevTime.setText(pizzaListModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(pizzaListModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

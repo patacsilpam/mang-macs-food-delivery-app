@@ -42,7 +42,7 @@ public class RiceAdapter extends RecyclerView.Adapter<RiceAdapter.ProductViewHol
                 .into(holder.image);
         holder.textProductName.setText(riceModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(riceModel.getPrice()+".00"));
-        holder.textDevTime.setText(riceModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(riceModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

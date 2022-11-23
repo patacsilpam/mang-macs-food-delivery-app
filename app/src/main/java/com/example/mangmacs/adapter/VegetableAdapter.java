@@ -42,7 +42,7 @@ public class VegetableAdapter extends RecyclerView.Adapter<VegetableAdapter.Prod
                 .into(holder.image);
         holder.textProductName.setText(vegetableModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(vegetableModel.getPrice()+".00"));
-        holder.textDevTime.setText(vegetableModel.getPreparationTime().concat("min"));
+        holder.textDevTime.setText(vegetableModel.getPreparationTime().concat(" mins"));
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

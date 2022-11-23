@@ -11,6 +11,7 @@ public class SharedPreference {
     public static final String LNAME = "lname";
     public static final String TOKEN = "token";
     public static final String PREP_TIME = "phoneNumber";
+    public static final String TOTAL_PRICE = "totalPrice";
     public static SharedPreference sharedPreference;
     public static Context context;
     public SharedPreference(Context context1){
@@ -41,6 +42,12 @@ public class SharedPreference {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(EMAIL,email);
+        editor.apply();
+    }
+    public void storeTotalPrice(String totalPrice){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(TOTAL_PRICE,totalPrice);
         editor.apply();
     }
     public String setToken(){
@@ -80,6 +87,11 @@ public class SharedPreference {
     public String setID(){
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
         return  sharedPreferences.getString(CUSTOMER_ID,null);
+    }
+    //set total price
+    public String setTotalPrice(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE);
+        return sharedPreferences.getString(TOTAL_PRICE,null);
     }
     //check if the user already logged in
     public boolean isLoggedIn(){
