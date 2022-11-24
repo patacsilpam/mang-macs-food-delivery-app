@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                                     finish();
                                 }
                                 else if(success.equals("2")){
+                                    progressDialog.dismiss();
                                     Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                                 }
                                 else{

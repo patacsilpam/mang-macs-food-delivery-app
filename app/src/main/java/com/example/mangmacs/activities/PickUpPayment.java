@@ -31,6 +31,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,6 +51,8 @@ import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Circle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -72,6 +75,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
     private Context context = this;
     private ProgressBar progressBar;
     private TextView arrowBack,total,waitingTime;
+    private TextInputLayout paymentNumber;
     private Button pickUpOrder;
     private ImageView imgPayment;
     private RecyclerView recyclerViewOrder;
@@ -100,6 +104,7 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
         waitingTime = findViewById(R.id.waitingTime);
         arrowBack = findViewById(R.id.arrow_back);
         total = findViewById(R.id.total);
+        paymentNumber = findViewById(R.id.paymentNumber);
         pickUpOrder = findViewById(R.id.pickUpOrder);
         pickUpOrder.setEnabled(false);
         progressBar = findViewById(R.id.spin_kit);
@@ -386,55 +391,62 @@ public class PickUpPayment extends AppCompatActivity implements OrdersListener {
                 Sprite circle = new Circle();
                 progressBar.setIndeterminateDrawable(circle);
                 progressBar.setVisibility(View.VISIBLE);
-                String fname = SharedPreference.getSharedPreference(PickUpPayment.this).setFname();
-                String lname = SharedPreference.getSharedPreference(PickUpPayment.this).setLname();
-                String email = SharedPreference.getSharedPreference(PickUpPayment.this).setEmail();
-                String accountName = fname.concat(" ").concat(lname);
-                String estTime = waitingTime.getText().toString();
-                String orderType = "Pick Up";
-                String orderStatus = "Pending";
-                String paymentPhoto = imageToString();
-                String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
-                ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,"","","",token,email,"",orderLists,productCategoryList,variationList,quantityList,addOnsList,addOnsFeeList,specialReqList,priceList,subTotalList, String.valueOf(totalPrice),paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus,date,time,0,estTime);
-                insertOrder.enqueue(new Callback<CartModel>() {
-                    @Override
-                    public void onResponse(Call<CartModel> call, Response<CartModel> response) {
-                        if (response.body() != null) {
-                            String success = response.body().getSuccess();
-                            if (success.equals("1")) {
-                                final Dialog dialog = new Dialog(context);
-                                dialog.setContentView(R.layout.order_success_dialog);
-                                Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
-                                // if button is clicked, close the custom dialog
-                                dialogButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        dialog.dismiss();
-                                        startActivity(new Intent(getApplicationContext(),home_activity.class));
-                                    }
-                                });
-                                dialog.show();
+                String refNumber = paymentNumber.getEditText().getText().toString();
+                if (refNumber.isEmpty()){
+                    progressBar.setVisibility(View.GONE);
+                    paymentNumber.setError("Required");
+                }
+                else{
+                    String fname = SharedPreference.getSharedPreference(PickUpPayment.this).setFname();
+                    String lname = SharedPreference.getSharedPreference(PickUpPayment.this).setLname();
+                    String email = SharedPreference.getSharedPreference(PickUpPayment.this).setEmail();
+                    String accountName = fname.concat(" ").concat(lname);
+                    String estTime = waitingTime.getText().toString();
+                    String orderType = "Pick Up";
+                    String orderStatus = "Pending";
+                    String paymentPhoto = imageToString();
+                    String customerId = SharedPreference.getSharedPreference(getApplicationContext()).setID();
+                    ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
+                    Call<CartModel> insertOrder = apiInterface.insertOrder(productCodeList,customerId,accountName,"","","",token,email,"",orderLists,productCategoryList,variationList,quantityList,addOnsList,addOnsFeeList,specialReqList,priceList,subTotalList, String.valueOf(totalPrice),refNumber,paymentPhoto,"",imgProductList,preparationTimeList,orderType,orderStatus,date,time,0,estTime);
+                    insertOrder.enqueue(new Callback<CartModel>() {
+                        @Override
+                        public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                            if (response.body() != null) {
+                                String success = response.body().getSuccess();
+                                if (success.equals("1")) {
+                                    final Dialog dialog = new Dialog(context);
+                                    dialog.setContentView(R.layout.order_success_dialog);
+                                    Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
+                                    // if button is clicked, close the custom dialog
+                                    dialogButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.dismiss();
+                                            startActivity(new Intent(getApplicationContext(),home_activity.class));
+                                        }
+                                    });
+                                    dialog.show();
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<CartModel> call, Throwable t) {
-                        final Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.order_success_dialog);
-                        Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
-                        // if button is clicked, close the custom dialog
-                        dialogButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog.dismiss();
-                                startActivity(new Intent(getApplicationContext(),home_activity.class));
-                            }
-                        });
-                        dialog.show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<CartModel> call, Throwable t) {
+                            final Dialog dialog = new Dialog(context);
+                            dialog.setContentView(R.layout.order_success_dialog);
+                            Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
+                            // if button is clicked, close the custom dialog
+                            dialogButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    startActivity(new Intent(getApplicationContext(),home_activity.class));
+                                }
+                            });
+                            dialog.show();
+                        }
+                    });
+                }
             }
         });
     }

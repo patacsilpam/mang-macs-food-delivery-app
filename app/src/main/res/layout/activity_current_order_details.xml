@@ -205,7 +205,7 @@
                         android:gravity="center"
                         android:text=""
                         android:textColor="#6A6A6A"
-                        android:textSize="14sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/estTime"
@@ -218,7 +218,7 @@
                         android:paddingTop="10dp"
                         android:text=""
                         android:textColor="#222222"
-                        android:textSize="22sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -230,7 +230,17 @@
                         android:textSize="14sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
+            <!--Preparation Time-->
+            <TextView
+                android:id="@+id/txtPrepStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="The time of food preparation will be adjusted due to your order quantity. We will update your order status as soon as possible."
+                android:fontFamily="@font/roboto"
+                android:textSize="14sp"
+                android:textColor="#676767"
+                android:visibility="gone"/>
             <androidx.cardview.widget.CardView
                 android:id="@+id/pickUpDetails"
                 android:layout_width="match_parent"
@@ -493,6 +503,7 @@
                         android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </ScrollView>
     <RelativeLayout

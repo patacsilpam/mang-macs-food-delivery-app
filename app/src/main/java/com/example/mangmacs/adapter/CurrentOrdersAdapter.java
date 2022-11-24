@@ -51,6 +51,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent (context, CurrentOrderDetailsActivity.class);
+                intent.putExtra("orderQuantity",currentOrdersModel.getQuantities());
                 intent.putExtra("deliveryTime",currentOrdersModel.getRequiredDate().concat(" ").concat(currentOrdersModel.getRequiredTime()));
                 intent.putExtra("customerName",currentOrdersModel.getCustomerName());
                 intent.putExtra("recipientName",currentOrdersModel.getRecipientName());

@@ -57,7 +57,7 @@ import retrofit2.Response;
 
  public class sign_up_activity extends AppCompatActivity {
      private Session session;
-    private TextInputLayout firstname,lastname,email,password;
+    private TextInputLayout firstname,lastname,phoneNo,email,password;
     private TextView btnSignIn,termsConditions,errorMsg;
     private CheckBox checkTermsConditions;
     private Button btnSignUp;
@@ -75,6 +75,7 @@ import retrofit2.Response;
         setContentView(R.layout.activity_sign_up);
         firstname = findViewById(R.id.firstname);
         lastname = findViewById(R.id.lastname);
+        phoneNo = findViewById(R.id.phoneNo);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btnSignUp = findViewById(R.id.btnSignUp);
@@ -129,6 +130,7 @@ import retrofit2.Response;
                 getCode = new SendCode();
                 code = getCode.getRandomCode();
                 fname = firstname.getEditText().getText().toString();
+                String mobileNumber = phoneNo.getEditText().getText().toString();
                 String lname = lastname.getEditText().getText().toString();
                 String emailAddress = email.getEditText().getText().toString();
                 String pword = password.getEditText().getText().toString();
@@ -141,6 +143,10 @@ import retrofit2.Response;
                 if (lname.isEmpty()){
                     lastname.setError("Required");
                     lastname.setErrorIconDrawable(null);
+                }
+                if (mobileNumber.isEmpty()){
+                    phoneNo.setError("Required");
+                    phoneNo.setErrorIconDrawable(null);
                 }
                 if (emailAddress.isEmpty()){
                     email.setError("Required");
@@ -164,7 +170,7 @@ import retrofit2.Response;
                 }
                 else{
                     apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CustomerModel> customerModelCall = apiInterface.registerUser("token",fname,lname,emailAddress,pword,code);
+                    Call<CustomerModel> customerModelCall = apiInterface.registerUser("token",fname,lname,mobileNumber,emailAddress,pword,code);
                     customerModelCall.enqueue(new Callback<CustomerModel>() {
                         @Override
                         public void onResponse(Call<CustomerModel> call, Response<CustomerModel> response) {
@@ -173,6 +179,7 @@ import retrofit2.Response;
                                 String message = response.body().getMessage();
                                 if(success.equals("1")){
                                     SharedPreference.getSharedPreference(getApplicationContext()).storeFname(fname);
+                                    SharedPreference.getSharedPreference(getApplicationContext()).storePhoneNo(mobileNumber);
                                     Intent intent = new Intent(sign_up_activity.this,VerifyEmailActivity.class);
                                     intent.putExtra("email",emailAddress);
                                     intent.putExtra("code",String.valueOf(code));

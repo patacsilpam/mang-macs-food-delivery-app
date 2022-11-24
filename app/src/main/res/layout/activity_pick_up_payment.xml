@@ -118,7 +118,31 @@
                android:text="Please insert your payment photo"
                android:textColor="#E32525"
                android:padding="5dp"
-               android:visibility="invisible"/>
+               android:visibility="gone"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:padding="10dp"
+               android:fontFamily="@font/roboto"
+               android:text="Add Gcash Ref. Number"
+               android:textSize="18sp"/>
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/paymentNumber"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="100dp"
+               android:layout_margin="10dp"
+               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+               app:counterEnabled="true"
+               app:counterMaxLength="255"
+               app:errorEnabled="true">
+               <com.google.android.material.textfield.TextInputEditText
+                   android:layout_width="match_parent"
+                   android:layout_height="50dp"
+                   android:padding="5dp"
+                   android:inputType="number"
+                   android:hint="Payment Number"/>
+           </com.google.android.material.textfield.TextInputLayout>
        </LinearLayout>
    </ScrollView>
     <com.google.android.material.appbar.AppBarLayout

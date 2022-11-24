@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -34,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener{
-    private TextView orderNumber,orderType,totalAmount,arrowBack,estTime,changeableStatus;
+    private TextView orderNumber,orderType,totalAmount,txtPrepStatus,arrowBack,estTime,changeableStatus;
     private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee,courierName;
     private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails;
     private Button btnCancelOrder;
@@ -45,7 +46,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
     private LinearLayout courierLayout;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
-    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime,newCourierName;
+    private String newAccountName,newOrderQuantity,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime,newCourierName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         changeableStatus = findViewById(R.id.changeableStatus);
         btnCancelOrder = findViewById(R.id.btnCancelOrder);
         estTime = findViewById(R.id.estTime);
+        txtPrepStatus = findViewById(R.id.txtPrepStatus);
         orderNumber = findViewById(R.id.orderNumber);
         orderType = findViewById(R.id.orderType);
         totalAmount = findViewById(R.id.totalAmount);
@@ -90,6 +92,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
     @SuppressLint("ResourceAsColor")
     private void dismissOrder() {
         Intent intent = getIntent();
+        newOrderQuantity = intent.getStringExtra("orderQuantity");
         newDeliveryTime = intent.getStringExtra("deliveryTime");
         newAccountName = intent.getStringExtra("customerName");
         newEmail = intent.getStringExtra("email");
@@ -110,6 +113,11 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         orderNumber.setText("#".concat(newOrderNumber));
         deliveryFee.setText(newDeliveryFee);
         String OrderType = orderType.getText().toString();
+        Toast.makeText(this, newOrderQuantity, Toast.LENGTH_SHORT).show();
+        //show food prep status
+        if ((Integer.parseInt(newOrderQuantity) > 2)) {
+            txtPrepStatus.setVisibility(View.VISIBLE);
+        }
         //show order status
         if (newOrderStatus.equals("Pending")){
             pendingIcon.setImageResource(R.drawable.ic_baseline_check_circle_24);

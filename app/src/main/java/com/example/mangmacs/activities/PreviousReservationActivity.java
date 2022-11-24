@@ -52,7 +52,6 @@ public class PreviousReservationActivity extends AppCompatActivity {
         bookingStatus = findViewById(R.id.bookingStatus);
         newTotalAmount = findViewById(R.id.totalAmount);
         newOrderNumber = findViewById(R.id.reservedNumber);
-        txt_total_amount = findViewById(R.id.total_amount);
         newSpecialRequest = findViewById(R.id.specialRequest);
         cancelOrderLayout = findViewById(R.id.cancelOrderLayout);
         /*orderReceived = findViewById(R.id.orderReceived);

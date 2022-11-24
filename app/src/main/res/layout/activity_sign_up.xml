@@ -62,6 +62,26 @@
                 android:drawablePadding="15dp"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneNo"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:errorEnabled="true"
+            app:boxStrokeColor="#32DE95"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mobile Number"
+                android:inputType="phone"
+                android:drawableStart="@drawable/customer_mobile_no_icon"
+                android:drawablePadding="15dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -81,6 +101,7 @@
                 android:drawableStart="@drawable/custom_icon_email"
                 android:drawablePadding="15dp"/>
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password"
             android:layout_width="match_parent"
@@ -140,7 +161,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
             android:layout_gravity="center"
-            android:text="Sign In"
+            android:text="Sign Up"
             android:textSize="20sp"
             android:textColor="#fff"
             android:textAllCaps="false"
@@ -162,7 +183,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Sign Up"
+            android:text="Sign In"
             android:textSize="18sp"
             android:textColor="#32DE95"
             android:fontFamily="@font/roboto_medium"/>

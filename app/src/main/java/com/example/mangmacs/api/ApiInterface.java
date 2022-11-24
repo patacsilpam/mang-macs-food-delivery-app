@@ -117,6 +117,7 @@ public interface ApiInterface {
             @Field("token") String token,
             @Field("fname") String fname,
             @Field("lname") String lname,
+            @Field("phone_number") String phoneNumber,
             @Field("email_address") String email,
             @Field("user_password") String password,
             @Field("code") int code
@@ -217,8 +218,10 @@ public interface ApiInterface {
             @Field("lname") String lname,
             @Field("guests") String guests,
             @Field("email") String email,
+            @Field("phone_no") String phoneNo,
             @Field("scheduled_date") String date,
             @Field("scheduled_time") String time,
+            @Field("payment_number") String paymentNumber,
             @Field("payment_photo") String paymentPhoto,
             @Field("comments") String comments
     );
@@ -281,6 +284,7 @@ public interface ApiInterface {
             @Field("price[]") ArrayList<String> price,
             @Field("subTotal[]") ArrayList<String> subTotal,
             @Field("totalAmount") String totalAmount,
+            @Field("paymentNumber") String paymentNumber,
             @Field("paymentPhoto") String paymentPhoto,
             @Field("paymentType") String paymentType,
             @Field("imgProduct[]") ArrayList<String> imgProduct,

@@ -87,8 +87,8 @@ public class ReservationActivity extends AppCompatActivity {
     private Context context = this;
     private ProgressBar progressBar;
     private Spinner spinnerDiningArea;
-    private TextInputEditText  people,date, time, commentSuggestion;
-    private TextInputLayout guestsError, dateError, timeError;
+    private TextInputEditText  paymentNumber,people,date, time, commentSuggestion;
+    private TextInputLayout paymentRefError,guestsError, dateError, timeError;
     private TextView diningAreaError, textRequired, minGuestError,paymentError;
     private Button btnBookNow;
     private ImageView imgPayment;
@@ -106,10 +106,12 @@ public class ReservationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
         progressBar = findViewById(R.id.spin_kit);
+        paymentNumber = findViewById(R.id.paymentNumber);
         people = findViewById(R.id.people);
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
         commentSuggestion = findViewById(R.id.commentsSuggestions);
+        paymentRefError = findViewById(R.id.paymentRefError);
         guestsError = findViewById(R.id.guestsError);
         minGuestError = findViewById(R.id.minGuestError);
         dateError = findViewById(R.id.dateError);
@@ -398,6 +400,8 @@ public class ReservationActivity extends AppCompatActivity {
                 String fname = SharedPreference.getSharedPreference(getApplicationContext()).setFname();
                 String lname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
                 String email = SharedPreference.getSharedPreference(getApplicationContext()).setEmail();
+                String phoneNo = SharedPreference.getSharedPreference(getApplicationContext()).setPhoneNo();
+                String strPaymentNumber = paymentNumber.getText().toString();
                 String strGuest = people.getText().toString();
                 String strDate = date.getText().toString();
                 String strTime = time.getText().toString();
@@ -412,15 +416,17 @@ public class ReservationActivity extends AppCompatActivity {
                   if (strTime.isEmpty()) {
                       timeError.setError("Required");
                   }
+
                   if (bitmap == null){
                       paymentError.setVisibility(View.VISIBLE);
                   }
+
                   else{
                       Sprite circle = new Circle();
                       progressBar.setIndeterminateDrawable(circle);
                       progressBar.setVisibility(View.VISIBLE);
                       ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                      Call<ReservationModel> callReservation = apiInterface.reservation(customerId,token,fname,lname,strGuest,email,strDate,strTime,imgPayment,comments);
+                      Call<ReservationModel> callReservation = apiInterface.reservation(customerId,token,fname,lname,strGuest,email,phoneNo,strDate,strTime,strPaymentNumber,imgPayment,comments);
                       callReservation.enqueue(new Callback<ReservationModel>() {
                           @Override
                           public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
@@ -447,7 +453,7 @@ public class ReservationActivity extends AppCompatActivity {
 
                           @Override
                           public void onFailure(Call<ReservationModel> call, Throwable t) {
-                              final Dialog dialog = new Dialog(context);
+                              /*final Dialog dialog = new Dialog(context);
                               dialog.setContentView(R.layout.book_success_dialog);
                               Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
                               dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -457,7 +463,7 @@ public class ReservationActivity extends AppCompatActivity {
                                       startActivity(new Intent(getApplicationContext(),home_activity.class));
                                   }
                               });
-                              dialog.show();
+                              dialog.show();*/
                           }
                       });
                   }
