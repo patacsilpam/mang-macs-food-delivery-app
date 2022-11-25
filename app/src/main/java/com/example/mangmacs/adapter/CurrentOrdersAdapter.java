@@ -69,6 +69,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                 intent.putExtra("requiredDate",currentOrdersModel.getRequiredDate());
                 intent.putExtra("waitingTime",currentOrdersModel.getWaitingTime());
                 intent.putExtra("courierName",currentOrdersModel.getCourierName());
+                intent.putExtra("paymentNumber",currentOrdersModel.getPaymentNumber());
                 context.startActivity(intent);
             }
         });

@@ -35,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CurrentOrderDetailsActivity extends AppCompatActivity implements OrdersListener{
-    private TextView orderNumber,orderType,totalAmount,txtPrepStatus,arrowBack,estTime,changeableStatus;
+    private TextView orderNumber,orderType,totalAmount,paymentNumber,txtPrepStatus,arrowBack,estTime,changeableStatus;
     private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee,courierName;
     private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails;
     private Button btnCancelOrder;
@@ -46,7 +46,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
     private LinearLayout courierLayout;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
-    private String newAccountName,newOrderQuantity,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime,newCourierName;
+    private String newAccountName,newOrderQuantity,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newPaymentNumber,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime,newCourierName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +59,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         orderNumber = findViewById(R.id.orderNumber);
         orderType = findViewById(R.id.orderType);
         totalAmount = findViewById(R.id.totalAmount);
+        paymentNumber = findViewById(R.id.paymentNumber);
         pendingIcon = findViewById(R.id.pendingIcon);
         processingIcon = findViewById(R.id.processingIcon);
         forDeliveryIcon = findViewById(R.id.forDeliveryIcon);
@@ -109,9 +110,11 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         newRequiredDate = intent.getStringExtra("requiredDate");
         newWaitingTime = intent.getStringExtra("waitingTime");
         newCourierName = intent.getStringExtra("courierName");
+        newPaymentNumber = intent.getStringExtra("paymentNumber");
         orderType.setText(newOrderType);
         orderNumber.setText("#".concat(newOrderNumber));
         deliveryFee.setText(newDeliveryFee);
+        paymentNumber.setText(newPaymentNumber);
         String OrderType = orderType.getText().toString();
         Toast.makeText(this, newOrderQuantity, Toast.LENGTH_SHORT).show();
         //show food prep status

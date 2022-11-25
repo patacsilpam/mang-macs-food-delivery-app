@@ -31,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PreviousOrderDetailsActivity extends AppCompatActivity implements OrdersListener {
-    private TextView orderNumber,orderType,totalAmount,arrowBack,changeableStatus,txt_total_amount;
+    private TextView orderNumber,orderType,totalAmount,paymentNumber,arrowBack,changeableStatus,txt_total_amount;
     private TextView pickUpName,pickUpEmail,deliveryName,deliveryPhoneNum,devAddress,devLabelAddress,deliveryFee,courierName;
     private TextView orderId,orderTime,completedTime;
     private RecyclerView prevOrderDetailList;
@@ -39,7 +39,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
     private RelativeLayout orderReceivedLayout;
     private LinearLayout courierLayout;
     private CardView deliveryDetails,pickUpDetails,deliveryFeeDetails,orderStatusLayout,cancelOrderLayout;
-    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod,newDeliveryFee,newCourierName;
+    private String newAccountName,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newOrderDate,newDevTime,newCompletedTime,newPaymentMethod,newPaymentNumber,newDeliveryFee,newCourierName;
     private List<CurrentOrdersModel> prevOrderModel;
     private PreviousDetailAdapter previousDetailAdapter;
     @Override
@@ -52,6 +52,7 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         courierName = findViewById(R.id.courierName);
         totalAmount = findViewById(R.id.totalAmount);
         txt_total_amount = findViewById(R.id.txt_total_amount);
+        paymentNumber = findViewById(R.id.paymentNumber);
         changeableStatus = findViewById(R.id.changeableStatus);
         orderStatusLayout = findViewById(R.id.orderStatusLayout);
         orderReceivedLayout = findViewById(R.id.orderReceivedLayout);
@@ -99,12 +100,14 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
         newPaymentMethod = intent.getStringExtra("paymentMethod");
         newDeliveryFee = intent.getStringExtra("deliveryFee");
         newCourierName = intent.getStringExtra("courierName");
+        newPaymentNumber = intent.getStringExtra("paymentNumber");
         orderId.setText("#".concat(newOrderNumber));
         orderTime.setText(newOrderDate);
         completedTime.setText(newCompletedTime);
         orderType.setText(newOrderType);
         orderNumber.setText(newOrderNumber);
         deliveryFee.setText(newDeliveryFee);
+        paymentNumber.setText(newPaymentNumber);
         //show order received button if order status is equal to order completed
         switch (newOrderStatus){
             case "Order Completed":

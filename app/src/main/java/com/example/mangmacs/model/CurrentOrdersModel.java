@@ -62,6 +62,8 @@ public class CurrentOrdersModel {
     private String paymentType;
     @SerializedName("product_image")
     private String imgProduct;
+    @SerializedName("payment_number")
+    private String paymentNumber;
     @SerializedName("order_type")
     private String orderType;
     @SerializedName("order_status")
@@ -76,7 +78,7 @@ public class CurrentOrdersModel {
     private String preparationTime;
     @SerializedName("courier")
     private String courierName;
-    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime, String notifDate, String preparationTime,String courierName) {
+    public CurrentOrdersModel(String success, String id, String productCode, String orderedDate, String requiredDate, String requiredTime, String recipientName, String customerName, String customerAddress, String labelAddress, String email, String contactNumber, String orderNumber, String orderId, String products, String category, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String subTotal, String price, String totalAmount, String deliveryChange, String paymentPhoto, String paymentType,String paymentNumber, String imgProduct, String orderType, String orderStatus, String completedTime, String waitingTime, String notifDate, String preparationTime,String courierName) {
         this.success = success;
         this.id = id;
         this.productCode = productCode;
@@ -104,6 +106,7 @@ public class CurrentOrdersModel {
         this.deliveryChange = deliveryChange;
         this.paymentPhoto = paymentPhoto;
         this.paymentType = paymentType;
+        this.paymentNumber = paymentNumber;
         this.imgProduct = imgProduct;
         this.orderType = orderType;
         this.orderStatus = orderStatus;
@@ -219,6 +222,10 @@ public class CurrentOrdersModel {
 
     public String getPaymentType() {
         return paymentType;
+    }
+
+    public String getPaymentNumber() {
+        return paymentNumber;
     }
 
     public String getImgProduct() {

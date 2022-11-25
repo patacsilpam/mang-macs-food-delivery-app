@@ -45,6 +45,7 @@ public class PreviousBookingAdapter extends RecyclerView.Adapter<PreviousBooking
                 Intent intent = new Intent(context, PreviousReservationActivity.class);
                 intent.putExtra("id",reservationModel.getId());
                 intent.putExtra("refNumber",reservationModel.getRefNumber());
+                intent.putExtra("paymentNumber",reservationModel.getPaymentNumber());
                 intent.putExtra("firstName",reservationModel.getFname());
                 intent.putExtra("lastName",reservationModel.getLname());
                 intent.putExtra("email",reservationModel.getEmail());

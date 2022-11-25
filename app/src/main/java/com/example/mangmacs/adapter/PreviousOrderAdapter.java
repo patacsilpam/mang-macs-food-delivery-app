@@ -64,6 +64,7 @@ public class PreviousOrderAdapter extends RecyclerView.Adapter<PreviousOrderAdap
                 intent.putExtra("paymentMethod",previousOrderModel.getPaymentType());
                 intent.putExtra("deliveryFee",previousOrderModel.getDeliveryChange());
                 intent.putExtra("courierName",previousOrderModel.getCourierName());
+                intent.putExtra("paymentNumber",previousOrderModel.getPaymentNumber());
                 context.startActivity(intent);
             }
         });

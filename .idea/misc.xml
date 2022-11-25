@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/baseline_confirmation_number_24.xml" value="0.2385" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/bg_addcart.xml" value="0.2375" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/bg_color.xml" value="0.1965" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/bg_logout.xml" value="0.2385" />
@@ -53,9 +54,11 @@
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_people_24.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_people_focused.xml" value="0.1935" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_person.xml" value="0.1935" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2385" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_phone.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_photo_camera_24.xml" value="0.176" />
+        <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_pin_24.xml" value="0.2385" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_plus.xml" value="0.1965" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_restaurant_24.xml" value="0.176" />
         <entry key="..\:/Users/pammp/mang-macs-mobile-app/app/src/main/res/drawable/ic_baseline_shopping_bag_24.xml" value="0.2385" />

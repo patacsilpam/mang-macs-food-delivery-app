@@ -126,6 +126,8 @@ public class ReservationActivity extends AppCompatActivity {
         paymentError.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         btnBookNow.setEnabled(false);
+        //paymentNumber.addTextChangedListener(textWatcher);
+        //people.addTextChangedListener(textWatcher);
         //diningAreaError = findViewById(R.id.diningAreaError);
         //bgDiningArea = findViewById(R.id.bgDiningArea);
         //spinnerDiningArea = findViewById(R.id.diningArea);
@@ -133,6 +135,7 @@ public class ReservationActivity extends AppCompatActivity {
         //setDiningArea();
         setFirebaseToken();
         validateGuests();
+        validatePaymentNumber();
         SetCalendar();
         cameraPermission();
         Booking();
@@ -176,6 +179,36 @@ public class ReservationActivity extends AppCompatActivity {
         });
     }
 
+    private void validatePaymentNumber(){
+        paymentNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String strRefNumber = paymentNumber.getText().toString();
+                if (strRefNumber.isEmpty()){
+                    paymentRefError.setError("Required");
+                    btnBookNow.setEnabled(false);
+                }
+                else{
+                    btnBookNow.setEnabled(true);
+                    paymentRefError.setError("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String strRefNumber = paymentNumber.getText().toString();
+                if(strRefNumber.matches("")) {
+                    btnBookNow.setEnabled(false);
+                    paymentRefError.setError("Required");
+                }
+            }
+        });
+    }
     private void setFirebaseToken(){
         FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -453,7 +486,7 @@ public class ReservationActivity extends AppCompatActivity {
 
                           @Override
                           public void onFailure(Call<ReservationModel> call, Throwable t) {
-                              /*final Dialog dialog = new Dialog(context);
+                              final Dialog dialog = new Dialog(context);
                               dialog.setContentView(R.layout.book_success_dialog);
                               Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
                               dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -463,7 +496,7 @@ public class ReservationActivity extends AppCompatActivity {
                                       startActivity(new Intent(getApplicationContext(),home_activity.class));
                                   }
                               });
-                              dialog.show();*/
+                              dialog.show();
                           }
                       });
                   }

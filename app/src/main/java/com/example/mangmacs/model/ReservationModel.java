@@ -27,6 +27,8 @@ public class ReservationModel {
     private String notifDate;
     @SerializedName("payment_photo")
     private String paymentPhoto;
+    @SerializedName("payment_number")
+    private String paymentNumber;
     //table order details list
     @SerializedName("product_code")
     private String productCode;
@@ -57,7 +59,7 @@ public class ReservationModel {
     @SerializedName("preparation_time")
     private String preparationTime;
 
-    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto, String success, String productCode, String products, String category, String price, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String status, String imgProduct, String completedTime, String totalAmount, String preparationTime) {
+    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto,String paymentNumber, String success, String productCode, String products, String category, String price, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String status, String imgProduct, String completedTime, String totalAmount, String preparationTime) {
         this.id = id;
         this.email = email;
         this.fname = fname;
@@ -69,6 +71,7 @@ public class ReservationModel {
         this.refNumber = refNumber;
         this.notifDate = notifDate;
         this.paymentPhoto = paymentPhoto;
+        this.paymentNumber = paymentNumber;
         this.success = success;
         this.productCode = productCode;
         this.products = products;
@@ -128,6 +131,10 @@ public class ReservationModel {
 
     public String getPaymentPhoto() {
         return paymentPhoto;
+    }
+
+    public String getPaymentNumber() {
+        return paymentNumber;
     }
 
     public String getSuccess() {

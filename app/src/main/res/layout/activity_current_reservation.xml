@@ -89,6 +89,7 @@
                         android:fontFamily="@font/roboto"
                         android:textColor="#6E7174"
                         android:textSize="14sp" />
+
                     <TextView
                         android:id="@+id/bookOrderNumber"
                         android:layout_width="wrap_content"
@@ -101,14 +102,17 @@
                         android:textSize="14sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="0dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp">
+
                     <ImageView
                         android:id="@+id/ticketIcon"
                         android:layout_width="wrap_content"
@@ -123,26 +127,68 @@
                         android:layout_toEndOf="@+id/ticketIcon"
                         android:text="Booking No."
                         android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/reservedNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/ticketIcon"
                         android:layout_marginTop="40dp"
+                        android:layout_toEndOf="@+id/ticketIcon"
                         android:text=""
-                        android:textSize="16sp"
-                        android:textColor="#5A5A5A"/>
+                        android:textColor="#5A5A5A"
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="0dp"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/paymentNumberIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/ic_baseline_pin_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/paymentNumberIcon"
+                        android:text="Gcash Reference Number"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/paymentNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:layout_toEndOf="@+id/paymentNumberIcon"
+                        android:text=""
+                        android:textColor="#5A5A5A"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:cardElevation="0dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp">
+
                     <ImageView
                         android:id="@+id/personIcon"
                         android:layout_width="wrap_content"
@@ -150,33 +196,38 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
                         android:src="@drawable/ic_baseline_person_24" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/personIcon"
                         android:text="Reserved Name"
                         android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/reservedName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/personIcon"
                         android:layout_marginTop="40dp"
+                        android:layout_toEndOf="@+id/personIcon"
                         android:text=""
-                        android:textSize="16sp"
-                        android:textColor="#5A5A5A"/>
+                        android:textColor="#5A5A5A"
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardElevation="0dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="10dp">
+
                     <ImageView
                         android:id="@+id/emailIcon"
                         android:layout_width="wrap_content"
@@ -184,33 +235,38 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
                         android:src="@drawable/ic_baseline_email_24" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/emailIcon"
                         android:text="Email"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/reservedEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/emailIcon"
                         android:layout_marginTop="30dp"
+                        android:layout_toEndOf="@+id/emailIcon"
                         android:text=""
-                        android:textSize="16sp"
-                        android:textColor="#5A5A5A"/>
+                        android:textColor="#5A5A5A"
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardElevation="0dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp">
+
                     <ImageView
                         android:id="@+id/commentIcon"
                         android:layout_width="wrap_content"
@@ -218,31 +274,34 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
                         android:src="@drawable/ic_baseline_comment_24" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/commentIcon"
                         android:text="Special Request"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/specialRequest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/commentIcon"
                         android:layout_marginTop="30dp"
+                        android:layout_toEndOf="@+id/commentIcon"
                         android:text=""
-                        android:textSize="16sp"
-                        android:textColor="#5A5A5A"/>
+                        android:textColor="#5A5A5A"
+                        android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:padding="5dp"
                 android:text="Note: Please arrive before 30 minutes to avoid having your table canceled."
                 android:textColor="#E91E63"
-                android:textSize="14sp"
-                android:fontFamily="@font/roboto"/>
+                android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
 

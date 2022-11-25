@@ -38,7 +38,7 @@ import retrofit2.Response;
 public class CurrentReservationActivity extends AppCompatActivity {
     private CurrentReservationAdapter reservationAdapter;
     private List<ReservationModel> reservationModelList;
-    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack,newTotalAmount,newOrderNumber,newSpecialReq;
+    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack,newTotalAmount,newOrderNumber,newPaymentNumber,newSpecialReq;
     private Button bookingStatus,cancelBooking;
     private RelativeLayout cancelBookingLayout;
     private String id;
@@ -55,6 +55,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
         bookingStatus = findViewById(R.id.bookingStatus);
         newSpecialReq = findViewById(R.id.specialRequest);
         newOrderNumber = findViewById(R.id.reservedNumber);
+        newPaymentNumber = findViewById(R.id.paymentNumber);
         cancelBookingLayout = findViewById(R.id.cancelBookingLayout);
         /*newTotalAmount = findViewById(R.id.totalAmount);
         newBookDetails = findViewById(R.id.newBookDetails);
@@ -75,6 +76,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
         String guests = intent.getStringExtra("guests");
         String status = intent.getStringExtra("bookingStatus");
         String totalAmount = intent.getStringExtra("totalAmount");
+        String paymentNumber = intent.getStringExtra("paymentNumber");
         String specialRequest = intent.getStringExtra("specialRequest");
         String firstLastName = firstname.concat(" ").concat(lastname);
         String time = schedDate.concat(" ").concat(schedTime);
@@ -84,6 +86,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
         newEmailAddress.setText(emailAddress);
         newScheduledTime.setText(time);
         newGuests.setText(guests.concat(" people"));
+        newPaymentNumber.setText(paymentNumber);
         bookingStatus.setText(status);
         newSpecialReq.setText(specialRequest);
         //newTotalAmount.setText("₱ ".concat(totalAmount).concat(" .00"));
