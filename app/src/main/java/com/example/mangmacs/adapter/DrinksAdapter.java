@@ -56,6 +56,7 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ProductVie
                 intent.putExtra("status", drinksListModel.getStocks());
                 intent.putExtra("preparationTime",drinksListModel.getPreparationTime());
                 intent.putExtra("mainIngredients",drinksListModel.getMainIngredients());
+                intent.putExtra("stocks",drinksListModel.getStocks());
                 context.startActivity(intent);
             }
         });

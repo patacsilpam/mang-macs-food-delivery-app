@@ -37,6 +37,31 @@
                 android:fontFamily="@font/roboto_medium"
                 android:text=""
                 android:textSize="20sp" />
+            <RelativeLayout
+                android:id="@+id/stocksLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="Stocks:"
+                    android:textSize="14sp"
+                    android:textColor="#676767"/>
+
+                <TextView
+                    android:id="@+id/itemStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/txtStock"
+                    android:fontFamily="@font/roboto"
+                    android:text="0"
+                    android:textSize="14sp"
+                    android:textColor="#676767"
+                    android:layout_marginLeft="5dp"     />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"

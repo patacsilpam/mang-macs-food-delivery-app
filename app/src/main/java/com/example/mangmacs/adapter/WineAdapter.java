@@ -57,6 +57,7 @@ public class WineAdapter extends RecyclerView.Adapter<WineAdapter.ProductViewHol
                 intent.putExtra("status", wineListModel.getStocks());
                 intent.putExtra("preparationTime",wineListModel.getPreparationTime());
                 intent.putExtra("mainIngredients",wineListModel.getMainIngredients());
+                intent.putExtra("stocks",wineListModel.getStocks());
                 context.startActivity(intent);
             }
         });

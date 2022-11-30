@@ -30,6 +30,8 @@ public class NotificationHelper {
            case "Out for Delivery":
            case "Ready for Pick Up":
            case "Order Completed":
+           case "Out of Stock":
+           case "Invalid Payment":
                intent = new Intent(context,MyOrdersActivity.class);
                break;
            case "Reserved":

@@ -56,7 +56,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ProductV
                 intent.putExtra("image",popularListModel.getImage());
                 intent.putExtra("productName",popularListModel.getProductName());
                 intent.putExtra("productCategory",popularListModel.getProductCategory());
-                intent.putExtra("stocks",popularListModel.getStocks());
+                intent.putExtra("mediumStock",popularListModel.getMediumItemStock());
+                intent.putExtra("largeStock",popularListModel.getLargeItemStock());
                 intent.putExtra("groupPrice",popularListModel.getGroupPrice());
                 intent.putExtra("productVariation",popularListModel.getProductVariation());
                 intent.putExtra("groupCode",popularListModel.getCode());

@@ -35,8 +35,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
-                android:text=""
+                android:text="Wine"
                 android:textSize="20sp" />
+
+            <RelativeLayout
+                android:id="@+id/stocksLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/txtStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="Stocks:"
+                    android:textSize="14sp"
+                    android:textColor="#676767"/>
+
+                <TextView
+                    android:id="@+id/itemStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/txtStock"
+                    android:fontFamily="@font/roboto"
+                    android:text="0"
+                    android:textSize="14sp"
+                    android:textColor="#676767"
+                    android:layout_marginLeft="5dp"     />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -93,7 +120,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="Special Request"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -102,8 +129,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Add instructions for your order"
-                android:textSize="16sp"
-                android:textColor="#676767"/>
+                android:textColor="#676767"
+                android:textSize="16sp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/baseCardview"

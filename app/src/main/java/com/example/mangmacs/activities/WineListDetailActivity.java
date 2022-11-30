@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,10 +33,11 @@ import retrofit2.Response;
 
 public class WineListDetailActivity extends AppCompatActivity {
     private LinearLayout ingredientsLayout;
+    private RelativeLayout stocksLayout;
     private CardView baseCardview;
     private ImageView imageView,showIngredients;
     private TextView txt_arrow_back;
-    private TextView productName,productPrice,ingredients,status,customerId,fname,lname;
+    private TextView productName,productPrice,ingredients,itemStock,status,customerId,fname,lname;
     private TextInputLayout drinksAddons;
     private EditText quantity;
     private Button btnAddtoCart,btnIncrement,btnDecrement;
@@ -57,9 +59,11 @@ public class WineListDetailActivity extends AppCompatActivity {
         btnAddtoCart = findViewById(R.id.btnRiceMeal);
         txt_arrow_back = findViewById(R.id.txt_arrow_back);
         quantity = findViewById(R.id.quantity);
+        itemStock = findViewById(R.id.itemStock);
         ingredients = findViewById(R.id.ingredients);
         showIngredients = findViewById(R.id.showIngredients);
         ingredientsLayout = findViewById(R.id.ingredientLayout);
+        stocksLayout = findViewById(R.id.stocksLayout);
         baseCardview = findViewById(R.id.baseCardview);
         btnIncrement = findViewById(R.id.increment);
         btnDecrement = findViewById(R.id.decrement);
@@ -91,6 +95,13 @@ public class WineListDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 count++;
                 quantity.setText(String.valueOf(count));
+                if (!category.equals("Beer Bucket")){
+                    int numQty = Integer.parseInt(quantity.getText().toString());
+                    int numStocks = Integer.parseInt(itemStock.getText().toString());
+                    if (numQty > numStocks){
+                        quantity.setText(String.valueOf(numStocks));
+                    }
+                }
             }
         });
         //button decrement
@@ -133,6 +144,7 @@ public class WineListDetailActivity extends AppCompatActivity {
         String productname = intent.getStringExtra("productName");
         category = intent.getStringExtra("productCategory");
         int productprice = intent.getIntExtra("price",0);
+        int stocks = intent.getIntExtra("stocks",0);
         String productstatus = intent.getStringExtra("preparationTime");
         String newIngredients =intent.getStringExtra("mainIngredients");
         String firstname = SharedPreference.getSharedPreference(WineListDetailActivity.this).setFname();
@@ -147,6 +159,19 @@ public class WineListDetailActivity extends AppCompatActivity {
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);
+            if (!category.equals("Beer Bucket")){
+                stocksLayout.setVisibility(View.VISIBLE);
+               if (stocks <= 0){
+                   itemStock.setText("Out of Stock");
+                   itemStock.setTextColor(Color.RED);
+                   btnAddtoCart.setEnabled(false);
+                   btnIncrement.setEnabled(false);
+
+               }
+               else{
+                   itemStock.setText(String.valueOf(stocks));
+               }
+            }
         }
         AddToCart();
     }

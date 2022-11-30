@@ -54,7 +54,7 @@ public class PizzaListDetaill extends AppCompatActivity {
     private CardView baseCardview;
     private ImageView imageView,showIngredients;
     private RelativeLayout priceLayout;
-    private TextView txt_arrow_back,singleVariation,price,productCode;
+    private TextView txt_arrow_back,singleVariation,price,productCode,itemStock;
     private TextView productName,status,ingredients,email,fname,lname;
     private TextInputLayout pizza_addons;
     private EditText quantity;
@@ -75,6 +75,7 @@ public class PizzaListDetaill extends AppCompatActivity {
         imageView = findViewById(R.id.image);
         productName = findViewById(R.id.pizzaproductName);
         status = findViewById(R.id.status);
+        itemStock = findViewById(R.id.itemStock);
         pizza_addons = findViewById(R.id.pizzaadd_ons);
         variation = findViewById(R.id.pizzavariation);
         rdCode = findViewById(R.id.rdCode);
@@ -121,6 +122,12 @@ public class PizzaListDetaill extends AppCompatActivity {
             public void onClick(View view) {
                 count++;
                 quantity.setText(String.valueOf(count));
+                int numQty = Integer.parseInt(quantity.getText().toString());
+                int numStocks = Integer.parseInt(itemStock.getText().toString());
+                if (numQty > numStocks){
+                    quantity.setText(String.valueOf(numStocks));
+                }
+
             }
         });
         btnDecrement.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +168,8 @@ public class PizzaListDetaill extends AppCompatActivity {
         image = intent.getStringExtra("image");
         String newProductname = intent.getStringExtra("productName");
         category = intent.getStringExtra("productCategory");
+        int mediumStock = intent.getIntExtra("mediumStock",0);
+        int largeStock = intent.getIntExtra("largeStock",0);
         String newGroupPrice = intent.getStringExtra("groupPrice");
         String newGroupVariation = intent.getStringExtra("productVariation");
         String newProductStatus = intent.getStringExtra("preparationTime");
@@ -184,6 +193,7 @@ public class PizzaListDetaill extends AppCompatActivity {
             status.setText(newProductStatus.concat(" mins"));
             price.setText(splitPrice[0]);
             productCode.setText(splitCode[0]);
+            itemStock.setText(String.valueOf(mediumStock));
 
             for(int i = 0; i<splitVariation.length; i++){
                 // radioButton.setId(i);
@@ -194,6 +204,7 @@ public class PizzaListDetaill extends AppCompatActivity {
             }
             //check variation array length
             variation.check(variation.getChildAt(0).getId());
+
             variation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
@@ -204,10 +215,35 @@ public class PizzaListDetaill extends AppCompatActivity {
                    if(variation.contains("Medium")){
                        price.setText(splitPrice[0]);
                        productCode.setText(splitCode[0]);
+                       itemStock.setText(String.valueOf(mediumStock));
+                       int numStocks = Integer.parseInt(itemStock.getText().toString());
+                       if (numStocks <= 0){
+                           itemStock.setText("Out of Stock");
+                           itemStock.setTextColor(Color.RED);
+                           btnPizza.setEnabled(false);
+                           btnIncrement.setEnabled(false);
+                       }
+                       else{
+                           itemStock.setText(String.valueOf(mediumStock));
+                           itemStock.setTextColor(Color.parseColor("#676767"));
+                           btnPizza.setEnabled(true);
+                           btnIncrement.setEnabled(true);
+                       }
                    }
                    else{
                        price.setText(splitPrice[1]);
                        productCode.setText(splitCode[1]);
+                       itemStock.setText(String.valueOf(largeStock));
+                       int numStocks = Integer.parseInt(itemStock.getText().toString());
+                       if (numStocks <= 0){
+                           itemStock.setText("Out of Stock");
+                           itemStock.setTextColor(Color.RED);
+                           btnPizza.setEnabled(false);
+                           btnIncrement.setEnabled(false);
+                       }
+                       else{
+                           itemStock.setText(String.valueOf(numStocks));
+                       }
                    }
                 }
             });

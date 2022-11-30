@@ -51,7 +51,8 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ProductViewH
                 intent.putExtra("image",pizzaListModel.getImage());
                 intent.putExtra("productName",pizzaListModel.getProductName());
                 intent.putExtra("productCategory",pizzaListModel.getProductCategory());
-                intent.putExtra("stocks",pizzaListModel.getStocks());
+                intent.putExtra("mediumStock",pizzaListModel.getMediumItemStock());
+                intent.putExtra("largeStock",pizzaListModel.getLargeItemStock());
                 intent.putExtra("groupPrice",pizzaListModel.getGroupPrice());
                 intent.putExtra("productVariation",pizzaListModel.getProductVariation());
                 intent.putExtra("groupCode",pizzaListModel.getCode());
