@@ -21,6 +21,10 @@ public class PizzaListModel {
     private int mediumItemStock;
     @SerializedName("largeItemStock")
     private int largeItemStock;
+    @SerializedName("mediumItemStockCode")
+    private String mediumItemStockCode;
+    @SerializedName("largeItemStockCode")
+    private String largeItemStockCode;
     @SerializedName("preparationTime")
     private String preparationTime;
     @SerializedName("groupPreparationTime")
@@ -31,7 +35,7 @@ public class PizzaListModel {
     private String groupAddOns;
     @SerializedName("groupAddOnsPrice")
     private String groupAddOnsPrice;
-    public PizzaListModel(String productName, String productCategory, String productVariation, String image, int price, String groupPrice, String code, int mediumItemStock,int largeItemStock, String preparationTime, String groupPreparationTime,String mainIngredients, String groupAddOns,String groupAddOnsPrice) {
+    public PizzaListModel(String productName, String productCategory, String productVariation, String image, int price, String groupPrice, String code, int mediumItemStock,int largeItemStock, String mediumItemStockCode,String largeItemStockCode,String preparationTime, String groupPreparationTime,String mainIngredients, String groupAddOns,String groupAddOnsPrice) {
         this.productName = productName;
         this.productCategory = productCategory;
         this.productVariation = productVariation;
@@ -41,6 +45,8 @@ public class PizzaListModel {
         this.code = code;
         this.mediumItemStock = mediumItemStock;
         this.largeItemStock = largeItemStock;
+        this.mediumItemStockCode = mediumItemStockCode;
+        this.largeItemStockCode = largeItemStockCode;
         this.preparationTime = preparationTime;
         this.groupPreparationTime = groupPreparationTime;
         this.mainIngredients = mainIngredients;
@@ -75,6 +81,14 @@ public class PizzaListModel {
 
     public int getLargeItemStock() {
         return largeItemStock;
+    }
+
+    public String getMediumItemStockCode() {
+        return mediumItemStockCode;
+    }
+
+    public String getLargeItemStockCode() {
+        return largeItemStockCode;
     }
 
     public String getPreparationTime() {

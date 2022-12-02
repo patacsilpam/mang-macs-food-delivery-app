@@ -64,7 +64,7 @@ public class PizzaListDetaill extends AppCompatActivity {
     private CheckBox[] cboxToppings;
     private TextView[] addOnsFee;
     private int count = 1;
-    private String image,category;
+    private String image,category,stockCode;
     private ArrayList<Integer> addOnsFeeList = new ArrayList<Integer>();
     private ArrayList<String> addOnsList = new ArrayList<String>();
     @Override
@@ -170,6 +170,8 @@ public class PizzaListDetaill extends AppCompatActivity {
         category = intent.getStringExtra("productCategory");
         int mediumStock = intent.getIntExtra("mediumStock",0);
         int largeStock = intent.getIntExtra("largeStock",0);
+        String mediumItemStockCode = intent.getStringExtra("mediumItemStockCode");
+        String largeItemStockCode = intent.getStringExtra("largeItemStockCode");
         String newGroupPrice = intent.getStringExtra("groupPrice");
         String newGroupVariation = intent.getStringExtra("productVariation");
         String newProductStatus = intent.getStringExtra("preparationTime");
@@ -193,7 +195,16 @@ public class PizzaListDetaill extends AppCompatActivity {
             status.setText(newProductStatus.concat(" mins"));
             price.setText(splitPrice[0]);
             productCode.setText(splitCode[0]);
-            itemStock.setText(String.valueOf(mediumStock));
+            stockCode = mediumItemStockCode;
+            if (mediumStock <= 0 ){
+                itemStock.setText("Out of Stock");
+                itemStock.setTextColor(Color.RED);
+                btnIncrement.setEnabled(false);
+                btnPizza.setEnabled(false);
+            }
+            else{
+                itemStock.setText(String.valueOf(mediumStock));
+            }
 
             for(int i = 0; i<splitVariation.length; i++){
                 // radioButton.setId(i);
@@ -213,6 +224,7 @@ public class PizzaListDetaill extends AppCompatActivity {
                    String variation = radioButton.getText().toString();
 
                    if(variation.contains("Medium")){
+                       stockCode = mediumItemStockCode;
                        price.setText(splitPrice[0]);
                        productCode.setText(splitCode[0]);
                        itemStock.setText(String.valueOf(mediumStock));
@@ -231,6 +243,7 @@ public class PizzaListDetaill extends AppCompatActivity {
                        }
                    }
                    else{
+                       stockCode = largeItemStockCode;
                        price.setText(splitPrice[1]);
                        productCode.setText(splitCode[1]);
                        itemStock.setText(String.valueOf(largeStock));
@@ -332,7 +345,7 @@ public class PizzaListDetaill extends AppCompatActivity {
                     }
                     addOnsTotFee *= items;
                     ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,code,product,category,getVariation,firstName,lastName,prices,items,addOns,addOnsTotFee,specialReq,image,preparedTime);
+                    Call<CartModel> cartModelCall = apiComboInterface.addcart(email_address,code,stockCode,product,category,getVariation,firstName,lastName,prices,items,addOns,addOnsTotFee,specialReq,image,preparedTime);
                     cartModelCall.enqueue(new Callback<CartModel>() {
                         @Override
                         public void onResponse(Call<CartModel> call, Response<CartModel> response) {

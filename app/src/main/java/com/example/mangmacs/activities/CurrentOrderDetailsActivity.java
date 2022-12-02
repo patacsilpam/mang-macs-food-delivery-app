@@ -46,6 +46,11 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
     private LinearLayout courierLayout;
     private List<CurrentOrdersModel> currentOrdersModels;
     private NewOrdersDetailAdapter newOrdersDetailAdapter;
+    private ArrayList<String> productCodeList = new ArrayList<>();
+    private ArrayList<String> productList = new ArrayList<>();
+    private ArrayList<Integer> quantityList = new ArrayList<>();
+    private ArrayList<String> categoryList = new ArrayList<>();
+    private ArrayList<String> variationList = new ArrayList<>();
     private String newAccountName,newOrderQuantity,newEmail,newRecipientName,newPhoneNumber,newLabelAddress,newAddress,newOrderType,newOrderStatus,newOrderNumber,newDeliveryTime,newPaymentMethod,newPaymentNumber,newDeliveryFee,newRequiredTme,newRequiredDate,newWaitingTime,newCourierName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +92,7 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         newOrderDetailLists.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         dismissOrder();
         showOrders();
+        cancelOrders();
         Back();
     }
     //getting data from pass intent
@@ -116,7 +122,6 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
         deliveryFee.setText(newDeliveryFee);
         paymentNumber.setText(newPaymentNumber);
         String OrderType = orderType.getText().toString();
-        Toast.makeText(this, newOrderQuantity, Toast.LENGTH_SHORT).show();
         //show food prep status
         if ((Integer.parseInt(newOrderQuantity) > 2)) {
             txtPrepStatus.setVisibility(View.VISIBLE);
@@ -195,6 +200,8 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
             }
         });
     }
+
+
     //arrow back button
     private void Back() {
         arrowBack.setOnClickListener(new View.OnClickListener() {
@@ -207,18 +214,21 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
 
     @Override
     public void onProductsChange(ArrayList<String> products) {
-
+        productList = products;
     }
 
     @Override
     public void onProductCategoryChange(ArrayList<String> category) {
+        categoryList = category;
 
     }
 
     @Override
     public void onProductCodeChange(ArrayList<String> productCode) {
         //get product code index[0] to cancel orders
+        productCodeList = productCode;
         String code = productCode.get(0);
+       // Toast.makeText(this, String.valueOf(productCodeList), Toast.LENGTH_SHORT).show();
         if (newOrderStatus.equals("Pending")){
             cancelOrderLayout.setVisibility(View.VISIBLE);
             btnCancelOrder.setOnClickListener(new View.OnClickListener() {
@@ -231,48 +241,50 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                                    Call<CurrentOrdersModel> callOrder = apiInterface.cancelOrder(code);
+                                    Call<CurrentOrdersModel> callOrder = apiInterface.cancelOrder(code,productList,quantityList,categoryList,variationList);
                                     callOrder.enqueue(new Callback<CurrentOrdersModel>() {
                                         @Override
                                         public void onResponse(Call<CurrentOrdersModel> call, Response<CurrentOrdersModel> response) {
-                                                if(response.body() != null){
-                                                    String success = response.body().getSuccess();
-                                                    if (success.equals("1")){
-                                                        startActivity(new Intent(getApplicationContext(),MyOrdersActivity.class));
-                                                    }
+                                            if(response.body() != null){
+                                                String success = response.body().getSuccess();
+                                                if (success.equals("1")){
+                                                    startActivity(new Intent(getApplicationContext(),MyOrdersActivity.class));
                                                 }
                                             }
+                                        }
 
-                                            @Override
-                                            public void onFailure(Call<CurrentOrdersModel> call, Throwable t) {
-
-                                            }
-                                        });
-                                    }
-                                })
-                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.cancel();
-                                    }
-                                });
-                        AlertDialog  alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
+                                        @Override
+                                        public void onFailure(Call<CurrentOrdersModel> call, Throwable t) {
+                                            startActivity(new Intent(getApplicationContext(),MyOrdersActivity.class));
+                                        }
+                                    });
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+                    AlertDialog  alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }
             });
         }
         else{
             cancelOrderLayout.setVisibility(View.GONE);
         }
+
     }
 
     @Override
     public void onVariationChange(ArrayList<String> variations) {
-
+        variationList = variations;
     }
 
     @Override
     public void onQuantityChange(ArrayList<Integer> quantity) {
+        quantityList = quantity;
 
     }
 
@@ -323,6 +335,9 @@ public class CurrentOrderDetailsActivity extends AppCompatActivity implements Or
     public void onPreparationTimeChange(ArrayList<String> preparationTime) {
 
     }
+    private void cancelOrders(){
+        //String code = productCodeList.get(0);
 
+    }
 
 }

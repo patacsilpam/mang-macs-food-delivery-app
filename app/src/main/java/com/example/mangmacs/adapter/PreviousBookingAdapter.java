@@ -56,6 +56,7 @@ public class PreviousBookingAdapter extends RecyclerView.Adapter<PreviousBooking
                 intent.putExtra("createdAt",reservationModel.getCreatedAt());
                 intent.putExtra("totalAmount",reservationModel.getTotalAmount());
                 intent.putExtra("specialRequest",reservationModel.getSpecialRequest());
+                intent.putExtra("phoneNo",reservationModel.getPhoneNo());
                 context.startActivity(intent);
             }
         });

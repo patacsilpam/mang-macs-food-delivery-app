@@ -237,7 +237,7 @@ public class NoodlesListDetail extends AppCompatActivity {
                 }
                 addOnsTotFee *= items;
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,items,addOns,addOnsTotFee,specialRequest,image,preparedTime);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,"",product,category,variation,firstName,lastName,price,items,addOns,addOnsTotFee,specialRequest,image,preparedTime);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

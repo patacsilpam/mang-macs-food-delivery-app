@@ -15,6 +15,8 @@ public class ProductListModel {
     private int priceCombo;
     @SerializedName("code")
     private String codeCombo;
+    @SerializedName("itemCode")
+    private String stockCode;
     @SerializedName("itemStock")
     private int stocks;
     @SerializedName("preparationTime")
@@ -26,13 +28,14 @@ public class ProductListModel {
     @SerializedName("add_ons_price")
     private String addOnsPrice;
 
-    public ProductListModel(String productNameCombo, String productCategoryCombo, String productVariationCombo, String imageCombo, int priceCombo, String codeCombo, int stocks, String preparationTime,String mainIngredients,String addOns,String addOnsPrice) {
+    public ProductListModel(String productNameCombo, String productCategoryCombo, String productVariationCombo, String imageCombo, int priceCombo, String codeCombo,String stockCode, int stocks, String preparationTime,String mainIngredients,String addOns,String addOnsPrice) {
         this.productNameCombo = productNameCombo;
         this.productCategoryCombo = productCategoryCombo;
         this.productVariationCombo = productVariationCombo;
         this.imageCombo = imageCombo;
         this.priceCombo = priceCombo;
         this.codeCombo = codeCombo;
+        this.stockCode = stockCode;
         this.stocks = stocks;
         this.preparationTime = preparationTime;
         this.mainIngredients = mainIngredients;
@@ -57,6 +60,11 @@ public class ProductListModel {
     public String getCodeCombo() {
         return codeCombo;
     }
+
+    public String getStockCode() {
+        return stockCode;
+    }
+
     public int getStocks() {
         return stocks;
     }

@@ -42,7 +42,7 @@ public class DrinksListDetail extends AppCompatActivity {
     private EditText quantity;
     private Button btnAddtoCart,btnDecrement,btnIncrement;
     private Intent intent;
-    private String image,category;
+    private String image,category,stockCode;
     int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +144,7 @@ public class DrinksListDetail extends AppCompatActivity {
         category = intent.getStringExtra("productCategory");
         int productprice = intent.getIntExtra("price",0);
         int stocks = intent.getIntExtra("stocks",0);
+        stockCode = intent.getStringExtra("stockCode");
         String productstatus = intent.getStringExtra("preparationTime");
         String newIngredients =intent.getStringExtra("mainIngredients");
         String firstname = SharedPreference.getSharedPreference(DrinksListDetail.this).setFname();
@@ -158,7 +159,7 @@ public class DrinksListDetail extends AppCompatActivity {
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);
-
+            Toast.makeText(this, stockCode, Toast.LENGTH_SHORT).show();
             if (stocks <= 0){
                 itemStock.setText("Out of Stock");
                 itemStock.setTextColor(Color.RED);
@@ -188,7 +189,7 @@ public class DrinksListDetail extends AppCompatActivity {
                 String specialReq = drinksAddons.getEditText().getText().toString();
                 String preparedTime = status.getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,number,"",0,specialReq,image,preparedTime);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,stockCode,product,category,variation,firstName,lastName,price,number,"",0,specialReq,image,preparedTime);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

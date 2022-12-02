@@ -41,12 +41,13 @@ public class CartModel {
     private String imageProduct;
     @SerializedName("preparation_time")
     private String preparedTime;
-
+    @SerializedName("itemStock")
+    private int itemStock;
     public CartModel(String success, String emailCart, int productId, String productCodeCart,
                      String prooductNameCart, String productCategory,String addOns,int addOnsFee,
                      String variationCart, String fnameCart, String lnameCart, int priceCart,
                      int quantityCart, int totalprice, int deliveryChange, String specialRequest,
-                     String totalcart, String imageProduct,String preparedTime) {
+                     String totalcart, String imageProduct,String preparedTime,int itemStock) {
         this.success = success;
         this.emailCart = emailCart;
         this.productId = productId;
@@ -66,6 +67,7 @@ public class CartModel {
         this.totalcart = totalcart;
         this.imageProduct = imageProduct;
         this.preparedTime = preparedTime;
+        this.itemStock = itemStock;
     }
 
     public String getSuccess() {
@@ -142,5 +144,9 @@ public class CartModel {
 
    public String getPreparedTime() {
         return preparedTime;
+    }
+
+    public int getItemStock() {
+        return itemStock;
     }
 }

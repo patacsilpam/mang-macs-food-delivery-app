@@ -131,6 +131,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/btnDecIncLayout"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:layout_below="@id/specialRequest"
@@ -145,7 +146,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@drawable/img_minus_btn"
-                    android:padding="3dp"  />
+                    android:padding="3dp" />
 
                 <EditText
                     android:id="@+id/textQuantity"
@@ -172,6 +173,16 @@
                     android:padding="3dp" />
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/itemStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/btnDecIncLayout"
+                android:layout_alignParentEnd="true"
+                android:text=""
+                android:textColor="#F44336"/>
             <TextView
                 android:id="@+id/productID"
                 android:layout_width="wrap_content"

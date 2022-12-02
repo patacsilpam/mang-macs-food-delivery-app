@@ -231,6 +231,7 @@ public interface ApiInterface {
     Call<CartModel> addcart(
             @Field("email") String email,
             @Field("code") String productCode,
+            @Field("stockCode") String stockCode,
             @Field("product") String productName,
             @Field("productCategory") String productCategory,
             @Field("variation") String variation,
@@ -374,7 +375,11 @@ public interface ApiInterface {
     @POST("cancelOrders.php")
     @FormUrlEncoded
     Call<CurrentOrdersModel> cancelOrder(
-        @Field("id") String id
+        @Field("id") String id,
+        @Field("product[]") ArrayList<String> product,
+        @Field("quantity[]") ArrayList<Integer> quantity,
+        @Field("itemCategory[]") ArrayList<String> category,
+        @Field("itemVariation[]") ArrayList<String> variation
     );
     //cancel booking
     @POST("cancelBookings.php")

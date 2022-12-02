@@ -117,6 +117,8 @@ public class PreviousOrderDetailsActivity extends AppCompatActivity implements O
                 orderReceivedLayout.setVisibility(View.GONE);
                 cancelOrderLayout.setVisibility(View.GONE);
                 break;
+            case "Invalid Payment":
+            case "Out of Stock":
             case "Cancelled":
                 orderReceivedLayout.setVisibility(View.GONE);
                 orderStatusLayout.setVisibility(View.GONE);

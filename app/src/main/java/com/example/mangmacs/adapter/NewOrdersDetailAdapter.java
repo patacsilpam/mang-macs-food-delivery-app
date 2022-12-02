@@ -36,6 +36,10 @@ public class NewOrdersDetailAdapter extends RecyclerView.Adapter<NewOrdersDetail
     private List<CurrentOrdersModel> currentOrdersModelList;
     private OrdersListener ordersListener;
     private ArrayList<String> productCodeList = new ArrayList<>();
+    private ArrayList<String> productList = new ArrayList<>();
+    private ArrayList<Integer> quantityList = new ArrayList<>();
+    private ArrayList<String> categoryList = new ArrayList<>();
+    private ArrayList<String> variationList = new ArrayList<>();
     public NewOrdersDetailAdapter(Context context, List<CurrentOrdersModel> currentOrdersModelList,OrdersListener ordersListener){
         this.context = context;
         this.currentOrdersModelList = currentOrdersModelList;
@@ -65,9 +69,23 @@ public class NewOrdersDetailAdapter extends RecyclerView.Adapter<NewOrdersDetail
         holder.textSpecialRequest.setText("\"" + currentOrdersModels.getSpecialRequest() + "\"");
         String totalAmount = currentOrdersModels.getTotalAmount();
         String orderNumber = currentOrdersModels.getOrderNumber();
+        String products  = currentOrdersModels.getProducts();
+        int quantity = Integer.parseInt(currentOrdersModels.getQuantities());
+        String category = currentOrdersModels.getCategory();
+        String variations = currentOrdersModels.getVariations();
+
+        //Toast.makeText(context, currentOrdersModels.getQuantities(), Toast.LENGTH_SHORT).show();
         productCodeList.add(orderNumber);
-        ordersListener.onTotalAmountChange(totalAmount);
+        productList.add(products);
+        quantityList.add(quantity);
+        categoryList.add(category);
+        variationList.add(variations);
         ordersListener.onProductCodeChange(productCodeList);
+        ordersListener.onProductsChange(productList);
+        ordersListener.onQuantityChange(quantityList);
+        ordersListener.onProductCategoryChange(categoryList);
+        ordersListener.onVariationChange(variationList);
+        ordersListener.onTotalAmountChange(totalAmount);
         //fix the design
         if (currentOrdersModels.getAddOns().equals("")){
             holder.textAddOns.setVisibility(View.GONE);

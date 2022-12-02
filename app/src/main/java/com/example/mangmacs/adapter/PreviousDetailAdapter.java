@@ -83,7 +83,7 @@ public class PreviousDetailAdapter extends RecyclerView.Adapter<PreviousDetailAd
                 String productImage = previousOrderModel.getImgProduct();
                 String preparationTime = previousOrderModel.getPreparationTime();
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                Call<CartModel> callCart = apiInterface.addcart(email,productCode,productName,productCategory,productVariation,fname,lname,price,quantity,add_ons,addOnsTotFee,specialRequest,productImage,preparationTime);
+                Call<CartModel> callCart = apiInterface.addcart(email,productCode,"",productName,productCategory,productVariation,fname,lname,price,quantity,add_ons,addOnsTotFee,specialRequest,productImage,preparationTime);
                 callCart.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

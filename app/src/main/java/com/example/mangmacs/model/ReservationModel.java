@@ -29,6 +29,8 @@ public class ReservationModel {
     private String paymentPhoto;
     @SerializedName("payment_number")
     private String paymentNumber;
+    @SerializedName("phone_no")
+    private String phoneNo;
     //table order details list
     @SerializedName("product_code")
     private String productCode;
@@ -59,7 +61,7 @@ public class ReservationModel {
     @SerializedName("preparation_time")
     private String preparationTime;
 
-    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto,String paymentNumber, String success, String productCode, String products, String category, String price, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String status, String imgProduct, String completedTime, String totalAmount, String preparationTime) {
+    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto,String paymentNumber, String success,String phoneNo, String productCode, String products, String category, String price, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String status, String imgProduct, String completedTime, String totalAmount, String preparationTime) {
         this.id = id;
         this.email = email;
         this.fname = fname;
@@ -74,6 +76,7 @@ public class ReservationModel {
         this.paymentNumber = paymentNumber;
         this.success = success;
         this.productCode = productCode;
+        this.phoneNo = phoneNo;
         this.products = products;
         this.category = category;
         this.price = price;
@@ -195,5 +198,9 @@ public class ReservationModel {
 
     public String getPreparationTime() {
         return preparationTime;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
     }
 }

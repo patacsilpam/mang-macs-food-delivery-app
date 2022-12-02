@@ -77,6 +77,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.productPrice.setText(String.valueOf(cartModel.getPriceCart() + cartModel.getAddOnsFee()));
         holder.totalPrice.setText(String.valueOf(totalAmount));
         holder.btnDecrement.setEnabled(false);
+        //show stocks if it is below 10 items
+        if (cartModel.getItemStock() < 10){
+            holder.itemStock.setText(String.valueOf(cartModel.getItemStock()).concat(" items left"));
+        }
+        //
         final int[] count = {Integer.parseInt(String.valueOf((holder.quantity.getText().toString())))};
         String totalprice = holder.totalPrice.getText().toString();
         final String[] quantityCart = {holder.quantity.getText().toString()};
@@ -84,13 +89,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                count[0]++;
-                holder.quantity.setText(String.valueOf(count[0]));
                 int id = Integer.parseInt(holder.productID.getText().toString());
                 int orderQuantity = Integer.parseInt(holder.quantity.getText().toString());
                 int prodPrice = Integer.parseInt(holder.productPrice.getText().toString());
                 int totalPrice = prodPrice  *  orderQuantity;
                 holder.totalPrice.setText(String.valueOf(totalPrice));
+                //return limit or stocks if it is equal from quantity
+                if (cartModel.getItemStock() <=  count[0]){holder.quantity.setText(String.valueOf(cartModel.getItemStock())); }
+                else{
+                    count[0]++;
+                    holder.quantity.setText(String.valueOf(count[0]));
+                }
 
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 Call<CartModel> updateOrderQuantity = apiInterface.updateQuantity(id,orderQuantity);
@@ -250,7 +259,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView productName,productVariation,productAddOns,productPrice,productSpecialRequest,productID,totalPrice;
+        TextView productName,productVariation,productAddOns,productPrice,productSpecialRequest,productID,totalPrice,itemStock;
         EditText quantity;
         Button btnIncrement,btnDecrement,deleteCart;
         public MyViewHolder(@NonNull View itemView) {
@@ -267,6 +276,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             deleteCart = itemView.findViewById(R.id.deleteCart);
             productID = itemView.findViewById(R.id.productID);
             totalPrice = itemView.findViewById(R.id.totalprice);
+            itemStock = itemView.findViewById(R.id.itemStock);
 
         }
     }

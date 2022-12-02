@@ -164,7 +164,7 @@ public class GrilledListDetail extends AppCompatActivity {
                 String specialReq = comboAddOns.getEditText().getText().toString();
                 ApiInterface apiComboInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 String preparedTime = status.getText().toString();
-                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,product,category,variation,firstName,lastName,price,number,"",0,specialReq,image,preparedTime);
+                Call<CartModel> cartModelCall = apiComboInterface.addcart(id,code,"",product,category,variation,firstName,lastName,price,number,"",0,specialReq,image,preparedTime);
                 cartModelCall.enqueue(new Callback<CartModel>() {
                     @Override
                     public void onResponse(Call<CartModel> call, Response<CartModel> response) {

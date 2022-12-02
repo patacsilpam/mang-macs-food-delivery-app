@@ -38,7 +38,7 @@ import retrofit2.Response;
 public class CurrentReservationActivity extends AppCompatActivity {
     private CurrentReservationAdapter reservationAdapter;
     private List<ReservationModel> reservationModelList;
-    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack,newTotalAmount,newOrderNumber,newPaymentNumber,newSpecialReq;
+    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack,newTotalAmount,newPhoneNo,newOrderNumber,newPaymentNumber,newSpecialReq;
     private Button bookingStatus,cancelBooking;
     private RelativeLayout cancelBookingLayout;
     private String id;
@@ -50,6 +50,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
         newEmailAddress = findViewById(R.id.reservedEmail);
         newScheduledTime = findViewById(R.id.bookSchedDateTime);
         newGuests = findViewById(R.id.bookGuests);
+        newPhoneNo = findViewById(R.id.reservedPhoneNo);
         cancelBooking = findViewById(R.id.cancelBooking);
         arrowBack = findViewById(R.id.arrow_back);
         bookingStatus = findViewById(R.id.bookingStatus);
@@ -71,6 +72,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
         String firstname = intent.getStringExtra("firstName");
         String lastname = intent.getStringExtra("lastName");
         String emailAddress = intent.getStringExtra("email");
+        String phoneNo = intent.getStringExtra("phoneNo");
         String schedDate = intent.getStringExtra("schedDate");
         String schedTime = intent.getStringExtra("schedTime");
         String guests = intent.getStringExtra("guests");
@@ -84,6 +86,7 @@ public class CurrentReservationActivity extends AppCompatActivity {
         newOrderNumber.setText(orderNumber);
         newReservedName.setText(firstLastName);
         newEmailAddress.setText(emailAddress);
+        newPhoneNo.setText(String.valueOf(phoneNo));
         newScheduledTime.setText(time);
         newGuests.setText(guests.concat(" people"));
         newPaymentNumber.setText(paymentNumber);

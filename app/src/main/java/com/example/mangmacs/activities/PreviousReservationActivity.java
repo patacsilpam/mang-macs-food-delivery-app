@@ -34,7 +34,7 @@ import retrofit2.Response;
 public class PreviousReservationActivity extends AppCompatActivity {
     private PreviousBookingDetailAdapter reservationAdapter;
     private List<ReservationModel> reservationModelList;
-    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,newTotalAmount,newOrderNumber,newPaymentNumber,newSpecialRequest,txt_total_amount,arrowBack;
+    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,newTotalAmount,newOrderNumber,newPhoneNo,newPaymentNumber,newSpecialRequest,txt_total_amount,arrowBack;
     private Button bookingStatus,orderReceived;
     private CardView cancelOrderLayout;
     private RelativeLayout orderReceivedLayout;
@@ -48,6 +48,7 @@ public class PreviousReservationActivity extends AppCompatActivity {
         newEmailAddress = findViewById(R.id.reservedEmail);
         newScheduledTime = findViewById(R.id.bookSchedDateTime);
         newGuests = findViewById(R.id.bookGuests);
+        newPhoneNo = findViewById(R.id.reservedPhoneNo);
         arrowBack = findViewById(R.id.arrow_back);
         bookingStatus = findViewById(R.id.bookingStatus);
         newTotalAmount = findViewById(R.id.totalAmount);
@@ -70,6 +71,7 @@ public class PreviousReservationActivity extends AppCompatActivity {
         String firstname = intent.getStringExtra("firstName");
         String lastname = intent.getStringExtra("lastName");
         String emailAddress = intent.getStringExtra("email");
+        String phoneNo = intent.getStringExtra("phoneNo");
         String schedDate = intent.getStringExtra("schedDate");
         String schedTime = intent.getStringExtra("schedTime");
         String guests = intent.getStringExtra("guests");
@@ -88,6 +90,7 @@ public class PreviousReservationActivity extends AppCompatActivity {
         newPaymentNumber.setText(paymentNumber);
         bookingStatus.setText(status);
         newSpecialRequest.setText(specialReq);
+        newPhoneNo.setText(String.valueOf(phoneNo));
         /*newTotalAmount.setText("₱ ".concat(totalAmount).concat(".00"));
         newGuests.setText(guests.concat(" people"));
         newOrderNumber.setText(orderNumber);
