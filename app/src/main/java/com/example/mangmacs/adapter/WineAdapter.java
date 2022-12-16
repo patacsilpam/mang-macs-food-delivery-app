@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -43,7 +44,8 @@ public class WineAdapter extends RecyclerView.Adapter<WineAdapter.ProductViewHol
                 .into(holder.image);
         holder.textProductName.setText(wineListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(wineListModel.getPrice()+".00"));
-        holder.textDevTime.setText(wineListModel.getPreparationTime().concat(" mins"));
+        holder.textDevTime.setText("20 mins");
+
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +57,7 @@ public class WineAdapter extends RecyclerView.Adapter<WineAdapter.ProductViewHol
                 intent.putExtra("productVariation", wineListModel.getProductVariation());
                 intent.putExtra("code", wineListModel.getCodeCombo());
                 intent.putExtra("status", wineListModel.getStocks());
-                intent.putExtra("preparationTime",wineListModel.getPreparationTime());
+                intent.putExtra("preparationTime","20");
                 intent.putExtra("mainIngredients",wineListModel.getMainIngredients());
                 intent.putExtra("stocks",wineListModel.getStocks());
                 intent.putExtra("stockCode",wineListModel.getStockCode());

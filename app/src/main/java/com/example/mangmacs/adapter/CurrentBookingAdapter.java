@@ -58,6 +58,7 @@ public class CurrentBookingAdapter extends RecyclerView.Adapter<CurrentBookingAd
                 intent.putExtra("totalAmount",reservationModel.getTotalAmount());
                 intent.putExtra("specialRequest",reservationModel.getSpecialRequest());
                 intent.putExtra("phoneNo",reservationModel.getPhoneNo());
+                intent.putExtra("waitingTime",reservationModel.getWaitingTime());
                 context.startActivity(intent);
             }
         });

@@ -140,6 +140,7 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
+            <!--
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -177,6 +178,7 @@
                         android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+            -->
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -332,11 +334,12 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/txtNote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:padding="5dp"
-                android:text="Note: Please arrive before 30 minutes to avoid having your table canceled."
+                android:text=""
                 android:textColor="#E91E63"
                 android:textSize="14sp" />
         </LinearLayout>

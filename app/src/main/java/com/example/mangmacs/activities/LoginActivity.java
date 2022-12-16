@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                                 String lname = response.body().getLname();
                                 String customer_id = response.body().getCustomerID();
                                 String token = response.body().getToken();
+                                String phoneNo = response.body().getPhoneNo();
                                 if(success.equals("1")){
                                     progressDialog.dismiss();
                                     SharedPreference.getSharedPreference(LoginActivity.this).storeID(customer_id);
@@ -80,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                                     SharedPreference.getSharedPreference(LoginActivity.this).storeFname(fname);
                                     SharedPreference.getSharedPreference(LoginActivity.this).storeLname(lname);
                                     SharedPreference.getSharedPreference(LoginActivity.this).storeEmail(email);
+                                    SharedPreference.getSharedPreference(LoginActivity.this).storePhoneNo(phoneNo);
                                     Intent intent = new Intent(LoginActivity.this,home_activity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);

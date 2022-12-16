@@ -38,7 +38,7 @@ import retrofit2.Response;
 public class CurrentReservationActivity extends AppCompatActivity {
     private CurrentReservationAdapter reservationAdapter;
     private List<ReservationModel> reservationModelList;
-    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack,newTotalAmount,newPhoneNo,newOrderNumber,newPaymentNumber,newSpecialReq;
+    private TextView newReservedName,newEmailAddress,newScheduledTime,newGuests,newId,arrowBack,newTotalAmount,newPhoneNo,newOrderNumber,newPaymentNumber,newSpecialReq,newTxtNote;
     private Button bookingStatus,cancelBooking;
     private RelativeLayout cancelBookingLayout;
     private String id;
@@ -51,12 +51,13 @@ public class CurrentReservationActivity extends AppCompatActivity {
         newScheduledTime = findViewById(R.id.bookSchedDateTime);
         newGuests = findViewById(R.id.bookGuests);
         newPhoneNo = findViewById(R.id.reservedPhoneNo);
+        newTxtNote = findViewById(R.id.txtNote);
         cancelBooking = findViewById(R.id.cancelBooking);
         arrowBack = findViewById(R.id.arrow_back);
         bookingStatus = findViewById(R.id.bookingStatus);
         newSpecialReq = findViewById(R.id.specialRequest);
         newOrderNumber = findViewById(R.id.reservedNumber);
-        newPaymentNumber = findViewById(R.id.paymentNumber);
+        //newPaymentNumber = findViewById(R.id.paymentNumber);
         cancelBookingLayout = findViewById(R.id.cancelBookingLayout);
         /*newTotalAmount = findViewById(R.id.totalAmount);
         newBookDetails = findViewById(R.id.newBookDetails);
@@ -80,8 +81,10 @@ public class CurrentReservationActivity extends AppCompatActivity {
         String totalAmount = intent.getStringExtra("totalAmount");
         String paymentNumber = intent.getStringExtra("paymentNumber");
         String specialRequest = intent.getStringExtra("specialRequest");
+        String waitingTime = intent.getStringExtra("waitingTime");
         String firstLastName = firstname.concat(" ").concat(lastname);
         String time = schedDate.concat(" ").concat(schedTime);
+
         //display booking details
         newOrderNumber.setText(orderNumber);
         newReservedName.setText(firstLastName);
@@ -89,7 +92,8 @@ public class CurrentReservationActivity extends AppCompatActivity {
         newPhoneNo.setText(String.valueOf(phoneNo));
         newScheduledTime.setText(time);
         newGuests.setText(guests.concat(" people"));
-        newPaymentNumber.setText(paymentNumber);
+        newTxtNote.setText("Note: Please arrive before " +  waitingTime +" minutes to avoid having your table canceled.");
+        //newPaymentNumber.setText(paymentNumber);
         bookingStatus.setText(status);
         newSpecialReq.setText(specialRequest);
         //newTotalAmount.setText("₱ ".concat(totalAmount).concat(" .00"));

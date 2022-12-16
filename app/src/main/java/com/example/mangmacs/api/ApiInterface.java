@@ -221,8 +221,6 @@ public interface ApiInterface {
             @Field("phone_no") String phoneNo,
             @Field("scheduled_date") String date,
             @Field("scheduled_time") String time,
-            @Field("payment_number") String paymentNumber,
-            @Field("payment_photo") String paymentPhoto,
             @Field("comments") String comments
     );
     //inserting user's cart

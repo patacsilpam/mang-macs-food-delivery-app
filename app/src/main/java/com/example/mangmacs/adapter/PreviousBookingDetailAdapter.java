@@ -78,7 +78,7 @@ public class PreviousBookingDetailAdapter extends RecyclerView.Adapter<PreviousB
                 int addOnsTotFee = Integer.parseInt(reservationModel.getAddOnsFee());
                 String specialRequest = reservationModel.getSpecialRequest();
                 String productImage = reservationModel.getImgProduct();
-                String preparationTime = reservationModel.getPreparationTime();
+                String preparationTime = "";
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 Call<CartModel> callCart = apiInterface.addcart(email,productCode,"",productName,productCategory,productVariation,fname,lname,price,quantity,add_ons,addOnsTotFee,specialRequest,productImage,preparationTime);
                 callCart.enqueue(new Callback<CartModel>() {

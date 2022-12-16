@@ -53,7 +53,7 @@ public class PreviousReservationActivity extends AppCompatActivity {
         bookingStatus = findViewById(R.id.bookingStatus);
         newTotalAmount = findViewById(R.id.totalAmount);
         newOrderNumber = findViewById(R.id.reservedNumber);
-        newPaymentNumber = findViewById(R.id.paymentNumber);
+        //newPaymentNumber = findViewById(R.id.paymentNumber);
         newSpecialRequest = findViewById(R.id.specialRequest);
         cancelOrderLayout = findViewById(R.id.cancelOrderLayout);
         /*orderReceived = findViewById(R.id.orderReceived);
@@ -87,7 +87,7 @@ public class PreviousReservationActivity extends AppCompatActivity {
         newEmailAddress.setText(emailAddress);
         newScheduledTime.setText(time);
         newOrderNumber.setText(orderNumber);
-        newPaymentNumber.setText(paymentNumber);
+        //newPaymentNumber.setText(paymentNumber);
         bookingStatus.setText(status);
         newSpecialRequest.setText(specialReq);
         newPhoneNo.setText(String.valueOf(phoneNo));

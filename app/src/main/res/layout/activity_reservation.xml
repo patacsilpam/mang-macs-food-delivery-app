@@ -46,7 +46,8 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:padding="20dp">
-            <com.google.android.material.textfield.TextInputLayout
+            <!--
+                <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/paymentRefError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
                     android:inputType="number"
                     android:hint="Enter Gcash Ref. Number"/>
             </com.google.android.material.textfield.TextInputLayout>
+            -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/guestsError"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -147,8 +149,56 @@
                 android:text="*Table reservation must be at least 2 hours from reserving time."
                 android:textColor="#FF6666"
                 android:textSize="14sp" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                app:cardElevation="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/stroke_gray_square"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/light"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="10dp">
 
-            <TextView
+                        <TextView
+                            android:id="@+id/firstPar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center"
+                            android:text="Table reservation must be at least 2\n hours from reserving time."
+                            android:textColor="#5B5656"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/btnBookNow"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="100dp"
+                android:background="@drawable/confirmation_button"
+                android:text="Book Now"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="24sp" />
+            <!--
+                   <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -162,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="Upload a screenshot of your gcash e-wallet payment. Please make full payment.."
+                android:text="Upload a screenshot of your gcash e-wallet payment."
                 android:textColor="#76787A" />
             <TextView
                 android:id="@+id/paymentRequired"
@@ -179,20 +229,7 @@
                 android:layout_margin="10dp"
                 android:background="@color/white"
                 android:src="@drawable/camera" />
-            <Button
-                android:id="@+id/btnBookNow"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="100dp"
-                android:background="@drawable/confirmation_button"
-                android:text="Book Now"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="24sp" />
+            -->
         </LinearLayout>
     </ScrollView>
 

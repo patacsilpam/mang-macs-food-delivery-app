@@ -143,7 +143,7 @@ public class WineListDetailActivity extends AppCompatActivity {
         image = intent.getStringExtra("image");
         String productname = intent.getStringExtra("productName");
         category = intent.getStringExtra("productCategory");
-        stockCode = intent.getStringExtra("stockCode");
+
         int productprice = intent.getIntExtra("price",0);
         int stocks = intent.getIntExtra("stocks",0);
         String productstatus = intent.getStringExtra("preparationTime");
@@ -160,19 +160,22 @@ public class WineListDetailActivity extends AppCompatActivity {
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);
-            Toast.makeText(this, stockCode, Toast.LENGTH_SHORT).show();
             if (!category.equals("Beer Bucket")){
                 stocksLayout.setVisibility(View.VISIBLE);
-               if (stocks <= 0){
-                   itemStock.setText("Out of Stock");
-                   itemStock.setTextColor(Color.RED);
-                   btnAddtoCart.setEnabled(false);
-                   btnIncrement.setEnabled(false);
+                stockCode = intent.getStringExtra("stockCode");
+                if (stocks <= 0){
+                    itemStock.setText("Out of Stock");
+                    itemStock.setTextColor(Color.RED);
+                    btnAddtoCart.setEnabled(false);
+                    btnIncrement.setEnabled(false);
 
-               }
-               else{
-                   itemStock.setText(String.valueOf(stocks));
-               }
+                }
+                else{
+                    itemStock.setText(String.valueOf(stocks));
+                }
+            }
+            else{
+                stockCode = "none";
             }
         }
         AddToCart();

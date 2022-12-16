@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +72,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.productID.setText(String.valueOf(cartModel.getProductId()));
         holder.productName.setText(cartModel.getProoductNameCart());
         holder.quantity.setText(String.valueOf(cartModel.getQuantityCart()));
+        holder.productCategory.setText(cartModel.getProductCategory());
+
         holder.productAddOns.setText(cartModel.getAddOns());
         holder.productSpecialRequest.setText("\"" +cartModel.getSpecialRequest().toLowerCase() + "\"");
         holder.productVariation.setText(cartModel.getVariationCart());
@@ -78,9 +81,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.totalPrice.setText(String.valueOf(totalAmount));
         holder.btnDecrement.setEnabled(false);
         //show stocks if it is below 10 items
-        if (cartModel.getItemStock() < 10){
-            holder.itemStock.setText(String.valueOf(cartModel.getItemStock()).concat(" items left"));
+        String sProdCategory  = holder.productCategory.getText().toString();
+        if (sProdCategory.equals("Pizza") || sProdCategory.equals("Drinks") ||
+        sProdCategory.equals("Wine") || sProdCategory.equals("Beverages and Liqours")){
+            holder.itemStock.setText(String.valueOf(cartModel.getItemStock()));
+            int numItemStock = Integer.parseInt( holder.itemStock.getText().toString());
+            if (numItemStock <= 10){
+                holder.itemStockLayout.setVisibility(View.VISIBLE);
+            }
         }
+
         //
         final int[] count = {Integer.parseInt(String.valueOf((holder.quantity.getText().toString())))};
         String totalprice = holder.totalPrice.getText().toString();
@@ -89,18 +99,29 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int id = Integer.parseInt(holder.productID.getText().toString());
-                int orderQuantity = Integer.parseInt(holder.quantity.getText().toString());
-                int prodPrice = Integer.parseInt(holder.productPrice.getText().toString());
-                int totalPrice = prodPrice  *  orderQuantity;
-                holder.totalPrice.setText(String.valueOf(totalPrice));
-                //return limit or stocks if it is equal from quantity
-                if (cartModel.getItemStock() <=  count[0]){holder.quantity.setText(String.valueOf(cartModel.getItemStock())); }
+
+                if (sProdCategory.equals("Pizza") || sProdCategory.equals("Drinks") ||
+                        sProdCategory.equals("Wine") || sProdCategory.equals("Beve++rages and Liqours")){
+                    int itemQuantity =  Integer.parseInt(holder.quantity.getText().toString());
+                    if (itemQuantity == cartModel.getItemStock()){
+                        holder.quantity.setText(String.valueOf(cartModel.getItemStock()));
+                    }
+                    else{
+                        count[0]++;
+                        holder.quantity.setText(String.valueOf(count[0]));
+                    }
+                }
                 else{
                     count[0]++;
                     holder.quantity.setText(String.valueOf(count[0]));
                 }
 
+
+                int id = Integer.parseInt(holder.productID.getText().toString());
+                int orderQuantity = Integer.parseInt(holder.quantity.getText().toString());
+                int prodPrice = Integer.parseInt(holder.productPrice.getText().toString());
+                int totalPrice = prodPrice  *  orderQuantity;
+                holder.totalPrice.setText(String.valueOf(totalPrice));
                 ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
                 Call<CartModel> updateOrderQuantity = apiInterface.updateQuantity(id,orderQuantity);
                 updateOrderQuantity.enqueue(new Callback<CartModel>() {
@@ -110,10 +131,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                         if(response.body() != null){
                             String success = response.body().getSuccess();
                             if(success.equals("1")){
-                                //productList.set(Integer.parseInt("1"),String.valueOf(totalprice));
-                                //Toast.makeText(context, String.valueOf(productList), Toast.LENGTH_SHORT).show();
-                                //Intent intent = new Intent(context,CartActivity.class);
-                                //context.startActivity(intent);
                                 String total = holder.totalPrice.getText().toString();
                                 map.put(String.valueOf(id),total);
                                 cartInterface.onTotalPriceChange(String.valueOf(map.values()));
@@ -258,14 +275,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout itemStockLayout;
         ImageView imageView;
-        TextView productName,productVariation,productAddOns,productPrice,productSpecialRequest,productID,totalPrice,itemStock;
+        TextView productName,productCategory,productVariation,productAddOns,productPrice,productSpecialRequest,productID,totalPrice,itemStock;
         EditText quantity;
         Button btnIncrement,btnDecrement,deleteCart;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imgProduct);
             productName = itemView.findViewById(R.id.textProduct);
+            productCategory = itemView.findViewById(R.id.textCategory);
             productVariation = itemView.findViewById(R.id.textVariation);
             productAddOns = itemView.findViewById(R.id.textAddOns);
             productPrice = itemView.findViewById(R.id.textPrice);
@@ -277,6 +296,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             productID = itemView.findViewById(R.id.productID);
             totalPrice = itemView.findViewById(R.id.totalprice);
             itemStock = itemView.findViewById(R.id.itemStock);
+            itemStockLayout = itemView.findViewById(R.id.itemStockLayout);
 
         }
     }

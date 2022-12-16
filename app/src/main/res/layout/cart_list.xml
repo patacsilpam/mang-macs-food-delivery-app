@@ -47,6 +47,18 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/textCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_toEndOf="@id/textProduct"
+                android:layout_toRightOf="@+id/imgProduct"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Cheesy Pepperoni"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+            <TextView
                 android:id="@+id/textAddOns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -173,16 +185,28 @@
                     android:padding="3dp" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/itemStock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="60dp"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/btnDecIncLayout"
-                android:layout_alignParentEnd="true"
-                android:text=""
-                android:textColor="#F44336"/>
+           <RelativeLayout
+               android:id="@+id/itemStockLayout"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@+id/btnDecIncLayout"
+               android:layout_alignParentEnd="true"
+               android:visibility="gone">
+               <TextView
+                   android:id="@+id/itemStock"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="10dp"
+                   android:text="7"
+                   android:textColor="#F44336"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="10dp"
+                   android:layout_toEndOf="@+id/itemStock"
+                   android:text=" items left"
+                   android:textColor="#F44336"/>
+           </RelativeLayout>
             <TextView
                 android:id="@+id/productID"
                 android:layout_width="wrap_content"

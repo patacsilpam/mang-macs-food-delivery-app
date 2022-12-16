@@ -42,7 +42,7 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ProductVie
                 .into(holder.image);
         holder.textProductName.setText(drinksListModel.getProductName());
         holder.textProductPrice.setText("₱ "+String.valueOf(drinksListModel.getPrice()+".00"));
-        holder.textDevTime.setText(drinksListModel.getPreparationTime().concat(" mins"));
+        holder.textDevTime.setText("20 mins");
         holder.productContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +54,7 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ProductVie
                 intent.putExtra("productVariation",drinksListModel.getProductVariation());
                 intent.putExtra("code",drinksListModel.getCodeCombo());
                 intent.putExtra("status", drinksListModel.getStocks());
-                intent.putExtra("preparationTime",drinksListModel.getPreparationTime());
+                intent.putExtra("preparationTime","20");
                 intent.putExtra("mainIngredients",drinksListModel.getMainIngredients());
                 intent.putExtra("stocks",drinksListModel.getStocks());
                 intent.putExtra("stockCode",drinksListModel.getStockCode());

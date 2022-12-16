@@ -58,10 +58,10 @@ public class ReservationModel {
     private String completedTime;
     @SerializedName("totalAmount")
     private String totalAmount;
-    @SerializedName("preparation_time")
-    private String preparationTime;
+    @SerializedName("waitingTime")
+    private String waitingTime;
 
-    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto,String paymentNumber, String success,String phoneNo, String productCode, String products, String category, String price, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String status, String imgProduct, String completedTime, String totalAmount, String preparationTime) {
+    public ReservationModel(String id, String email, String fname, String lname, String guests, String createdAt, String scheduled_date, String scheduled_time, String refNumber, String notifDate, String paymentPhoto,String paymentNumber, String success,String phoneNo, String productCode, String products, String category, String price, String variations, String quantities, String addOns, String addOnsFee,String specialRequest,String status, String imgProduct, String completedTime, String totalAmount, String waitingTime) {
         this.id = id;
         this.email = email;
         this.fname = fname;
@@ -89,7 +89,7 @@ public class ReservationModel {
         this.imgProduct = imgProduct;
         this.completedTime = completedTime;
         this.totalAmount = totalAmount;
-        this.preparationTime = preparationTime;
+        this.waitingTime = waitingTime;
     }
 
     public String getId() {
@@ -196,8 +196,8 @@ public class ReservationModel {
         return totalAmount;
     }
 
-    public String getPreparationTime() {
-        return preparationTime;
+    public String getWaitingTime() {
+        return waitingTime;
     }
 
     public String getPhoneNo() {

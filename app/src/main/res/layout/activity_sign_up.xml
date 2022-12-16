@@ -66,7 +66,6 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginTop="10dp"
-            app:counterMaxLength="11"
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusTopEnd="10dp"
@@ -77,6 +76,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="11"
                 android:hint="Mobile Number"
                 android:inputType="phone"
                 android:drawableStart="@drawable/customer_mobile_no_icon"

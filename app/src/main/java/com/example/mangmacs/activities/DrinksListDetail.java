@@ -159,7 +159,6 @@ public class DrinksListDetail extends AppCompatActivity {
             customerId.setText(customerID);
             fname.setText(firstname);
             lname.setText(lastname);
-            Toast.makeText(this, stockCode, Toast.LENGTH_SHORT).show();
             if (stocks <= 0){
                 itemStock.setText("Out of Stock");
                 itemStock.setTextColor(Color.RED);

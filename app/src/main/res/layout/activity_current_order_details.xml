@@ -230,17 +230,7 @@
                         android:textSize="14sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <!--Preparation Time-->
-            <TextView
-                android:id="@+id/txtPrepStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="The time of food preparation will be adjusted due to your order quantity. We will update your order status as soon as possible."
-                android:fontFamily="@font/roboto"
-                android:textSize="14sp"
-                android:textColor="#676767"
-                android:visibility="gone"/>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/pickUpDetails"
                 android:layout_width="match_parent"
@@ -449,6 +439,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp" />
+            <!--Preparation Time-->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/deliveryFeeDetails"
@@ -495,7 +486,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="100dp"
                 app:cardElevation="0dp">
 
                 <RelativeLayout
@@ -533,7 +523,17 @@
                         android:textSize="16sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
-
+            <TextView
+                android:id="@+id/txtPrepStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                android:padding="5dp"
+                android:text="The time required for food preparation will be adjusted based on the quantity of your order. We will notify you of the status of your order  as soon as possible."
+                android:fontFamily="@font/roboto"
+                android:textSize="14sp"
+                android:textColor="#F44336"
+                android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
     <RelativeLayout

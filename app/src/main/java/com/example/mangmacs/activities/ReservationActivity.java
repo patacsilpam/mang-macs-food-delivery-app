@@ -91,7 +91,7 @@ public class ReservationActivity extends AppCompatActivity {
     private TextInputLayout paymentRefError,guestsError, dateError, timeError;
     private TextView diningAreaError, textRequired, minGuestError,paymentError;
     private Button btnBookNow;
-    private ImageView imgPayment;
+    //private ImageView imgPayment;
     private RelativeLayout bgDiningArea;
     private BottomNavigationView bottomNavigationView;
     private int hour, min;
@@ -106,24 +106,24 @@ public class ReservationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
         progressBar = findViewById(R.id.spin_kit);
-        paymentNumber = findViewById(R.id.paymentNumber);
+        //paymentNumber = findViewById(R.id.paymentNumber);
         people = findViewById(R.id.people);
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
         commentSuggestion = findViewById(R.id.commentsSuggestions);
-        paymentRefError = findViewById(R.id.paymentRefError);
+        //paymentRefError = findViewById(R.id.paymentRefError);
         guestsError = findViewById(R.id.guestsError);
         minGuestError = findViewById(R.id.minGuestError);
         dateError = findViewById(R.id.dateError);
         timeError = findViewById(R.id.timeError);
-        paymentError = findViewById(R.id.paymentRequired);
+        //paymentError = findViewById(R.id.paymentRequired);
         textRequired = findViewById(R.id.textRequired);
-        imgPayment = findViewById(R.id.imgPayment);
+        //imgPayment = findViewById(R.id.imgPayment);
         btnBookNow = findViewById(R.id.btnBookNow);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.book);
         textRequired.setVisibility(View.GONE);
-        paymentError.setVisibility(View.GONE);
+        //paymentError.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         btnBookNow.setEnabled(false);
         //paymentNumber.addTextChangedListener(textWatcher);
@@ -135,9 +135,9 @@ public class ReservationActivity extends AppCompatActivity {
         //setDiningArea();
         setFirebaseToken();
         validateGuests();
-        validatePaymentNumber();
+        //validatePaymentNumber();
         SetCalendar();
-        cameraPermission();
+        //cameraPermission();
         Booking();
         BottomNav();
     }
@@ -179,7 +179,7 @@ public class ReservationActivity extends AppCompatActivity {
         });
     }
 
-    private void validatePaymentNumber(){
+    /*private void validatePaymentNumber(){
         paymentNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -208,7 +208,7 @@ public class ReservationActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
     private void setFirebaseToken(){
         FirebaseMessaging.getInstance().subscribeToTopic("mangmacs");
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -336,7 +336,7 @@ public class ReservationActivity extends AppCompatActivity {
             }
         });
     }
-    private void cameraPermission(){
+   /* private void cameraPermission(){
         imgPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -424,7 +424,7 @@ public class ReservationActivity extends AppCompatActivity {
         else{
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
         }
-    }
+    }*/
     private void Booking() {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -434,11 +434,11 @@ public class ReservationActivity extends AppCompatActivity {
                 String lname = SharedPreference.getSharedPreference(getApplicationContext()).setLname();
                 String email = SharedPreference.getSharedPreference(getApplicationContext()).setEmail();
                 String phoneNo = SharedPreference.getSharedPreference(getApplicationContext()).setPhoneNo();
-                String strPaymentNumber = paymentNumber.getText().toString();
+                //String strPaymentNumber = paymentNumber.getText().toString();
                 String strGuest = people.getText().toString();
                 String strDate = date.getText().toString();
                 String strTime = time.getText().toString();
-                String imgPayment = imageToString();
+                //String imgPayment = imageToString();
                 String comments = commentSuggestion.getText().toString();
                   if (strGuest.isEmpty()){
                       guestsError.setError("Required");
@@ -450,16 +450,16 @@ public class ReservationActivity extends AppCompatActivity {
                       timeError.setError("Required");
                   }
 
-                  if (bitmap == null){
+                 /* if (bitmap == null){
                       paymentError.setVisibility(View.VISIBLE);
-                  }
+                  }*/
 
                   else{
                       Sprite circle = new Circle();
                       progressBar.setIndeterminateDrawable(circle);
                       progressBar.setVisibility(View.VISIBLE);
                       ApiInterface apiInterface = RetrofitInstance.getRetrofit().create(ApiInterface.class);
-                      Call<ReservationModel> callReservation = apiInterface.reservation(customerId,token,fname,lname,strGuest,email,phoneNo,strDate,strTime,strPaymentNumber,imgPayment,comments);
+                      Call<ReservationModel> callReservation = apiInterface.reservation(customerId,token,fname,lname,strGuest,email,phoneNo,strDate,strTime,comments);
                       callReservation.enqueue(new Callback<ReservationModel>() {
                           @Override
                           public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
@@ -486,17 +486,7 @@ public class ReservationActivity extends AppCompatActivity {
 
                           @Override
                           public void onFailure(Call<ReservationModel> call, Throwable t) {
-                              final Dialog dialog = new Dialog(context);
-                              dialog.setContentView(R.layout.book_success_dialog);
-                              Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
-                              dialogButton.setOnClickListener(new View.OnClickListener() {
-                                  @Override
-                                  public void onClick(View view) {
-                                      dialog.dismiss();
-                                      startActivity(new Intent(getApplicationContext(),home_activity.class));
-                                  }
-                              });
-                              dialog.show();
+
                           }
                       });
                   }
